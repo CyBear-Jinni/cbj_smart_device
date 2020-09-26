@@ -1,30 +1,17 @@
-# CyBear Jinni Smart Home
+# CyBear Jinni Smart Device
 
 Welcome
 
-This repository let you **create** your smart home devices.
+This repository is in charge of controlling smart devices and is part of the [CyBear Jinni Smart Home](https://github.com/CyBear-Jinni/CBJ_Smart-Home.git) system.
 
-You can control these devices using physical buttons and from a smartphone app.
+These smart devices allow you to control lamps and blinds.
+ 
+You can control these devices using physical buttons and from the [CyBear Jinni App](https://github.com/CyBear-Jinni/CBJ_App.git).
 
-It is **not** "Home automation system" like the project [Home Assistant](https://www.home-assistant.io).
-
-## Project structure
-
-The project is made out of two main parts:
-
-### Smart phone app
-
-[FlutterApp](https://github.com/CyBear-Jinni/Smart-Home/tree/master/FlutterApp/cybear_jinni_flutter/cybear_jinni_flutter) is (you guessed it) the flutter app.
-This is the android and ios app written in [Flutter](https://flutter.dev) that let you control all the devices using local Wi-Fi and remotely through Google [Cloud Firestore](https://firebase.google.com/docs/firestore).
-
-
-### Smart device
-
-[SmartDevice](https://github.com/CyBear-Jinni/Smart-Home/tree/master/SmartDevice/SmartDeviceDart) is the smart device software installed on physical device (now only NanoPi Duo2).
-It lets you control (for now) only lights and blinds using physical buttons and the phone app.
 This part is using the snap store in order to have easy way to update all the devices software versions with new features and security updates.
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/cybear-jinni)
+
 
 ## To get the project running
 
@@ -34,71 +21,19 @@ This part is using the snap store in order to have easy way to update all the de
 
 * You need to buy and solder the parts into the device yourself.
 
-* The app is not in the play store so you will need to upload it to your phone with a little knowledge about [Flutter](https://flutter.dev).
 
 ### Smart device preparations:
 
-Copy [the script](https://github.com/CyBear-Jinni/Smart-Home/blob/master/Scripts/Scripts_for_new_device/setup_new_smart_device.sh) to your device,
+Copy [the script](https://github.com/CyBear-Jinni/CBJ_Smart-Device/blob/master/Scripts/Scripts_for_new_device/setup_new_smart_device.sh) to your device,
 change the values wifiSsid into the name of your Wi-Fi and wifiPassword into the Wi-Fi password, it is necessary so that your device will be able to connect to the Wi-Fi.
 Now run the script and it will configure and install the program to your device.
 
-It is recommended to lock the IP of the smart device in the router settings.
+It is recommended to lock the IP of the smart device in the router settings if you intend to use the local option and not just the remote (that is using google Firebase platform).
 
 The device is now ready.
 
-### Phone app preparations:
+Explanations on how to connect the device with the app will be given in the [CyBear Jinni App](https://github.com/CyBear-Jinni/CBJ_App.git) Readme file.
 
-We need to install the app to your phone.
-For now the app is not in the play store so jump to [Instructions for developers](#instructions-for-developers) part and do it manually.
-
-### Connecting the smart device to the phone app:
-
-Find the smart device Wi-Fi IP, it will be something like 10.0.0.12 .
-
-Connect the phone to your home Wi-Fi.
-
-Now we need to link the smart device inside the phone app.
-
-In the app go to: "Lamps" tab --> Press the cog in the top right corner --> Press the plus button --> Insert the smart device IP and press "Add" --> Change the device name and press the "Update" button --> Press the "Add devices".
-
-That's it.
-
-Now you can control your smart device from the phone app 😁.
-
-
-## Instructions for developers
-### Flutter app:
-1. Insert your Firebase configuration into your flutter app.
-
-   * Create a [firebase console project](https://console.firebase.google.com) for your smart home.
-   
-   * Add authentication user
-   
-   Location: [https://console.firebase.google.com](https://console.firebase.google.com) --> Select project --> In the left side navigation drawer under the "Develop" click the "Authentication" text --> Click the button "Add user" --> Fill email and password and press "Add user" button.
-   
-   * Download the google-services.json file from your Firebase console project.
-
-   Location: [https://console.firebase.google.com](https://console.firebase.google.com) --> Select project --> In the left side navigation drawer click on the cog at the top -->
-   Project settings (It will take you to the General tab) --> Click "Add app" --> choose "Android" -->
-   Fill all the details according you app --> Download google-services.json .
-
-   Move google-services.json into the flutter project to the [.../android/app/](https://github.com/CyBear-Jinni/Smart-Home/tree/master/FlutterApp/cybear_jinni_flutter/cybear_jinni_flutter/android/app) folder.
-
-2. Copy the following fields values from the google-services.json:
-
-   project_id, current_key 
-   
-   into the file [constant_credentials.dart](https://github.com/CyBear-Jinni/Smart-Home/blob/master/FlutterApp/cybear_jinni_flutter/cybear_jinni_flutter/lib/core/constant_credentials.dart) to
-   
-   fireBaseProjectId, fireBaseApiKey
-   
-   fields respectively.
-      
-   In the [same file](https://github.com/CyBear-Jinni/Smart-Home/blob/master/FlutterApp/cybear_jinni_flutter/cybear_jinni_flutter/lib/core/constant_credentials.dart) insert the firebase account credentials (email and password) that we created earlier into the fields
-   
-   userEmail, userPassword.
-   
-   Congratulations now deploy the app to your phone and you can connect to the smart devices with your own Cloud Firebase.
 
 ## Architecture
 
