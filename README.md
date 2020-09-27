@@ -26,6 +26,7 @@ This part is using the snap store in order to have easy way to update all the de
 
 Copy [the script](https://github.com/CyBear-Jinni/CBJ_Smart-Device/blob/master/Scripts/Scripts_for_new_device/setup_new_smart_device.sh) to your device,
 change the values wifiSsid into the name of your Wi-Fi and wifiPassword into the Wi-Fi password, it is necessary so that your device will be able to connect to the Wi-Fi.
+
 Now run the script and it will configure and install the program to your device.
 
 It is recommended to lock the IP of the smart device in the router settings if you intend to use the local option and not just the remote (that is using google Firebase platform).
@@ -52,3 +53,9 @@ The code is based on DDD (Domain-Driven Design) principles, you can learn it fro
 **we do not take responsibility on any outcome using anything in this repo.**
 
 The project is under heavy work and may contain bugs and incorrect instructions.
+
+# Social Media Links
+
+If you have any questions feel free to ask in our Discord server 
+
+[<img src="https://cdn.icon-icons.com/icons2/2108/PNG/512/discord_icon_130958.png" height="80">](https://discord.gg/mUXfwUY)

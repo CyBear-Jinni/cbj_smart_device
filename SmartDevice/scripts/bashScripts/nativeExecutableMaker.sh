@@ -2,7 +2,7 @@
 
 echo "Making native executable of the project"
 
-scripts/bashScripts/dartSdkDownload.sh  # Downloading dart-sdk for the correct architecture.
+scripts/bashScripts/dartSdkDownload.sh # Downloading dart-sdk for the correct architecture.
 
 unzip dartsdk-*.zip
 
@@ -12,10 +12,7 @@ cd SmartDeviceDart
 cd ..
 
 #chmod -R +rx dart-sdk/
-dart-sdk/bin/dart2native SmartDeviceDart/bin/main.dart
-
-mv SmartDeviceDart/bin/main.exe .
-
+dart-sdk/bin/dart2native SmartDeviceDart/bin/main.dart -o CyBear-Jinni_Smart-Device
 
 rm dartsdk-*.zip
 rm -r dart-sdk/
