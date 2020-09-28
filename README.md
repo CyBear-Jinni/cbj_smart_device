@@ -24,7 +24,7 @@ This part is using the snap store in order to have easy way to update all the de
 
 ### Smart device preparations:
 
-Setting up instructions for new device can be found in the [CBJ_Smart-Device_Resources](https://github.com/CyBear-Jinni/CBJ_Smart-Device_Resources.git) repository.
+Setting up instructions for new device can be found in the [CyBear Jinni Smart Device Resources](https://github.com/CyBear-Jinni/CBJ_Smart-Device_Resources.git) repository.
 
 It is recommended to lock the IP of the smart device in the router settings if you intend to use the local option and not just the remote (that is using google Firebase platform).
 
