@@ -17,6 +17,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
+      working-directory: SmartDevice/SmartDeviceDart
       run: pub get
     - name: Run tests
+      working-directory: SmartDevice/SmartDeviceDart
       run: pub run test
