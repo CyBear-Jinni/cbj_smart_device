@@ -1,9 +1,9 @@
 // keys to extract account information from the database
 class AccountsInformationD {
-  static String fireBaseProjectId;
-  static String fireBaseApiKey;
-  static String userEmail;
-  static String userPassword;
+  static String fireBaseProjectId = 'fireBaseProjectId';
+  static String fireBaseApiKey = 'fireBaseApiKey';
+  static String userEmail = 'userEmail';
+  static String userPassword = 'userPassword';
 }
 
 // firebase Account information
