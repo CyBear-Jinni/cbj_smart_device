@@ -1,6 +1,6 @@
 name: cybear-jinni
 base: core20
-version: '0.1.1'  # Just for humans, typically '1.2+git' or '1.3.2'
+version: '0.1.2'  # Just for humans, typically '1.2+git' or '1.3.2'
 summary: Smart home snap for CyBear Jinni smart devices.
 description: |
   A CyBear Jinni snap for smart devices.
