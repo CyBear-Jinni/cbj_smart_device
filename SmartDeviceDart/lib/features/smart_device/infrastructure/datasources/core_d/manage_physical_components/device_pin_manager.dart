@@ -6,7 +6,7 @@ import 'package:SmartDeviceDart/features/smart_device/application/usecases/devic
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
 import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enums_e.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/bash_commends_d/common_bash_commends_d.dart';
+import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 
 //  This class save all the configuration of the pins per device, every device have different pin for each task, and these class will give the correct pin for the task.
 //  Also these class will manage unused pins for new connections and will return free pins number for the required task.
@@ -36,7 +36,8 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
 
   @override
   Future setPhysicalDeviceTypeByHostName() async {
-    var deviceHostName = await CommonBashCommendsD.getDeviceHostName();
+    SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    var deviceHostName = await systemCommandsManager.getDeviceHostName();
     deviceHostName = deviceHostName.replaceAll('-', '').replaceAll(' ', '');
 
     physicalDeviceType =

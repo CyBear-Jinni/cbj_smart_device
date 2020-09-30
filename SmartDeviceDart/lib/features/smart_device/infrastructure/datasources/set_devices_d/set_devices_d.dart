@@ -1,11 +1,13 @@
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/bash_commends_d/common_bash_commends_d.dart';
+import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 
 class SetDevicesD {
   Future<String> getCurrentDeviceUUid() {
-    return CommonBashCommendsD.getUuidOfCurrentDevice();
+    SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    return systemCommandsManager.getUuidOfCurrentDevice();
   }
 
   Future<String> getDeviceDefaultConfig() {
-    return CommonBashCommendsD.getFileContent('/etc/cbjinni/deviceConfigs.txt');
+    SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    return systemCommandsManager.getDeviceConfiguration();
   }
 }
