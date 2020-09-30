@@ -1,7 +1,10 @@
 import 'dart:io';
 
-class CommonBashCommendsD {
-  static Future<String> getCurrentUserName() async {
+import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_base_class_d.dart';
+
+class CommonBashCommandsD implements SystemCommandsBaseClassD {
+  @override
+  Future<String> getCurrentUserName() async {
     String whoami =
         await Process.run('whoami', []).then((ProcessResult result) {
       return result.stdout;
@@ -9,7 +12,8 @@ class CommonBashCommendsD {
     return await whoami.substring(0, whoami.indexOf('\n'));
   }
 
-  static Future<String> getUuidOfCurrentDevice() async {
+  @override
+  Future<String> getUuidOfCurrentDevice() async {
     String df =
         await Process.run('df', ['-h', '/']).then((ProcessResult result) {
       return result.stdout;
@@ -33,7 +37,8 @@ class CommonBashCommendsD {
     return uuid;
   }
 
-  static Future<String> getDeviceHostName() async {
+  @override
+  Future<String> getDeviceHostName() async {
     String hostName =
     await Process.run('hostname', ['-s']).then((ProcessResult result) {
 //      String hostName = result.stdout;
@@ -45,9 +50,10 @@ class CommonBashCommendsD {
     return hostName.substring(0, hostName.indexOf('\n'));
   }
 
-  static Future<String> getFileContent(fileFullPath) async {
+  @override
+  Future<String> getFileContent(fileFullPath) async {
     String fileContent =
-        await Process.run('cat', [fileFullPath]).then((ProcessResult result) {
+    await Process.run('cat', [fileFullPath]).then((ProcessResult result) {
       return result.stdout;
     });
 
@@ -57,5 +63,11 @@ class CommonBashCommendsD {
     return fileContent;
   }
 
-  static Future<String> getUserName() {}
+  @override
+  Future<String> getUserName() {}
+
+  @override
+  Future<String> getDeviceConfiguration() {
+    return getFileContent('/etc/cbjinni/deviceConfigs.txt');
+  }
 }

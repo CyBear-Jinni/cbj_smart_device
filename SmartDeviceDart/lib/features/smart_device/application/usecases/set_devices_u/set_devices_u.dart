@@ -19,12 +19,18 @@ class SetDevicesU {
       MySingleton.setSmartDevicesList(deviceList);
     } else {
       String deviceConfiguration = await _setDevicesE.getDeviceDefaultConfig();
-      if (deviceConfiguration == null) {
-        print('Default config file content is null !!!!!!!!!!!!!!!');
+      if (deviceConfiguration == null || deviceConfiguration.isEmpty) {
+        print('');
+        print('Default configuration file content is null or empty !!!.');
+        print('');
+        print(
+            'Please add configuration file with device type to it, for example');
+        print('Light, ');
+        print('and try again.');
         return;
       }
       List<SmartDeviceBaseAbstract> listOfSmartDevices =
-      await _setDevicesE.convertToListOfDevices(deviceConfiguration);
+          await _setDevicesE.convertToListOfDevices(deviceConfiguration);
       if (listOfSmartDevices.isNotEmpty) {
         MySingleton.setSmartDevicesList(listOfSmartDevices);
       }

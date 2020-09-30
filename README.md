@@ -24,14 +24,9 @@ This part is using the snap store in order to have easy way to update all the de
 
 ### Smart device preparations:
 
-Copy [the script](https://github.com/CyBear-Jinni/CBJ_Smart-Device/blob/master/Scripts/Scripts_for_new_device/setup_new_smart_device.sh) to your device,
-change the values wifiSsid into the name of your Wi-Fi and wifiPassword into the Wi-Fi password, it is necessary so that your device will be able to connect to the Wi-Fi.
-
-Now run the script and it will configure and install the program to your device.
+Setting up instructions for new device can be found in the [CyBear Jinni Smart Device Resources](https://github.com/CyBear-Jinni/CBJ_Smart-Device_Resources.git) repository.
 
 It is recommended to lock the IP of the smart device in the router settings if you intend to use the local option and not just the remote (that is using google Firebase platform).
-
-The device is now ready.
 
 Explanations on how to connect the device with the app will be given in the [CyBear Jinni App](https://github.com/CyBear-Jinni/CBJ_App.git) Readme file.
 

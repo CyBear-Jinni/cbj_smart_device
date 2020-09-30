@@ -1,7 +1,8 @@
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/bash_commends_d/common_bash_commends_d.dart';
+import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 
 class SmartDeviceObjectsD {
   static Future<String> getUuid() {
-    return CommonBashCommendsD.getUuidOfCurrentDevice();
+    SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    return systemCommandsManager.getUuidOfCurrentDevice();
   }
 }
