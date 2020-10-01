@@ -1,4 +1,4 @@
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/set_devices_d/set_devices_d.dart';
+import '../../datasources/set_devices_d/set_devices_d.dart';
 
 class SetDevicesR {
   SetDevicesD _setDevicesD;

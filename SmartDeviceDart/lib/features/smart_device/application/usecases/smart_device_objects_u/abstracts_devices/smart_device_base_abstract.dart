@@ -1,19 +1,17 @@
-import 'package:SmartDeviceDart/core/device_information.dart';
-import 'package:SmartDeviceDart/core/helper_methods.dart';
-import 'package:SmartDeviceDart/core/permissions/permissions_manager.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/button_object_u/button_object_local_u.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/cloud_value_change_u/cloud_value_change_u.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
-import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enums_e.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/repositories/smart_device_objects_r/smart_device_objects_r.dart';
+import '../../../../../../core/device_information.dart';
+import '../../../../../../core/helper_methods.dart';
+import '../../../../../../core/permissions/permissions_manager.dart';
+import '../../../../domain/entities/core_e/enums_e.dart';
+import '../../../../infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
+import '../../../../infrastructure/repositories/smart_device_objects_r/smart_device_objects_r.dart';
+import '../../button_object_u/button_object_local_u.dart';
+import '../../cloud_value_change_u/cloud_value_change_u.dart';
+import '../../devices_pin_configuration_u/pin_information.dart';
+import '../../wish_classes_u/off_wish_u.dart';
+import '../../wish_classes_u/on_wish_u.dart';
 
 //  The super base class of all the smart device class and smart device abstract classes
 abstract class SmartDeviceBaseAbstract {
-
-
   DeviceInformation deviceInformation = LocalDevice('This is the mac Address',
       'This is the name of the device'); //  Save data about the device, remote or local IP or pin number
   String smartInstanceName; //  Default name of the device to show in the app

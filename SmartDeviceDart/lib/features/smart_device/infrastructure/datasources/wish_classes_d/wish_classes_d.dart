@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/pins_datasource/pin_setup_method_enum.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/offSignal/turn_pin_on_wiring_pi_setup.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/offSignal/turn_pin_on_wiring_pi_setup_gpio.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/offSignal/turn_pin_on_wiring_pi_setup_phys.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/offSignal/turn_pin_on_wiring_pi_setup_sys.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/onSignal/turn_pin_on_wiring_pi_setup.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/onSignal/turn_pin_on_wiring_pi_setup_gpio.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/onSignal/turn_pin_on_wiring_pi_setup_phys.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/onSignal/turn_pin_on_wiring_pi_setup_sys.dart';
+import '../core_d/manage_physical_components/pins_datasource/pin_setup_method_enum.dart';
+import '../core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/offSignal/turn_pin_on_wiring_pi_setup.dart';
+import '../core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/offSignal/turn_pin_on_wiring_pi_setup_gpio.dart';
+import '../core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/offSignal/turn_pin_on_wiring_pi_setup_phys.dart';
+import '../core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/offSignal/turn_pin_on_wiring_pi_setup_sys.dart';
+import '../core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/onSignal/turn_pin_on_wiring_pi_setup.dart';
+import '../core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/onSignal/turn_pin_on_wiring_pi_setup_gpio.dart';
+import '../core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/onSignal/turn_pin_on_wiring_pi_setup_phys.dart';
+import '../core_d/manage_physical_components/pins_datasource/sending_signals_to_pins/onSignal/turn_pin_on_wiring_pi_setup_sys.dart';
 
 class WishClassesD {
   Future<ProcessResult> turnOnLocalPhysicalPin(

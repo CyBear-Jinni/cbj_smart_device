@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/bash_commands_d/common_bash_commands_d.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/batch_commands_d/common_batch_commands_d.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_base_class_d.dart';
+import 'bash_commands_d/common_bash_commands_d.dart';
+import 'batch_commands_d/common_batch_commands_d.dart';
+import 'system_commands_base_class_d.dart';
 
 class SystemCommandsManager {
   SystemCommandsBaseClassD systemCommandsBaseClassD;

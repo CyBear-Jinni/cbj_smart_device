@@ -1,6 +1,7 @@
-import 'package:SmartDeviceDart/core/error/failures.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:dartz/dartz.dart';
+
+import '../../features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import '../error/failures.dart';
 
 abstract class UseCase<Type, Params> {
   Future<Either<Failure, Type>> call(Params params);

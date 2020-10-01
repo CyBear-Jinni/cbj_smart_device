@@ -1,5 +1,4 @@
-import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enums_e.dart';
-
+import '../../../../domain/entities/core_e/enums_e.dart';
 import 'smart_device_base_abstract.dart';
 
 //  Abstract class for smart devices with on time property
