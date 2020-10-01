@@ -1,10 +1,10 @@
-import 'package:SmartDeviceDart/core/helper_methods.dart';
-import 'package:SmartDeviceDart/core/my_singleton.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/local_db_u/local_db_u.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/set_devices_u/set_devices_u.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_server_u/smart_server_u.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
+import '../../../../../core/helper_methods.dart';
+import '../../../../../core/my_singleton.dart';
+import '../../../infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
+import '../local_db_u/local_db_u.dart';
+import '../set_devices_u/set_devices_u.dart';
+import '../smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import '../smart_server_u/smart_server_u.dart';
 
 class SmartDeviceManagerU {
   SetDevicesU _setDevicesUseCase;

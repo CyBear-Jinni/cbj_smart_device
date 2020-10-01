@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_base_class_d.dart';
+import '../system_commands_base_class_d.dart';
 
 class CommonBatchCommandsD implements SystemCommandsBaseClassD {
   @override
@@ -67,7 +67,6 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
       return '';
     }
     return fileContent.substring(0, fileContent.indexOf('\r'));
-    ;
   }
 
   Future<String> getCurrentDriveLetter() async {
