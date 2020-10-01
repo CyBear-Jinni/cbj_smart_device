@@ -1,10 +1,10 @@
 <h1 align="center">CyBear Jinni Smart Device</h1>
 
-![CyBear Jinni](https://user-images.githubusercontent.com/9304740/94843279-24a49900-0425-11eb-83f3-87e8ba40b1dc.png)
+[![CyBear Jinni](https://user-images.githubusercontent.com/9304740/94843279-24a49900-0425-11eb-83f3-87e8ba40b1dc.png)](https://github.com/CyBear-Jinni/CBJ_Smart-Home)
 
 <div align="center">
 
-![dart CI](https://github.com/CyBear-Jinni/CBJ_Smart-Device/workflows/Dart%20CI/badge.svg) [![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://pub.dev/packages/effective_dart) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://en.wikipedia.org/wiki/Open_source)
+![dart CI](https://github.com/CyBear-Jinni/CBJ_Smart-Device/workflows/Dart%20CI/badge.svg) [![style: lint](https://img.shields.io/badge/lint-1.3.0-blue)](https://pub.dev/packages/lint/example) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://en.wikipedia.org/wiki/Open_source)
 </div>
 
 # Welcome!
