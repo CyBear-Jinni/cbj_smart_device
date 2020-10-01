@@ -1,8 +1,8 @@
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
-import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enums_e.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/repositories/set_devices_r/set_devices_r.dart';
+import '../../../application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import '../../../application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
+import '../../../application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
+import '../../../infrastructure/repositories/set_devices_r/set_devices_r.dart';
+import '../core_e/enums_e.dart';
 
 class SetDevicesE {
   SetDevicesR _setDevicesR;

@@ -1,12 +1,11 @@
-import 'package:SmartDeviceDart/core/device_information.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/repositories/wish_classes_r/turn_pin_on_off_local.dart';
+import '../../../../../core/device_information.dart';
+import '../../../infrastructure/repositories/wish_classes_r/turn_pin_on_off_local.dart';
+import '../devices_pin_configuration_u/pin_information.dart';
 
 //  Class to change wish on status to device
 class OnWishU {
-
-  static String setOn(DeviceInformation deviceInformation,
-                      PinInformation pinNumber) {
+  static String setOn(
+      DeviceInformation deviceInformation, PinInformation pinNumber) {
     pinNumber.v = 1;
 
     switch (deviceInformation.runtimeType) {
