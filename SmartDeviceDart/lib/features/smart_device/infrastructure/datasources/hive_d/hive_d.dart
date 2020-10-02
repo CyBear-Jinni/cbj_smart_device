@@ -1,8 +1,7 @@
+import 'package:SmartDeviceDart/core/my_singleton.dart';
+import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/hive_d/hive_objects_d/hive_devices_d.dart';
+import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/hive_d/hive_store_d.dart';
 import 'package:hive/hive.dart';
-
-import '../../../../../core/my_singleton.dart';
-import 'hive_objects_d/hive_devices_d.dart';
-import 'hive_store_d.dart';
 
 class HiveD {
   String hiveFolderPath;
@@ -44,7 +43,7 @@ class HiveD {
 
     var box = await Hive.openBox(smartDeviceBoxName);
 
-    HiveDevicesD a = box.get(cellDeviceListInSmartDeviceBox);
+    HiveDevicesD a = box.get(cellDeviceListInSmartDeviceBox) as HiveDevicesD;
 
     return a?.smartDeviceList;
   }
@@ -55,7 +54,7 @@ class HiveD {
     var box = await Hive.openBox(smartDeviceBoxName);
 
     HiveDevicesD firebaseAccountsInformationMap =
-        box.get(cellDatabaseInformationInSmartDeviceBox);
+        box.get(cellDatabaseInformationInSmartDeviceBox) as HiveDevicesD;
 
     return firebaseAccountsInformationMap?.databaseInformationList;
   }
