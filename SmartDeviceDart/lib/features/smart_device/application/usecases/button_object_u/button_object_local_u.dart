@@ -1,9 +1,9 @@
-import '../../../domain/entities/core_e/enums_e.dart';
-import '../devices_pin_configuration_u/pin_information.dart';
-import '../smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
-import '../wish_classes_u/off_wish_u.dart';
-import '../wish_classes_u/on_wish_u.dart';
-import 'button_object_local_abstract.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/button_object_u/button_object_local_abstract.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
+import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enums_e.dart';
 
 class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   @override
@@ -13,14 +13,15 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
     try {
       while (true) {
-        var returnValue = await buttonObjectRepository.listenToButtonPress(
-            buttonPinNumber);
+        var returnValue =
+            await buttonObjectRepository.listenToButtonPress(buttonPinNumber);
 
         if (returnValue < 0) {
           errorCounter++;
           if (errorCounter > 10) {
             print('Stop the listening to the button, it failed more than ' +
-                  errorCounter.toString() + ' times');
+                errorCounter.toString() +
+                ' times');
           }
           return;
         }

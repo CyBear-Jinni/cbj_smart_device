@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import '../../../../../../../../core/shared_variables.dart';
+import 'package:SmartDeviceDart/core/shared_variables.dart';
 
 class ListenToPinHighWiringPiSetupPhys {
   //  Listen to button press once and return exist code
