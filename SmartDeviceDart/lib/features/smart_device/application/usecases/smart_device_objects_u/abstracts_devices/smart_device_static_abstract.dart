@@ -1,4 +1,5 @@
-import '../../../../domain/entities/core_e/enums_e.dart';
+import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enums_e.dart';
+
 import 'smart_device_base_abstract.dart';
 
 //  Abstract class for devices with property of how much to move and without how much time the device is doing action without stopping

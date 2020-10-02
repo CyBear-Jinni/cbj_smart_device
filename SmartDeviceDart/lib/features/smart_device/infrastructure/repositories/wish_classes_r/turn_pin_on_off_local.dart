@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import '../../../../../core/shared_variables.dart';
-import '../../../application/usecases/devices_pin_configuration_u/pin_information.dart';
-import '../../datasources/core_d/manage_physical_components/pins_datasource/pin_setup_method_enum.dart';
-import '../../datasources/wish_classes_d/wish_classes_d.dart';
-import 'turn_pin_on_off_local_abstract.dart';
+import 'package:SmartDeviceDart/core/shared_variables.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
+import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/pins_datasource/pin_setup_method_enum.dart';
+import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/wish_classes_d/wish_classes_d.dart';
+import 'package:SmartDeviceDart/features/smart_device/infrastructure/repositories/wish_classes_r/turn_pin_on_off_local_abstract.dart';
 
 class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
   WishClassesD _wishClassesD;

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import '../system_commands_base_class_d.dart';
+import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_base_class_d.dart';
 
 class CommonBatchCommandsD implements SystemCommandsBaseClassD {
   @override

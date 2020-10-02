@@ -1,5 +1,6 @@
-import '../../../../domain/entities/core_e/enums_e.dart';
-import '../../wish_classes_u/dynamic_wish_u.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/wish_classes_u/dynamic_wish_u.dart';
+import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enums_e.dart';
+
 import 'smart_device_simple_abstract.dart';
 
 //  Abstract class for smart devices class with dynamic property

@@ -1,7 +1,6 @@
+import 'package:SmartDeviceDart/core/my_singleton.dart';
 import 'package:firedart/firedart.dart';
 import 'package:hive/hive.dart';
-
-import '../../../../../core/my_singleton.dart';
 
 /// Stores tokens using a Hive store.
 /// Depends on the Hive plugin: https://pub.dev/packages/hive

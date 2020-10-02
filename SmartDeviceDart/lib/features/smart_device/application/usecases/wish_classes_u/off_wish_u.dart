@@ -1,6 +1,6 @@
-import '../../../../../core/device_information.dart';
-import '../../../domain/entities/wish_classes_e/wish_classes_e.dart';
-import '../devices_pin_configuration_u/pin_information.dart';
+import 'package:SmartDeviceDart/core/device_information.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
+import 'package:SmartDeviceDart/features/smart_device/domain/entities/wish_classes_e/wish_classes_e.dart';
 
 class OffWishU {
   static String setOff(
