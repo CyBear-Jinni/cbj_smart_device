@@ -10,11 +10,12 @@ class OnWishU {
 
     switch (deviceInformation.runtimeType) {
       case LocalDevice:
-        return setOnLocal(deviceInformation, pinNumber);
+        return setOnLocal(deviceInformation as LocalDevice, pinNumber);
       case RemoteDevice:
-        return setOnRemote(deviceInformation, pinNumber);
+        return setOnRemote(deviceInformation as RemoteDevice, pinNumber);
     }
     print('Device type ' + deviceInformation.getName() + ' is not specified ');
+
     return 'DeviceBase type not supported';
   }
 

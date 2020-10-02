@@ -24,7 +24,7 @@ class HiveStore extends TokenStore {
   HiveStore._internal(this._box);
 
   @override
-  Token read() => _box.get(keyToken);
+  Token read() => _box.get(keyToken) as Token;
 
   @override
   void write(Token token) => _box.put(keyToken, token);
@@ -44,5 +44,5 @@ class TokenAdapter extends TypeAdapter<Token> {
   @override
   Token read(BinaryReader reader) =>
       Token.fromMap(reader.readMap().map<String, dynamic>(
-              (key, value) => MapEntry<String, dynamic>(key, value)));
+          (key, value) => MapEntry<String, dynamic>(key.toString(), value)));
 }

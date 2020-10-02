@@ -7,7 +7,7 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
   Future<String> getCurrentUserName() async {
     String whoami = await Process.run('cmd', ['/C', 'echo', '%username%'])
         .then((ProcessResult result) {
-      return result.stdout;
+      return result.stdout.toString();
     });
     return whoami.substring(0, whoami.indexOf('\r'));
   }
@@ -22,7 +22,7 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
       'get',
       'uuid'
     ]).then((ProcessResult result) {
-      return result.stdout;
+      return result.stdout.toString();
     });
     return uuid
         .substring(uuid.indexOf('\n') + 1)
@@ -34,16 +34,17 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
   Future<String> getDeviceHostName() async {
     String hostName = await Process.run('cmd', ['/C', 'echo', '%COMPUTERNAME%'])
         .then((ProcessResult result) {
-      return result.stdout;
+      return result.stdout.toString();
     });
     return hostName.substring(0, hostName.indexOf('\r'));
   }
 
   @override
   Future<String> getFileContent(fileFullPath) async {
-    String fileText = await Process.run('cmd', ['/C', 'more', fileFullPath])
-        .then((ProcessResult result) {
-      return result.stdout;
+    String fileText =
+        await Process.run('cmd', ['/C', 'more', fileFullPath.toString()])
+            .then((ProcessResult result) {
+      return result.stdout.toString();
     });
     return fileText;
   }
@@ -72,7 +73,7 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
   Future<String> getCurrentDriveLetter() async {
     String driveLetter = await Process.run('cmd', ['/C', 'echo', '%cd:~0,2%'])
         .then((ProcessResult result) {
-      return result.stdout;
+      return result.stdout.toString();
     });
     return driveLetter.substring(0, driveLetter.indexOf('\r'));
   }
@@ -81,7 +82,7 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
   Future<String> getOsDriveLetter() async {
     String driveLetter = await Process.run('cmd', ['/C', 'echo', '%~d0'])
         .then((ProcessResult result) {
-      return result.stdout;
+      return result.stdout.toString();
     });
     return driveLetter.substring(0, driveLetter.indexOf('\r'));
   }

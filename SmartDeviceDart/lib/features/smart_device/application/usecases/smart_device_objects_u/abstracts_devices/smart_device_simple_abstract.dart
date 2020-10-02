@@ -8,8 +8,9 @@ abstract class SmartDeviceSimpleAbstract extends SmartDeviceBaseAbstract {
 
   SmartDeviceSimpleAbstract(uuid, smartInstanceName, onOffPinNumber,
       {onOffButtonPinNumber})
-      : super(uuid, smartInstanceName, onOffPinNumber,
-            onOffButtonPinNumber: onOffButtonPinNumber);
+      : super(
+            uuid as String, smartInstanceName as String, onOffPinNumber as int,
+            onOffButtonPinNumber: onOffButtonPinNumber as int);
 
   @override
   void setDeviceType(DeviceType deviceType) => super.setDeviceType(deviceType);

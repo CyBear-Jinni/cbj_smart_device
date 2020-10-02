@@ -11,25 +11,45 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 class SmartDevice extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('SmartDevice', package: const $pb.PackageName('SmartConnection'), createEmptyInstance: create)
-    ..aOS(1, 'uuid')
-    ..aOS(2, 'name')
-    ..aOS(3, 'deviceType', protoName: 'deviceType')
+    ..aOS(1, 'uuid')..aOS(2, 'name')..aOS(
+        3, 'deviceType', protoName: 'deviceType')
     ..hasRequiredFields = false
   ;
 
   SmartDevice._() : super();
+
   factory SmartDevice() => create();
-  factory SmartDevice.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory SmartDevice.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  SmartDevice clone() => SmartDevice()..mergeFromMessage(this);
-  SmartDevice copyWith(void Function(SmartDevice) updates) => super.copyWith((message) => updates(message as SmartDevice));
+
+  factory SmartDevice.fromBuffer($core.List<$core.int> i,
+      [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()
+        ..mergeFromBuffer(i, r);
+
+  factory SmartDevice.fromJson($core.String i,
+      [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()
+        ..mergeFromJson(i, r);
+
+  SmartDevice clone() =>
+      SmartDevice()
+        ..mergeFromMessage(this);
+
+  SmartDevice copyWith(void Function(SmartDevice) updates) =>
+      super.copyWith((message) => updates(message as SmartDevice))
+      as SmartDevice;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static SmartDevice create() => SmartDevice._();
+
   SmartDevice createEmptyInstance() => create();
+
   static $pb.PbList<SmartDevice> createRepeated() => $pb.PbList<SmartDevice>();
+
   @$core.pragma('dart2js:noInline')
-  static SmartDevice getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SmartDevice>(create);
+  static SmartDevice getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<SmartDevice>(create);
   static SmartDevice _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -61,24 +81,43 @@ class SmartDevice extends $pb.GeneratedMessage {
 }
 
 class SmartDeviceStatus extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SmartDeviceStatus', package: const $pb.PackageName('SmartConnection'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SmartDeviceStatus',
+      package: const $pb.PackageName('SmartConnection'),
+      createEmptyInstance: create)
     ..aOB(4, 'onOffState', protoName: 'onOffState')
-    ..hasRequiredFields = false
-  ;
+    ..hasRequiredFields = false;
 
   SmartDeviceStatus._() : super();
+
   factory SmartDeviceStatus() => create();
-  factory SmartDeviceStatus.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory SmartDeviceStatus.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  factory SmartDeviceStatus.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+
+  factory SmartDeviceStatus.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+
   SmartDeviceStatus clone() => SmartDeviceStatus()..mergeFromMessage(this);
-  SmartDeviceStatus copyWith(void Function(SmartDeviceStatus) updates) => super.copyWith((message) => updates(message as SmartDeviceStatus));
+
+  SmartDeviceStatus copyWith(void Function(SmartDeviceStatus) updates) =>
+      super.copyWith((message) => updates(message as SmartDeviceStatus))
+          as SmartDeviceStatus;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static SmartDeviceStatus create() => SmartDeviceStatus._();
+
   SmartDeviceStatus createEmptyInstance() => create();
-  static $pb.PbList<SmartDeviceStatus> createRepeated() => $pb.PbList<SmartDeviceStatus>();
+
+  static $pb.PbList<SmartDeviceStatus> createRepeated() =>
+      $pb.PbList<SmartDeviceStatus>();
+
   @$core.pragma('dart2js:noInline')
-  static SmartDeviceStatus getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SmartDeviceStatus>(create);
+  static SmartDeviceStatus getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<SmartDeviceStatus>(create);
   static SmartDeviceStatus _defaultInstance;
 
   @$pb.TagNumber(4)
@@ -92,24 +131,48 @@ class SmartDeviceStatus extends $pb.GeneratedMessage {
 }
 
 class CommendStatus extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('CommendStatus', package: const $pb.PackageName('SmartConnection'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      'CommendStatus', package: const $pb.PackageName('SmartConnection'),
+      createEmptyInstance: create)
     ..aOB(5, 'success')
     ..hasRequiredFields = false
   ;
 
   CommendStatus._() : super();
+
   factory CommendStatus() => create();
-  factory CommendStatus.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory CommendStatus.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  CommendStatus clone() => CommendStatus()..mergeFromMessage(this);
-  CommendStatus copyWith(void Function(CommendStatus) updates) => super.copyWith((message) => updates(message as CommendStatus));
+
+  factory CommendStatus.fromBuffer($core.List<$core.int> i,
+      [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()
+        ..mergeFromBuffer(i, r);
+
+  factory CommendStatus.fromJson($core.String i,
+      [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()
+        ..mergeFromJson(i, r);
+
+  CommendStatus clone() =>
+      CommendStatus()
+        ..mergeFromMessage(this);
+
+  CommendStatus copyWith(void Function(CommendStatus) updates) =>
+      super.copyWith((message) =>
+          updates(message as CommendStatus)) as CommendStatus;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static CommendStatus create() => CommendStatus._();
+
   CommendStatus createEmptyInstance() => create();
-  static $pb.PbList<CommendStatus> createRepeated() => $pb.PbList<CommendStatus>();
+
+  static $pb.PbList<CommendStatus> createRepeated() =>
+      $pb.PbList<CommendStatus>();
+
   @$core.pragma('dart2js:noInline')
-  static CommendStatus getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CommendStatus>(create);
+  static CommendStatus getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<CommendStatus>(create);
   static CommendStatus _defaultInstance;
 
   @$pb.TagNumber(5)
@@ -155,7 +218,9 @@ class SmartDeviceUpdateDetails extends $pb.GeneratedMessage {
 
   SmartDeviceUpdateDetails copyWith(
       void Function(SmartDeviceUpdateDetails) updates) =>
-      super.copyWith((message) => updates(message as SmartDeviceUpdateDetails));
+      super.copyWith((message) =>
+          updates(
+              message as SmartDeviceUpdateDetails)) as SmartDeviceUpdateDetails;
 
   $pb.BuilderInfo get info_ => _i;
 
@@ -234,7 +299,8 @@ class FirebaseAccountInformation extends $pb.GeneratedMessage {
   FirebaseAccountInformation copyWith(
       void Function(FirebaseAccountInformation) updates) =>
       super.copyWith((message) =>
-          updates(message as FirebaseAccountInformation));
+          updates(
+              message as FirebaseAccountInformation)) as FirebaseAccountInformation;
 
   $pb.BuilderInfo get info_ => _i;
 

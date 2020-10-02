@@ -33,7 +33,7 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
               pinNumber.pinAndPhysicalPinConfiguration.toString())
           .then((ProcessResult results) {
         print(results.stdout);
-        return results.stdout;
+        return results.stdout.toString();
       });
     } catch (error) {
       print('Path/argument 1 is not specified');
@@ -52,7 +52,7 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
               pinNumber.pinAndPhysicalPinConfiguration.toString())
           .then((ProcessResult results) {
         print(results.stdout);
-        return results.stdout;
+        return results.stdout.toString();
       });
     } catch (error) {
       print('Path/argument 1 is not specified');

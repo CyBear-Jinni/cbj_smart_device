@@ -154,8 +154,10 @@ class SmartServerU extends SmartServerServiceBase {
       smartDeviceBaseAbstractO.smartInstanceName == request.name);
     }
     catch (exception) {
-      print('Exception, device name ' + request.name + ' could not be found: ' +
-          exception.message);
+      print('Exception, device name ' +
+          request.name +
+          ' could not be found: ' +
+          exception.message.toString());
       return null;
     }
   }

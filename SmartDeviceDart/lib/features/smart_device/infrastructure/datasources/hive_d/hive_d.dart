@@ -44,7 +44,7 @@ class HiveD {
 
     var box = await Hive.openBox(smartDeviceBoxName);
 
-    HiveDevicesD a = box.get(cellDeviceListInSmartDeviceBox);
+    HiveDevicesD a = box.get(cellDeviceListInSmartDeviceBox) as HiveDevicesD;
 
     return a?.smartDeviceList;
   }
@@ -55,7 +55,7 @@ class HiveD {
     var box = await Hive.openBox(smartDeviceBoxName);
 
     HiveDevicesD firebaseAccountsInformationMap =
-        box.get(cellDatabaseInformationInSmartDeviceBox);
+        box.get(cellDatabaseInformationInSmartDeviceBox) as HiveDevicesD;
 
     return firebaseAccountsInformationMap?.databaseInformationList;
   }

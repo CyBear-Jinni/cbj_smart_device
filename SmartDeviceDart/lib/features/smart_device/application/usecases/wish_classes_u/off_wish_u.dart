@@ -8,9 +8,9 @@ class OffWishU {
     pinNumber.v = 0;
     switch (deviceInformation.runtimeType) {
       case LocalDevice:
-        return setOffLocal(deviceInformation, pinNumber);
+        return setOffLocal(deviceInformation as LocalDevice, pinNumber);
       case RemoteDevice:
-        return setOffRemote(deviceInformation, pinNumber);
+        return setOffRemote(deviceInformation as RemoteDevice, pinNumber);
     }
     return 'DeviceBase type not supported';
   }

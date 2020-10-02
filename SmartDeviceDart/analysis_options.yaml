@@ -6,12 +6,20 @@
 # lint analysis
 include: package:lint/analysis_options.yaml
 
-# For lint rules and documentation, see http://dart-lang.github.io/linter/lints.
-# Uncomment to specify additional rules.
-# linter:
-#   rules:
-#     - camel_case_types
+linter:
+  rules:
+    # Use parameter order as in json response
+    #    always_put_required_named_parameters_first: false
 
-analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
+    avoid_classes_with_only_static_members: false
+
+    sort_constructors_first: true
+
+    prefer_single_quotes: true
+
+    # Good packages document everything
+    public_member_api_docs: true
+
+    always_specify_types: true
+
+    lines_longer_than_80_chars: true
