@@ -3,8 +3,8 @@
 # see https://github.com/dart-lang/pedantic#enabled-lints.
 #include: package:pedantic/analysis_options.yaml
 
-# Effective dart analysis
-include: package:effective_dart/analysis_options.yaml
+# lint analysis
+include: package:lint/analysis_options.yaml
 
 # For lint rules and documentation, see http://dart-lang.github.io/linter/lints.
 # Uncomment to specify additional rules.
