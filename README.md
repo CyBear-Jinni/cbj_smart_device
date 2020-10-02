@@ -9,13 +9,13 @@
 
 # Welcome!
 
-This repository is in charge of controlling smart device's and is part of the [CyBear Jinni Smart Home](https://github.com/CyBear-Jinni/CBJ_Smart-Home.git) system.
+This repository is in charge of controlling smart devices and is part of the [CyBear Jinni Smart Home](https://github.com/CyBear-Jinni/CBJ_Smart-Home.git) system.
 
-These smart device's allow you to control lamps and blinds.
+These smart devices allow you to control lamps and blinds.
  
 You can control these devices using physical buttons and from the [CyBear Jinni App](https://github.com/CyBear-Jinni/CBJ_App.git).
 
-This part is using the snap store in order to have easy way to update all the device's software versions with new features and security updates.
+This part is using the snap store in order to have easy way to update all the devices software versions with new features and security updates.
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/cybear-jinni)
 
