@@ -4,7 +4,7 @@ Welcome
 
 This repository is in charge of controlling smart device's and is part of the [CyBear Jinni Smart Home](https://github.com/CyBear-Jinni/CBJ_Smart-Home.git) system.
 
-These smart device's allow you to control lamps and blinds.
+These smart devices allow you to control lamps and blinds.
  
 You can control these devices using physical buttons and from the [CyBear Jinni App](https://github.com/CyBear-Jinni/CBJ_App.git).
 
