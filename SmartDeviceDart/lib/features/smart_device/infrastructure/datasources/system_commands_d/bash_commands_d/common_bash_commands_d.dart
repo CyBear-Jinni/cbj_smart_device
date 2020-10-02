@@ -64,11 +64,6 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
   }
 
   @override
-  Future<String> getUserName() {
-    return null;
-  }
-
-  @override
   Future<String> getDeviceConfiguration() {
     return getFileContent('/etc/cbjinni/deviceConfigs.txt');
   }
