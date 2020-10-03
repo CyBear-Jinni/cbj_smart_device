@@ -15,10 +15,15 @@ description: |
 grade: stable  # devel/stable
 confinement: strict  # devmode/classic/strict
 
-#architectures: [all]
 architectures:
   - build-on: armhf
     run-on: armhf
+
+  - build-on: arm64
+    run-on: arm64
+
+  - build-on: amd64
+    run-on: amd64
 
 parts:
   wiring-np:
