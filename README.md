@@ -12,7 +12,7 @@
 This repository is in charge of controlling smart device's and is part of the [CyBear Jinni Smart Home](https://github.com/CyBear-Jinni/CBJ_Smart-Home.git) system.
 
 These smart device's allow you to control lamps and blinds.
- 
+
 You can control these devices using physical buttons and from the [CyBear Jinni App](https://github.com/CyBear-Jinni/CBJ_App.git).
 
 This part is using the snap store in order to have easy way to update all the device's software versions with new features and security updates.
@@ -48,6 +48,13 @@ The code's based on DDD (Domain-Driven Design) principles, you can learn it from
 <img src="https://resocoder.com/wp-content/uploads/2020/03/DDD-Flutter-Diagram-v3.svg" width="400">
 </p>
 
+# Social Media Links
+
+[<img src = "https://cdn.icon-icons.com/icons2/1099/PNG/512/1485482199-linkedin_78667.png" height = "80" >](https://www.linkedin.com/company/cybear-jinni)
+
+If you have any questions feel free to ask in our Discord server
+
+[<img src="https://cdn.icon-icons.com/icons2/2108/PNG/512/discord_icon_130958.png" height="80">](https://discord.gg/mUXfwUY)
 
 ## Disclaimers
 
@@ -55,11 +62,3 @@ The code's based on DDD (Domain-Driven Design) principles, you can learn it from
 **we do not take responsibility on any outcome using anything in this repo.**
 
 The project is under heavy work and may contain bugs and incorrect instructions.
-
-# Social Media Links
-
-[<img src = "https://cdn.icon-icons.com/icons2/1099/PNG/512/1485482199-linkedin_78667.png" height = "80" >](https://www.linkedin.com/company/cybear-jinni)
-
-If you have any questions feel free to ask in our Discord server 
-
-[<img src="https://cdn.icon-icons.com/icons2/2108/PNG/512/discord_icon_130958.png" height="80">](https://discord.gg/mUXfwUY)
