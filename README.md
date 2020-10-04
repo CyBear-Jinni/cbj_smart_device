@@ -50,13 +50,6 @@ The code's based on DDD (Domain-Driven Design) principles, you can learn it from
 </p>
 
 
-## Disclaimers
-
-**Use at Your Own Risk,**
-**we do not take responsibility on any outcome using anything in this repo.**
-
-The project is under heavy work and may contain bugs and incorrect instructions.
-
 # Social Media Links
 
 [<img src = "https://cdn.icon-icons.com/icons2/1099/PNG/512/1485482199-linkedin_78667.png" height = "80" >](https://www.linkedin.com/company/cybear-jinni)
@@ -64,3 +57,11 @@ The project is under heavy work and may contain bugs and incorrect instructions.
 If you have any questions feel free to ask in our Discord server 
 
 [<img src="https://cdn.icon-icons.com/icons2/2108/PNG/512/discord_icon_130958.png" height="80">](https://discord.gg/mUXfwUY)
+
+
+## Disclaimers
+
+**Use at Your Own Risk,**
+**we do not take responsibility on any outcome using anything in this repo.**
+
+The project is under heavy work and may contain bugs and incorrect instructions.
