@@ -1,21 +1,22 @@
 <h1 align="center">CyBear Jinni Smart Device</h1>
 
-[![CyBear Jinni](https://user-images.githubusercontent.com/9304740/94843279-24a49900-0425-11eb-83f3-87e8ba40b1dc.png)](https://github.com/CyBear-Jinni/CBJ_Smart-Home)
-
 <div align="center">
 
 [![dart CI](https://github.com/CyBear-Jinni/CBJ_Smart-Device/workflows/Dart%20CI/badge.svg)](https://github.com/CyBear-Jinni/CBJ_Smart-Device/actions?query=workflow%3A%22Dart+CI%22) [![style: lint](https://img.shields.io/badge/lint-1.3.0-blue)](https://pub.dev/packages/lint) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://en.wikipedia.org/wiki/Open_source)
 </div>
 
+[<div align="center"><img alt="CyBear Jinni image" height="300" src="https://user-images.githubusercontent.com/9304740/94843279-24a49900-0425-11eb-83f3-87e8ba40b1dc.png">](https://github.com/CyBear-Jinni/CBJ_Smart-Home)
+</div>
+
 # Welcome!
 
-This repository is in charge of controlling smart device's and is part of the [CyBear Jinni Smart Home](https://github.com/CyBear-Jinni/CBJ_Smart-Home.git) system.
+This repository is in charge of controlling smart devices and is part of the [CyBear Jinni Smart Home](https://github.com/CyBear-Jinni/CBJ_Smart-Home.git) system.
 
-These smart device's allow you to control lamps and blinds.
+These smart devices allow you to control lamps and blinds.
  
 You can control these devices using physical buttons and from the [CyBear Jinni App](https://github.com/CyBear-Jinni/CBJ_App.git).
 
-This part is using the snap store in order to have easy way to update all the device's software versions with new features and security updates.
+This part is using the snap store in order to have easy way to update all the devices software versions with new features and security updates.
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/cybear-jinni)
 
