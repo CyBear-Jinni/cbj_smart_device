@@ -13,7 +13,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
     try {
       while (true) {
-        var returnValue =
+        final int returnValue =
             await buttonObjectRepository.listenToButtonPress(buttonPinNumber);
 
         if (returnValue < 0) {
