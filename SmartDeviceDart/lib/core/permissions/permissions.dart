@@ -1,6 +1,6 @@
 
 
-//  This class save the state of each permission
+///  This class save the state of each permission
 class Permission {
   bool _read = false;
   bool _write = false;
