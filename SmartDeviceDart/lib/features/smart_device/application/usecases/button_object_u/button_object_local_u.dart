@@ -9,7 +9,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   @override
   void buttonPressed(SmartDeviceBaseAbstract smartDevice,
       PinInformation buttonPinNumber, PinInformation lightPin) async {
-    var errorCounter = 0;
+    int errorCounter = 0;
 
     try {
       while (true) {
@@ -19,9 +19,8 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
         if (returnValue < 0) {
           errorCounter++;
           if (errorCounter > 10) {
-            print('Stop the listening to the button, it failed more than ' +
-                errorCounter.toString() +
-                ' times');
+            print(
+                'Stop the listening to the button, it failed more than $errorCounter times');
           }
           return;
         }
@@ -36,11 +35,11 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
       }
     } catch (error) {
       print('Path/argument 1 is not specified');
-      print('error: ' + error.toString());
+      print('error: $error');
     }
   }
 
-  //  Listen to two buttons but work only if one is pressed.
+  ///  Listen to two buttons but work only if one is pressed.
   @override
   void listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
       SmartDeviceBaseAbstract smartDevice,
@@ -57,13 +56,12 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
   @override
   void listenToButtonPressAndDoAction(SmartDeviceBaseAbstract smartDevice,
-                                      PinInformation buttonPinNumber, PinInformation firstLightPin,
-                                      PinInformation secondLightPin, int buttonNumber) async {
+      PinInformation buttonPinNumber, PinInformation firstLightPin,
+      PinInformation secondLightPin, int buttonNumber) async {
     while (true) {
       await buttonObjectRepository.listenToButtonPress(buttonPinNumber).then((
           int exitCode) async {
-        print(
-            'Blind button number ' + buttonNumber.toString() + ' was pressed');
+        print('Blind button number $buttonNumber was pressed');
         await changePinsOutput(
             smartDevice, firstLightPin, secondLightPin, buttonNumber);
       });
@@ -78,26 +76,26 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
                           int buttonPressNumber) async {
     if (firstLightPin.v == 1 || secondLightPin.v == 1) {
       firstLightPin.onDuration = 0;
-      await OffWishU.setOff(smartDevice.deviceInformation, firstLightPin);
+      OffWishU.setOff(smartDevice.deviceInformation, firstLightPin);
 
       secondLightPin.onDuration = 0;
-      await OffWishU.setOff(smartDevice.deviceInformation, secondLightPin);
+      OffWishU.setOff(smartDevice.deviceInformation, secondLightPin);
     }
 
     else if (buttonPressNumber == 1) {
       secondLightPin.onDuration = 0;
-      await OffWishU.setOff(smartDevice.deviceInformation, secondLightPin);
+      OffWishU.setOff(smartDevice.deviceInformation, secondLightPin);
 
       firstLightPin.onDuration = -1;
-      await OnWishU.setOn(smartDevice.deviceInformation, firstLightPin);
+      OnWishU.setOn(smartDevice.deviceInformation, firstLightPin);
     }
 
     else if (buttonPressNumber == 2) {
       firstLightPin.onDuration = 0;
-      await OffWishU.setOff(smartDevice.deviceInformation, firstLightPin);
+      OffWishU.setOff(smartDevice.deviceInformation, firstLightPin);
 
       secondLightPin.onDuration = -1;
-      await OnWishU.setOn(smartDevice.deviceInformation, secondLightPin);
+      OnWishU.setOn(smartDevice.deviceInformation, secondLightPin);
     }
 
     await Future.delayed(const Duration(seconds: 1));

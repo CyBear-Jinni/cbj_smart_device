@@ -2,7 +2,7 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources
 
 class SmartDeviceObjectsD {
   static Future<String> getUuid() {
-    SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
     return systemCommandsManager.getUuidOfCurrentDevice();
   }
 }

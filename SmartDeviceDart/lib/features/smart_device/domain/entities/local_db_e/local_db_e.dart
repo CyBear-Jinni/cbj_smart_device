@@ -3,20 +3,21 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/repositories/local_db_r/local_db_r.dart';
 
 class LocalDbE {
-  LocalDbR _localDbR;
 
   LocalDbE() {
     _localDbR = LocalDbR();
   }
 
+  LocalDbR _localDbR;
+
   Future<List<SmartDeviceBaseAbstract>> getListOfSmartDevices() async {
-    List<SmartDeviceBaseAbstract> smartDeviceList =
+    final List<SmartDeviceBaseAbstract> smartDeviceList =
         await _localDbR.getListOfSmartDevices();
     return smartDeviceList;
   }
 
   Future<FirebaseAccountsInformationD> getListOfDatabaseInformation() async {
-    FirebaseAccountsInformationD firebaseAccountsInformationD =
+    final FirebaseAccountsInformationD firebaseAccountsInformationD =
         await _localDbR.getListOfDatabaseInformation();
     return firebaseAccountsInformationD;
   }

@@ -5,8 +5,9 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources
 class CommonBatchCommandsD implements SystemCommandsBaseClassD {
   @override
   Future<String> getCurrentUserName() async {
-    String whoami = await Process.run('cmd', ['/C', 'echo', '%username%'])
-        .then((ProcessResult result) {
+    String whoami =
+        await Process.run('cmd', <String>['/C', 'echo', '%username%'])
+            .then((ProcessResult result) {
       return result.stdout.toString();
     });
     return whoami.substring(0, whoami.indexOf('\r'));
@@ -41,9 +42,9 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String> getFileContent(fileFullPath) async {
-    String fileText =
-        await Process.run('cmd', ['/C', 'more', fileFullPath.toString()])
-            .then((ProcessResult result) {
+    final String fileText =
+    await Process.run('cmd', <String>['/C', 'more', fileFullPath.toString()])
+        .then((ProcessResult result) {
       return result.stdout.toString();
     });
     return fileText;
@@ -52,7 +53,7 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
   @override
   Future<String> getDeviceConfiguration() async {
     // String fileFullPath = (await getOsDriveLetter())  + r'\Users\' + (await getCurrentUserName()) + r'\Documents\cbjinni\deviceConfigs.txt'; // Needed to fix function getOsDriveLetter before
-    String fileFullPath = (await getCurrentDriveLetter()) +
+    final String fileFullPath = (await getCurrentDriveLetter()) +
         r'\Users\' +
         (await getCurrentUserName()) +
         r'\Documents\cbjinni\deviceConfigs.txt'; // Will only work if the program located in the os driver
@@ -60,18 +61,19 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
     String fileContent = await getFileContent(fileFullPath);
     if (fileContent.isEmpty) {
       // Windows is weird and needs help
-      fileContent = await getFileContent(fileFullPath + '.txt');
+      fileContent = await getFileContent('$fileFullPath.txt');
     }
     if (fileContent.isEmpty) {
-      print('Config file does not exist or empty, path searching: ' +
-          fileFullPath);
+      print(
+          'Config file does not exist or empty, path searching: $fileFullPath');
       return '';
     }
     return fileContent.substring(0, fileContent.indexOf('\r'));
   }
 
   Future<String> getCurrentDriveLetter() async {
-    String driveLetter = await Process.run('cmd', ['/C', 'echo', '%cd:~0,2%'])
+    final String driveLetter = await Process.run(
+        'cmd', <String>['/C', 'echo', '%cd:~0,2%'])
         .then((ProcessResult result) {
       return result.stdout.toString();
     });
@@ -80,7 +82,8 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
 
   //TODO: Currently does not work as echo %~dp0 will not work at the command line, only in a batch file.
   Future<String> getOsDriveLetter() async {
-    String driveLetter = await Process.run('cmd', ['/C', 'echo', '%~d0'])
+    final String driveLetter = await Process.run(
+        'cmd', <String>['/C', 'echo', '%~d0'])
         .then((ProcessResult result) {
       return result.stdout.toString();
     });

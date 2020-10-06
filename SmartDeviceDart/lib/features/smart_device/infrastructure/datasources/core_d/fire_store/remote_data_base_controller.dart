@@ -5,24 +5,25 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources
 import 'package:firedart/firestore/models.dart';
 
 class RemoteDataBaseController {
-  CloudFireStoreD _cloudFireStoreNewD;
 
   RemoteDataBaseController(
       FirebaseAccountsInformationD firebaseAccountsInformationD) {
     _cloudFireStoreNewD = CloudFireStoreD(firebaseAccountsInformationD);
   }
 
-  //  This method get data of field in the dataPath
+  CloudFireStoreD _cloudFireStoreNewD;
+
+  ///  This method get data of field in the dataPath
   Future<String> getAllFieldsInPath(String dataPath) async {
     return await _cloudFireStoreNewD.getData(dataPath);
   }
 
-  //  This method get data of field in the dataPath
+  ///  This method get data of field in the dataPath
   Future<String> getFieldInPath(String dataPath, String fieldName) async {
     return await _cloudFireStoreNewD.getFieldInPath(dataPath, fieldName);
   }
 
-  //  This method will return data each time data will be changing in the database
+  ///  This method will return data each time data will be changing in the database
   Stream<Document> listenToChangeOfDataInPath(
       String dataPath) async* {
     yield* _cloudFireStoreNewD.listenToChangeOfDataInPath(dataPath);

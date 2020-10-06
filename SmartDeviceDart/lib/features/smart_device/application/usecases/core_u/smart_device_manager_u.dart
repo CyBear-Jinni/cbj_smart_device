@@ -7,9 +7,6 @@ import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 
 class SmartDeviceManagerU {
-  SetDevicesU _setDevicesUseCase;
-  SmartServerU _smartServerUseCase;
-  LocalDbU _localDbU;
 
   SmartDeviceManagerU() {
     MySingleton();
@@ -21,19 +18,22 @@ class SmartDeviceManagerU {
     SmartDeviceMainAsync();
   }
 
-  Future SmartDeviceMainAsync() async {
-    List<SmartDeviceBaseAbstract> smartDeviceFromDb = await _localDbU
-        .getListOfSmartDevices();
-    FirebaseAccountsInformationD firebaseAccountsInformationD = await _localDbU
-        .getListOfDatabaseInformation();
+  SetDevicesU _setDevicesUseCase;
+  SmartServerU _smartServerUseCase;
+  LocalDbU _localDbU;
 
-    _setDevicesUseCase.setAllDevices(
-        deviceList: smartDeviceFromDb); //  Setting up all the device from the memory
+  Future SmartDeviceMainAsync() async {
+    List<SmartDeviceBaseAbstract> smartDeviceFromDb =
+        await _localDbU.getListOfSmartDevices();
+    FirebaseAccountsInformationD firebaseAccountsInformationD =
+        await _localDbU.getListOfDatabaseInformation();
+
+    ///  Setting up all the device from the memory
+    _setDevicesUseCase.setAllDevices(deviceList: smartDeviceFromDb);
 
     print(await getIps());
 
-    _smartServerUseCase
-        .waitForConnection(
-        firebaseAccountsInformationD); //  Start listen for in incoming connections from the local internet (LAN/Wifi)
+    ///  Start listen for in incoming connections from the local internet (LAN/Wifi)
+    _smartServerUseCase.waitForConnection(firebaseAccountsInformationD);
   }
 }

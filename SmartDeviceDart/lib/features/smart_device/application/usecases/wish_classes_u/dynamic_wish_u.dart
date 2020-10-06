@@ -12,12 +12,12 @@ class DynamicWishU {
     return 'DeviceBase type not supported';
   }
 
-  //  One time per request change of the local dynamic value
+  ///  One time per request change of the local dynamic value
   static String setDynamicLocal(DeviceInformation deviceInformation) {
     return 'Response from local dynamic sucsessful';
   }
 
-  //  One time per request change of the remote dynamic value
+  ///  One time per request change of the remote dynamic value
   static String setDynamicRemote(DeviceInformation deviceInformation) {
     return 'Response from remote device dynamic sucsessful';
   }

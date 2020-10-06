@@ -6,7 +6,7 @@ class ActionsToPreformU {
   static Future<String> executeWishEnum(SmartDeviceBaseAbstract smartDevice,
       WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
     var deviceStatus = await smartDevice.executeWish(wishEnum, wishSourceEnum);
-    print('Device state is ' + deviceStatus);
+    print('Device state is $deviceStatus');
 
     return deviceStatus;
   }

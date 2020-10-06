@@ -3,16 +3,17 @@ import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/repositories/button_object_r/button_object_r.dart';
 
 abstract class ButtonObjectLocalAbstract {
-  ButtonObjectR buttonObjectRepository;
 
   ButtonObjectLocalAbstract() {
     buttonObjectRepository = ButtonObjectR();
   }
 
+  ButtonObjectR buttonObjectRepository;
+
   void buttonPressed(SmartDeviceBaseAbstract smartDevice,
       PinInformation buttonPinNumber, PinInformation lightPin);
 
-  //  Listen to two buttons but work only if one is pressed.
+  ///  Listen to two buttons but work only if one is pressed.
   void listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
       SmartDeviceBaseAbstract smartDevice,
       PinInformation firstButtonPinNumber,
@@ -26,7 +27,7 @@ abstract class ButtonObjectLocalAbstract {
       PinInformation secondLightPin,
       int buttonNumber);
 
-  //  Logic of two buttons
+  ///  Logic of two buttons
   Future changePinsOutput(SmartDeviceBaseAbstract smartDevice,
       PinInformation firstLightPin,
       PinInformation secondLightPin,

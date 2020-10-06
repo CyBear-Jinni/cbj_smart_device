@@ -7,13 +7,14 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources
 import 'package:firedart/firedart.dart';
 
 class CloudValueChangeU {
-  static CloudValueChangeU _cloudValueChangeU;
-  CloudValueChangeE _cloudValueChangeEntity;
 
   CloudValueChangeU(FirebaseAccountsInformationD firebaseAccountsInformationD) {
     _cloudValueChangeU = this;
     _cloudValueChangeEntity = CloudValueChangeE(firebaseAccountsInformationD);
   }
+
+  static CloudValueChangeU _cloudValueChangeU;
+  CloudValueChangeE _cloudValueChangeEntity;
 
   static CloudValueChangeU getCloudValueChangeU() {
     return _cloudValueChangeU;
@@ -23,14 +24,14 @@ class CloudValueChangeU {
     return _cloudValueChangeEntity.updateDocument(fieldToUpdate, valueToUpdate);
   }
 
-  //  Listen to changes in the database for this device
+  ///  Listen to changes in the database for this device
   void listenToDataBase() {
     _cloudValueChangeEntity.listenToDataBase().listen((document) {
       Document firestoreDocument = document;
-      print('Change detected in firestore');
+      print('Change detected in Firestore');
 
       Map<SmartDeviceBaseAbstract, String> devicesNamesThatValueChanged =
-          Map<SmartDeviceBaseAbstract, String>();
+      Map<SmartDeviceBaseAbstract, String>();
 
       MySingleton.getSmartDevicesList().forEach((element) {
         if (firestoreDocument.map.containsKey(element.smartInstanceName)) {
@@ -43,14 +44,14 @@ class CloudValueChangeU {
       });
 
       devicesNamesThatValueChanged.forEach((smartDeviceBaseAbstract, value) {
-        print('FireBase "' + smartDeviceBaseAbstract.smartInstanceName +
-            '" have different value, will now change to ' + value.toString());
+        print('FireBase "${smartDeviceBaseAbstract
+            .smartInstanceName}" have different value, will now change to $value');
         WishEnum wishEnum;
         switch (value) {
-          case('true'):
+          case 'true':
             wishEnum = WishEnum.SOn;
             break;
-          case('false'):
+          case 'false':
             wishEnum = WishEnum.SOff;
             break;
           default:

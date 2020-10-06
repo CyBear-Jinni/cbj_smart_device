@@ -12,14 +12,14 @@ class LightObject extends SmartDeviceSimpleAbstract {
   @override
   void setDeviceType(DeviceType deviceType) => super.setDeviceType(deviceType);
 
-  //  Return smart device type
+  ///  Return smart device type
   @override
   DeviceType getDeviceType() => DeviceType.Light;
 
   @override
   Future<String> executeWishString(
       String wishString, WishSourceEnum wishSourceEnum) async {
-    var wish = convertWishStringToWishesObject(wishString);
+    final WishEnum wish = convertWishStringToWishesObject(wishString);
     return executeWish(wish, wishSourceEnum);
   }
 

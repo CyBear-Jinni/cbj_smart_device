@@ -13,7 +13,7 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
     _wishClassesD = WishClassesD();
   }
 
-//  Function to start c script to interact with pins
+  ///  Function to start c script to interact with pins
   @override
   Future<String> pinOn(PinInformation pinNumber) async {
     if (pinNumber.pinAndPhysicalPinConfiguration == null) {
@@ -26,8 +26,8 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
     }
 
     try {
-      print('This is the pin number on ' +
-          pinNumber.pinAndPhysicalPinConfiguration.toString());
+      print(
+          'This is the pin number on ${pinNumber.pinAndPhysicalPinConfiguration}');
       return await _wishClassesD
           .turnOnLocalPhysicalPin(PinSetupMethodEnum.wiringPiSetupPhys,
               pinNumber.pinAndPhysicalPinConfiguration.toString())
@@ -45,18 +45,18 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
   @override
   Future<String> pinOff(PinInformation pinNumber) async {
     try {
-      print('This is the pin number off:  ' +
-          pinNumber.pinAndPhysicalPinConfiguration.toString());
+      print('This is the pin number off:  ${pinNumber
+          .pinAndPhysicalPinConfiguration}');
       return _wishClassesD
           .turnOffLocalPhysicalPin(PinSetupMethodEnum.wiringPiSetupPhys,
-              pinNumber.pinAndPhysicalPinConfiguration.toString())
+          pinNumber.pinAndPhysicalPinConfiguration.toString())
           .then((ProcessResult results) {
         print(results.stdout);
         return results.stdout.toString();
       });
     } catch (error) {
       print('Path/argument 1 is not specified');
-      print('error: ' + error.toString());
+      print('error: $error');
       return 'Path/argument 1 is not specified';
     }
   }
@@ -65,11 +65,11 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
 class TurnPinOnOffPc extends TurnPinOnOffLocalAbstract {
   @override
   Future<String> pinOff(PinInformation pinNumber) {
-    return Future.value('Sucess');
+    return Future<String>.value('Success');
   }
 
   @override
   Future<String> pinOn(PinInformation pinNumber) {
-    return Future.value('Sucess');
+    return Future<String>.value('Success');
   }
 }

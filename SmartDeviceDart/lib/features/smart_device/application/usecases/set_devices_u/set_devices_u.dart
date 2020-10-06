@@ -3,17 +3,17 @@ import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
 import 'package:SmartDeviceDart/features/smart_device/domain/entities/set_devices_e/set_devices_e.dart';
 
-// This class will load all saved smart devices objects from file at startup into the program
+/// This class will load all saved smart devices objects from file at startup into the program
 class SetDevicesU {
 //  TODO: Pull the saved devices into the app variables
-
-  SetDevicesE _setDevicesE;
 
   SetDevicesU() {
     _setDevicesE = SetDevicesE();
   }
 
-  //  Setting all the devices from saved data
+  SetDevicesE _setDevicesE;
+
+  ///  Setting all the devices from saved data
   void setAllDevices({List<SmartDeviceBaseAbstract> deviceList}) async {
     if (deviceList != null) {
       MySingleton.setSmartDevicesList(deviceList);

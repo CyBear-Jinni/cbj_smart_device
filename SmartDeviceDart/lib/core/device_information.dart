@@ -1,11 +1,15 @@
 
 
-//  Save data about the device, is it remote or local, what pin/ip does it have
+///  Save data about the device, is it remote or local, what pin/ip does it have
 class DeviceInformation {
-  final String _uuid; //  uuid of the device
-  final String _name; //  Name of the device
 
   DeviceInformation(this._uuid, this._name);
+
+  ///  uuid of the device
+  final String _uuid;
+
+  ///  Name of the device
+  final String _name;
 
   //  Getters
 
@@ -15,11 +19,12 @@ class DeviceInformation {
 }
 
 class RemoteDevice extends DeviceInformation {
-  String ip; //  Ip of the device
-
 
   RemoteDevice(String uuid, String name, this.ip)
       : super(uuid, name);
+
+  ///  Ip of the device
+  String ip;
 
 
   //  Get
