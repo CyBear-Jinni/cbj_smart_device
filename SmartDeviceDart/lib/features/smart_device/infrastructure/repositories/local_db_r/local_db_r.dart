@@ -7,48 +7,51 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/local_db_d/local_db_d.dart';
 
 class LocalDbR {
-  LocalDbD _localDbD;
-
   LocalDbR() {
     _localDbD = LocalDbD();
   }
 
+  LocalDbD _localDbD;
+
   Future<List<SmartDeviceBaseAbstract>> getListOfSmartDevices() async {
     List<SmartDeviceBaseAbstract> smartDeviceBaseAbstractList =
-        List<SmartDeviceBaseAbstract>();
-    String currentDeviceUuid = await MySingleton.getUuid();
+        <SmartDeviceBaseAbstract>[];
+    final String currentDeviceUuid = await MySingleton.getUuid();
 
-    Map<String, List<String>> deviceListMap =
+    final Map<String, List<String>> deviceListMap =
         await _localDbD.getListOfSmartDevices();
     if (deviceListMap == null) {
       return null;
     }
-    for (String deviceName in deviceListMap.keys) {
-      List<String> values = deviceListMap[deviceName];
-      DeviceType deviceType = EnumHelper.stringToDeviceType(values.first);
+    for (final String deviceName in deviceListMap.keys) {
+      final List<String> values = deviceListMap[deviceName];
+      final DeviceType deviceType = EnumHelper.stringToDeviceType(values.first);
 
-      int onOffPinNumber = values[1] == null ? null : int.parse(values[1]);
-      int onOffButtonPinNumber =
+      final int onOffPinNumber =
+          values[1] == null ? null : int.parse(values[1]);
+      final int onOffButtonPinNumber =
           values[2] == null ? null : int.parse(values[2]);
 
       switch (deviceType) {
-        case (DeviceType.Light):
+        case DeviceType.Light:
           print('Adding from local db light object');
           smartDeviceBaseAbstractList.add(LightObject(
               currentDeviceUuid, deviceName, onOffPinNumber,
               onOffButtonPinNumber: onOffButtonPinNumber));
           break;
-        case (DeviceType.Blinds):
+        case DeviceType.Blinds:
           print('Adding from local db blind object');
           if (values.length < 7) {
             break;
           }
-          int blindsUpPin = values[3] == null ? null : int.parse(values[3]);
-          int upButtonPinNumber = values[4] == null ? null : int.parse(
-              values[4]);
-          int blindsDownPin = values[5] == null ? null : int.parse(values[5]);
-          int downButtonPinNumber = values[6] == null ? null : int.parse(
-              values[6]);
+          final int blindsUpPin =
+              values[3] == null ? null : int.parse(values[3]);
+          final int upButtonPinNumber =
+              values[4] == null ? null : int.parse(values[4]);
+          final int blindsDownPin =
+              values[5] == null ? null : int.parse(values[5]);
+          final int downButtonPinNumber =
+              values[6] == null ? null : int.parse(values[6]);
 
           smartDeviceBaseAbstractList.add(BlindsObject(
             currentDeviceUuid,
@@ -77,23 +80,23 @@ class LocalDbR {
   }
 
   Future<FirebaseAccountsInformationD> getListOfDatabaseInformation() async {
-    Map<String, String> firebaseAccountsInformationMap =
-        await _localDbD.getListOfDatabaseInformation();
+    final Map<String, String> firebaseAccountsInformationMap =
+    await _localDbD.getListOfDatabaseInformation();
 
     if (firebaseAccountsInformationMap == null) return null;
 
-    String fireBaseProjectId =
-        firebaseAccountsInformationMap[AccountsInformationD.fireBaseProjectId];
-    String fireBaseApiKey =
-        firebaseAccountsInformationMap[AccountsInformationD.fireBaseApiKey];
-    String userEmail =
-        firebaseAccountsInformationMap[AccountsInformationD.userEmail];
-    String userPassword =
-        firebaseAccountsInformationMap[AccountsInformationD.userPassword];
+    final String fireBaseProjectId =
+    firebaseAccountsInformationMap[AccountsInformationD.fireBaseProjectId];
+    final String fireBaseApiKey =
+    firebaseAccountsInformationMap[AccountsInformationD.fireBaseApiKey];
+    final String userEmail =
+    firebaseAccountsInformationMap[AccountsInformationD.userEmail];
+    final String userPassword =
+    firebaseAccountsInformationMap[AccountsInformationD.userPassword];
 
-    FirebaseAccountsInformationD firebaseAccountsInformationD =
-        FirebaseAccountsInformationD(
-            fireBaseProjectId, fireBaseApiKey, userEmail, userPassword);
+    final FirebaseAccountsInformationD firebaseAccountsInformationD =
+    FirebaseAccountsInformationD(
+        fireBaseProjectId, fireBaseApiKey, userEmail, userPassword);
 
     return firebaseAccountsInformationD;
   }
@@ -102,8 +105,7 @@ class LocalDbR {
     _localDbD.saveAllDevices(smartDevicesList);
   }
 
-  void saveListOfDatabaseInformation(
-      FirebaseAccountsInformationD firebaseAccountsInformationD) {
+  void saveListOfDatabaseInformation(FirebaseAccountsInformationD firebaseAccountsInformationD) {
     _localDbD.saveListOfDatabaseInformation(firebaseAccountsInformationD);
   }
 }

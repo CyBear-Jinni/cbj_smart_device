@@ -5,11 +5,12 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/hive_d/hive_d.dart';
 
 class LocalDbD {
-  HiveD _hiveD;
 
   LocalDbD() {
     _hiveD = HiveD();
   }
+
+  HiveD _hiveD;
 
   Future<Map<String, List<String>>> getListOfSmartDevices() {
     return _hiveD.getListOfSmartDevices();
@@ -20,11 +21,12 @@ class LocalDbD {
   }
 
   void saveAllDevices(List<SmartDeviceBaseAbstract> smartDevicesList) {
-    Map<String, List<String>> smartDevicesMapList = Map<String, List<String>>();
+    final Map<String, List<String>> smartDevicesMapList = <String,
+        List<String>>{};
 
-    for (SmartDeviceBaseAbstract smartDeviceBaseAbstract in smartDevicesList) {
-      String deviceName = smartDeviceBaseAbstract.smartInstanceName;
-      String deviceTypeAsString = EnumHelper.deviceTypeToString(
+    for (final SmartDeviceBaseAbstract smartDeviceBaseAbstract in smartDevicesList) {
+      final String deviceName = smartDeviceBaseAbstract.smartInstanceName;
+      final String deviceTypeAsString = EnumHelper.deviceTypeToString(
           smartDeviceBaseAbstract.getDeviceType());
       String onOffPin;
       String onOffButtonPinNumber;
@@ -44,7 +46,7 @@ class LocalDbD {
             .toString();
       }
       if (smartDeviceBaseAbstract.getDeviceType() == DeviceType.Blinds) {
-        BlindsObject blindsObjectTemp = smartDeviceBaseAbstract as BlindsObject;
+        final BlindsObject blindsObjectTemp = smartDeviceBaseAbstract as BlindsObject;
 
         String blindsUpPin = null,
             buttonPinUp = null,
@@ -99,7 +101,8 @@ class LocalDbD {
 
   void saveListOfDatabaseInformation(
       FirebaseAccountsInformationD firebaseAccountsInformationD) {
-    Map<String, String> firebaseAccountsInformationMap = Map<String, String>();
+    final Map<String, String> firebaseAccountsInformationMap = <String, String>{
+    };
 
     firebaseAccountsInformationMap[AccountsInformationD.fireBaseProjectId] =
         firebaseAccountsInformationD.fireBaseProjectId;

@@ -5,17 +5,19 @@ import 'smart_device_simple_abstract.dart';
 
 //  Abstract class for smart devices class with dynamic property
 abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
-  double dynamicValue; //  Save how much power to do for action
 
   SmartDeviceDynamicAbstract(uuid, smartInstanceName, onOffPinNumber,
       {onOffButtonPinNumber})
       : super(uuid, smartInstanceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber);
 
+  ///  Save how much power to do for action
+  double dynamicValue;
+
   @override
   Future<String> executeWishString(
       String wishString, WishSourceEnum wishSourceEnum) async {
-    var wish = convertWishStringToWishesObject(wishString);
+    final WishEnum wish = convertWishStringToWishesObject(wishString);
     if (wish == null) return 'Your wish does not exist on ';
     return executeWish(wish, wishSourceEnum);
   }
@@ -25,8 +27,8 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
       WishSourceEnum wishSourceEnum) async {
     return _WishInDynamicClass(wishEnum, wishSourceEnum);
   }
-  
-  //  Set dynamic value
+
+  ///  Set dynamic value
   String _SetDynamicValue() {
     if (deviceInformation == null) {
       return 'Device information is missing, cant set dynamic value';
@@ -34,17 +36,17 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
     return DynamicWishU.setDynamic(deviceInformation);
   }
 
-  //  Change dynamic value with open connection
+  ///  Change dynamic value with open connection
   String _OpenDynamicValue() {
     if (deviceInformation == null) {
-      return 'Device information is missing, cant create open connection with dynamic ';
+      return 'Device information is missing, cant create open connection with dynamic';
     }
     DynamicWishU.openDynamic(deviceInformation);
     onOff = false;
-    return 'Turn on sucsessfuly';
+    return 'Turn on successfully';
   }
 
-  //  All the wishes that are legit to execute from the dynamic class
+  ///  All the wishes that are legit to execute from the dynamic class
   String _WishInDynamicClass(WishEnum wish, WishSourceEnum wishSourceEnum) {
     switch (wish) {
       case WishEnum.SDynamic:

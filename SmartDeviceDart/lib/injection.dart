@@ -9,8 +9,8 @@ final getIt = GetIt.instance;
 //    await $initGetIt(getIt, environment: environment);
 
 abstract class Env {
-  static const test = 'test';
-  static const dev_pc = 'dev_pc';
-  static const dev_pi = 'dev_pi';
-  static const prod = 'prod';
+  static const String test = 'test';
+  static const String dev_pc = 'dev_pc';
+  static const String dev_pi = 'dev_pi';
+  static const String prod = 'prod';
 }

@@ -3,7 +3,6 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/repositorie
 import 'package:firedart/firestore/models.dart';
 
 class CloudValueChangeE {
-  static CloudManagerR _cloudManager;
 
   CloudValueChangeE(FirebaseAccountsInformationD firebaseAccountsInformationD) {
     if (firebaseAccountsInformationD.fireBaseProjectId != null &&
@@ -14,6 +13,9 @@ class CloudValueChangeE {
 //    MySingleton.getSmartDevicesList()[0];
     }
   }
+
+  static CloudManagerR _cloudManager;
+
 
   Stream<Document> listenToDataBase() async* {
     yield* _cloudManager.listenToDataBase();

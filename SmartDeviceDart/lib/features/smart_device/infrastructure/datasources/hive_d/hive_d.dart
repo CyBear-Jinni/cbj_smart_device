@@ -4,12 +4,9 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources
 import 'package:hive/hive.dart';
 
 class HiveD {
-  String hiveFolderPath;
-  static bool finishedInitializing;
-  static const String smartDeviceBoxName = 'SmartDevices';
-  static const String cellDeviceListInSmartDeviceBox = 'deviceList';
-  static const String cellDatabaseInformationInSmartDeviceBox =
-      'databaseInformation';
+  factory HiveD() {
+    return _instance;
+  }
 
   HiveD._privateConstructor() {
 //    contractorAsync();
@@ -17,14 +14,17 @@ class HiveD {
 
   static final HiveD _instance = HiveD._privateConstructor();
 
-  factory HiveD() {
-    return _instance;
-  }
+  String hiveFolderPath;
+  static bool finishedInitializing;
+  static const String smartDeviceBoxName = 'SmartDevices';
+  static const String cellDeviceListInSmartDeviceBox = 'deviceList';
+  static const String cellDatabaseInformationInSmartDeviceBox =
+      'databaseInformation';
 
   Future<bool> contractorAsync() async {
     if (finishedInitializing == null) {
-      String currentUserName = await MySingleton.getCurrentUserName();
-      hiveFolderPath = '/home/' + currentUserName + '/Documents/hive';
+      final String currentUserName = await MySingleton.getCurrentUserName();
+      hiveFolderPath = '/home/$currentUserName/Documents/hive';
       print('Path of hive: ' + hiveFolderPath);
       Hive..init(hiveFolderPath);
 
@@ -54,30 +54,28 @@ class HiveD {
     var box = await Hive.openBox(smartDeviceBoxName);
 
     HiveDevicesD firebaseAccountsInformationMap =
-        box.get(cellDatabaseInformationInSmartDeviceBox) as HiveDevicesD;
+    box.get(cellDatabaseInformationInSmartDeviceBox) as HiveDevicesD;
 
     return firebaseAccountsInformationMap?.databaseInformationList;
   }
 
-  Future<void> saveAllDevices(
-      Map<String, List<String>> smartDevicesMapList) async {
+  Future<void> saveAllDevices(Map<String, List<String>> smartDevicesMapList) async {
     await finishedInitializing;
 
     var box = await Hive.openBox(smartDeviceBoxName);
 
-    HiveDevicesD hiveDevicesD = HiveDevicesD()
+    final HiveDevicesD hiveDevicesD = HiveDevicesD()
       ..smartDeviceList = smartDevicesMapList;
 
     await box.put(cellDeviceListInSmartDeviceBox, hiveDevicesD);
   }
 
-  Future<void> saveListOfDatabaseInformation(
-      Map<String, String> firebaseAccountsInformationMap) async {
+  Future<void> saveListOfDatabaseInformation(Map<String, String> firebaseAccountsInformationMap) async {
     await finishedInitializing;
 
     var box = await Hive.openBox(smartDeviceBoxName);
 
-    HiveDevicesD hiveDevicesD = HiveDevicesD()
+    final HiveDevicesD hiveDevicesD = HiveDevicesD()
       ..databaseInformationList = firebaseAccountsInformationMap;
 
     await box.put(cellDatabaseInformationInSmartDeviceBox, hiveDevicesD);

@@ -2,7 +2,7 @@ import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
 
-//  This class take the request to turn up or down the blinds and act in safe manner with the pins, act so that blinds up and down will not work simultaneously and stop other tasks on them
+///  This class take the request to turn up or down the blinds and act in safe manner with the pins, act so that blinds up and down will not work simultaneously and stop other tasks on them
 class BlindsWishU {
   static Future<String> BlindsUp(BlindsObject blindsInformation) async {
     String status;
@@ -15,19 +15,18 @@ class BlindsWishU {
     }
 
     blindsInformation.blindsDownPin?.onDuration = 0;
-    status = await OffWishU.setOff(
+    status = OffWishU.setOff(
         blindsInformation.deviceInformation, blindsInformation.blindsDownPin);
 
-    await Future.delayed(const Duration(seconds: 1));
+    await Future<void>.delayed(const Duration(seconds: 1));
 
     blindsInformation.blindsUpPin?.onDuration = -1;
 
-    status += ' ' +
-        OnWishU.setOn(
-            blindsInformation.deviceInformation, blindsInformation.blindsUpPin);
+    status +=
+        ' ${OnWishU.setOn(blindsInformation.deviceInformation, blindsInformation.blindsUpPin)}';
 
     blindsInformation.blindsDownPin?.onDuration = 0;
-    await OffWishU.setOff(
+    OffWishU.setOff(
         blindsInformation.deviceInformation, blindsInformation.blindsDownPin);
 
     return status;
@@ -45,24 +44,23 @@ class BlindsWishU {
     }
 
     blindsInformation.blindsUpPin?.onDuration = 0;
-    status = await OffWishU.setOff(
+    status = OffWishU.setOff(
         blindsInformation.deviceInformation, blindsInformation.blindsUpPin);
 
-    await Future.delayed(const Duration(seconds: 1));
+    await Future<void>.delayed(const Duration(seconds: 1));
 
     blindsInformation.blindsDownPin?.onDuration = -1;
-    status += ' ' +
-        OnWishU.setOn(blindsInformation.deviceInformation,
-            blindsInformation.blindsDownPin);
+    status += ' ${OnWishU.setOn(blindsInformation.deviceInformation,
+        blindsInformation.blindsDownPin)}';
 
     blindsInformation.blindsUpPin?.onDuration = 0;
-    await OffWishU.setOff(
+    OffWishU.setOff(
         blindsInformation.deviceInformation, blindsInformation.blindsUpPin);
 
     return status;
   }
 
-  static String blindsStop(BlindsObject blindsInformation) {
+  static Future<String> blindsStop(BlindsObject blindsInformation) {
     String status;
 
     print('Stop blinds');
@@ -70,7 +68,7 @@ class BlindsWishU {
     if (blindsInformation.blindsUpPin == null ||
         blindsInformation.blindsDownPin == null) {
       print('Blinds pin was not set');
-      return 'Failed';
+      return Future<String>.value('Failed');
     }
 
     blindsInformation.blindsUpPin?.onDuration = 0;
@@ -78,10 +76,9 @@ class BlindsWishU {
         blindsInformation.deviceInformation, blindsInformation.blindsUpPin);
 
     blindsInformation.blindsDownPin?.onDuration = 0;
-    status += ' ' +
-        OffWishU.setOff(blindsInformation.deviceInformation,
-            blindsInformation.blindsDownPin);
+    status += ' ${OffWishU.setOff(blindsInformation.deviceInformation,
+        blindsInformation.blindsDownPin)}';
 
-    return status;
+    return Future<String>.value(status);
   }
 }

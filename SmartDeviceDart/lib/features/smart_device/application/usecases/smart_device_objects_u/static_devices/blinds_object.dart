@@ -6,7 +6,6 @@ import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enu
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
 
 class BlindsObject extends SmartDeviceStaticAbstract {
-  PinInformation buttonPinUp, blindsUpPin, buttonPinDown, blindsDownPin;
 
   BlindsObject(
       uuid,
@@ -30,6 +29,8 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     setDeviceType(DeviceType.Blinds);
   }
 
+  PinInformation buttonPinUp, blindsUpPin, buttonPinDown, blindsDownPin;
+
   @override
   void setDeviceType(DeviceType deviceType) => super.setDeviceType(deviceType);
 
@@ -37,10 +38,10 @@ class BlindsObject extends SmartDeviceStaticAbstract {
   DeviceType getDeviceType() => DeviceType.Blinds;
 
   @override
-  Future<String> executeWishString(
-      String wishString, WishSourceEnum wishSourceEnum) async {
-    var wish = convertWishStringToWishesObject(wishString);
-    return await executeWish(wish, wishSourceEnum);
+  Future<String> executeWishString(String wishString,
+      WishSourceEnum wishSourceEnum) async {
+    final WishEnum wish = convertWishStringToWishesObject(wishString);
+    return executeWish(wish, wishSourceEnum);
   }
 
   @override
@@ -49,22 +50,25 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     return wishInBlindsClass(wishEnum, wishSourceEnum);
   }
 
-  //  All the wishes that are legit to execute from the blinds class
+  ///  All the wishes that are legit to execute from the blinds class
   Future<String> wishInBlindsClass(WishEnum wish,
       WishSourceEnum wishSourceEnum) async {
     String wishExecuteResult;
 
     if (wish == null) return 'Your wish does not exist in blinds class';
-    if (wish == WishEnum.SBlindsUp)
+    if (wish == WishEnum.SBlindsUp) {
       wishExecuteResult = await BlindsWishU.BlindsUp(this);
-    if (wish == WishEnum.SBlindsDown)
+    }
+    if (wish == WishEnum.SBlindsDown) {
       wishExecuteResult = await BlindsWishU.blindsDown(this);
-    if (wish == WishEnum.SBlindsStop)
+    }
+    if (wish == WishEnum.SBlindsStop) {
       wishExecuteResult = await BlindsWishU.blindsStop(this);
+    }
 
     if (wishExecuteResult != null) {
       if (wishSourceEnum != WishSourceEnum.FireBase) {
-        String wishEnumString = EnumHelper.wishEnumToString(wish);
+        final String wishEnumString = EnumHelper.wishEnumToString(wish);
         super.updateCloudValue(wishEnumString);
       }
       return wishExecuteResult;

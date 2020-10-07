@@ -3,14 +3,15 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources
 import 'package:firedart/firestore/models.dart';
 
 class CloudFireStoreListenToChangesD {
-  String dataPath = '/SmartHomes/GuyHome/Devices/Lights';
-  RemoteDataBaseController _dataBaseController;
 
   CloudFireStoreListenToChangesD(
       FirebaseAccountsInformationD firebaseAccountsInformationD) {
     _dataBaseController =
         RemoteDataBaseController(firebaseAccountsInformationD);
   }
+
+  String dataPath = '/SmartHomes/GuyHome/Devices/Lights';
+  RemoteDataBaseController _dataBaseController;
 
   Stream<Document> listenAndExecute() async* {
     yield* _dataBaseController.listenToChangeOfDataInPath(dataPath);

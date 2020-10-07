@@ -1,6 +1,6 @@
 # Contributing to CyBear Jinni Smart Device
 
-:tada: First off, thanks for taking the time to contribute! :tada:
+🥳:tada: First off, thanks for taking the time to contribute! 🥳:tada:
 
 
 The following is a set of guidelines for contributing to CyBear Jinni Smart Device.

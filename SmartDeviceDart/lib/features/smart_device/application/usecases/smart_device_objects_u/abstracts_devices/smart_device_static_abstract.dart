@@ -2,7 +2,7 @@ import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enu
 
 import 'smart_device_base_abstract.dart';
 
-//  Abstract class for devices with property of how much to move and without how much time the device is doing action without stopping
+///  Abstract class for devices with property of how much to move and without how much time the device is doing action without stopping
 abstract class SmartDeviceStaticAbstract extends SmartDeviceBaseAbstract {
   SmartDeviceStaticAbstract(uuid, smartInstanceName, onOffPinNumber,
       {onOffButtonPinNumber})
@@ -24,7 +24,7 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBaseAbstract {
   @override
   void setDeviceType(DeviceType deviceType) => super.setDeviceType(deviceType);
 
-  //  All the wishes that are legit to execute from the static class
+  ///  All the wishes that are legit to execute from the static class
   @override
   Future<String> executeWishString(
       String wishString, WishSourceEnum wishSourceEnum) async {

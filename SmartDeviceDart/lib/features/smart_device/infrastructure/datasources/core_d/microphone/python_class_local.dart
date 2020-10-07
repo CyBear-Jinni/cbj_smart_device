@@ -2,7 +2,7 @@ import 'dart:io';
 
 class RecognitionClass {
   void listenToLightCommend() async {
-    var pythonCommends = <String>[];
+    final List<String> pythonCommends = <String>[];
     pythonCommends.add('-c');
     pythonCommends.add('''
 #!/usr/bin/env python3

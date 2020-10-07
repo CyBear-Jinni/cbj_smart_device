@@ -2,13 +2,14 @@ import 'package:SmartDeviceDart/features/smart_device/application/usecases/devic
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/button_object_d/button_object_d.dart';
 
 class ButtonObjectR {
-  ButtonObjectD _buttonObjectDatasource;
 
   ButtonObjectR() {
-    _buttonObjectDatasource = ButtonObjectD();
+    _buttonObjectDataSource = ButtonObjectD();
   }
 
+  ButtonObjectD _buttonObjectDataSource;
+
   Future<int> listenToButtonPress(PinInformation buttonPinNumber) {
-    return _buttonObjectDatasource.listenToButtonPress(buttonPinNumber);
+    return _buttonObjectDataSource.listenToButtonPress(buttonPinNumber);
   }
 }

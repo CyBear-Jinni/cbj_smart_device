@@ -23,7 +23,7 @@ enum DeviceType {
   SmartCar
 }
 
-//  List of all the wishes that can be made
+///  List of all the wishes that can be made
 enum WishEnum {
   SOn, //  Turn the device on
   SOff, //  Turn the device off
@@ -37,7 +37,7 @@ enum WishEnum {
   SBlindsStop //  Stop the blinds
 }
 
-// List of all the sources
+/// List of all the sources
 enum WishSourceEnum {
   ServerRequest,
   FireBase,
@@ -46,17 +46,17 @@ enum WishSourceEnum {
   ScheduleRequests,
 }
 
-//  List of all physical devices types
+///  List of all physical devices types
 enum PhysicalDeviceType { NanoPiDuo2, NanoPiNeo, NanoPiNeo2 }
 
 class EnumHelper {
-  //  Convert deviceType to string
+  ///  Convert deviceType to string
   static String deviceTypeToString(DeviceType deviceType) {
     return deviceType.toString().replaceAll('DeviceType.', '');
   }
 
   static DeviceType stringToDeviceType(String deviceTypeString) {
-    for (DeviceType deviceType in DeviceType.values) {
+    for (final DeviceType deviceType in DeviceType.values) {
       if (deviceTypeToString(deviceType) == deviceTypeString) {
         return deviceType;
       }
@@ -64,14 +64,14 @@ class EnumHelper {
     return null;
   }
 
-  //  Convert wishEnum to string
+  ///  Convert wishEnum to string
   static String wishEnumToString(WishEnum wishEnum) {
     return wishEnum.toString().replaceAll('WishEnum.', '');
   }
 
-  //  Convert string to wishEnum
+  ///  Convert string to wishEnum
   static WishEnum stringToWishEnum(String wishEnumString) {
-    for (WishEnum wishEnum in WishEnum.values) {
+    for (final WishEnum wishEnum in WishEnum.values) {
       if (wishEnumToString(wishEnum) == wishEnumString) {
         return wishEnum;
       }
@@ -79,7 +79,7 @@ class EnumHelper {
     return null;
   }
 
-  //  Convert physicalDeviceType to string
+  ///  Convert physicalDeviceType to string
   static String physicalDeviceTypeToString(PhysicalDeviceType deviceType) {
     return deviceType.toString().replaceAll('PhysicalDeviceType.', '');
   }
