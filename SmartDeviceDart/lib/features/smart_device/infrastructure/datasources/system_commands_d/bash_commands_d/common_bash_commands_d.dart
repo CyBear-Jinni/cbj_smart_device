@@ -25,10 +25,17 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
     //  The full bash command looks like this /sbin/blkid | grep "$(df -h / | sed -n 2p | cut -d" " -f1):" | grep -o "UUID=\"[^\"]*\" " | sed "s/UUID=\"//;s/\"//"
     String blkid =
         await Process.run('/sbin/blkid', []).then((ProcessResult result) {
-          return result.stdout.toString();
+      return result.stdout.toString();
     });
 
-    blkid = blkid.substring(blkid.indexOf(df));
+    if (blkid.contains(df)) {
+      blkid = blkid.substring(blkid.indexOf(df));
+    } else if (blkid.contains('/dev/mmcblk0p2')) {
+      blkid = blkid.substring(blkid.indexOf('/dev/mmcblk0p2'));
+    } else {
+      blkid = blkid.substring(blkid.indexOf('/dev/'));
+    }
+
     blkid = blkid.substring(0, blkid.indexOf('\n'));
 
     String uuid = blkid.substring(blkid.indexOf('UUID="') + 6);
