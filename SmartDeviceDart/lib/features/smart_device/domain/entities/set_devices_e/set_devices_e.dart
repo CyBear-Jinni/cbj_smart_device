@@ -5,11 +5,12 @@ import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enu
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/repositories/set_devices_r/set_devices_r.dart';
 
 class SetDevicesE {
-  SetDevicesR _setDevicesR;
 
   SetDevicesE() {
     _setDevicesR = SetDevicesR();
   }
+
+  SetDevicesR _setDevicesR;
 
   Future<String> getCurrentDeviceUUid() {
     return _setDevicesR.getCurrentDeviceUUid();
@@ -21,15 +22,15 @@ class SetDevicesE {
 
   Future<List<SmartDeviceBaseAbstract>> convertToListOfDevices(
       String textOfSmartDevices) async {
-    List<String> devicesSeparated = textOfSmartDevices
+    final List<String> devicesSeparated = textOfSmartDevices
         .replaceAll(' ', '')
         .replaceFirst('\n', '')
         .split(',');
     print(devicesSeparated);
 
-    List<DeviceType> deviceTypeList = List<DeviceType>();
+    final List<DeviceType> deviceTypeList = <DeviceType>[];
 
-    for (String deviceAsString in devicesSeparated) {
+    for (final String deviceAsString in devicesSeparated) {
       deviceTypeList.add(EnumHelper.stringToDeviceType(deviceAsString));
     }
 
@@ -37,13 +38,12 @@ class SetDevicesE {
       return null;
     }
 
-    List<SmartDeviceBaseAbstract> smartDeviceList =
-        List<SmartDeviceBaseAbstract>();
+    final List<SmartDeviceBaseAbstract> smartDeviceList =
+    <SmartDeviceBaseAbstract>[];
     String uuid = await getCurrentDeviceUUid();
     int index = 0;
 //    Todo: make this part work automatically
     for (DeviceType deviceType in deviceTypeList) {
-
       if (deviceType == DeviceType.Light) {
         if (index == 0) {
           smartDeviceList

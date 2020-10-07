@@ -5,7 +5,6 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_base_class_d.dart';
 
 class SystemCommandsManager {
-  SystemCommandsBaseClassD systemCommandsBaseClassD;
 
   SystemCommandsManager() {
     if (Platform.isLinux) {
@@ -18,10 +17,12 @@ class SystemCommandsManager {
       print('Mac os is currently not supported');
       throw ('Mac os is currently not supported');
     } else {
-      print(Platform.operatingSystem + ' os is not supported');
-      throw (Platform.operatingSystem + ' os is not supported');
+      print('${Platform.operatingSystem} os is not supported');
+      throw ('${Platform.operatingSystem} os is not supported');
     }
   }
+
+  SystemCommandsBaseClassD systemCommandsBaseClassD;
 
   Future<String> getCurrentUserName() {
     return systemCommandsBaseClassD.getCurrentUserName();

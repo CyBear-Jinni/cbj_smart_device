@@ -2,7 +2,7 @@ import 'package:SmartDeviceDart/core/device_information.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/repositories/wish_classes_r/turn_pin_on_off_local.dart';
 
-//  Class to change wish on status to device
+///  Class to change wish on status to device
 class OnWishU {
   static String setOn(
       DeviceInformation deviceInformation, PinInformation pinNumber) {
@@ -14,19 +14,19 @@ class OnWishU {
       case RemoteDevice:
         return setOnRemote(deviceInformation as RemoteDevice, pinNumber);
     }
-    print('Device type ' + deviceInformation.getName() + ' is not specified ');
+    print('Device type ${deviceInformation.getName()} is not specified ');
 
     return 'DeviceBase type not supported';
   }
 
-  //  Turn this device on
+  ///  Turn this device on
   static String setOnLocal(LocalDevice deviceInformation,
                            PinInformation pinNumber) {
     TurnPinOnOffLocal().pinOn(pinNumber);
     return 'Response from this device on successful';
   }
 
-  //  Turn the remote device on
+  ///  Turn the remote device on
   static String setOnRemote(RemoteDevice remoteDevice,
                             PinInformation pinNumber) {
 //    try {

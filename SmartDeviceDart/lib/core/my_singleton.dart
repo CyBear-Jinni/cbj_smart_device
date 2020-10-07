@@ -2,10 +2,6 @@ import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
 
 class MySingleton {
-  static final MySingleton _singleton = MySingleton._internal();
-  static List<SmartDeviceBaseAbstract> smartDevicesList;
-  static Future<String> _deviceUid;
-  static Future<String> _currentUserName;
 
   factory MySingleton() {
     return _singleton;
@@ -16,6 +12,11 @@ class MySingleton {
     getUuid();
     getCurrentUserName();
   }
+
+  static final MySingleton _singleton = MySingleton._internal();
+  static List<SmartDeviceBaseAbstract> smartDevicesList;
+  static Future<String> _deviceUid;
+  static Future<String> _currentUserName;
 
   static Future<String> getUuid() => _deviceUid ??= MySingletonHelper.getUuid();
 
@@ -36,13 +37,14 @@ class MySingleton {
 }
 
 class FirebaseAccountInformationFlutter {
+  FirebaseAccountInformationFlutter(this.fireBaseProjectId, this.fireBaseApiKey,
+      this.userEmail, this.userPassword);
+
   String fireBaseProjectId;
   String fireBaseApiKey;
   String userEmail;
   String userPassword;
 
-  FirebaseAccountInformationFlutter(this.fireBaseProjectId, this.fireBaseApiKey,
-      this.userEmail, this.userPassword);
 
   bool areAllValuesNotNull() {
     return fireBaseProjectId != null &&

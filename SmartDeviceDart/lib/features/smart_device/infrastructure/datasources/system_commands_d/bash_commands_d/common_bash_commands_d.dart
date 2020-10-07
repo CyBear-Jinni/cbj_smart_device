@@ -5,18 +5,18 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources
 class CommonBashCommandsD implements SystemCommandsBaseClassD {
   @override
   Future<String> getCurrentUserName() async {
-    String whoami =
-        await Process.run('whoami', []).then((ProcessResult result) {
+    final String whoami =
+        await Process.run('whoami', <String>[]).then((ProcessResult result) {
       return result.stdout.toString();
     });
-    return await whoami.substring(0, whoami.indexOf('\n'));
+    return whoami.substring(0, whoami.indexOf('\n'));
   }
 
   @override
   Future<String> getUuidOfCurrentDevice() async {
     String df =
-        await Process.run('df', ['-h', '/']).then((ProcessResult result) {
-          return result.stdout.toString();
+    await Process.run('df', <String>['-h', '/']).then((ProcessResult result) {
+      return result.stdout.toString();
     });
 
     df = df.substring(df.indexOf('\n') + 1);
@@ -40,7 +40,7 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
   @override
   Future<String> getDeviceHostName() async {
     String hostName =
-    await Process.run('hostname', ['-s']).then((ProcessResult result) {
+    await Process.run('hostname', <String>['-s']).then((ProcessResult result) {
 //      String hostName = result.stdout;
 //      hostName = hostName.substring(
 //          0, hostName.length - 1); //  Removes the invisible new line at the end
@@ -52,7 +52,8 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String> getFileContent(fileFullPath) async {
-    String fileContent = await Process.run('cat', [fileFullPath.toString()])
+    final String fileContent = await Process.run(
+        'cat', [fileFullPath.toString()])
         .then((ProcessResult result) {
       return result.stdout.toString();
     });

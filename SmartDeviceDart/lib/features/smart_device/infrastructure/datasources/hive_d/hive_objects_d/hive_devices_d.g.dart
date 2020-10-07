@@ -12,9 +12,9 @@ class HiveDevicesDAdapter extends TypeAdapter<HiveDevicesD> {
 
   @override
   HiveDevicesD read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final int numOfFields = reader.readByte();
+    final Map<int, dynamic> fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return HiveDevicesD()
       ..smartDeviceList = (fields[0] as Map)?.map((dynamic k, dynamic v) =>

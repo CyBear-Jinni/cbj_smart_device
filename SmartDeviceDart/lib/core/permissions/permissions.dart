@@ -1,17 +1,14 @@
 
 
-//  This class save the state of each permission
+///  This class save the state of each permission
 class Permission {
+  Permission(this._read, this._write, this._execute);
+
   bool _read = false;
   bool _write = false;
   bool _execute = false;
 
-
-  Permission(this._read, this._write, this._execute);
-
-
   //  Getters
-
 
   bool getRead() => _read;
 

@@ -2,12 +2,12 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources
 
 class SetDevicesD {
   Future<String> getCurrentDeviceUUid() {
-    SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
     return systemCommandsManager.getUuidOfCurrentDevice();
   }
 
   Future<String> getDeviceDefaultConfig() {
-    SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
     return systemCommandsManager.getDeviceConfiguration();
   }
 }
