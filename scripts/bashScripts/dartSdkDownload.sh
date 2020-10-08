@@ -2,7 +2,7 @@
 
 echo "Download dart sdk zip"
 
-architecture="$(uname -p)"
+architecture="$(uname -m)"
 
 echo "architecture: ${architecture}"
 
