@@ -47,7 +47,7 @@ class SetDevicesE {
       if (deviceType == DeviceType.Light) {
         if (index == 0) {
           smartDeviceList
-              .add(LightObject(uuid, 'Light', 7, onOffButtonPinNumber: 11));
+              .add(LightObject(uuid, 'Light', 8, onOffButtonPinNumber: 10));
         } else if (index == 1 && smartDeviceList[0] is! BlindsObject) {
           smartDeviceList
               .add(LightObject(uuid, 'Light2', 12, onOffButtonPinNumber: 14));
