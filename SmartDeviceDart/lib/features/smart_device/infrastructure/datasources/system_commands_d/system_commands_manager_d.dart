@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/bash_commands_d/bash_commands_for_raspberry_pi.dart';
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/bash_commands_d/common_bash_commands_d.dart';
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/batch_commands_d/common_batch_commands_d.dart';
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_base_class_d.dart';
@@ -42,5 +43,9 @@ class SystemCommandsManager {
 
   Future<String> getDeviceConfiguration() {
     return systemCommandsBaseClassD.getDeviceConfiguration();
+  }
+
+  Future<String> getRaspberryPiDeviceVersion() {
+    return BashCommandsForRaspberryPi.getRaspberryPiDeviceVersion();
   }
 }
