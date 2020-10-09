@@ -72,19 +72,27 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
           RaspberryPiType raspberryPiType =
               EnumHelper.stringToRaspberryPiType(raspberryPiVersion);
 
-          if (raspberryPiType ==
-              RaspberryPiType.Raspberry_Pi_3_Model_B_Rev_1_2) {
-            physicalDevice = RaspberryPi3ModelBRev1_2Configuration();
-          } else {
-            print('Raspberry pi $raspberryPiVersion is not supported');
+          switch (raspberryPiType) {
+            case RaspberryPiType.Raspberry_Pi_3_Model_B_Rev_1_2:
+              {
+                print('Raspberry Pi 3 Model B Rev 1.2 found');
+                physicalDevice = RaspberryPi3ModelBRev1_2Configuration();
+                break;
+              }
+            default:
+              {
+                print('Raspberry pi $raspberryPiVersion is not supported');
+                print('The software will not be able to control the pins');
+                break;
+              }
           }
           break;
         }
       default:
         {
           print(
-              'Device is not supported, the softwer will not be able to controol the pins');
-          return;
+              'Device is not supported, the software will not be able to control the pins');
+          break;
         }
     }
     print(
@@ -102,6 +110,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
     try {
       var isGpioFree = physicalDevice.isGpioPinFree(pinNumber);
       if (isGpioFree != 0) {
+        print('Gpio $pinNumber is not free, exist with error code $isGpioFree');
         return null;
       }
 

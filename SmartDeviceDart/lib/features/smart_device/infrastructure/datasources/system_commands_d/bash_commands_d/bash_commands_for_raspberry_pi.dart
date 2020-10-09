@@ -2,23 +2,22 @@ import 'dart:io';
 
 class BashCommandsForRaspberryPi {
   static Future<String> getRaspberryPiDeviceVersion() async {
-    String hostName = await Process.run(
-            'cat', <String>['/proc/cpuinfo', '|', 'grep', 'Model'])
+    String piVersion = await Process.run('cat', <String>['/proc/cpuinfo'])
         .then((ProcessResult result) {
-//      String hostName = result.stdout;
-//      hostName = hostName.substring(
-//          0, hostName.length - 1); //  Removes the invisible new line at the end
-//      print('Host name: ' + hostName);
       return result.stdout.toString();
     });
 
-    hostName = hostName.substring(hostName.indexOf(':') + 2);
+    piVersion = piVersion.substring(piVersion.indexOf('Model'));
 
-    hostName = hostName
-        .substring(0, hostName.indexOf('\n'))
+    print('This is the Pi Version: $piVersion');
+
+    piVersion = piVersion.substring(piVersion.indexOf(':') + 2);
+
+    piVersion = piVersion
+        .substring(0, piVersion.indexOf('\n'))
         .replaceAll(' ', '_')
         .replaceAll('.', '_');
 
-    return hostName;
+    return piVersion;
   }
 }

@@ -5,9 +5,9 @@ import 'smart_device_simple_abstract.dart';
 
 //  Abstract class for smart devices class with dynamic property
 abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
-
-  SmartDeviceDynamicAbstract(uuid, smartInstanceName, onOffPinNumber,
-      {onOffButtonPinNumber})
+  SmartDeviceDynamicAbstract(
+      String uuid, String smartInstanceName, int onOffPinNumber,
+      {int onOffButtonPinNumber})
       : super(uuid, smartInstanceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber);
 
