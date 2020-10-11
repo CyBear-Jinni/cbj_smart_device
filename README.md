@@ -2,7 +2,9 @@
 
 <div align="center">
 
+
 [![dart CI](https://github.com/CyBear-Jinni/CBJ_Smart-Device/workflows/Dart%20CI/badge.svg)](https://github.com/CyBear-Jinni/CBJ_Smart-Device/actions?query=workflow%3A%22Dart+CI%22) [![style: lint](https://img.shields.io/badge/lint-1.3.0-blue)](https://pub.dev/packages/lint) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [<img src="https://badges.frapsoft.com/os/v1/open-source-200x33.png?v=103" height="20" alt="Open Source Love">](https://en.wikipedia.org/wiki/Open_source)
+
 [<div align="center"><img alt="CyBear Jinni image" height="400" src="https://user-images.githubusercontent.com/9304740/95004821-f8417600-05f8-11eb-95bb-60a7863364e0.png">](https://github.com/CyBear-Jinni/CBJ_Smart-Home)
 </div>
 
@@ -35,17 +37,6 @@ Setting up instructions for the new device can be found in the [CyBear Jinni Sma
 It is recommended to lock the IP of the smart device in the router settings if you intend to use the local option and not just the remote (that is using google Firebase platform).
 
 Explanations on how to connect the device with the app will be given in the [CyBear Jinni App](https://github.com/CyBear-Jinni/CBJ_App.git) Readme file.
-
-
-## Architecture
-
-The code's based on DDD (Domain-Driven Design) principles, you can learn it from [here](https://www.youtube.com/watch?v=RMiN59x3uH0&list=PLB6lc7nQ1n4iS5p-IezFFgqP6YvAJy84U).
-
-**Architecture diagram:**
-
-<p align="center">
-<img src="https://resocoder.com/wp-content/uploads/2020/03/DDD-Flutter-Diagram-v3.svg" width="400">
-</p>
 
 
 # Social Media Links

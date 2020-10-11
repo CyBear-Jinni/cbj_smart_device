@@ -15,7 +15,7 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String> getUuidOfCurrentDevice() async {
-    String uuid = await Process.run('cmd', [
+    String uuid = await Process.run('cmd', <String>[
       '/C',
       'wmic',
       'path',
@@ -33,8 +33,9 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String> getDeviceHostName() async {
-    String hostName = await Process.run('cmd', ['/C', 'echo', '%COMPUTERNAME%'])
-        .then((ProcessResult result) {
+    String hostName =
+        await Process.run('cmd', <String>['/C', 'echo', '%COMPUTERNAME%'])
+            .then((ProcessResult result) {
       return result.stdout.toString();
     });
     return hostName.substring(0, hostName.indexOf('\r'));

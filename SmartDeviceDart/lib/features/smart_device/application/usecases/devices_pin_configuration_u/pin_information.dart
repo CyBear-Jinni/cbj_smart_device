@@ -22,7 +22,7 @@ class PinInformation {
   ///  Save the state of the pin, used or free to be taken
   bool isInUse = false;
 
-  ///  Category/spec of the pins, Examples: GPIO, USB/Audio/IR, Audio, Debug Port（UART0）
+  ///  Category/spec of the pins, Examples: Power, GPIO, USB/Audio/IR, Audio, Debug Port（UART0）
   String category;
 
   ///  Name from the site, Examples: VDD_5V, SYS_3.3V, GND, SCL, SDA, CS, GPIOL11/IR-RX, DEBUG_RX(UART_RXD0)/GPIOA5/PWM0
