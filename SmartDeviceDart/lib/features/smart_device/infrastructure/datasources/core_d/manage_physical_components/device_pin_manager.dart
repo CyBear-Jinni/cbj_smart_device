@@ -3,6 +3,7 @@ import 'package:SmartDeviceDart/features/smart_device/application/usecases/devic
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo2_configuration.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo_configuration.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/raspberry_pi3_model_b_rev_1_2_configuration.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
 import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enums_e.dart';
@@ -63,8 +64,37 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
           physicalDevice = NanoPiNeo2Configuration();
           break;
         }
+      case PhysicalDeviceType.RaspberryPi:
+        {
+          String raspberryPiVersion =
+              await systemCommandsManager.getRaspberryPiDeviceVersion();
+
+          RaspberryPiType raspberryPiType =
+              EnumHelper.stringToRaspberryPiType(raspberryPiVersion);
+
+          switch (raspberryPiType) {
+            case RaspberryPiType.Raspberry_Pi_3_Model_B_Rev_1_2:
+              {
+                print('Raspberry Pi 3 Model B Rev 1.2 found');
+                physicalDevice = RaspberryPi3ModelBRev1_2Configuration();
+                break;
+              }
+            default:
+              {
+                print('Raspberry pi $raspberryPiVersion is not supported');
+                print('The software will not be able to control the pins');
+                break;
+              }
+          }
+          break;
+        }
+      default:
+        {
+          print(
+              'Device is not supported, the software will not be able to control the pins');
+          break;
+        }
     }
-    if (physicalDeviceType == null) {}
     print(
         'This device is of type: ${EnumHelper.physicalDeviceTypeToString(physicalDeviceType)}');
   }
@@ -80,6 +110,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
     try {
       var isGpioFree = physicalDevice.isGpioPinFree(pinNumber);
       if (isGpioFree != 0) {
+        print('Gpio $pinNumber is not free, exist with error code $isGpioFree');
         return null;
       }
 
