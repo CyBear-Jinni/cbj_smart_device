@@ -39,17 +39,6 @@ It is recommended to lock the IP of the smart device in the router settings if y
 Explanations on how to connect the device with the app will be given in the [CyBear Jinni App](https://github.com/CyBear-Jinni/CBJ_App.git) Readme file.
 
 
-## Architecture
-
-The code's based on DDD (Domain-Driven Design) principles, you can learn it from [here](https://www.youtube.com/watch?v=RMiN59x3uH0&list=PLB6lc7nQ1n4iS5p-IezFFgqP6YvAJy84U).
-
-**Architecture diagram:**
-
-<p align="center">
-<img src="https://resocoder.com/wp-content/uploads/2020/03/DDD-Flutter-Diagram-v3.svg" width="400">
-</p>
-
-
 # Social Media Links
 
 [<img src = "https://cdn.icon-icons.com/icons2/1099/PNG/512/1485482199-linkedin_78667.png" height = "80" >](https://www.linkedin.com/company/cybear-jinni)
