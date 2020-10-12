@@ -25,7 +25,7 @@ This part is using the snap store in order to have easy way to update all the de
 
 ### Attention
 
-* The softwer support Raspberry Pi only whan running without the snap, For now only NanoPi Duo2 is supported as a sanp, you can run the softwer everywhere else (including your pc) without controlling the pins.
+* The softwer support Raspberry Pi only whan running without the snap, for now only NanoPi Duo2 is supported as a sanp, you can run the softwer everywhere else (including your pc) without controlling the pins.
 
 * You need to buy and solder the parts into the device yourself.
 
