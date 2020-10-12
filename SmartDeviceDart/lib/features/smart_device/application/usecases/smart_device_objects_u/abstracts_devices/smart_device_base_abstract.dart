@@ -132,8 +132,8 @@ abstract class SmartDeviceBaseAbstract {
   ///  Add gpio pin for this device
   PinInformation addPinToGpioPinList(int pinNumber) {
     //  Check if pin is free to be taken, if not return negative number with error number
-    var gpioPin = DevicePinListManager().getGpioPin(
-        this, pinNumber);
+    final PinInformation gpioPin =
+        DevicePinListManager().getGpioPin(this, pinNumber);
     if (gpioPin == null) {
       return null;
     }

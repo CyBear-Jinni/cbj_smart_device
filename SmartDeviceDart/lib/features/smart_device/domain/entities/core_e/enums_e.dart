@@ -47,7 +47,9 @@ enum WishSourceEnum {
 }
 
 ///  List of all physical devices types
-enum PhysicalDeviceType { NanoPiDuo2, NanoPiNeo, NanoPiNeo2 }
+enum PhysicalDeviceType { NanoPiDuo2, NanoPiNeo, NanoPiNeo2, RaspberryPi }
+
+enum RaspberryPiType { Raspberry_Pi_3_Model_B_Rev_1_2 }
 
 class EnumHelper {
   ///  Convert deviceType to string
@@ -59,6 +61,20 @@ class EnumHelper {
     for (final DeviceType deviceType in DeviceType.values) {
       if (deviceTypeToString(deviceType) == deviceTypeString) {
         return deviceType;
+      }
+    }
+    return null;
+  }
+
+  ///  Convert Raspberry Pi type to string
+  static String RaspberryPiTypeToString(RaspberryPiType raspberryPiType) {
+    return raspberryPiType.toString().replaceAll('RaspberryPiType.', '');
+  }
+
+  static RaspberryPiType stringToRaspberryPiType(String raspberryPiTypeString) {
+    for (final RaspberryPiType raspberryPiType in RaspberryPiType.values) {
+      if (RaspberryPiTypeToString(raspberryPiType) == raspberryPiTypeString) {
+        return raspberryPiType;
       }
     }
     return null;

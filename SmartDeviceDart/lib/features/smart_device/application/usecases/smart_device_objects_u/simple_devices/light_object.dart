@@ -2,7 +2,8 @@ import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart
 import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enums_e.dart';
 
 class LightObject extends SmartDeviceSimpleAbstract {
-  LightObject(uuid, smartInstanceName, onOffPinNumber, {onOffButtonPinNumber})
+  LightObject(String uuid, String smartInstanceName, int onOffPinNumber,
+      {int onOffButtonPinNumber})
       : super(uuid, smartInstanceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber) {
     setDeviceType(DeviceType.Light);
