@@ -1,0 +1,24 @@
+name: Dart CI
+
+on:
+  push:
+    branches: [ master , dev ]
+  pull_request:
+    branches: [ master, dev ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image:  google/dart:latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      working-directory: SmartDeviceDart
+      run: pub get
+    - name: Run tests
+      working-directory: SmartDeviceDart
+      run: pub run test
