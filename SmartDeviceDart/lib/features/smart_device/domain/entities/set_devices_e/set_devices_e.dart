@@ -39,16 +39,16 @@ class SetDevicesE {
     }
 
     final List<SmartDeviceBaseAbstract> smartDeviceList =
-    <SmartDeviceBaseAbstract>[];
-    String uuid = await getCurrentDeviceUUid();
+        <SmartDeviceBaseAbstract>[];
+    final String uuid = await getCurrentDeviceUUid();
     int index = 0;
 //    Todo: make this part work automatically
-    for (DeviceType deviceType in deviceTypeList) {
+    for (final DeviceType deviceType in deviceTypeList) {
       if (deviceType == DeviceType.Light) {
         if (index == 0) {
           smartDeviceList
               .add(LightObject(uuid, 'Light', 8, onOffButtonPinNumber: 10));
-        } else if (index == 1 && !(smartDeviceList[0] is BlindsObject)) {
+        } else if (index == 1 && smartDeviceList[0] is! BlindsObject) {
           smartDeviceList
               .add(LightObject(uuid, 'Light2', 12, onOffButtonPinNumber: 14));
         }
