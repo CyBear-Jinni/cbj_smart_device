@@ -10,7 +10,7 @@ cd ../cScripts
 cd phisicalComponents/gettingSignals/
 for fileName in *.c; do
 	fileNameWithoutEnding=${fileName/.c/}
-	gcc -Wall ${fileName} -o ${fileNameWithoutEnding} -lwiringPi -lpthread
+	gcc -Wall ${fileName} -o ${fileNameWithoutEnding} -lwiringPi -lpthread -lcrypt -lm -lrt
 	rm ${fileName}
 done
 
@@ -20,7 +20,7 @@ cd phisicalComponents/sendingSignals/offSignal/
 
 for fileName in *.c; do
 	fileNameWithoutEnding=${fileName/.c/}
-	gcc -Wall ${fileName} -o ${fileNameWithoutEnding} -lwiringPi -lpthread
+	gcc -Wall ${fileName} -o ${fileNameWithoutEnding} -lwiringPi -lpthread -lcrypt -lm -lrt
 	rm ${fileName}
 done
 
@@ -30,7 +30,7 @@ cd phisicalComponents/sendingSignals/onSignal/
 
 for fileName in *.c; do
 	fileNameWithoutEnding=${fileName/.c/}
-	gcc -Wall ${fileName} -o ${fileNameWithoutEnding} -lwiringPi -lpthread
+	gcc -Wall ${fileName} -o ${fileNameWithoutEnding} -lwiringPi -lpthread -lcrypt -lm -lrt
 	rm ${fileName}
 done
 
