@@ -26,12 +26,29 @@ architectures:
     run-on: amd64
 
 parts:
-  wiring-np:
+  wiring-pi:
     plugin: dump
     source: .
     build-attributes: [keep-execstack]
     override-build: |
-      git clone https://github.com/CyBear-Jinni/WiringNP
+      # This part wokes if you put the correct libwiringPi.so files in the lib dir but will compit with WiringNP lib
+      #git clone https://github.com/WiringPi/WiringPi.git
+      #cd WiringPi/
+      #chmod 755 build
+      #./build
+      #cd ..
+
+    build-packages:
+      - git
+      - make
+
+  wiring-np:
+    after: [wiring-pi]
+    plugin: dump
+    source: .
+    build-attributes: [keep-execstack]
+    override-build: |
+      git clone https://github.com/guyluz11/WiringNP.git
       # git clone https://github.com/friendlyarm/WiringNP  // Does not work on the armbian os,  https://forum.armbian.com/topic/13889-nanopiduo2-wiringnp-unable-to-determine-board-revision/
       cd WiringNP/
       chmod 755 build
