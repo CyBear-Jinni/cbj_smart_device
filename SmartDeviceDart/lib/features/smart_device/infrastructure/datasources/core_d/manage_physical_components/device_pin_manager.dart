@@ -46,6 +46,17 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
     physicalDeviceType =
         convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
             deviceHostName);
+
+    String raspberryPiVersion =
+        await systemCommandsManager.getRaspberryPiDeviceVersion();
+
+    if (physicalDeviceType == null &&
+        raspberryPiVersion
+            .toLowerCase()
+            .contains('Raspberry_Pi'.toLowerCase())) {
+      physicalDeviceType = PhysicalDeviceType.RaspberryPi;
+    }
+
     print('phys type is $physicalDeviceType');
     //  Save the current physical device configuration to the physicalDevice variable
     switch (physicalDeviceType) {
@@ -66,9 +77,6 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
         }
       case PhysicalDeviceType.RaspberryPi:
         {
-          String raspberryPiVersion =
-              await systemCommandsManager.getRaspberryPiDeviceVersion();
-
           RaspberryPiType raspberryPiType =
               EnumHelper.stringToRaspberryPiType(raspberryPiVersion);
 
@@ -76,6 +84,13 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
             case RaspberryPiType.Raspberry_Pi_3_Model_B_Rev_1_2:
               {
                 print('Raspberry Pi 3 Model B Rev 1.2 found');
+                physicalDevice = RaspberryPi3ModelBRev1_2Configuration();
+                break;
+              }
+            case RaspberryPiType.Raspberry_Pi_4_Model_B_Rev_1_4:
+              {
+                print('Raspberry Pi 4 Model B Rev 1.4 found');
+                // Have same pin configuration as Pi 3
                 physicalDevice = RaspberryPi3ModelBRev1_2Configuration();
                 break;
               }
@@ -91,7 +106,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
       default:
         {
           print(
-              'Device is not supported, the software will not be able to control the pins');
+              'Detected deviceHostName $deviceHostName \nDevice is not supported, the software will not be able to control the pins.');
           break;
         }
     }
