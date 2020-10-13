@@ -1,58 +1,60 @@
 import 'device_configuration_base_class.dart';
 import 'pin_information.dart';
 
+/// Configuration for the NanoPi Duo 2
 class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
+  /// Setting the configuration by PinInformation list
   NanoPiDuo2Configuration() {
     pinList = _pinListNanoPiDuo2;
   }
 
   static final List<PinInformation> _pinListNanoPiDuo2 = <PinInformation>[
     PinInformation(
-        category: 'GPIO',
+        category: 'Power',
         pinAndPhysicalPinConfiguration: 1,
         gpioColumn: 1,
         gpioValue: '5V',
         name: 'VDD_5V'),
     PinInformation(
-        category: 'GPIO',
+        category: 'DEBUG',
         pinAndPhysicalPinConfiguration: 2,
         gpioColumn: 2,
         gpioValue: 'RXD',
-        name: 'DEBUG_RX(UART_RXD0)/GPIOA5/PWM0',
+        name: 'DEBUG_RX(UART_RXD0)/PWM0',
         v: 00,
         mode: 'IN',
         wPi: 15,
         bcmOrLinuxGpio: 6),
     PinInformation(
-        category: 'GPIO',
+        category: 'Power',
         pinAndPhysicalPinConfiguration: 3,
         gpioColumn: 1,
         gpioValue: '5V',
         name: 'VDD_5V'),
     PinInformation(
-        category: 'GPIO',
+        category: 'DEBUG',
         pinAndPhysicalPinConfiguration: 4,
         gpioColumn: 2,
         gpioValue: 'TXD',
-        name: 'DEBUG_TX(UART_TXD0)/GPIOA4',
+        name: 'DEBUG_TX(UART_TXD0)',
         v: 0,
         mode: 'ALT5',
         wPi: 14,
         bcmOrLinuxGpio: 4),
     PinInformation(
-        category: 'GPIO',
+        category: 'Power',
         pinAndPhysicalPinConfiguration: 5,
         gpioColumn: 1,
         gpioValue: '3V3',
         name: 'SYS_3.3V'),
     PinInformation(
-        category: 'GPIO',
+        category: 'Power',
         pinAndPhysicalPinConfiguration: 6,
         gpioColumn: 2,
         gpioValue: 'GND',
         name: 'GND'),
     PinInformation(
-        category: 'GPIO',
+        category: 'Power',
         pinAndPhysicalPinConfiguration: 7,
         gpioColumn: 1,
         gpioValue: 'GND',
@@ -72,7 +74,7 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         pinAndPhysicalPinConfiguration: 9,
         gpioColumn: 1,
         gpioValue: 'IRRX',
-        name: 'GPIOL11/IR-RX ',
+        name: 'IR-RX ',
         v: 0,
         mode: 'IN',
         wPi: 18,
@@ -108,7 +110,7 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         wPi: 3,
         bcmOrLinuxGpio: 13),
     PinInformation(
-        category: 'GPIO',
+        category: 'USB',
         pinAndPhysicalPinConfiguration: 13,
         gpioColumn: 1,
         gpioValue: 'DM3',
@@ -124,7 +126,7 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         wPi: 2,
         bcmOrLinuxGpio: 14),
     PinInformation(
-        category: 'GPIO',
+        category: 'USB',
         pinAndPhysicalPinConfiguration: 15,
         gpioColumn: 1,
         gpioValue: 'DP3',
@@ -140,7 +142,7 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         wPi: 0,
         bcmOrLinuxGpio: 16),
     PinInformation(
-        category: 'GPIO',
+        category: 'USB',
         pinAndPhysicalPinConfiguration: 17,
         gpioColumn: 1,
         gpioValue: 'DM2',
@@ -156,7 +158,7 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         wPi: 7,
         bcmOrLinuxGpio: 15),
     PinInformation(
-        category: 'GPIO',
+        category: 'USB',
         pinAndPhysicalPinConfiguration: 19,
         gpioColumn: 1,
         gpioValue: 'DP2',
@@ -171,7 +173,7 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         wPi: 9,
         bcmOrLinuxGpio: 199),
     PinInformation(
-        category: 'GPIO',
+        category: 'EPHY',
         pinAndPhysicalPinConfiguration: 21,
         gpioColumn: 1,
         gpioValue: 'RD-',
@@ -187,61 +189,61 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         wPi: 8,
         bcmOrLinuxGpio: 198),
     PinInformation(
-        category: 'GPIO',
+        category: 'EPHY',
         pinAndPhysicalPinConfiguration: 23,
         gpioColumn: 1,
         gpioValue: 'RD+',
         name: 'EPHY-RXP'),
     PinInformation(
-        category: 'GPIO',
+        category: 'CVBS',
         pinAndPhysicalPinConfiguration: 24,
         gpioColumn: 2,
         gpioValue: 'CVBS',
         name: 'CVBS'),
     PinInformation(
-        category: 'GPIO',
+        category: 'EPHY',
         pinAndPhysicalPinConfiguration: 25,
         gpioColumn: 1,
         gpioValue: 'TD-',
         name: 'EPHY-TXN'),
     PinInformation(
-        category: 'GPIO',
+        category: 'LINEOUT',
         pinAndPhysicalPinConfiguration: 26,
         gpioColumn: 2,
         gpioValue: 'LL',
         name: 'LINEOUT_L'),
     PinInformation(
-        category: 'GPIO',
+        category: 'EPHY',
         pinAndPhysicalPinConfiguration: 27,
         gpioColumn: 1,
         gpioValue: 'TD+',
         name: 'EPHY-TXP'),
     PinInformation(
-        category: 'GPIO',
+        category: 'LINEOUT',
         pinAndPhysicalPinConfiguration: 28,
         gpioColumn: 2,
         gpioValue: 'LR',
         name: 'LINEOUT_R'),
     PinInformation(
-        category: 'GPIO',
+        category: 'EPHY',
         pinAndPhysicalPinConfiguration: 29,
         gpioColumn: 1,
         gpioValue: 'LNK',
         name: 'EPHY-LED-LINK'),
     PinInformation(
-        category: 'GPIO',
+        category: 'MIC',
         pinAndPhysicalPinConfiguration: 30,
         gpioColumn: 2,
         gpioValue: 'MP',
         name: 'MIC_P'),
     PinInformation(
-        category: 'GPIO',
+        category: 'EPHY',
         pinAndPhysicalPinConfiguration: 31,
         gpioColumn: 1,
         gpioValue: 'SPD',
         name: 'EPHY-LED-SPD'),
     PinInformation(
-        category: 'GPIO',
+        category: 'MIC',
         pinAndPhysicalPinConfiguration: 32,
         gpioColumn: 2,
         gpioValue: 'MN',
