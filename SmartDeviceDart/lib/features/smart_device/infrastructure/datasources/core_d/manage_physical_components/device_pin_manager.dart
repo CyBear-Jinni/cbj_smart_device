@@ -51,6 +51,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
         await systemCommandsManager.getRaspberryPiDeviceVersion();
 
     if (physicalDeviceType == null &&
+        raspberryPiVersion != null &&
         raspberryPiVersion
             .toLowerCase()
             .contains('Raspberry_Pi'.toLowerCase())) {
