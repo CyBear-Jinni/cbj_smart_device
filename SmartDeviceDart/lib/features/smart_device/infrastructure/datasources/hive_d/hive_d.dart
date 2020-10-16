@@ -1,6 +1,7 @@
 import 'package:SmartDeviceDart/core/my_singleton.dart';
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/hive_d/hive_objects_d/hive_devices_d.dart';
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/hive_d/hive_store_d.dart';
+import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 import 'package:hive/hive.dart';
 
 class HiveD {
@@ -23,8 +24,14 @@ class HiveD {
 
   Future<bool> contractorAsync() async {
     if (finishedInitializing == null) {
-      final String currentUserName = await MySingleton.getCurrentUserName();
-      hiveFolderPath = '/home/$currentUserName/Documents/hive';
+      String snapCommonEnvironmentVariablePath =
+          await SystemCommandsManager().getSnapCommonEnvironmentVariable();
+      if (snapCommonEnvironmentVariablePath == null) {
+        final String currentUserName = await MySingleton.getCurrentUserName();
+        hiveFolderPath = '/home/$currentUserName/Documents/hive';
+      } else {
+        hiveFolderPath = '$snapCommonEnvironmentVariablePath/hive';
+      }
       print('Path of hive: ' + hiveFolderPath);
       Hive..init(hiveFolderPath);
 

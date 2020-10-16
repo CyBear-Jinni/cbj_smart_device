@@ -1,4 +1,5 @@
 import 'package:SmartDeviceDart/core/my_singleton.dart';
+import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 import 'package:firedart/firedart.dart';
 import 'package:hive/hive.dart';
 
@@ -10,13 +11,21 @@ class HiveStore extends TokenStore {
   static const String keyToken = 'auth_token';
 
   static Future<HiveStore> create() async {
-    String currentUserName = await MySingleton.getCurrentUserName();
-    String hiveFolderPath = '/home/$currentUserName/Documents/hive';
+    String hiveFolderPath;
+    String snapCommonEnvironmentVariablePath =
+        await SystemCommandsManager().getSnapCommonEnvironmentVariable();
+    if (snapCommonEnvironmentVariablePath == null) {
+      final String currentUserName = await MySingleton.getCurrentUserName();
+      hiveFolderPath = '/home/$currentUserName/Documents/hive';
+    } else {
+      hiveFolderPath = '$snapCommonEnvironmentVariablePath/hive';
+    }
 //    print('Path of hive: ' + hiveFolderPath);
     Hive.init(hiveFolderPath);
 //     Hive.registerAdapter(TokenAdapter());
-    var box = await Hive.openBox('auth_store',
-        compactionStrategy: (entries, deletedEntries) => deletedEntries > 50);
+    final Box box = await Hive.openBox('auth_store',
+        compactionStrategy: (int entries, int deletedEntries) =>
+            deletedEntries > 50);
     return HiveStore._internal(box);
   }
 
