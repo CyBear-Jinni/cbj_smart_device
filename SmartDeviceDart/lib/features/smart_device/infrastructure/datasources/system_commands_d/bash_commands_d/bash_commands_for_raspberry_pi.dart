@@ -7,6 +7,9 @@ class BashCommandsForRaspberryPi {
       return result.stdout.toString();
     });
 
+    if (!piVersion.contains('Model')) {
+      return null;
+    }
     piVersion = piVersion.substring(piVersion.indexOf('Model'));
 
     print('This is the Pi Version: $piVersion');
