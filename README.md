@@ -6,7 +6,7 @@
 </div>
 
 
-[<div align="center"><img alt="CyBear Jinni image" height="400" src="https://user-images.githubusercontent.com/9304740/95004821-f8417600-05f8-11eb-95bb-60a7863364e0.png"></div>](https://github.com/CyBear-Jinni/CBJ_Smart-Home)
+[<div align="center"><img alt="CyBear Jinni image" height="400" src="https://raw.githubusercontent.com/CyBear-Jinni/CBJ_Site/master/fan_art/after_editing/logo_no_background.png"></div>](https://github.com/CyBear-Jinni/CBJ_Smart-Home)
 
 # Welcome!
 
