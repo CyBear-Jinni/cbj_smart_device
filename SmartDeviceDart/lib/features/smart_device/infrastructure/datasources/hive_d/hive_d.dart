@@ -33,12 +33,12 @@ class HiveD {
         hiveFolderPath = '$snapCommonEnvironmentVariablePath/hive';
       }
       print('Path of hive: ' + hiveFolderPath);
-      Hive..init(hiveFolderPath);
+      Hive.init(hiveFolderPath);
 
       Hive.openBox(
           smartDeviceBoxName); // TODO: check if need await, it creates error: HiveError: Cannot read, unknown typeId: 34
       Hive.registerAdapter(TokenAdapter());
-      Hive..registerAdapter(HiveDevicesDAdapter());
+      Hive.registerAdapter(HiveDevicesDAdapter());
 
       finishedInitializing = true;
     }
