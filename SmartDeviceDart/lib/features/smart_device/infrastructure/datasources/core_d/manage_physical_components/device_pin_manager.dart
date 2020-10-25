@@ -1,6 +1,7 @@
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/device_configuration_base_class.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_duo2_configuration.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo2_configuration.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo_air_configuration.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo_configuration.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/raspberry_pi3_model_b_rev_1_2_configuration.dart';
@@ -64,6 +65,11 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
       case PhysicalDeviceType.NanoPiDuo2:
         {
           physicalDevice = NanoPiDuo2Configuration();
+          break;
+        }
+      case PhysicalDeviceType.NanoPiAir:
+        {
+          physicalDevice = NanoPiNEOAirConfiguration();
           break;
         }
       case PhysicalDeviceType.NanoPiNeo:
