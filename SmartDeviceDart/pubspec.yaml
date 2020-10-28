@@ -1,13 +1,14 @@
 name: SmartDeviceDart
-description: A sample command-line application.
+description: Controlling CyBear Jinni Smart Devices
 version: 1.0.0
-homepage: https://www.example.com
-author: guy <email@example.com>
+homepage: https://github.com/CyBear-Jinni/CBJ_Smart-Device
+author: Guy Luz
 
 environment:
   sdk: '>=2.4.0 <3.0.0'
 
 dependencies:
+  # Firebase Auth and Firestore SDKs.
   firedart: ^0.8.3
   # Functional programming thingies, let you use multiple return types
   dartz: ^0.9.2

@@ -9,11 +9,11 @@
 
 # Welcome!
 
-This repository is in charge of controlling smart devices and is part of the [CyBear Jinni Smart Home](https://github.com/CyBear-Jinni/CBJ_Smart-Home.git) system.
+This repository is in charge of controlling smart devices and is part of the [CyBear Jinni Smart Home](https://github.com/CyBear-Jinni/CBJ_Smart-Home) system.
 
-These smart devices allow you to control lamps and blinds.
+The softwer is writen in [dart](https://dart.dev) and allows you to control lamps and blinds.
  
-You can control these devices using physical buttons and from the [CyBear Jinni App](https://github.com/CyBear-Jinni/CBJ_App.git).
+You can control these devices using physical buttons and from the [CyBear Jinni App](https://github.com/CyBear-Jinni/CBJ_App).
 
 This part is using the snap store in order to have easy way to update all the devices software versions with new features and security updates.
 
@@ -31,11 +31,11 @@ This part is using the snap store in order to have easy way to update all the de
 
 ### Smart device preparations:
 
-Setting up instructions for the new device can be found in the [CyBear Jinni Smart Device Resources](https://github.com/CyBear-Jinni/CBJ_Smart-Device_Resources.git) repository.
+Setting up instructions for the new device can be found in the [CyBear Jinni Smart Device Resources](https://github.com/CyBear-Jinni/CBJ_Smart-Device_Resources) repository.
 
 It is recommended to lock the IP of the smart device in the router settings if you intend to use the local option and not just the remote (that is using google Firebase platform).
 
-Explanations on how to connect the device with the app will be given in the [CyBear Jinni App](https://github.com/CyBear-Jinni/CBJ_App.git) Readme file.
+Explanations on how to connect the device with the app will be given in the [CyBear Jinni App](https://github.com/CyBear-Jinni/CBJ_App) Readme file.
 
 
 # Social Media Links
