@@ -42,7 +42,7 @@ class NanoPiNEOAirConfiguration extends DeviceConfigurationBaseClass {
       name: 'VDD_5V',
     ),
     PinInformation(
-      category: 'Power',
+      category: 'GPIO',
       pinAndPhysicalPinConfiguration: 5,
       index: 5,
       gpioColumn: 1,
@@ -116,7 +116,7 @@ class NanoPiNEOAirConfiguration extends DeviceConfigurationBaseClass {
       bcmOrLinuxGpio: 6,
     ),
     PinInformation(
-      category: 'USB',
+      category: 'GPIO',
       pinAndPhysicalPinConfiguration: 13,
       index: 13,
       gpioColumn: 1,
@@ -133,7 +133,7 @@ class NanoPiNEOAirConfiguration extends DeviceConfigurationBaseClass {
       name: 'GND',
     ),
     PinInformation(
-      category: 'USB',
+      category: 'GPIO',
       pinAndPhysicalPinConfiguration: 15,
       index: 15,
       gpioColumn: 1,
