@@ -15,15 +15,15 @@ class RemoteDataBaseController {
 
   ///  This method get data of field in the dataPath
   Future<String> getAllFieldsInPath(String dataPath) async {
-    return await _cloudFireStoreNewD.getData(dataPath);
+    return _cloudFireStoreNewD.getData(dataPath);
   }
 
   ///  This method get data of field in the dataPath
   Future<String> getFieldInPath(String dataPath, String fieldName) async {
-    return await _cloudFireStoreNewD.getFieldInPath(dataPath, fieldName);
+    return _cloudFireStoreNewD.getFieldInPath(dataPath, fieldName);
   }
 
-  ///  This method will return data each time data will be changing in the database
+  ///  For each data change in database it will return value
   Stream<Document> listenToChangeOfDataInPath(
       String dataPath) async* {
     yield* _cloudFireStoreNewD.listenToChangeOfDataInPath(dataPath);

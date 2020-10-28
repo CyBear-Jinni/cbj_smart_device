@@ -76,7 +76,7 @@ abstract class SmartDeviceBaseAbstract {
   DeviceType getDeviceType() => smartDeviceType;
 
   Future<String> getIp() async {
-    return await getIps();
+    return getIps();
   }
 
   ///  Get the list of gpio pin of the device

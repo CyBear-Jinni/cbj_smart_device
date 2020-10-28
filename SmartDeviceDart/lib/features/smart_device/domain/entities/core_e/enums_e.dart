@@ -47,7 +47,13 @@ enum WishSourceEnum {
 }
 
 ///  List of all physical devices types
-enum PhysicalDeviceType { NanoPiDuo2, NanoPiNeo, NanoPiNeo2, RaspberryPi }
+enum PhysicalDeviceType {
+  NanoPiDuo2,
+  NanoPiAir,
+  NanoPiNeo,
+  NanoPiNeo2,
+  RaspberryPi
+}
 
 enum RaspberryPiType {
   Raspberry_Pi_3_Model_B_Rev_1_2,
