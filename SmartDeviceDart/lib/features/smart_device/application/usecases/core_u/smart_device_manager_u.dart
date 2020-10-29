@@ -31,7 +31,7 @@ class SmartDeviceManagerU {
     ///  Setting up all the device from the memory
     _setDevicesUseCase.setAllDevices(deviceList: smartDeviceFromDb);
 
-    print(await getIps());
+    print('Device local IP: ${await getIps()}');
 
     ///  Start listen for in incoming connections from the local internet (LAN/Wifi)
     _smartServerUseCase.waitForConnection(firebaseAccountsInformationD);

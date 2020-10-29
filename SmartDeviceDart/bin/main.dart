@@ -6,7 +6,7 @@ import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources
 void main(List<String> arguments) async {
   print('Smart device is activated');
 
-//  await configureInjection(Env.dev_pi);
+  //  await configureInjection(Env.dev_pi);
   try {
     SharedVariables(arguments[0]);
   } catch (error) {

@@ -1,10 +1,4 @@
 ///
-//  Generated code. Do not modify.
-//  source: smart_connection.proto
-//
-// @dart = 2.3
-// ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
-
 import 'dart:async' as $async;
 import 'dart:core' as $core;
 
@@ -149,48 +143,47 @@ abstract class SmartServerServiceBase extends $grpc.Service {
         getAllDevices_Pre,
         false,
         true,
-            ($core.List<$core.int> value) =>
-            $0.SmartDeviceStatus.fromBuffer(value),
-            ($0.SmartDevice value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.SmartDeviceStatus.fromBuffer(value),
+        ($0.SmartDevice value) => value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$0.FirebaseAccountInformation, $0.CommendStatus>(
             'SetFirebaseAccountInformation',
             setFirebaseAccountInformation_Pre,
             false,
             false,
-                ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
                 $0.FirebaseAccountInformation.fromBuffer(value),
-                ($0.CommendStatus value) => value.writeToBuffer()));
+            ($0.CommendStatus value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.SmartDevice, $0.SmartDeviceStatus>(
         'GetStatus',
         getStatus_Pre,
         false,
         false,
-            ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
-            ($0.SmartDeviceStatus value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
+        ($0.SmartDeviceStatus value) => value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$0.SmartDeviceUpdateDetails, $0.CommendStatus>(
             'UpdateDeviceName',
             updateDeviceName_Pre,
             false,
             false,
-                ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
                 $0.SmartDeviceUpdateDetails.fromBuffer(value),
-                ($0.CommendStatus value) => value.writeToBuffer()));
+            ($0.CommendStatus value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.SmartDevice, $0.CommendStatus>(
         'SetOnDevice',
         setOnDevice_Pre,
         false,
         false,
-            ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
-            ($0.CommendStatus value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
+        ($0.CommendStatus value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.SmartDevice, $0.CommendStatus>(
         'SetOffDevice',
         setOffDevice_Pre,
         false,
         false,
-            ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
-            ($0.CommendStatus value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
+        ($0.CommendStatus value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.SmartDevice, $0.CommendStatus>(
         'setBlindsUp',
         setBlindsUp_Pre,
@@ -210,8 +203,8 @@ abstract class SmartServerServiceBase extends $grpc.Service {
         setBlindsStop_Pre,
         false,
         false,
-            ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
-            ($0.CommendStatus value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
+        ($0.CommendStatus value) => value.writeToBuffer()));
   }
 
   $async.Stream<$0.SmartDevice> getAllDevices_Pre($grpc.ServiceCall call,
