@@ -21,7 +21,8 @@ class SmartServerU extends SmartServerServiceBase {
 
     final SmartServerU smartServer = SmartServerU();
     smartServer.startListen(
-        firebaseAccountsInformationD); // Will go throw the model with the grpc logic and converter to objects
+        firebaseAccountsInformationD); // Will go throw the model with the
+    // grpc logic and converter to objects
   }
 
   ///  Listening in the background to incoming connections
@@ -41,8 +42,8 @@ class SmartServerU extends SmartServerServiceBase {
     if (firebaseAccountInformationD.areAllValuesNotNull()) {
       CloudValueChangeU cloudValueChangeUseCases =
           CloudValueChangeU(firebaseAccountInformationD);
-      cloudValueChangeUseCases
-          .listenToDataBase(); //  Listen to changes in the database for this device
+      cloudValueChangeUseCases.listenToDataBase(); //  Listen to changes in the
+      // database for this device
     }
   }
 

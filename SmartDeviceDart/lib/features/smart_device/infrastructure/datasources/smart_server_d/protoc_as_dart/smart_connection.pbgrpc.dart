@@ -1,10 +1,4 @@
 ///
-//  Generated code. Do not modify.
-//  source: smart_connection.proto
-//
-// @dart = 2.3
-// ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
-
 import 'dart:async' as $async;
 import 'dart:core' as $core;
 
@@ -149,48 +143,47 @@ abstract class SmartServerServiceBase extends $grpc.Service {
         getAllDevices_Pre,
         false,
         true,
-            ($core.List<$core.int> value) =>
-            $0.SmartDeviceStatus.fromBuffer(value),
-            ($0.SmartDevice value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.SmartDeviceStatus.fromBuffer(value),
+        ($0.SmartDevice value) => value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$0.FirebaseAccountInformation, $0.CommendStatus>(
             'SetFirebaseAccountInformation',
             setFirebaseAccountInformation_Pre,
             false,
             false,
-                ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
                 $0.FirebaseAccountInformation.fromBuffer(value),
-                ($0.CommendStatus value) => value.writeToBuffer()));
+            ($0.CommendStatus value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.SmartDevice, $0.SmartDeviceStatus>(
         'GetStatus',
         getStatus_Pre,
         false,
         false,
-            ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
-            ($0.SmartDeviceStatus value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
+        ($0.SmartDeviceStatus value) => value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$0.SmartDeviceUpdateDetails, $0.CommendStatus>(
             'UpdateDeviceName',
             updateDeviceName_Pre,
             false,
             false,
-                ($core.List<$core.int> value) =>
+            ($core.List<$core.int> value) =>
                 $0.SmartDeviceUpdateDetails.fromBuffer(value),
-                ($0.CommendStatus value) => value.writeToBuffer()));
+            ($0.CommendStatus value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.SmartDevice, $0.CommendStatus>(
         'SetOnDevice',
         setOnDevice_Pre,
         false,
         false,
-            ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
-            ($0.CommendStatus value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
+        ($0.CommendStatus value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.SmartDevice, $0.CommendStatus>(
         'SetOffDevice',
         setOffDevice_Pre,
         false,
         false,
-            ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
-            ($0.CommendStatus value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
+        ($0.CommendStatus value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.SmartDevice, $0.CommendStatus>(
         'setBlindsUp',
         setBlindsUp_Pre,
@@ -210,8 +203,8 @@ abstract class SmartServerServiceBase extends $grpc.Service {
         setBlindsStop_Pre,
         false,
         false,
-            ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
-            ($0.CommendStatus value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.SmartDevice.fromBuffer(value),
+        ($0.CommendStatus value) => value.writeToBuffer()));
   }
 
   $async.Stream<$0.SmartDevice> getAllDevices_Pre($grpc.ServiceCall call,
@@ -225,8 +218,8 @@ abstract class SmartServerServiceBase extends $grpc.Service {
     return setFirebaseAccountInformation(call, await request);
   }
 
-  $async.Future<$0.SmartDeviceStatus> getStatus_Pre($grpc.ServiceCall call,
-      $async.Future<$0.SmartDevice> request) async {
+  $async.Future<$0.SmartDeviceStatus> getStatus_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SmartDevice> request) async {
     return getStatus(call, await request);
   }
 
@@ -235,55 +228,55 @@ abstract class SmartServerServiceBase extends $grpc.Service {
     return updateDeviceName(call, await request);
   }
 
-  $async.Future<$0.CommendStatus> setOnDevice_Pre($grpc.ServiceCall call,
-      $async.Future<$0.SmartDevice> request) async {
+  $async.Future<$0.CommendStatus> setOnDevice_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SmartDevice> request) async {
     return setOnDevice(call, await request);
   }
 
-  $async.Future<$0.CommendStatus> setOffDevice_Pre($grpc.ServiceCall call,
-      $async.Future<$0.SmartDevice> request) async {
+  $async.Future<$0.CommendStatus> setOffDevice_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SmartDevice> request) async {
     return setOffDevice(call, await request);
   }
 
-  $async.Future<$0.CommendStatus> setBlindsUp_Pre($grpc.ServiceCall call,
-      $async.Future<$0.SmartDevice> request) async {
+  $async.Future<$0.CommendStatus> setBlindsUp_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SmartDevice> request) async {
     return setBlindsUp(call, await request);
   }
 
-  $async.Future<$0.CommendStatus> setBlindsDown_Pre($grpc.ServiceCall call,
-      $async.Future<$0.SmartDevice> request) async {
+  $async.Future<$0.CommendStatus> setBlindsDown_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SmartDevice> request) async {
     return setBlindsDown(call, await request);
   }
 
-  $async.Future<$0.CommendStatus> setBlindsStop_Pre($grpc.ServiceCall call,
-      $async.Future<$0.SmartDevice> request) async {
+  $async.Future<$0.CommendStatus> setBlindsStop_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SmartDevice> request) async {
     return setBlindsStop(call, await request);
   }
 
-  $async.Stream<$0.SmartDevice> getAllDevices($grpc.ServiceCall call,
-      $0.SmartDeviceStatus request);
+  $async.Stream<$0.SmartDevice> getAllDevices(
+      $grpc.ServiceCall call, $0.SmartDeviceStatus request);
 
   $async.Future<$0.CommendStatus> setFirebaseAccountInformation(
       $grpc.ServiceCall call, $0.FirebaseAccountInformation request);
 
-  $async.Future<$0.SmartDeviceStatus> getStatus($grpc.ServiceCall call,
-      $0.SmartDevice request);
+  $async.Future<$0.SmartDeviceStatus> getStatus(
+      $grpc.ServiceCall call, $0.SmartDevice request);
 
-  $async.Future<$0.CommendStatus> updateDeviceName($grpc.ServiceCall call,
-      $0.SmartDeviceUpdateDetails request);
+  $async.Future<$0.CommendStatus> updateDeviceName(
+      $grpc.ServiceCall call, $0.SmartDeviceUpdateDetails request);
 
-  $async.Future<$0.CommendStatus> setOnDevice($grpc.ServiceCall call,
-      $0.SmartDevice request);
+  $async.Future<$0.CommendStatus> setOnDevice(
+      $grpc.ServiceCall call, $0.SmartDevice request);
 
-  $async.Future<$0.CommendStatus> setOffDevice($grpc.ServiceCall call,
-      $0.SmartDevice request);
+  $async.Future<$0.CommendStatus> setOffDevice(
+      $grpc.ServiceCall call, $0.SmartDevice request);
 
-  $async.Future<$0.CommendStatus> setBlindsUp($grpc.ServiceCall call,
-      $0.SmartDevice request);
+  $async.Future<$0.CommendStatus> setBlindsUp(
+      $grpc.ServiceCall call, $0.SmartDevice request);
 
-  $async.Future<$0.CommendStatus> setBlindsDown($grpc.ServiceCall call,
-      $0.SmartDevice request);
+  $async.Future<$0.CommendStatus> setBlindsDown(
+      $grpc.ServiceCall call, $0.SmartDevice request);
 
-  $async.Future<$0.CommendStatus> setBlindsStop($grpc.ServiceCall call,
-      $0.SmartDevice request);
+  $async.Future<$0.CommendStatus> setBlindsStop(
+      $grpc.ServiceCall call, $0.SmartDevice request);
 }
