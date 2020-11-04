@@ -348,7 +348,7 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
 
   /// Gpio pins number (pinAndPhysicalPinConfiguration) to
   /// hand out before the original order
-  List<int> freeGpioPinsToUseFirst = <int>[8, 10];
+  List<int> freeGpioPinsToUseFirst = <int>[8, 10, 12, 14];
 
   @override
   PinInformation getNextFreeGpioPin({List<PinInformation> ignorePinsList}) {
