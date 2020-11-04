@@ -1,5 +1,5 @@
-import 'device_configuration_base_class.dart';
-import 'pin_information.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/device_configuration_base_class.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 
 class NanoPiNeo2Configuration extends DeviceConfigurationBaseClass {
   NanoPiNeo2Configuration() {
@@ -269,4 +269,7 @@ class NanoPiNeo2Configuration extends DeviceConfigurationBaseClass {
         ph: 38),
   ];
 
+  @override
+  PinInformation getNextFreeGpioPin({List<PinInformation> ignorePinsList}) =>
+      getNextFreeGpioPinHelper(pinList);
 }

@@ -1,20 +1,24 @@
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/device_configuration_base_class.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_duo2_configuration.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo2_configuration.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo_air_configuration.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo_configuration.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_duo2_configuration/nano_pi_duo2_configuration.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo/nano_pi_neo_configuration.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo2/nano_pi_neo2_configuration.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo_air/nano_pi_neo_air_configuration.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/raspberry_pi3_model_b_rev_1_2_configuration.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/raspberry_pi3_model_b_rev_1_2/raspberry_pi3_model_b_rev_1_2_configuration.dart';
 import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
 import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 
-///  This class save all the configuration of the pins per device, every device have different pin for each task, and these class will give the correct pin for the task.
-///  Also these class will manage unused pins for new connections and will return free pins number for the required task.
+///  This class save all the configuration of the pins per device,
+///  every device have different pin for each task,
+///  and these class will give the correct pin for the task.
+///  Also these class will manage unused pins for new connections and
+///  will return free pins number for the required task.
 
-///  Also these class manage the pins, and check if this pin is in the type that the user needs (gpio and more),
-///  If pin is not in use and in the correct type that user expect it return the number of the pin, else return -1
+///  Also these class manage the pins,
+///  and check if this pin is in the type that the user needs (gpio and more),
+///  If pin is not in use and in the correct type that user expect it return the
+///  number of the pin, else return -1
 
 abstract class DevicePinListManagerAbstract {
   ///  Will save the type of the current physical device
@@ -25,7 +29,14 @@ abstract class DevicePinListManagerAbstract {
 
   Future setPhysicalDeviceTypeByHostName();
 
-  PinInformation getGpioPin(SmartDeviceBaseAbstract smartDevice, int pinNumber);
+  /// Return a list of free pins that are not taken, the list will consist of
+  /// the different pins types depending on the smart device type needed pins
+  List<PinInformation> getFreePinsForSmartDeviceType(DeviceType deviceType);
+
+  /// Return a list of free gpio pins that are not taken
+  PinInformation getFreeGpioPins({List<PinInformation> ignorePinsList});
+
+  PinInformation getGpioPin(int pinNumber);
 
   PhysicalDeviceType convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
       String physicalDeviceType);
@@ -60,7 +71,8 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
     }
 
     print('phys type is $physicalDeviceType');
-    //  Save the current physical device configuration to the physicalDevice variable
+    //  Save the current physical device configuration to the
+    //  physicalDevice variable
     switch (physicalDeviceType) {
       case PhysicalDeviceType.NanoPiDuo2:
         {
@@ -112,38 +124,34 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
         }
       default:
         {
-          print(
-              'Detected deviceHostName $deviceHostName \nDevice is not supported, the software will not be able to control the pins.');
+          print('Detected deviceHostName $deviceHostName \n'
+              'Device is not supported, the software will not be able to '
+              'control the pins.');
           break;
         }
     }
-    print(
-        'This device is of type: ${EnumHelper.physicalDeviceTypeToString(physicalDeviceType)}');
+    print('This device is of type:'
+        ' ${EnumHelper.physicalDeviceTypeToString(physicalDeviceType)}');
   }
 
-  ///  Ask for gpio pin, if free return the pin number, else return error number (negative numbers)
+  ///  Ask for gpio pin, if free return the pin number,
+  ///  else return error number (negative numbers)
   @override
-  PinInformation getGpioPin(
-      SmartDeviceBaseAbstract smartDevice, int pinNumber) {
+  PinInformation getGpioPin(int pinNumber) {
     if (physicalDevice == null) {
       print('Error physical device is null');
       return null;
     }
     try {
-      var isGpioFree = physicalDevice.isGpioPinFree(pinNumber);
+      final int isGpioFree = physicalDevice.isGpioPinFree(pinNumber);
       if (isGpioFree != 0) {
         print('Gpio $pinNumber is not free, exist with error code $isGpioFree');
         return null;
       }
 
-      print('one');
-      final PinInformation pinInformation = physicalDevice.getGpioPin(
-          pinNumber);
+      final PinInformation pinInformation =
+          physicalDevice.getGpioPin(pinNumber);
 
-      print('Two $pinNumber');
-      OffWishU.setOff(smartDevice.deviceInformation, pinInformation);
-
-      print('Tree');
       return pinInformation;
     } catch (e) {
       print('This is the exception: $e');
@@ -151,20 +159,50 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
     }
   }
 
-  ///  Return physicalDeviceType object if string physicalDeviceType exist (in general) else return null
+  ///  Return physicalDeviceType object if
+  ///  string physicalDeviceType exist (in general) else return null
   @override
   PhysicalDeviceType convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
       String physicalDeviceType) {
     //  Loop through all the physical devices types
-    for (final PhysicalDeviceType physicalDeviceTypeTemp in PhysicalDeviceType
-        .values) {
+    for (final PhysicalDeviceType physicalDeviceTypeTemp
+        in PhysicalDeviceType.values) {
       if (EnumHelper.physicalDeviceTypeToString(physicalDeviceTypeTemp)
-          .toLowerCase() ==
+              .toLowerCase() ==
           physicalDeviceType.toLowerCase()) {
-        return physicalDeviceTypeTemp; //  If physicalDeviceType string exist return the physicalDeviceType enum object
+        return physicalDeviceTypeTemp; //  If physicalDeviceType string exist
+        // return the physicalDeviceType enum object
       }
     }
     return null;
+  }
+
+  @override
+  List<PinInformation> getFreePinsForSmartDeviceType(DeviceType deviceType) {
+    final dynamic smartDeviceBaseAbstract =
+        EnumHelper.deviceTypeToSmartDeviceBaseAbstractObject(deviceType);
+
+    final List<String> neededPinTypesList =
+        (smartDeviceBaseAbstract as SmartDeviceBaseAbstract)
+            .getNeededPinTypesList();
+
+    final List<PinInformation> pinInformationList = <PinInformation>[];
+
+    for (final String pinType in neededPinTypesList) {
+      if (pinType.toLowerCase() == 'gpio') {
+        pinInformationList
+            .add(getFreeGpioPins(ignorePinsList: pinInformationList));
+      } else {
+        throw UnimplementedError();
+      }
+    }
+
+    return pinInformationList;
+  }
+
+  @override
+  PinInformation getFreeGpioPins({List<PinInformation> ignorePinsList}) {
+    return physicalDevice.getNextFreeGpioPin(ignorePinsList: ignorePinsList);
   }
 }
 
@@ -185,15 +223,15 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
       if (EnumHelper.physicalDeviceTypeToString(physicalDeviceTypeTemp)
           .toLowerCase() ==
           physicalDeviceType.toLowerCase()) {
-        return physicalDeviceTypeTemp; //  If physicalDeviceType string exist return the physicalDeviceType enum object
+        return physicalDeviceTypeTemp; //  If physicalDeviceType string exist
+        // return the physicalDeviceType enum object
       }
     }
     return null;
   }
 
   @override
-  PinInformation getGpioPin(
-      SmartDeviceBaseAbstract smartDevice, int pinNumber) {
+  PinInformation getGpioPin(int pinNumber) {
     return PinInformation();
   }
 
@@ -201,4 +239,17 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
   Future<String> setPhysicalDeviceTypeByHostName() {
     return Future<String>.value('PC');
   }
+
+  @override
+  List<PinInformation> getFreePinsForSmartDeviceType(DeviceType deviceType) {
+    print('Computer does not give free pins, only smart device');
+    throw UnimplementedError();
+  }
+
+  @override
+  PinInformation getFreeGpioPins({List<PinInformation> ignorePinsList}) {
+    print('Computer does not give free gpio pins, only smart device');
+    throw UnimplementedError();
+  }
+
 }

@@ -14,9 +14,10 @@ abstract class DeviceConfigurationBaseClass {
 
   ///  Get the gpio pin if not in used and set it to used, else return null
   PinInformation getGpioPin(int pinNumber) {
-    var pinInformation = getPinInformationByPinNumber(pinNumber);
+    final PinInformation pinInformation =
+        getPinInformationByPinNumber(pinNumber);
 
-    var isTheGpioPinFree = isGpioPinFree(pinNumber);
+    final int isTheGpioPinFree = isGpioPinFree(pinNumber);
     print('Pin is ${pinInformation.pinAndPhysicalPinConfiguration}');
     if (isTheGpioPinFree != 0) {
       throw 'Cant use this pin $pinNumber error code $isTheGpioPinFree';
@@ -44,7 +45,7 @@ abstract class DeviceConfigurationBaseClass {
 
   bool isPinSpecificCategory(
       PinInformation pinInformation, String pinCategory) {
-    var pinCategoryLowerCase = pinCategory.toLowerCase();
+    final String pinCategoryLowerCase = pinCategory.toLowerCase();
     return pinInformation.category.toLowerCase().contains(pinCategoryLowerCase);
   }
 
@@ -74,5 +75,38 @@ abstract class DeviceConfigurationBaseClass {
     }
 
     return 0;
+  }
+
+  /// Get the next free gpio from the device configuration method.
+  PinInformation getNextFreeGpioPin({List<PinInformation> ignorePinsList});
+
+  /// Will return the next gpio in the created order without the override part
+  /// that the device configuration have.
+  PinInformation getNextFreeGpioPinHelper(
+      List<PinInformation> pinInformationList,
+      {List<PinInformation> ignorePinsList}) {
+    for (final PinInformation pinInformation in pinInformationList) {
+      if (isGpioPinFree(pinInformation.pinAndPhysicalPinConfiguration) >= 0 &&
+          doesPinExistInPinList(pinInformation, ignorePinsList) == null) {
+        return pinInformation;
+      }
+    }
+    print("There isn't free gpio");
+    return null;
+  }
+
+  /// Return if pinInformation pinAndPhysicalPinConfiguration value exist in
+  /// pinsList PinInformation List
+  PinInformation doesPinExistInPinList(
+      PinInformation pinInformation, List<PinInformation> pinsList) {
+    if (pinInformation != null && pinsList != null && pinsList.isNotEmpty) {
+      for (final PinInformation pinToIgnore in pinsList) {
+        if (pinToIgnore.pinAndPhysicalPinConfiguration ==
+            pinInformation.pinAndPhysicalPinConfiguration) {
+          return pinToIgnore;
+        }
+      }
+    }
+    return null;
   }
 }

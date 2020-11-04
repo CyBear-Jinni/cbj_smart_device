@@ -1,5 +1,5 @@
-import 'device_configuration_base_class.dart';
-import 'pin_information.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/device_configuration_base_class.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 
 /// Configuration for the NanoPi NEO Air
 class NanoPiNEOAirConfiguration extends DeviceConfigurationBaseClass {
@@ -538,4 +538,8 @@ class NanoPiNEOAirConfiguration extends DeviceConfigurationBaseClass {
       description: 'Gound, 0V',
     ),
   ];
+
+  @override
+  PinInformation getNextFreeGpioPin({List<PinInformation> ignorePinsList}) =>
+      getNextFreeGpioPinHelper(pinList);
 }

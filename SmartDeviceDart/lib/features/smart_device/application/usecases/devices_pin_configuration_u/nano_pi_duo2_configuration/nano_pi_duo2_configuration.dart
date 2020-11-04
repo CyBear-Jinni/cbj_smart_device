@@ -1,5 +1,5 @@
-import 'device_configuration_base_class.dart';
-import 'pin_information.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/device_configuration_base_class.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 
 /// Configuration for the NanoPi Duo 2
 class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
@@ -346,4 +346,26 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         description: 'NC2'),
   ];
 
+  /// Gpio pins number (pinAndPhysicalPinConfiguration) to
+  /// hand out before the original order
+  List<int> freeGpioPinsToUseFirst = <int>[8, 10];
+
+  @override
+  PinInformation getNextFreeGpioPin({List<PinInformation> ignorePinsList}) {
+    for (final int pinNumber in freeGpioPinsToUseFirst) {
+      final PinInformation tempPinInformation =
+          PinInformation(pinAndPhysicalPinConfiguration: pinNumber);
+
+      final PinInformation pinInformationExistInList =
+          doesPinExistInPinList(tempPinInformation, pinList);
+
+      if (pinInformationExistInList != null &&
+          isGpioPinFree(pinNumber) >= 0 &&
+          doesPinExistInPinList(pinInformationExistInList, ignorePinsList) ==
+              null) {
+        return pinInformationExistInList;
+      }
+    }
+    return getNextFreeGpioPinHelper(pinList);
+  }
 }

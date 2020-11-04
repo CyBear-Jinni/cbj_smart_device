@@ -1,6 +1,7 @@
 import 'permissions.dart';
 
-///  These class manage the permissions of user, both user permissions and user ability to give permissions
+///  These class manage the permissions of user, both user permissions and
+///  user ability to give permissions
 class PermissionsManager {
   PermissionsManager(this.permissionsToGivePermissions, this.permissions);
 
