@@ -304,4 +304,7 @@ class RaspberryPi3ModelBRev1_2Configuration
       wPi: 29,
     ),
   ];
+
+  @override
+  PinInformation getNextFreeGpioPin() => getNextFreeGpioPinHelper(pinList);
 }

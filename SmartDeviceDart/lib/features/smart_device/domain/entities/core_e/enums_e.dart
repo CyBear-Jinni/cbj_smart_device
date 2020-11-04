@@ -1,5 +1,10 @@
-
-
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/dinamic_devices/dynamic_light_object.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/dinamic_devices/fan_object.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/dinamic_devices/speaker_object.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/thermostat_object.dart';
+import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
 
 enum DeviceType {
   Light, //  Light ON/OFF
@@ -16,8 +21,12 @@ enum DeviceType {
   RCAirplane,
   RCCar,
   Speakers,
-  Roomba, //  Cleaning robot
-  Irrigation, //  Give water to plants
+
+  ///  Cleaning robot
+  Roomba,
+
+  ///  Give water to plants
+  Irrigation,
   SmartBed,
   AnimalTracker,
   SmartCar
@@ -107,5 +116,97 @@ class EnumHelper {
   ///  Convert physicalDeviceType to string
   static String physicalDeviceTypeToString(PhysicalDeviceType deviceType) {
     return deviceType.toString().replaceAll('PhysicalDeviceType.', '');
+  }
+
+  /// Return the corresponding SmartDeviceBaseAbstract Object of the deviceType
+  static SmartDeviceBaseAbstract deviceTypeToSmartDeviceBaseAbstractObject(
+      DeviceType deviceType) {
+    switch (deviceType) {
+      case DeviceType.Light:
+        return LightObject as SmartDeviceBaseAbstract;
+      case DeviceType.DynamicLight:
+        return DynamicLightObject as SmartDeviceBaseAbstract;
+      case DeviceType.Blinds:
+        return BlindsObject as SmartDeviceBaseAbstract;
+      case DeviceType.Thermostat:
+        return ThermostatObject as SmartDeviceBaseAbstract;
+      case DeviceType.Fan:
+        return FanObject as SmartDeviceBaseAbstract;
+      case DeviceType.AirConditioner:
+        return null;
+      case DeviceType.Camera:
+        return null;
+      case DeviceType.Fridge:
+        return null;
+      case DeviceType.Toaster:
+        return null;
+      case DeviceType.CoffeeMachine:
+        return null;
+      case DeviceType.SmartTV:
+        return null;
+      case DeviceType.RCAirplane:
+        return null;
+      case DeviceType.RCCar:
+        return null;
+      case DeviceType.Speakers:
+        return SpeakerObject as SmartDeviceBaseAbstract;
+      case DeviceType.Roomba:
+        return null;
+      case DeviceType.Irrigation:
+        return null;
+      case DeviceType.SmartBed:
+        return null;
+      case DeviceType.AnimalTracker:
+        return null;
+      case DeviceType.SmartCar:
+        return null;
+    }
+    return null;
+  }
+
+  /// Returning the non abstract of this SmartDeviceBaseAbstract
+  static Type getTheNonAbstractObjectOfSmartDeviceBaseAbstract(
+      SmartDeviceBaseAbstract smartDeviceBaseAbstract, DeviceType deviceType) {
+    switch (deviceType) {
+      case DeviceType.Light:
+        return LightObject;
+      case DeviceType.DynamicLight:
+        return DynamicLightObject;
+      case DeviceType.Blinds:
+        return BlindsObject;
+      case DeviceType.Thermostat:
+        return ThermostatObject;
+      case DeviceType.Fan:
+        return FanObject;
+      case DeviceType.AirConditioner:
+        throw Exception('Air Conditioner was not implemented yet');
+      case DeviceType.Camera:
+        throw Exception('Camera was not implemented yet');
+      case DeviceType.Fridge:
+        throw Exception('Fridge was not implemented yet');
+      case DeviceType.Toaster:
+        throw Exception('Toaster was not implemented yet');
+      case DeviceType.CoffeeMachine:
+        throw Exception('Coffee Machine was not implemented yet');
+      case DeviceType.SmartTV:
+        throw Exception('Smart TV was not implemented yet');
+      case DeviceType.RCAirplane:
+        throw Exception('RC Airplane was not implemented yet');
+      case DeviceType.RCCar:
+        throw Exception('RC Car was not implemented yet');
+      case DeviceType.Speakers:
+        return SpeakerObject;
+      case DeviceType.Roomba:
+        throw Exception('Roomba was not implemented yet');
+      case DeviceType.Irrigation:
+        throw Exception('Irrigation was not implemented yet');
+      case DeviceType.SmartBed:
+        throw Exception('Smart Bed was not implemented yet');
+      case DeviceType.AnimalTracker:
+        throw Exception('Animal Tracker was not implemented yet');
+      case DeviceType.SmartCar:
+        throw Exception('Smart Car was not implemented yet');
+    }
+    throw Exception('This Type was not implemented yet');
   }
 }

@@ -10,7 +10,8 @@ import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enu
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
 import 'package:SmartDeviceDart/features/smart_device/infrastructure/repositories/smart_device_objects_r/smart_device_objects_r.dart';
 
-///  The super base class of all the smart device class and smart device abstract classes
+///  The super base class of all the smart device class and
+///  smart device abstract classes
 abstract class SmartDeviceBaseAbstract {
   SmartDeviceBaseAbstract(this.uuid, this.smartInstanceName, int onOffPinNumber,
       {int onOffButtonPinNumber}) {
@@ -70,11 +71,21 @@ abstract class SmartDeviceBaseAbstract {
   ///  The type of the smart device Light blinds etc
   DeviceType smartDeviceType;
 
+  /// Get a list of the pins Types that this device need
+  List<String> getNeededPinTypesList() => null;
+
   //  Getters
 
   ///  Get smart device type
   DeviceType getDeviceType() => smartDeviceType;
 
+  /// Returning the non abstract of this object
+  Type getTheNonAbstractObjectOfThisInstance() {
+    return EnumHelper.getTheNonAbstractObjectOfSmartDeviceBaseAbstract(
+        this, getDeviceType());
+  }
+
+  /// Getting the saved IP of this object
   Future<String> getIp() async {
     return getIps();
   }
@@ -131,9 +142,10 @@ abstract class SmartDeviceBaseAbstract {
 
   ///  Add gpio pin for this device
   PinInformation addPinToGpioPinList(int pinNumber) {
-    //  Check if pin is free to be taken, if not return negative number with error number
+    //  Check if pin is free to be taken,
+    //  if not return negative number with error number
     final PinInformation gpioPin =
-        DevicePinListManager().getGpioPin(this, pinNumber);
+    DevicePinListManager().getGpioPin(pinNumber);
     if (gpioPin == null) {
       return null;
     }
@@ -141,7 +153,8 @@ abstract class SmartDeviceBaseAbstract {
     return gpioPin;
   }
 
-  ///  Return PossibleWishes object if string wish exist (in general) else return null
+  ///  Return PossibleWishes object if
+  ///  string wish exist (in general) else return null
   WishEnum convertWishStringToWishesObject(String wish) {
     for (final WishEnum possibleWish in WishEnum.values) {
       print('Wish value ${EnumHelper.wishEnumToString(possibleWish)}');
@@ -152,7 +165,8 @@ abstract class SmartDeviceBaseAbstract {
     return null;
   }
 
-  ///  Check if wish exist at all if true than check if base abstract have this wish and if true than execute it
+  ///  Check if wish exist at all if true than check if base abstract have
+  ///  this wish and if true than execute it
   Future<String> executeWishString(String wishString,
       WishSourceEnum wishSourceEnum) async {
     final WishEnum wish = convertWishStringToWishesObject(wishString);

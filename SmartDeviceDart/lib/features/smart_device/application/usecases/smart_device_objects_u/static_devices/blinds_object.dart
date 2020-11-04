@@ -18,12 +18,11 @@ class BlindsObject extends SmartDeviceStaticAbstract {
       int downButtonPinNumber)
       : super(uuid, smartInstanceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber) {
-    buttonPinUp = DevicePinListManager().getGpioPin(this, upButtonPinNumber);
-    buttonPinDown =
-        DevicePinListManager().getGpioPin(this, downButtonPinNumber);
+    buttonPinUp = DevicePinListManager().getGpioPin(upButtonPinNumber);
+    buttonPinDown = DevicePinListManager().getGpioPin(downButtonPinNumber);
 
-    this.blindsUpPin = DevicePinListManager().getGpioPin(this, blindsUpPin);
-    this.blindsDownPin = DevicePinListManager().getGpioPin(this, blindsDownPin);
+    this.blindsUpPin = DevicePinListManager().getGpioPin(blindsUpPin);
+    this.blindsDownPin = DevicePinListManager().getGpioPin(blindsDownPin);
     listenToTwoButtonsPress();
 
     setDeviceType(DeviceType.Blinds);
@@ -32,14 +31,18 @@ class BlindsObject extends SmartDeviceStaticAbstract {
   PinInformation buttonPinUp, blindsUpPin, buttonPinDown, blindsDownPin;
 
   @override
+  List<String> getNeededPinTypesList() =>
+      <String>['gpio', 'gpio', 'gpio', 'gpio'];
+
+  @override
   void setDeviceType(DeviceType deviceType) => super.setDeviceType(deviceType);
 
   @override
   DeviceType getDeviceType() => DeviceType.Blinds;
 
   @override
-  Future<String> executeWishString(String wishString,
-      WishSourceEnum wishSourceEnum) async {
+  Future<String> executeWishString(
+      String wishString, WishSourceEnum wishSourceEnum) async {
     final WishEnum wish = convertWishStringToWishesObject(wishString);
     return executeWish(wish, wishSourceEnum);
   }

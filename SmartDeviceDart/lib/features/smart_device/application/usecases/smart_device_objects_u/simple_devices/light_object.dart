@@ -11,6 +11,9 @@ class LightObject extends SmartDeviceSimpleAbstract {
   }
 
   @override
+  List<String> getNeededPinTypesList() => <String>['gpio', 'gpio'];
+
+  @override
   void setDeviceType(DeviceType deviceType) => super.setDeviceType(deviceType);
 
   ///  Return smart device type

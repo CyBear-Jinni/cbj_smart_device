@@ -20,13 +20,10 @@ class SetDevicesU {
     } else {
       String deviceConfiguration = await _setDevicesE.getDeviceDefaultConfig();
       if (deviceConfiguration == null || deviceConfiguration.isEmpty) {
-        print('');
-        print('Default configuration file content is null or empty !!!.');
-        print('');
-        print(
-            'Please add configuration file with device type to it, for example');
-        print('Light, ');
-        print('and try again.');
+        print('\nDefault configuration file content is null or empty !!!.\n'
+            'Please add configuration file with device type to it,'
+            ' for example\nLight, \nand try again.');
+
         return;
       }
       List<SmartDeviceBaseAbstract> listOfSmartDevices =
@@ -40,9 +37,9 @@ class SetDevicesU {
   }
 
   Future<void> manualSetup() async {
-    String uuid = await _setDevicesE.getCurrentDeviceUUid();
-    //  TODO: insert the number of the pin with class DevicePinListManager to check if pin is free to use and of the right type
-    MySingleton.setSmartDevicesList([
+    final String uuid = await _setDevicesE.getCurrentDeviceUUid();
+
+    MySingleton.setSmartDevicesList(<SmartDeviceBaseAbstract>[
       LightObject(uuid, 'Stairs', 8, onOffButtonPinNumber: 10),
       LightObject(uuid, 'Storage', 12, onOffButtonPinNumber: 14)
 
