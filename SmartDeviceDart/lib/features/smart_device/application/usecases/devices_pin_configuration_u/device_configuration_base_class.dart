@@ -78,18 +78,35 @@ abstract class DeviceConfigurationBaseClass {
   }
 
   /// Get the next free gpio from the device configuration method.
-  PinInformation getNextFreeGpioPin();
+  PinInformation getNextFreeGpioPin({List<PinInformation> ignorePinsList});
 
   /// Will return the next gpio in the created order without the override part
   /// that the device configuration have.
-  PinInformation getNextFreeGpioPinHelper(List<PinInformation>
-  pinInformationList) {
+  PinInformation getNextFreeGpioPinHelper(
+      List<PinInformation> pinInformationList,
+      {List<PinInformation> ignorePinsList}) {
     for (final PinInformation pinInformation in pinInformationList) {
-      if (isGpioPinFree(pinInformation.pinAndPhysicalPinConfiguration) >= 0) {
+      if (isGpioPinFree(pinInformation.pinAndPhysicalPinConfiguration) >= 0 &&
+          doesPinExistInPinList(pinInformation, ignorePinsList) == null) {
         return pinInformation;
       }
     }
     print("There isn't free gpio");
+    return null;
+  }
+
+  /// Return if pinInformation pinAndPhysicalPinConfiguration value exist in
+  /// pinsList PinInformation List
+  PinInformation doesPinExistInPinList(
+      PinInformation pinInformation, List<PinInformation> pinsList) {
+    if (pinInformation != null && pinsList != null && pinsList.isNotEmpty) {
+      for (final PinInformation pinToIgnore in pinsList) {
+        if (pinToIgnore.pinAndPhysicalPinConfiguration ==
+            pinInformation.pinAndPhysicalPinConfiguration) {
+          return pinToIgnore;
+        }
+      }
+    }
     return null;
   }
 }

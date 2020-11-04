@@ -34,7 +34,7 @@ abstract class DevicePinListManagerAbstract {
   List<PinInformation> getFreePinsForSmartDeviceType(DeviceType deviceType);
 
   /// Return a list of free gpio pins that are not taken
-  PinInformation getFreeGpioPins();
+  PinInformation getFreeGpioPins({List<PinInformation> ignorePinsList});
 
   PinInformation getGpioPin(int pinNumber);
 
@@ -179,17 +179,19 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
 
   @override
   List<PinInformation> getFreePinsForSmartDeviceType(DeviceType deviceType) {
-    final SmartDeviceBaseAbstract smartDeviceBaseAbstract =
+    final dynamic smartDeviceBaseAbstract =
         EnumHelper.deviceTypeToSmartDeviceBaseAbstractObject(deviceType);
 
     final List<String> neededPinTypesList =
-        smartDeviceBaseAbstract.getNeededPinTypesList();
+        (smartDeviceBaseAbstract as SmartDeviceBaseAbstract)
+            .getNeededPinTypesList();
 
     final List<PinInformation> pinInformationList = <PinInformation>[];
 
     for (final String pinType in neededPinTypesList) {
       if (pinType.toLowerCase() == 'gpio') {
-        pinInformationList.add(getFreeGpioPins());
+        pinInformationList
+            .add(getFreeGpioPins(ignorePinsList: pinInformationList));
       } else {
         throw UnimplementedError();
       }
@@ -199,8 +201,8 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
   }
 
   @override
-  PinInformation getFreeGpioPins() {
-    return physicalDevice.getNextFreeGpioPin();
+  PinInformation getFreeGpioPins({List<PinInformation> ignorePinsList}) {
+    return physicalDevice.getNextFreeGpioPin(ignorePinsList: ignorePinsList);
   }
 }
 
@@ -245,7 +247,7 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
   }
 
   @override
-  PinInformation getFreeGpioPins() {
+  PinInformation getFreeGpioPins({List<PinInformation> ignorePinsList}) {
     print('Computer does not give free gpio pins, only smart device');
     throw UnimplementedError();
   }

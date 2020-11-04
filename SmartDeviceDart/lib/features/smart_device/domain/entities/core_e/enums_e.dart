@@ -119,19 +119,19 @@ class EnumHelper {
   }
 
   /// Return the corresponding SmartDeviceBaseAbstract Object of the deviceType
-  static SmartDeviceBaseAbstract deviceTypeToSmartDeviceBaseAbstractObject(
+  static dynamic deviceTypeToSmartDeviceBaseAbstractObject(
       DeviceType deviceType) {
     switch (deviceType) {
       case DeviceType.Light:
-        return LightObject as SmartDeviceBaseAbstract;
+        return LightObject(null, null, null);
       case DeviceType.DynamicLight:
-        return DynamicLightObject as SmartDeviceBaseAbstract;
+        return DynamicLightObject(null, null, null);
       case DeviceType.Blinds:
-        return BlindsObject as SmartDeviceBaseAbstract;
+        return BlindsObject(null, null, null, null, null, null, null, null);
       case DeviceType.Thermostat:
-        return ThermostatObject as SmartDeviceBaseAbstract;
+        return ThermostatObject(null, null, null);
       case DeviceType.Fan:
-        return FanObject as SmartDeviceBaseAbstract;
+        return FanObject(null, null, null);
       case DeviceType.AirConditioner:
         return null;
       case DeviceType.Camera:
@@ -149,7 +149,7 @@ class EnumHelper {
       case DeviceType.RCCar:
         return null;
       case DeviceType.Speakers:
-        return SpeakerObject as SmartDeviceBaseAbstract;
+        return SpeakerObject(null, null, null);
       case DeviceType.Roomba:
         return null;
       case DeviceType.Irrigation:
