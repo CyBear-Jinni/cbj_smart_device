@@ -1,10 +1,10 @@
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/dinamic_devices/dynamic_light_object.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/dinamic_devices/fan_object.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/dinamic_devices/speaker_object.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/thermostat_object.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/dinamic_devices/dynamic_light_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/dinamic_devices/fan_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/dinamic_devices/speaker_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/thermostat_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
 
 enum DeviceType {
   Light, //  Light ON/OFF

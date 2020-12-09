@@ -1,4 +1,4 @@
-import 'package:SmartDeviceDart/core/device_information.dart';
+import 'package:smart_device_dart/core/device_information.dart';
 
 class DynamicWishU {
 
