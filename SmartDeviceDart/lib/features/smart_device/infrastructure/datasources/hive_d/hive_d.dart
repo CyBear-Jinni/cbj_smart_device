@@ -1,7 +1,7 @@
-import 'package:SmartDeviceDart/core/my_singleton.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/hive_d/hive_objects_d/hive_devices_d.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/hive_d/hive_store_d.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
+import 'package:smart_device_dart/core/my_singleton.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/hive_d/hive_objects_d/hive_devices_d.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/hive_d/hive_store_d.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 import 'package:hive/hive.dart';
 
 class HiveD {

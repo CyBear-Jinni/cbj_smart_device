@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:SmartDeviceDart/core/shared_variables.dart';
+import 'package:smart_device_dart/core/shared_variables.dart';
 
 class TurnPinOnWiringPiSetupSys {
   Future<ProcessResult> TurnThePinOn(String physicalPinNumber) async {

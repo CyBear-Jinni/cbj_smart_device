@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:SmartDeviceDart/core/shared_variables.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/bash_commands_d/bash_commands_for_raspberry_pi_d.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/bash_commands_d/common_bash_commands_d.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/batch_commands_d/common_batch_commands_d.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_base_class_d.dart';
+import 'package:smart_device_dart/core/shared_variables.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/system_commands_d/bash_commands_d/bash_commands_for_raspberry_pi_d.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/system_commands_d/bash_commands_d/common_bash_commands_d.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/system_commands_d/batch_commands_d/common_batch_commands_d.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_base_class_d.dart';
 
 class SystemCommandsManager {
   SystemCommandsManager() {

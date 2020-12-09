@@ -1,4 +1,4 @@
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_dynamic_abstract.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_dynamic_abstract.dart';
 
 class SpeakerObject extends SmartDeviceDynamicAbstract {
   SpeakerObject(String uuid, String smartInstanceName, int onOffPinNumber,

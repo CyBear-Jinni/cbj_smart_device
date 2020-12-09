@@ -1,5 +1,5 @@
-import 'package:SmartDeviceDart/core/error/failures.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import 'package:smart_device_dart/core/error/failures.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class UseCase<Type, Params> {
