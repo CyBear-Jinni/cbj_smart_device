@@ -1,4 +1,4 @@
-//import 'package:SmartDeviceDart/injection.iconfig.dart';
+//import 'package:smart_device_dart/injection.iconfig.dart';
 import 'package:get_it/get_it.dart';
 //import 'package:injectable/injectable.dart';
 

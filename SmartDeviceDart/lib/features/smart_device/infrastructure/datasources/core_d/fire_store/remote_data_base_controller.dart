@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/core_d/fire_store/cloud_fire_store_d.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/core_d/fire_store/cloud_fire_store_d.dart';
 import 'package:firedart/firestore/models.dart';
 
 class RemoteDataBaseController {

@@ -1,11 +1,16 @@
 ///
+//  Generated code. Do not modify.
+//  source: smart_connection.proto
+//
+// @dart = 2.3
+// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+
 import 'dart:async' as $async;
+
 import 'dart:core' as $core;
 
 import 'package:grpc/service_api.dart' as $grpc;
-
 import 'smart_connection.pb.dart' as $0;
-
 export 'smart_connection.pb.dart';
 
 class SmartServerClient extends $grpc.Client {
@@ -56,81 +61,60 @@ class SmartServerClient extends $grpc.Client {
           ($0.SmartDevice value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.CommendStatus.fromBuffer(value));
 
-  SmartServerClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
-      : super(channel, options: options);
+  SmartServerClient($grpc.ClientChannel channel,
+      {$grpc.CallOptions options,
+      $core.Iterable<$grpc.ClientInterceptor> interceptors})
+      : super(channel, options: options, interceptors: interceptors);
 
   $grpc.ResponseStream<$0.SmartDevice> getAllDevices(
       $0.SmartDeviceStatus request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
+    return $createStreamingCall(
         _$getAllDevices, $async.Stream.fromIterable([request]),
         options: options);
-    return $grpc.ResponseStream(call);
   }
 
   $grpc.ResponseFuture<$0.CommendStatus> setFirebaseAccountInformation(
       $0.FirebaseAccountInformation request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$setFirebaseAccountInformation, $async.Stream.fromIterable([request]),
+    return $createUnaryCall(_$setFirebaseAccountInformation, request,
         options: options);
-    return $grpc.ResponseFuture(call);
   }
 
   $grpc.ResponseFuture<$0.SmartDeviceStatus> getStatus($0.SmartDevice request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(_$getStatus, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$getStatus, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CommendStatus> updateDeviceName(
       $0.SmartDeviceUpdateDetails request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$updateDeviceName, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$updateDeviceName, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CommendStatus> setOnDevice($0.SmartDevice request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$setOnDevice, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$setOnDevice, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CommendStatus> setOffDevice($0.SmartDevice request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$setOffDevice, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$setOffDevice, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CommendStatus> setBlindsUp($0.SmartDevice request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$setBlindsUp, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$setBlindsUp, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CommendStatus> setBlindsDown($0.SmartDevice request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$setBlindsDown, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$setBlindsDown, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CommendStatus> setBlindsStop($0.SmartDevice request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$setBlindsStop, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$setBlindsStop, request, options: options);
   }
 }
 
@@ -255,28 +239,20 @@ abstract class SmartServerServiceBase extends $grpc.Service {
 
   $async.Stream<$0.SmartDevice> getAllDevices(
       $grpc.ServiceCall call, $0.SmartDeviceStatus request);
-
   $async.Future<$0.CommendStatus> setFirebaseAccountInformation(
       $grpc.ServiceCall call, $0.FirebaseAccountInformation request);
-
   $async.Future<$0.SmartDeviceStatus> getStatus(
       $grpc.ServiceCall call, $0.SmartDevice request);
-
   $async.Future<$0.CommendStatus> updateDeviceName(
       $grpc.ServiceCall call, $0.SmartDeviceUpdateDetails request);
-
   $async.Future<$0.CommendStatus> setOnDevice(
       $grpc.ServiceCall call, $0.SmartDevice request);
-
   $async.Future<$0.CommendStatus> setOffDevice(
       $grpc.ServiceCall call, $0.SmartDevice request);
-
   $async.Future<$0.CommendStatus> setBlindsUp(
       $grpc.ServiceCall call, $0.SmartDevice request);
-
   $async.Future<$0.CommendStatus> setBlindsDown(
       $grpc.ServiceCall call, $0.SmartDevice request);
-
   $async.Future<$0.CommendStatus> setBlindsStop(
       $grpc.ServiceCall call, $0.SmartDevice request);
 }

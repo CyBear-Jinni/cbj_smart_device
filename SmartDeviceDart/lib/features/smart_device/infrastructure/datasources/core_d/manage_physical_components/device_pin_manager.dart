@@ -1,13 +1,13 @@
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/device_configuration_base_class.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_duo2_configuration/nano_pi_duo2_configuration.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo/nano_pi_neo_configuration.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo2/nano_pi_neo2_configuration.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo_air/nano_pi_neo_air_configuration.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/devices_pin_configuration_u/raspberry_pi3_model_b_rev_1_2/raspberry_pi3_model_b_rev_1_2_configuration.dart';
-import 'package:SmartDeviceDart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
-import 'package:SmartDeviceDart/features/smart_device/domain/entities/core_e/enums_e.dart';
-import 'package:SmartDeviceDart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/device_configuration_base_class.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_duo2_configuration/nano_pi_duo2_configuration.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo/nano_pi_neo_configuration.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo2/nano_pi_neo2_configuration.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo_air/nano_pi_neo_air_configuration.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/raspberry_pi3_model_b_rev_1_2/raspberry_pi3_model_b_rev_1_2_configuration.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 
 ///  This class save all the configuration of the pins per device,
 ///  every device have different pin for each task,
