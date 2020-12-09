@@ -61,7 +61,8 @@ enum PhysicalDeviceType {
   NanoPiAir,
   NanoPiNeo,
   NanoPiNeo2,
-  RaspberryPi
+  RaspberryPi,
+  NotSupported
 }
 
 enum RaspberryPiType {

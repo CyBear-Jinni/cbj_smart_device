@@ -46,12 +46,12 @@ class SetDevicesE {
     for (final DeviceType deviceType in deviceTypeList) {
       if (deviceType == DeviceType.Light) {
         final int lightPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceType.Light)[0]
-            .pinAndPhysicalPinConfiguration;
+            .getFreePinsForSmartDeviceType(DeviceType.Light)[0]?.
+        pinAndPhysicalPinConfiguration;
 
         final int buttonPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceType.Light)[1]
-            .pinAndPhysicalPinConfiguration;
+            .getFreePinsForSmartDeviceType(DeviceType.Light)[1]?.
+        pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter =
             numberOfThatTypeThatExist(smartDeviceList, DeviceType.Light);
@@ -60,20 +60,20 @@ class SetDevicesE {
             onOffButtonPinNumber: buttonPinNumber));
       } else if (deviceType == DeviceType.Blinds) {
         final int blindUpPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceType.Light)[0]
-            .pinAndPhysicalPinConfiguration;
+            .getFreePinsForSmartDeviceType(DeviceType.Light)[0]?.
+        pinAndPhysicalPinConfiguration;
 
         final int buttonUpPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceType.Light)[1]
-            .pinAndPhysicalPinConfiguration;
+            .getFreePinsForSmartDeviceType(DeviceType.Light)[1]?.
+        pinAndPhysicalPinConfiguration;
 
         final int blindDownPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceType.Light)[2]
-            .pinAndPhysicalPinConfiguration;
+            .getFreePinsForSmartDeviceType(DeviceType.Light)[2]?.
+        pinAndPhysicalPinConfiguration;
 
         final int buttonDownPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceType.Light)[3]
-            .pinAndPhysicalPinConfiguration;
+            .getFreePinsForSmartDeviceType(DeviceType.Light)[3]?.
+        pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter = numberOfThatTypeThatExist(smartDeviceList,
             DeviceType.Blinds);
