@@ -26,7 +26,7 @@ abstract class SmartDeviceBaseAbstract {
         listenToButtonPressed();
       }
     }
-    _cloudValueChangeU = CloudValueChangeU.getCloudValueChangeU();
+    cloudValueChangeU = CloudValueChangeU.getCloudValueChangeU();
   }
 
   ///  Save data about the device, remote or local IP or pin number
@@ -66,7 +66,8 @@ abstract class SmartDeviceBaseAbstract {
   ///  Save all the gpio pins that this instance is using
   final List<PinInformation> _gpioPinList = <PinInformation>[];
 
-  CloudValueChangeU _cloudValueChangeU;
+  /// Instance to interact with the cloud
+  CloudValueChangeU cloudValueChangeU;
 
   ///  The type of the smart device Light blinds etc
   DeviceType smartDeviceType;
@@ -219,9 +220,9 @@ abstract class SmartDeviceBaseAbstract {
   }
 
   void updateCloudValue(String value) {
-    _cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
-    if (_cloudValueChangeU != null) {
-      _cloudValueChangeU.updateDocument(smartInstanceName, value);
+    cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
+    if (cloudValueChangeU != null) {
+      cloudValueChangeU.updateDocument(smartInstanceName, value);
     }
   }
 
