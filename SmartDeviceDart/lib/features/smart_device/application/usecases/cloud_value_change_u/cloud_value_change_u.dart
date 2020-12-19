@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:smart_device_dart/core/my_singleton.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/core_u/actions_to_preform_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
@@ -13,6 +15,7 @@ class CloudValueChangeU {
     _cloudValueChangeEntity = CloudValueChangeE(firebaseAccountsInformationD);
   }
 
+  StreamSubscription<Document> _listenToDataBaseStream;
   static CloudValueChangeU _cloudValueChangeU;
   CloudValueChangeE _cloudValueChangeEntity;
 
@@ -25,8 +28,21 @@ class CloudValueChangeU {
   }
 
   ///  Listen to changes in the database for this device
-  void listenToDataBase() {
-    _cloudValueChangeEntity.listenToDataBase().listen((document) {
+  Future<void> listenToDataBase() async{
+    listenToDataBaseHelper();
+
+    // Needed to patch issue #26 for now
+    Timer.periodic(const Duration(hours: 1), (Timer t)  {
+      print('Restarting stream');
+      _listenToDataBaseStream?.cancel();
+      listenToDataBaseHelper();
+    });
+  }
+
+  ///  Listen Helper, includes the actual listening cloud changes.
+  Future<void> listenToDataBaseHelper() async{
+
+    _listenToDataBaseStream = _cloudValueChangeEntity.listenToDataBase().listen((document) {
       Document firestoreDocument = document;
       print('Change detected in Firestore');
 
