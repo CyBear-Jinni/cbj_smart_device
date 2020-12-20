@@ -34,14 +34,13 @@ class CloudValueChangeU {
     // Needed to patch issue #26 for now
     Timer.periodic(const Duration(hours: 1), (Timer t)  {
       print('Restarting stream');
-      _listenToDataBaseStream?.cancel();
       listenToDataBaseHelper();
     });
   }
 
   ///  Listen Helper, includes the actual listening cloud changes.
   Future<void> listenToDataBaseHelper() async{
-
+    await _listenToDataBaseStream?.cancel();
     _listenToDataBaseStream = _cloudValueChangeEntity.listenToDataBase().listen((document) {
       Document firestoreDocument = document;
       print('Change detected in Firestore');
