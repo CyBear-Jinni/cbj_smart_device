@@ -15,7 +15,6 @@ class CloudValueChangeU {
     _cloudValueChangeEntity = CloudValueChangeE(firebaseAccountsInformationD);
   }
 
-  StreamSubscription<Document> _listenToDataBaseStream;
   static CloudValueChangeU _cloudValueChangeU;
   CloudValueChangeE _cloudValueChangeEntity;
 
@@ -29,19 +28,7 @@ class CloudValueChangeU {
 
   ///  Listen to changes in the database for this device
   Future<void> listenToDataBase() async{
-    listenToDataBaseHelper();
-
-    // Needed to patch issue #26 for now
-    Timer.periodic(const Duration(hours: 1), (Timer t)  {
-      print('Restarting stream');
-      listenToDataBaseHelper();
-    });
-  }
-
-  ///  Listen Helper, includes the actual listening cloud changes.
-  Future<void> listenToDataBaseHelper() async{
-    await _listenToDataBaseStream?.cancel();
-    _listenToDataBaseStream = _cloudValueChangeEntity.listenToDataBase().listen((document) {
+    _cloudValueChangeEntity.listenToDataBase().listen((document) {
       Document firestoreDocument = document;
       print('Change detected in Firestore');
 
