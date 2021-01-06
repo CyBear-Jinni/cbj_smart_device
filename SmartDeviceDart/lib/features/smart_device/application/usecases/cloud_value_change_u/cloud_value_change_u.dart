@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:smart_device_dart/core/my_singleton.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/core_u/actions_to_preform_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
@@ -28,14 +30,36 @@ class CloudValueChangeU {
 
   ///  Listen to changes in the database for this device
   Future<void> listenToDataBase() async{
-    _cloudValueChangeEntity.listenToDataBase().listen((document) {
-      Document firestoreDocument = document;
+
+    final List<AddressCheckOptions> DEFAULTADDRESSES = List<AddressCheckOptions>.unmodifiable([
+      AddressCheckOptions(
+        InternetAddress('1.1.1.1'), // CloudFlare
+      ),
+      AddressCheckOptions(
+        InternetAddress('208.67.222.222'), // OpenDNS
+      ),
+    ]);
+
+    DataConnectionChecker().addresses = DEFAULTADDRESSES;
+
+    while(true){
+      bool result = await DataConnectionChecker().hasConnection;
+      if(result == true) {
+        print('Have internet');
+        break;
+      }
+      print('No internet');
+      await Future.delayed(const Duration(seconds: 10));
+    }
+
+    _cloudValueChangeEntity.listenToDataBase().listen((Document document) {
+      final Document firestoreDocument = document;
       print('Change detected in Firestore');
 
-      Map<SmartDeviceBaseAbstract, String> devicesNamesThatValueChanged =
-      Map<SmartDeviceBaseAbstract, String>();
+      final Map<SmartDeviceBaseAbstract, String> devicesNamesThatValueChanged =
+      <SmartDeviceBaseAbstract, String>{};
 
-      MySingleton.getSmartDevicesList().forEach((element) {
+      MySingleton.getSmartDevicesList().forEach((SmartDeviceBaseAbstract element) {
         if (firestoreDocument.map.containsKey(element.smartInstanceName)) {
           if (element.getDeviceState() !=
               firestoreDocument.map[element.smartInstanceName]) {
@@ -45,7 +69,7 @@ class CloudValueChangeU {
         }
       });
 
-      devicesNamesThatValueChanged.forEach((smartDeviceBaseAbstract, value) {
+      devicesNamesThatValueChanged.forEach((SmartDeviceBaseAbstract smartDeviceBaseAbstract, String value) {
         print('FireBase "${smartDeviceBaseAbstract
             .smartInstanceName}" have different value, will now change to $value');
         WishEnum wishEnum;
