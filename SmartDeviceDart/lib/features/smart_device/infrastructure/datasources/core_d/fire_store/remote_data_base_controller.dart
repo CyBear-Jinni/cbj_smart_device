@@ -5,7 +5,6 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 import 'package:firedart/firestore/models.dart';
 
 class RemoteDataBaseController {
-
   RemoteDataBaseController(
       FirebaseAccountsInformationD firebaseAccountsInformationD) {
     _cloudFireStoreNewD = CloudFireStoreD(firebaseAccountsInformationD);
@@ -24,8 +23,7 @@ class RemoteDataBaseController {
   }
 
   ///  For each data change in database it will return value
-  Stream<Document> listenToChangeOfDataInPath(
-      String dataPath) async* {
+  Stream<Document> listenToChangeOfDataInPath(String dataPath) async* {
     yield* _cloudFireStoreNewD.listenToChangeOfDataInPath(dataPath);
   }
 

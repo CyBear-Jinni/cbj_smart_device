@@ -16,15 +16,15 @@ class OffWishU {
   }
 
   ///  Turn this device off
-  static String setOffLocal(LocalDevice deviceInformation,
-                            PinInformation pinNumber) {
+  static String setOffLocal(
+      LocalDevice deviceInformation, PinInformation pinNumber) {
     WishClassesE().pinOff(pinNumber);
     return 'Response from this device off sucsessful';
   }
 
   ///  Change the remote device off
-  static String setOffRemote(RemoteDevice remoteDevice,
-                             PinInformation pinNumber) {
+  static String setOffRemote(
+      RemoteDevice remoteDevice, PinInformation pinNumber) {
 //    try {
 //      HttpClient()
 //          .getUrl(Uri.parse('http://' +

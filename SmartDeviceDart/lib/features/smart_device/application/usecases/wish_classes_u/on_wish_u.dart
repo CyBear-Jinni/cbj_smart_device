@@ -20,15 +20,15 @@ class OnWishU {
   }
 
   ///  Turn this device on
-  static String setOnLocal(LocalDevice deviceInformation,
-                           PinInformation pinNumber) {
+  static String setOnLocal(
+      LocalDevice deviceInformation, PinInformation pinNumber) {
     TurnPinOnOffLocal().pinOn(pinNumber);
     return 'Response from this device on successful';
   }
 
   ///  Turn the remote device on
-  static String setOnRemote(RemoteDevice remoteDevice,
-                            PinInformation pinNumber) {
+  static String setOnRemote(
+      RemoteDevice remoteDevice, PinInformation pinNumber) {
 //    try {
 //      HttpClient()
 //          .getUrl(Uri.parse('http://' +

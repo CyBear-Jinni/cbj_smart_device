@@ -7,7 +7,6 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/wis
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 
 class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
-
   ButtonObjectLocalU({this.cloudValueChangeU});
 
   CloudValueChangeU cloudValueChangeU;
@@ -32,9 +31,11 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
         }
 
         if (lightPin.v == 1) {
-          await smartDevice.executeWish(WishEnum.SOff, WishSourceEnum.ButtonPress);
+          await smartDevice.executeWish(
+              WishEnum.SOff, WishSourceEnum.ButtonPress);
         } else {
-          await smartDevice.executeWish(WishEnum.SOn, WishSourceEnum.ButtonPress);
+          await smartDevice.executeWish(
+              WishEnum.SOn, WishSourceEnum.ButtonPress);
         }
 
         await Future.delayed(const Duration(seconds: 1));
@@ -49,24 +50,28 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   @override
   Future<void> listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
       SmartDeviceBaseAbstract smartDevice,
-      PinInformation firstButtonPinNumber, PinInformation firstLightPin,
-      PinInformation secondButtonPinNumber, PinInformation secondLightPin) async
-  {
-    listenToButtonPressAndDoAction(smartDevice, firstButtonPinNumber,
-                                       firstLightPin, secondLightPin, 1);
+      PinInformation firstButtonPinNumber,
+      PinInformation firstLightPin,
+      PinInformation secondButtonPinNumber,
+      PinInformation secondLightPin) async {
+    listenToButtonPressAndDoAction(
+        smartDevice, firstButtonPinNumber, firstLightPin, secondLightPin, 1);
 
-    listenToButtonPressAndDoAction(smartDevice, secondButtonPinNumber,
-                                       firstLightPin, secondLightPin, 2);
+    listenToButtonPressAndDoAction(
+        smartDevice, secondButtonPinNumber, firstLightPin, secondLightPin, 2);
   }
 
-
   @override
-  void listenToButtonPressAndDoAction(SmartDeviceBaseAbstract smartDevice,
-      PinInformation buttonPinNumber, PinInformation firstLightPin,
-      PinInformation secondLightPin, int buttonNumber) async {
+  void listenToButtonPressAndDoAction(
+      SmartDeviceBaseAbstract smartDevice,
+      PinInformation buttonPinNumber,
+      PinInformation firstLightPin,
+      PinInformation secondLightPin,
+      int buttonNumber) async {
     while (true) {
-      await buttonObjectRepository.listenToButtonPress(buttonPinNumber).then((
-          int exitCode) async {
+      await buttonObjectRepository
+          .listenToButtonPress(buttonPinNumber)
+          .then((int exitCode) async {
         print('Blind button number $buttonNumber was pressed');
         WishEnum blindNewState = await changePinsOutput(
             smartDevice, firstLightPin, secondLightPin, buttonNumber);
@@ -81,14 +86,15 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
     if (cloudValueChangeU != null) {
       cloudValueChangeU.updateDocument(blindName, wishAsString);
     }
-}
+  }
 
   ///  Logic of two buttons that cannot be pressed together
   @override
-  Future<WishEnum> changePinsOutput(SmartDeviceBaseAbstract smartDevice,
-                          PinInformation firstLightPin,
-                          PinInformation secondLightPin,
-                          int buttonPressNumber) async {
+  Future<WishEnum> changePinsOutput(
+      SmartDeviceBaseAbstract smartDevice,
+      PinInformation firstLightPin,
+      PinInformation secondLightPin,
+      int buttonPressNumber) async {
     WishEnum blindNewState;
     if (firstLightPin.v == 1 || secondLightPin.v == 1) {
       firstLightPin.onDuration = 0;
@@ -97,18 +103,14 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
       secondLightPin.onDuration = 0;
       OffWishU.setOff(smartDevice.deviceInformation, secondLightPin);
       blindNewState = WishEnum.SBlindsStop;
-    }
-
-    else if (buttonPressNumber == 1) {
+    } else if (buttonPressNumber == 1) {
       secondLightPin.onDuration = 0;
       OffWishU.setOff(smartDevice.deviceInformation, secondLightPin);
 
       firstLightPin.onDuration = -1;
       OnWishU.setOn(smartDevice.deviceInformation, firstLightPin);
       blindNewState = WishEnum.SBlindsUp;
-    }
-
-    else if (buttonPressNumber == 2) {
+    } else if (buttonPressNumber == 2) {
       firstLightPin.onDuration = 0;
       OffWishU.setOff(smartDevice.deviceInformation, firstLightPin);
 

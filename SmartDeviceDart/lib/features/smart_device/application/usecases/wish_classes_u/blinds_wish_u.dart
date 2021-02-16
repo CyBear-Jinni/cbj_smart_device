@@ -50,8 +50,8 @@ class BlindsWishU {
     await Future<void>.delayed(const Duration(seconds: 1));
 
     blindsInformation.blindsDownPin?.onDuration = -1;
-    status += ' ${OnWishU.setOn(blindsInformation.deviceInformation,
-        blindsInformation.blindsDownPin)}';
+    status +=
+        ' ${OnWishU.setOn(blindsInformation.deviceInformation, blindsInformation.blindsDownPin)}';
 
     blindsInformation.blindsUpPin?.onDuration = 0;
     OffWishU.setOff(
@@ -76,8 +76,8 @@ class BlindsWishU {
         blindsInformation.deviceInformation, blindsInformation.blindsUpPin);
 
     blindsInformation.blindsDownPin?.onDuration = 0;
-    status += ' ${OffWishU.setOff(blindsInformation.deviceInformation,
-        blindsInformation.blindsDownPin)}';
+    status +=
+        ' ${OffWishU.setOff(blindsInformation.deviceInformation, blindsInformation.blindsDownPin)}';
 
     return Future<String>.value(status);
   }

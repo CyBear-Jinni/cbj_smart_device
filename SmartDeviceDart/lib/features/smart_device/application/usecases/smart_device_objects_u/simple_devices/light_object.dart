@@ -28,8 +28,8 @@ class LightObject extends SmartDeviceSimpleAbstract {
   }
 
   @override
-  Future<String> executeWish(WishEnum wishEnum,
-      WishSourceEnum wishSourceEnum) async {
+  Future<String> executeWish(
+      WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
     return wishInSimpleClass(wishEnum, wishSourceEnum);
   }
 }

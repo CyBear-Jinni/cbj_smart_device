@@ -6,7 +6,6 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/set_devices_r/set_devices_r.dart';
 
 class SetDevicesE {
-
   SetDevicesE() {
     _setDevicesR = SetDevicesR();
   }
@@ -46,12 +45,12 @@ class SetDevicesE {
     for (final DeviceType deviceType in deviceTypeList) {
       if (deviceType == DeviceType.Light) {
         final int lightPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceType.Light)[0]?.
-        pinAndPhysicalPinConfiguration;
+            .getFreePinsForSmartDeviceType(DeviceType.Light)[0]
+            ?.pinAndPhysicalPinConfiguration;
 
         final int buttonPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceType.Light)[1]?.
-        pinAndPhysicalPinConfiguration;
+            .getFreePinsForSmartDeviceType(DeviceType.Light)[1]
+            ?.pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter =
             numberOfThatTypeThatExist(smartDeviceList, DeviceType.Light);
@@ -60,23 +59,23 @@ class SetDevicesE {
             onOffButtonPinNumber: buttonPinNumber));
       } else if (deviceType == DeviceType.Blinds) {
         final int blindUpPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceType.Light)[0]?.
-        pinAndPhysicalPinConfiguration;
+            .getFreePinsForSmartDeviceType(DeviceType.Light)[0]
+            ?.pinAndPhysicalPinConfiguration;
 
         final int buttonUpPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceType.Light)[1]?.
-        pinAndPhysicalPinConfiguration;
+            .getFreePinsForSmartDeviceType(DeviceType.Light)[1]
+            ?.pinAndPhysicalPinConfiguration;
 
         final int blindDownPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceType.Light)[2]?.
-        pinAndPhysicalPinConfiguration;
+            .getFreePinsForSmartDeviceType(DeviceType.Light)[2]
+            ?.pinAndPhysicalPinConfiguration;
 
         final int buttonDownPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceType.Light)[3]?.
-        pinAndPhysicalPinConfiguration;
+            .getFreePinsForSmartDeviceType(DeviceType.Light)[3]
+            ?.pinAndPhysicalPinConfiguration;
 
-        final int deviceTypeCounter = numberOfThatTypeThatExist(smartDeviceList,
-            DeviceType.Blinds);
+        final int deviceTypeCounter =
+            numberOfThatTypeThatExist(smartDeviceList, DeviceType.Blinds);
         smartDeviceList.add(BlindsObject(
             uuid,
             'Blinds$deviceTypeCounter',
@@ -91,7 +90,7 @@ class SetDevicesE {
             blindDownPinNumber,
             //  blindsDownPin
             buttonDownPinNumber // downButtonPinNumber
-        ));
+            ));
       }
     }
     if (smartDeviceList.isEmpty) {
@@ -101,8 +100,8 @@ class SetDevicesE {
   }
 
   /// Return the number of times this device type was already exist
-  int numberOfThatTypeThatExist(List<SmartDeviceBaseAbstract> smartDeviceList,
-      DeviceType deviceType) {
+  int numberOfThatTypeThatExist(
+      List<SmartDeviceBaseAbstract> smartDeviceList, DeviceType deviceType) {
     int counterOfThisDeviceType = 0;
     for (final SmartDeviceBaseAbstract smartDevice in smartDeviceList) {
       if (smartDevice.getDeviceType() == deviceType) {

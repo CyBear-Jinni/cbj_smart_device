@@ -23,8 +23,8 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
   }
 
   @override
-  Future<String> executeWish(WishEnum wishEnum,
-      WishSourceEnum wishSourceEnum) async {
+  Future<String> executeWish(
+      WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
     return _WishInDynamicClass(wishEnum, wishSourceEnum);
   }
 

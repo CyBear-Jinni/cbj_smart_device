@@ -4,7 +4,6 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 import 'package:firedart/firedart.dart';
 
 class CloudFireStoreD {
-
   CloudFireStoreD(FirebaseAccountsInformationD firebaseAccountsInformationD) {
     _fireBaseProjectId = firebaseAccountsInformationD.fireBaseProjectId;
     _fireBaseApiKey = firebaseAccountsInformationD.fireBaseApiKey;
@@ -46,13 +45,10 @@ class CloudFireStoreD {
       final DocumentReference ref = Firestore.instance.document(dataPath);
       //  Update the document
       await ref.set({'value': dataToSave});
-    }
-
-    catch (error) {
+    } catch (error) {
       print("Can't reach server, error: $error");
     }
   }
-
 
   ///  Get data from path
   String getData(String dataPath) {
@@ -84,7 +80,8 @@ class CloudFireStoreD {
     }
   }
 
-  Future<String> updateDataInBoolField(String dataPath, String fieldToUpdate, String valueToUpdate) async {
+  Future<String> updateDataInBoolField(
+      String dataPath, String fieldToUpdate, String valueToUpdate) async {
     try {
       //  Instantiate a reference to a document - this happens offline
       var ref = Firestore.instance.document(dataPath);
@@ -96,5 +93,4 @@ class CloudFireStoreD {
     }
     return 'Success';
   }
-
 }

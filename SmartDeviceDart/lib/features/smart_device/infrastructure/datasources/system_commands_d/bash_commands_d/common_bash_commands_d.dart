@@ -14,8 +14,8 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String> getUuidOfCurrentDevice() async {
-    String df =
-    await Process.run('df', <String>['-h', '/']).then((ProcessResult result) {
+    String df = await Process.run('df', <String>['-h', '/'])
+        .then((ProcessResult result) {
       return result.stdout.toString();
     });
 
@@ -25,7 +25,7 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
     //  The full bash command looks like this /sbin/blkid | grep "$(df -h / | sed -n 2p | cut -d" " -f1):" | grep -o "UUID=\"[^\"]*\" " | sed "s/UUID=\"//;s/\"//"
     String blkid =
         await Process.run('/sbin/blkid', []).then((ProcessResult result) {
-          return result.stdout.toString();
+      return result.stdout.toString();
     });
 
     if (blkid.contains(df)) {
@@ -46,8 +46,8 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String> getDeviceHostName() async {
-    String hostName =
-    await Process.run('hostname', <String>['-s']).then((ProcessResult result) {
+    String hostName = await Process.run('hostname', <String>['-s'])
+        .then((ProcessResult result) {
 //      String hostName = result.stdout;
 //      hostName = hostName.substring(
 //          0, hostName.length - 1); //  Removes the invisible new line at the end
@@ -59,7 +59,8 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String> getFileContent(fileFullPath) async {
-    final String fileContent = await Process.run('cat', <String>[fileFullPath.toString()])
+    final String fileContent =
+        await Process.run('cat', <String>[fileFullPath.toString()])
             .then((ProcessResult result) {
       return result.stdout.toString();
     });

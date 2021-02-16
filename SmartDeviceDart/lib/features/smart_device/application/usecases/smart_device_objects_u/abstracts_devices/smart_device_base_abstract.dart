@@ -96,17 +96,13 @@ abstract class SmartDeviceBaseAbstract {
     return _gpioPinList;
   }
 
-
   Future<String> getUuid() {
     return SmartDeviceObjectsR.getUuid();
   }
 
-
   bool getDeviceState() => onOff;
 
-
   //  Setters
-
 
   ///  Turn on the device basic action
   String _SetOn(PinInformation pinNumber) {
@@ -128,25 +124,20 @@ abstract class SmartDeviceBaseAbstract {
     return 'Turn off successfully';
   }
 
-
   void setDeviceType(DeviceType deviceType) => smartDeviceType = deviceType;
-
 
   ///  Turn device pin to the opposite state
   String _SetChangeOppositeToState(PinInformation pinNumber) {
     return onOff ? _SetOff(onOffPin) : _SetOn(onOffPin);
   }
 
-
   //  More functions
-
 
   ///  Add gpio pin for this device
   PinInformation addPinToGpioPinList(int pinNumber) {
     //  Check if pin is free to be taken,
     //  if not return negative number with error number
-    final PinInformation gpioPin =
-    DevicePinListManager().getGpioPin(pinNumber);
+    final PinInformation gpioPin = DevicePinListManager().getGpioPin(pinNumber);
     if (gpioPin == null) {
       return null;
     }
@@ -168,14 +159,14 @@ abstract class SmartDeviceBaseAbstract {
 
   ///  Check if wish exist at all if true than check if base abstract have
   ///  this wish and if true than execute it
-  Future<String> executeWishString(String wishString,
-      WishSourceEnum wishSourceEnum) async {
+  Future<String> executeWishString(
+      String wishString, WishSourceEnum wishSourceEnum) async {
     final WishEnum wish = convertWishStringToWishesObject(wishString);
     return executeWish(wish, wishSourceEnum);
   }
 
-  Future<String> executeWish(WishEnum wishEnum,
-      WishSourceEnum wishSourceEnum) async {
+  Future<String> executeWish(
+      WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
     return wishInBaseClass(wishEnum, wishSourceEnum);
   }
 

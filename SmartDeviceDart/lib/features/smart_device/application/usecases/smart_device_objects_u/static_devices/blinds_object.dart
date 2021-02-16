@@ -50,14 +50,14 @@ class BlindsObject extends SmartDeviceStaticAbstract {
   }
 
   @override
-  Future<String> executeWish(WishEnum wishEnum,
-      WishSourceEnum wishSourceEnum) async {
+  Future<String> executeWish(
+      WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
     return wishInBlindsClass(wishEnum, wishSourceEnum);
   }
 
   ///  All the wishes that are legit to execute from the blinds class
-  Future<String> wishInBlindsClass(WishEnum wish,
-      WishSourceEnum wishSourceEnum) async {
+  Future<String> wishInBlindsClass(
+      WishEnum wish, WishSourceEnum wishSourceEnum) async {
     String wishExecuteResult;
 
     if (wish == null) return 'Your wish does not exist in blinds class';
@@ -85,14 +85,14 @@ class BlindsObject extends SmartDeviceStaticAbstract {
   /// Listening to two buttons press but will not do action for the two of them
   /// at the same time.
   void listenToTwoButtonsPress(CloudValueChangeU cloudValueChangeU) {
-    if (buttonPinUp != null && buttonPinDown != null &&
-        blindsUpPin != null && blindsDownPin != null) {
+    if (buttonPinUp != null &&
+        buttonPinDown != null &&
+        blindsUpPin != null &&
+        blindsDownPin != null) {
       ButtonObjectLocalU(cloudValueChangeU: cloudValueChangeU)
           .listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
-          this, buttonPinUp, blindsUpPin, buttonPinDown,
-          blindsDownPin);
-    }
-    else {
+              this, buttonPinUp, blindsUpPin, buttonPinDown, blindsDownPin);
+    } else {
       print('Cannot listen to blinds, one of the variables is null');
     }
   }

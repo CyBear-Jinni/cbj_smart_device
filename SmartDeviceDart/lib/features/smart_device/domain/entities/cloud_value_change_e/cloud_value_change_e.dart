@@ -3,7 +3,6 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/repositor
 import 'package:firedart/firestore/models.dart';
 
 class CloudValueChangeE {
-
   CloudValueChangeE(FirebaseAccountsInformationD firebaseAccountsInformationD) {
     if (firebaseAccountsInformationD.fireBaseProjectId != null &&
         firebaseAccountsInformationD.fireBaseApiKey != null &&
@@ -15,7 +14,6 @@ class CloudValueChangeE {
   }
 
   static CloudManagerR _cloudManager;
-
 
   Stream<Document> listenToDataBase() async* {
     yield* _cloudManager.listenToDataBase();

@@ -61,12 +61,13 @@ class HiveD {
     var box = await Hive.openBox(smartDeviceBoxName);
 
     HiveDevicesD firebaseAccountsInformationMap =
-    box.get(cellDatabaseInformationInSmartDeviceBox) as HiveDevicesD;
+        box.get(cellDatabaseInformationInSmartDeviceBox) as HiveDevicesD;
 
     return firebaseAccountsInformationMap?.databaseInformationList;
   }
 
-  Future<void> saveAllDevices(Map<String, List<String>> smartDevicesMapList) async {
+  Future<void> saveAllDevices(
+      Map<String, List<String>> smartDevicesMapList) async {
     await finishedInitializing;
 
     var box = await Hive.openBox(smartDeviceBoxName);
@@ -77,7 +78,8 @@ class HiveD {
     await box.put(cellDeviceListInSmartDeviceBox, hiveDevicesD);
   }
 
-  Future<void> saveListOfDatabaseInformation(Map<String, String> firebaseAccountsInformationMap) async {
+  Future<void> saveListOfDatabaseInformation(
+      Map<String, String> firebaseAccountsInformationMap) async {
     await finishedInitializing;
 
     var box = await Hive.openBox(smartDeviceBoxName);

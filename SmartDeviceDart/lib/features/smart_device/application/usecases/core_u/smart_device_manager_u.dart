@@ -7,7 +7,6 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/sma
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 
 class SmartDeviceManagerU {
-
   SmartDeviceManagerU() {
     MySingleton();
     _localDbU = LocalDbU();
