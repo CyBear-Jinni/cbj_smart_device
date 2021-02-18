@@ -3,7 +3,6 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 import 'package:firedart/firestore/models.dart';
 
 class CloudFireStoreListenToChangesD {
-
   CloudFireStoreListenToChangesD(
       FirebaseAccountsInformationD firebaseAccountsInformationD) {
     _dataBaseController =

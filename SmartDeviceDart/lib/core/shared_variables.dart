@@ -1,8 +1,4 @@
-
-
-
 class SharedVariables {
-
   SharedVariables(String projectRootDirectoryPath) {
     _projectRootDirectoryPath = projectRootDirectoryPath;
     print('PATH: $_projectRootDirectoryPath');

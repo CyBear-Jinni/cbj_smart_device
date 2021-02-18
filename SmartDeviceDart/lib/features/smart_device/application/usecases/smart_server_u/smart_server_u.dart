@@ -54,8 +54,8 @@ class SmartServerU extends SmartServerServiceBase {
   }
 
   @override
-  Stream<SmartDevice> getAllDevices(ServiceCall call,
-      SmartDeviceStatus request) async* {
+  Stream<SmartDevice> getAllDevices(
+      ServiceCall call, SmartDeviceStatus request) async* {
     print('getAllDevices');
     for (final SmartDeviceBaseAbstract smartDeviceBaseAbstract
         in MySingleton.getSmartDevicesList()) {
@@ -70,13 +70,12 @@ class SmartServerU extends SmartServerServiceBase {
     }
   }
 
-
   //  Return the status of the specified device
   @override
-  Future<SmartDeviceStatus> getStatus(ServiceCall call,
-      SmartDevice request) async {
+  Future<SmartDeviceStatus> getStatus(
+      ServiceCall call, SmartDevice request) async {
     final String deviceStatus =
-    await executeWishEnumString(request, WishEnum.GState, _wishSourceEnum);
+        await executeWishEnumString(request, WishEnum.GState, _wishSourceEnum);
 
     print(
         'Getting status of device $request and device status in bool $deviceStatus');
@@ -87,10 +86,10 @@ class SmartServerU extends SmartServerServiceBase {
   @override
   Future<CommendStatus> updateDeviceName(
       ServiceCall call, SmartDeviceUpdateDetails request) {
-    print('Updating device name:${request.smartDevice.name} into: ${request
-        .newName}');
+    print(
+        'Updating device name:${request.smartDevice.name} into: ${request.newName}');
     SmartDeviceBaseAbstract smartDevice =
-    getSmartDeviceBaseAbstract(request.smartDevice);
+        getSmartDeviceBaseAbstract(request.smartDevice);
     smartDevice.smartInstanceName = request.newName;
     CommendStatus commendStatus = CommendStatus();
     commendStatus.success = true;
@@ -107,56 +106,51 @@ class SmartServerU extends SmartServerServiceBase {
   }
 
   @override
-  Future<CommendStatus> setOnDevice(ServiceCall call,
-      SmartDevice request) async {
+  Future<CommendStatus> setOnDevice(
+      ServiceCall call, SmartDevice request) async {
     print('Turn device ${request.name} on');
     return executeWishEnumServer(request, WishEnum.SOn, _wishSourceEnum);
   }
 
-
   @override
-  Future<CommendStatus> setBlindsUp(ServiceCall call,
-      SmartDevice request) async {
+  Future<CommendStatus> setBlindsUp(
+      ServiceCall call, SmartDevice request) async {
     print('Turn blinds ${request.name} up');
     return executeWishEnumServer(request, WishEnum.SBlindsUp, _wishSourceEnum);
   }
 
-
   @override
-  Future<CommendStatus> setBlindsDown(ServiceCall call,
-      SmartDevice request) async {
+  Future<CommendStatus> setBlindsDown(
+      ServiceCall call, SmartDevice request) async {
     print('Turn blinds ${request.name} down');
 
     return executeWishEnumServer(
         request, WishEnum.SBlindsDown, _wishSourceEnum);
   }
 
-
   @override
-  Future<CommendStatus> setBlindsStop(ServiceCall call,
-      SmartDevice request) async {
+  Future<CommendStatus> setBlindsStop(
+      ServiceCall call, SmartDevice request) async {
     print('Turn blinds ${request.name} stop');
 
     return executeWishEnumServer(
         request, WishEnum.SBlindsStop, _wishSourceEnum);
   }
 
-
   SmartDeviceBaseAbstract getSmartDeviceBaseAbstract(SmartDevice request) {
     try {
-      return MySingleton.getSmartDevicesList().firstWhere((
-          smartDeviceBaseAbstractO) =>
-      smartDeviceBaseAbstractO.smartInstanceName == request.name);
-    }
-    catch (exception) {
-      print('Exception, device name ${request
-          .name} could not be found: ${exception.message}');
+      return MySingleton.getSmartDevicesList().firstWhere(
+          (smartDeviceBaseAbstractO) =>
+              smartDeviceBaseAbstractO.smartInstanceName == request.name);
+    } catch (exception) {
+      print(
+          'Exception, device name ${request.name} could not be found: ${exception.message}');
       return null;
     }
   }
 
-  CommendStatus executeWishEnumServer(SmartDevice request, WishEnum wishEnum,
-      WishEnum) {
+  CommendStatus executeWishEnumServer(
+      SmartDevice request, WishEnum wishEnum, WishEnum) {
     SmartDeviceBaseAbstract smartDevice = getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
       return CommendStatus()..success = false;
@@ -167,8 +161,8 @@ class SmartServerU extends SmartServerServiceBase {
 
   Future<String> executeWishEnumString(SmartDevice request, WishEnum wishEnum,
       WishSourceEnum wishSourceEnum) async {
-    final SmartDeviceBaseAbstract smartDevice = getSmartDeviceBaseAbstract(
-        request);
+    final SmartDeviceBaseAbstract smartDevice =
+        getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
       return 'SmartDevice is null in executeWishEnumString';
     }
@@ -177,13 +171,13 @@ class SmartServerU extends SmartServerServiceBase {
   }
 
   @override
-  Future<CommendStatus> setFirebaseAccountInformation(ServiceCall call,
-      FirebaseAccountInformation request) {
+  Future<CommendStatus> setFirebaseAccountInformation(
+      ServiceCall call, FirebaseAccountInformation request) {
     print('This is the function setFirebaseAccountInformation');
 
     final FirebaseAccountsInformationD firebaseAccountsInformationD =
-    FirebaseAccountsInformationD(request.fireBaseProjectId,
-        request.fireBaseApiKey, request.userEmail, request.userPassword);
+        FirebaseAccountsInformationD(request.fireBaseProjectId,
+            request.fireBaseApiKey, request.userEmail, request.userPassword);
 
     final LocalDbE localDbE = LocalDbE();
     localDbE.saveListOfDatabaseInformation(firebaseAccountsInformationD);

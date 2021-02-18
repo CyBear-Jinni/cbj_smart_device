@@ -5,7 +5,6 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/hive_d/hive_d.dart';
 
 class LocalDbD {
-
   LocalDbD() {
     _hiveD = HiveD();
   }
@@ -21,10 +20,11 @@ class LocalDbD {
   }
 
   void saveAllDevices(List<SmartDeviceBaseAbstract> smartDevicesList) {
-    final Map<String, List<String>> smartDevicesMapList = <String,
-        List<String>>{};
+    final Map<String, List<String>> smartDevicesMapList =
+        <String, List<String>>{};
 
-    for (final SmartDeviceBaseAbstract smartDeviceBaseAbstract in smartDevicesList) {
+    for (final SmartDeviceBaseAbstract smartDeviceBaseAbstract
+        in smartDevicesList) {
       final String deviceName = smartDeviceBaseAbstract.smartInstanceName;
       final String deviceTypeAsString = EnumHelper.deviceTypeToString(
           smartDeviceBaseAbstract.getDeviceType());
@@ -46,7 +46,8 @@ class LocalDbD {
             .toString();
       }
       if (smartDeviceBaseAbstract.getDeviceType() == DeviceType.Blinds) {
-        final BlindsObject blindsObjectTemp = smartDeviceBaseAbstract as BlindsObject;
+        final BlindsObject blindsObjectTemp =
+            smartDeviceBaseAbstract as BlindsObject;
 
         String blindsUpPin = null,
             buttonPinUp = null,
@@ -66,15 +67,15 @@ class LocalDbD {
         }
 
         if (blindsObjectTemp.blindsDownPin != null) {
-          blindsDownPin =
-              blindsObjectTemp.blindsDownPin.pinAndPhysicalPinConfiguration
-                  .toString();
+          blindsDownPin = blindsObjectTemp
+              .blindsDownPin.pinAndPhysicalPinConfiguration
+              .toString();
         }
 
         if (blindsObjectTemp.buttonPinDown != null) {
-          buttonPinDown =
-              blindsObjectTemp.buttonPinDown.pinAndPhysicalPinConfiguration
-                  .toString();
+          buttonPinDown = blindsObjectTemp
+              .buttonPinDown.pinAndPhysicalPinConfiguration
+              .toString();
         }
 
         smartDevicesMapList[deviceName] = [
@@ -98,11 +99,10 @@ class LocalDbD {
     _hiveD.saveAllDevices(smartDevicesMapList);
   }
 
-
   void saveListOfDatabaseInformation(
       FirebaseAccountsInformationD firebaseAccountsInformationD) {
-    final Map<String, String> firebaseAccountsInformationMap = <String, String>{
-    };
+    final Map<String, String> firebaseAccountsInformationMap =
+        <String, String>{};
 
     firebaseAccountsInformationMap[AccountsInformationD.fireBaseProjectId] =
         firebaseAccountsInformationD.fireBaseProjectId;
@@ -115,5 +115,4 @@ class LocalDbD {
 
     _hiveD.saveListOfDatabaseInformation(firebaseAccountsInformationMap);
   }
-
 }

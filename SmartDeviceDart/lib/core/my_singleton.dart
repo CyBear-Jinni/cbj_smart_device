@@ -2,7 +2,6 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/sma
 import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
 
 class MySingleton {
-
   factory MySingleton() {
     return _singleton;
   }
@@ -44,7 +43,6 @@ class FirebaseAccountInformationFlutter {
   String fireBaseApiKey;
   String userEmail;
   String userPassword;
-
 
   bool areAllValuesNotNull() {
     return fireBaseProjectId != null &&

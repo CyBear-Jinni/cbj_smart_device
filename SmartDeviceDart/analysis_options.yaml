@@ -6,6 +6,13 @@
 # lint analysis
 include: package:lint/analysis_options.yaml
 
+
+analyzer:
+  errors:
+    missing_required_param: error
+    missing_return: error
+    must_be_immutable: error
+
 linter:
   rules:
     # Use parameter order as in json response
@@ -19,7 +26,5 @@ linter:
 
     # Good packages document everything
     public_member_api_docs: true
-
-    always_specify_types: true
 
     lines_longer_than_80_chars: true

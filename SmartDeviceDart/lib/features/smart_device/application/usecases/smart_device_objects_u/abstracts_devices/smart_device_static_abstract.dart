@@ -36,8 +36,8 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBaseAbstract {
   }
 
   @override
-  Future<String> executeWish(WishEnum wishEnum,
-      WishSourceEnum wishSourceEnum) async {
+  Future<String> executeWish(
+      WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
     return wishInStaticClass(wishEnum, wishSourceEnum);
   }
 

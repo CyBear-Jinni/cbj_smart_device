@@ -12,6 +12,4 @@ class ReturnSmartDeviceObject extends UseCase {
     // TODO: implement call
     throw UnimplementedError();
   }
-
-
 }

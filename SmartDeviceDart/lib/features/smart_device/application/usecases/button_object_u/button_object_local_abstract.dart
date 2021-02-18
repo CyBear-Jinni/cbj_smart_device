@@ -4,7 +4,6 @@ import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/e
 import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/button_object_r/button_object_r.dart';
 
 abstract class ButtonObjectLocalAbstract {
-
   ButtonObjectLocalAbstract() {
     buttonObjectRepository = ButtonObjectR();
   }
@@ -22,14 +21,16 @@ abstract class ButtonObjectLocalAbstract {
       PinInformation secondButtonPinNumber,
       PinInformation secondLightPin);
 
-  void listenToButtonPressAndDoAction(SmartDeviceBaseAbstract smartDevice,
+  void listenToButtonPressAndDoAction(
+      SmartDeviceBaseAbstract smartDevice,
       PinInformation buttonPinNumber,
       PinInformation firstLightPin,
       PinInformation secondLightPin,
       int buttonNumber);
 
   ///  Logic of two buttons
-  Future<WishEnum> changePinsOutput(SmartDeviceBaseAbstract smartDevice,
+  Future<WishEnum> changePinsOutput(
+      SmartDeviceBaseAbstract smartDevice,
       PinInformation firstLightPin,
       PinInformation secondLightPin,
       int buttonPressNumber);

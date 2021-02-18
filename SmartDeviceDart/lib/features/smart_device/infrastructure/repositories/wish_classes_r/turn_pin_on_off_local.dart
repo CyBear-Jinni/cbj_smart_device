@@ -45,11 +45,11 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
   @override
   Future<String> pinOff(PinInformation pinNumber) async {
     try {
-      print('This is the pin number off:  ${pinNumber
-          .pinAndPhysicalPinConfiguration}');
+      print(
+          'This is the pin number off:  ${pinNumber.pinAndPhysicalPinConfiguration}');
       return _wishClassesD
           .turnOffLocalPhysicalPin(PinSetupMethodEnum.wiringPiSetupPhys,
-          pinNumber.pinAndPhysicalPinConfiguration.toString())
+              pinNumber.pinAndPhysicalPinConfiguration.toString())
           .then((ProcessResult results) {
         print(results.stdout);
         return results.stdout.toString();

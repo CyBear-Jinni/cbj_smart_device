@@ -11,7 +11,6 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 import 'package:firedart/firedart.dart';
 
 class CloudValueChangeU {
-
   CloudValueChangeU(FirebaseAccountsInformationD firebaseAccountsInformationD) {
     _cloudValueChangeU = this;
     _cloudValueChangeEntity = CloudValueChangeE(firebaseAccountsInformationD);
@@ -29,9 +28,9 @@ class CloudValueChangeU {
   }
 
   ///  Listen to changes in the database for this device
-  Future<void> listenToDataBase() async{
-
-    final List<AddressCheckOptions> DEFAULTADDRESSES = List<AddressCheckOptions>.unmodifiable([
+  Future<void> listenToDataBase() async {
+    final List<AddressCheckOptions> DEFAULTADDRESSES =
+        List<AddressCheckOptions>.unmodifiable([
       AddressCheckOptions(
         InternetAddress('1.1.1.1'), // CloudFlare
       ),
@@ -42,9 +41,9 @@ class CloudValueChangeU {
 
     DataConnectionChecker().addresses = DEFAULTADDRESSES;
 
-    while(true){
+    while (true) {
       bool result = await DataConnectionChecker().hasConnection;
-      if(result == true) {
+      if (result == true) {
         print('Have internet');
         break;
       }
@@ -57,9 +56,10 @@ class CloudValueChangeU {
       print('Change detected in Firestore');
 
       final Map<SmartDeviceBaseAbstract, String> devicesNamesThatValueChanged =
-      <SmartDeviceBaseAbstract, String>{};
+          <SmartDeviceBaseAbstract, String>{};
 
-      MySingleton.getSmartDevicesList().forEach((SmartDeviceBaseAbstract element) {
+      MySingleton.getSmartDevicesList()
+          .forEach((SmartDeviceBaseAbstract element) {
         if (firestoreDocument.map.containsKey(element.smartInstanceName)) {
           if (element.getDeviceState() !=
               firestoreDocument.map[element.smartInstanceName]) {
@@ -69,9 +69,10 @@ class CloudValueChangeU {
         }
       });
 
-      devicesNamesThatValueChanged.forEach((SmartDeviceBaseAbstract smartDeviceBaseAbstract, String value) {
-        print('FireBase "${smartDeviceBaseAbstract
-            .smartInstanceName}" have different value, will now change to $value');
+      devicesNamesThatValueChanged.forEach(
+          (SmartDeviceBaseAbstract smartDeviceBaseAbstract, String value) {
+        print(
+            'FireBase "${smartDeviceBaseAbstract.smartInstanceName}" have different value, will now change to $value');
         WishEnum wishEnum;
         switch (value) {
           case 'true':

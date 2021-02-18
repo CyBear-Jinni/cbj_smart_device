@@ -207,7 +207,6 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
 }
 
 class DevicePinListManagerPC extends DevicePinListManagerAbstract {
-
   ///  Will save the type of the current physical device
   static PhysicalDeviceType physicalDeviceType;
 
@@ -218,10 +217,10 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
   PhysicalDeviceType convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
       String physicalDeviceType) {
     //  Loop through all the physical devices types
-    for (final PhysicalDeviceType physicalDeviceTypeTemp in PhysicalDeviceType
-        .values) {
+    for (final PhysicalDeviceType physicalDeviceTypeTemp
+        in PhysicalDeviceType.values) {
       if (EnumHelper.physicalDeviceTypeToString(physicalDeviceTypeTemp)
-          .toLowerCase() ==
+              .toLowerCase() ==
           physicalDeviceType.toLowerCase()) {
         return physicalDeviceTypeTemp; //  If physicalDeviceType string exist
         // return the physicalDeviceType enum object
@@ -251,5 +250,4 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
     print('Computer does not give free gpio pins, only smart device');
     throw UnimplementedError();
   }
-
 }

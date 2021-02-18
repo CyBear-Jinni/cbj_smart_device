@@ -3,7 +3,6 @@ import 'package:smart_device_dart/features/smart_device/domain/entities/local_db
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 
 class LocalDbU {
-
   LocalDbU() {
     _localDbE = LocalDbE();
   }

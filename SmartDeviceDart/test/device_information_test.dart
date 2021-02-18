@@ -18,7 +18,7 @@ void main() {
     var deviceIp = '10.0.0.10';
 
     var deviceInformation =
-    RemoteDevice(deviceUuid, smartInstanceName, deviceIp);
+        RemoteDevice(deviceUuid, smartInstanceName, deviceIp);
 
     expect(deviceInformation.getUuid(), deviceUuid);
     expect(deviceInformation.getName(), smartInstanceName);

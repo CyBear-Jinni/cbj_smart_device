@@ -43,8 +43,8 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String> getFileContent(fileFullPath) async {
-    final String fileText =
-    await Process.run('cmd', <String>['/C', 'more', fileFullPath.toString()])
+    final String fileText = await Process.run(
+            'cmd', <String>['/C', 'more', fileFullPath.toString()])
         .then((ProcessResult result) {
       return result.stdout.toString();
     });
@@ -73,9 +73,9 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
   }
 
   Future<String> getCurrentDriveLetter() async {
-    final String driveLetter = await Process.run(
-        'cmd', <String>['/C', 'echo', '%cd:~0,2%'])
-        .then((ProcessResult result) {
+    final String driveLetter =
+        await Process.run('cmd', <String>['/C', 'echo', '%cd:~0,2%'])
+            .then((ProcessResult result) {
       return result.stdout.toString();
     });
     return driveLetter.substring(0, driveLetter.indexOf('\r'));
@@ -83,9 +83,9 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
 
   //TODO: Currently does not work as echo %~dp0 will not work at the command line, only in a batch file.
   Future<String> getOsDriveLetter() async {
-    final String driveLetter = await Process.run(
-        'cmd', <String>['/C', 'echo', '%~d0'])
-        .then((ProcessResult result) {
+    final String driveLetter =
+        await Process.run('cmd', <String>['/C', 'echo', '%~d0'])
+            .then((ProcessResult result) {
       return result.stdout.toString();
     });
     return driveLetter.substring(0, driveLetter.indexOf('\r'));

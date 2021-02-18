@@ -81,22 +81,22 @@ class LocalDbR {
 
   Future<FirebaseAccountsInformationD> getListOfDatabaseInformation() async {
     final Map<String, String> firebaseAccountsInformationMap =
-    await _localDbD.getListOfDatabaseInformation();
+        await _localDbD.getListOfDatabaseInformation();
 
     if (firebaseAccountsInformationMap == null) return null;
 
     final String fireBaseProjectId =
-    firebaseAccountsInformationMap[AccountsInformationD.fireBaseProjectId];
+        firebaseAccountsInformationMap[AccountsInformationD.fireBaseProjectId];
     final String fireBaseApiKey =
-    firebaseAccountsInformationMap[AccountsInformationD.fireBaseApiKey];
+        firebaseAccountsInformationMap[AccountsInformationD.fireBaseApiKey];
     final String userEmail =
-    firebaseAccountsInformationMap[AccountsInformationD.userEmail];
+        firebaseAccountsInformationMap[AccountsInformationD.userEmail];
     final String userPassword =
-    firebaseAccountsInformationMap[AccountsInformationD.userPassword];
+        firebaseAccountsInformationMap[AccountsInformationD.userPassword];
 
     final FirebaseAccountsInformationD firebaseAccountsInformationD =
-    FirebaseAccountsInformationD(
-        fireBaseProjectId, fireBaseApiKey, userEmail, userPassword);
+        FirebaseAccountsInformationD(
+            fireBaseProjectId, fireBaseApiKey, userEmail, userPassword);
 
     return firebaseAccountsInformationD;
   }
@@ -105,7 +105,8 @@ class LocalDbR {
     _localDbD.saveAllDevices(smartDevicesList);
   }
 
-  void saveListOfDatabaseInformation(FirebaseAccountsInformationD firebaseAccountsInformationD) {
+  void saveListOfDatabaseInformation(
+      FirebaseAccountsInformationD firebaseAccountsInformationD) {
     _localDbD.saveListOfDatabaseInformation(firebaseAccountsInformationD);
   }
 }
