@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:grpc/grpc.dart';
 import 'package:smart_device_dart/core/my_singleton.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/cloud_value_change_u/cloud_value_change_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/core_u/actions_to_preform_u.dart';
@@ -8,7 +9,6 @@ import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/e
 import 'package:smart_device_dart/features/smart_device/domain/entities/local_db_e/local_db_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
-import 'package:grpc/grpc.dart';
 
 /// This class get what to execute straight from the grpc request,
 class SmartServerU extends SmartServerServiceBase {
@@ -62,9 +62,8 @@ class SmartServerU extends SmartServerServiceBase {
       final String deviceType = smartDeviceBaseAbstract.runtimeType.toString();
 
       final SmartDevice smartDevice = SmartDevice();
-      smartDevice.uuid = smartDeviceBaseAbstract.uuid;
-      smartDevice.name = smartDeviceBaseAbstract.smartInstanceName;
-      smartDevice.deviceType = deviceType;
+      smartDevice.id = smartDeviceBaseAbstract.id;
+      smartDevice.type = deviceType;
 
       yield smartDevice;
     }
@@ -87,10 +86,10 @@ class SmartServerU extends SmartServerServiceBase {
   Future<CommendStatus> updateDeviceName(
       ServiceCall call, SmartDeviceUpdateDetails request) {
     print(
-        'Updating device name:${request.smartDevice.name} into: ${request.newName}');
+        'Updating device name:${request.smartDevice.id} into: ${request.newName}');
     SmartDeviceBaseAbstract smartDevice =
         getSmartDeviceBaseAbstract(request.smartDevice);
-    smartDevice.smartInstanceName = request.newName;
+    smartDevice.id = request.newName;
     CommendStatus commendStatus = CommendStatus();
     commendStatus.success = true;
     final LocalDbE localDbE = LocalDbE();
@@ -101,28 +100,28 @@ class SmartServerU extends SmartServerServiceBase {
   @override
   Future<CommendStatus> setOffDevice(
       ServiceCall call, SmartDevice request) async {
-    print('Turn device ${request.name} off');
+    print('Turn device ${request.id} off');
     return executeWishEnumServer(request, WishEnum.SOff, _wishSourceEnum);
   }
 
   @override
   Future<CommendStatus> setOnDevice(
       ServiceCall call, SmartDevice request) async {
-    print('Turn device ${request.name} on');
+    print('Turn device ${request.id} on');
     return executeWishEnumServer(request, WishEnum.SOn, _wishSourceEnum);
   }
 
   @override
   Future<CommendStatus> setBlindsUp(
       ServiceCall call, SmartDevice request) async {
-    print('Turn blinds ${request.name} up');
+    print('Turn blinds ${request.id} up');
     return executeWishEnumServer(request, WishEnum.SBlindsUp, _wishSourceEnum);
   }
 
   @override
   Future<CommendStatus> setBlindsDown(
       ServiceCall call, SmartDevice request) async {
-    print('Turn blinds ${request.name} down');
+    print('Turn blinds ${request.id} down');
 
     return executeWishEnumServer(
         request, WishEnum.SBlindsDown, _wishSourceEnum);
@@ -131,7 +130,7 @@ class SmartServerU extends SmartServerServiceBase {
   @override
   Future<CommendStatus> setBlindsStop(
       ServiceCall call, SmartDevice request) async {
-    print('Turn blinds ${request.name} stop');
+    print('Turn blinds ${request.id} stop');
 
     return executeWishEnumServer(
         request, WishEnum.SBlindsStop, _wishSourceEnum);
@@ -141,10 +140,10 @@ class SmartServerU extends SmartServerServiceBase {
     try {
       return MySingleton.getSmartDevicesList().firstWhere(
           (smartDeviceBaseAbstractO) =>
-              smartDeviceBaseAbstractO.smartInstanceName == request.name);
+              smartDeviceBaseAbstractO.id == request.id);
     } catch (exception) {
       print(
-          'Exception, device name ${request.name} could not be found: ${exception.message}');
+          'Exception, device name ${request.id} could not be found: ${exception.message}');
       return null;
     }
   }

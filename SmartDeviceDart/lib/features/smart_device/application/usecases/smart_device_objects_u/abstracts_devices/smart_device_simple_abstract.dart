@@ -7,7 +7,7 @@ abstract class SmartDeviceSimpleAbstract extends SmartDeviceBaseAbstract {
   SmartDeviceSimpleAbstract(
       String uuid, String smartInstanceName, int onOffPinNumber,
       {int onOffButtonPinNumber})
-      : super(uuid, smartInstanceName, onOffPinNumber,
+      : super(smartInstanceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber);
 
   ///  How much time the smart device was active (Doing action) continuously

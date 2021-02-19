@@ -13,7 +13,7 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/repositor
 ///  The super base class of all the smart device class and
 ///  smart device abstract classes
 abstract class SmartDeviceBaseAbstract {
-  SmartDeviceBaseAbstract(this.uuid, this.smartInstanceName, int onOffPinNumber,
+  SmartDeviceBaseAbstract(this.id, int onOffPinNumber,
       {int onOffButtonPinNumber}) {
     onOffPin =
         onOffPinNumber == null ? null : addPinToGpioPinList(onOffPinNumber);
@@ -33,11 +33,11 @@ abstract class SmartDeviceBaseAbstract {
   DeviceInformation deviceInformation =
       LocalDevice('This is the mac Address', 'This is the name of the device');
 
-  ///  Default name of the device to show in the app
-  String smartInstanceName;
+  ///  Unique id of the device
+  String id;
 
   ///  Mac addresses of the physical device
-  final String uuid;
+  String uuid;
 
   ///  Permissions of all the users to this device
   Map<String, PermissionsManager> devicePermissions;
@@ -213,7 +213,7 @@ abstract class SmartDeviceBaseAbstract {
   void updateCloudValue(String value) {
     cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
     if (cloudValueChangeU != null) {
-      cloudValueChangeU.updateDocument(smartInstanceName, value);
+      cloudValueChangeU.updateDocument(id, value);
     }
   }
 

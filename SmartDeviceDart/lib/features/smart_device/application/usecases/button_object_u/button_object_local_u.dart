@@ -75,7 +75,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
         print('Blind button number $buttonNumber was pressed');
         WishEnum blindNewState = await changePinsOutput(
             smartDevice, firstLightPin, secondLightPin, buttonNumber);
-        updateCloudValue(smartDevice.smartInstanceName, blindNewState);
+        updateCloudValue(smartDevice.id, blindNewState);
       });
     }
   }
