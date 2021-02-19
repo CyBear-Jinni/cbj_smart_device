@@ -27,6 +27,12 @@ class CloudValueChangeU {
     return _cloudValueChangeEntity.updateDocument(fieldToUpdate, valueToUpdate);
   }
 
+  Future<String> updateDeviceDocument(
+      String deviceId, String fieldToUpdate, String valueToUpdate) {
+    return _cloudValueChangeEntity.updateDeviceDocument(
+        deviceId, fieldToUpdate, valueToUpdate);
+  }
+
   ///  Listen to changes in the database for this device
   Future<void> listenToDataBase() async {
     final List<AddressCheckOptions> DEFAULTADDRESSES =
@@ -51,7 +57,56 @@ class CloudValueChangeU {
       await Future.delayed(const Duration(seconds: 10));
     }
 
-    _cloudValueChangeEntity.listenToDataBase().listen((Document document) {
+    listenToCollectionChange();
+  }
+
+  Future<void> listenToCollectionChange() async {
+    _cloudValueChangeEntity
+        .listenToCollectionDataBase()
+        .listen((List<Document> documentList) {
+      print('Change detected in Firestore');
+
+      final Map<SmartDeviceBaseAbstract, String> devicesNamesThatValueChanged =
+          {};
+
+      documentList.forEach((Document document) {
+        MySingleton.getSmartDevicesList()
+            .forEach((SmartDeviceBaseAbstract element) {
+          if (document.id == element.id) {
+            if (document.map['state'].toString() != 'ack') {
+              devicesNamesThatValueChanged[element] =
+                  document.map['action'].toString();
+            }
+          }
+        });
+      });
+
+      devicesNamesThatValueChanged.forEach(
+          (SmartDeviceBaseAbstract smartDeviceBaseAbstract, String value) {
+        print('FireBase "${smartDeviceBaseAbstract.id}" have different value,'
+            ' will now change to $value');
+        WishEnum wishEnum;
+        switch (value) {
+          case 'on':
+            wishEnum = WishEnum.SOn;
+            break;
+          case 'off':
+            wishEnum = WishEnum.SOff;
+            break;
+          default:
+            wishEnum = EnumHelper.stringToWishEnum(value);
+            break;
+        }
+        ActionsToPreformU.executeWishEnum(
+            smartDeviceBaseAbstract, wishEnum, WishSourceEnum.FireBase);
+      });
+    });
+  }
+
+  Future<void> listenToDocumentChange() async {
+    _cloudValueChangeEntity
+        .listenToDocumentDataBase()
+        .listen((Document document) {
       final Document firestoreDocument = document;
       print('Change detected in Firestore');
 

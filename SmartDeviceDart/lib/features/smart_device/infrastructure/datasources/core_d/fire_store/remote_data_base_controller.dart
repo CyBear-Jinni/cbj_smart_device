@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:firedart/firestore/models.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/core_d/fire_store/cloud_fire_store_d.dart';
-import 'package:firedart/firestore/models.dart';
 
 class RemoteDataBaseController {
   RemoteDataBaseController(
@@ -22,9 +22,15 @@ class RemoteDataBaseController {
     return _cloudFireStoreNewD.getFieldInPath(dataPath, fieldName);
   }
 
-  ///  For each data change in database it will return value
-  Stream<Document> listenToChangeOfDataInPath(String dataPath) async* {
-    yield* _cloudFireStoreNewD.listenToChangeOfDataInPath(dataPath);
+  ///  For each data change in database document that was passed
+  ///  it will return value
+  Stream<Document> listenToChangeOfDocumentInPath(String dataPath) async* {
+    yield* _cloudFireStoreNewD.listenToChangeOfDocumentDataInPath(dataPath);
+  }
+
+  Stream<List<Document>> listenToChangeOfCollectionInPath(
+      String dataPath) async* {
+    yield* _cloudFireStoreNewD.listenToChangeOfCollectionDataInPath(dataPath);
   }
 
   String getValueOfLamp(Document document, String keyName) {

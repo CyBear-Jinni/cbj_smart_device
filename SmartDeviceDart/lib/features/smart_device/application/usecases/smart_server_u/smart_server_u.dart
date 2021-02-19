@@ -175,8 +175,12 @@ class SmartServerU extends SmartServerServiceBase {
     print('This is the function setFirebaseAccountInformation');
 
     final FirebaseAccountsInformationD firebaseAccountsInformationD =
-        FirebaseAccountsInformationD(request.fireBaseProjectId,
-            request.fireBaseApiKey, request.userEmail, request.userPassword);
+        FirebaseAccountsInformationD(
+            request.fireBaseProjectId,
+            request.fireBaseApiKey,
+            request.userEmail,
+            request.userPassword,
+            request.homeId);
 
     final LocalDbE localDbE = LocalDbE();
     localDbE.saveListOfDatabaseInformation(firebaseAccountsInformationD);

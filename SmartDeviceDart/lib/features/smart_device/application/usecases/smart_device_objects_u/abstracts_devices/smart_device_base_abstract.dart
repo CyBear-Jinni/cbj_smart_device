@@ -202,10 +202,9 @@ abstract class SmartDeviceBaseAbstract {
         return 'Your wish does not exist for this class';
     }
 
-    if (deviceStatus != getDeviceState() &&
-        wishSourceEnum != WishSourceEnum.FireBase) {
-      updateCloudValue(getDeviceState().toString());
-    }
+    // if (deviceStatus != getDeviceState()) {
+    //   updateCloudValue(getDeviceState().toString());
+    // }
 
     return resultOfTheWish;
   }

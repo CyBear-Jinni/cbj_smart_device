@@ -1,7 +1,7 @@
+import 'package:firedart/firedart.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/hive_d/hive_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/hive_d/hive_store_d.dart';
-import 'package:firedart/firedart.dart';
 
 class CloudFireStoreD {
   CloudFireStoreD(FirebaseAccountsInformationD firebaseAccountsInformationD) {
@@ -9,6 +9,7 @@ class CloudFireStoreD {
     _fireBaseApiKey = firebaseAccountsInformationD.fireBaseApiKey;
     _userEmail = firebaseAccountsInformationD.userEmail;
     _userPassword = firebaseAccountsInformationD.userPassword;
+    _homeId = firebaseAccountsInformationD.homeId;
 
     try {
       initializeFirebaseAuthWithHivePersistingTokens();
@@ -21,6 +22,7 @@ class CloudFireStoreD {
   String _fireBaseApiKey;
   String _userEmail;
   String _userPassword;
+  String _homeId;
 
   FirebaseAuth auth;
 
@@ -61,11 +63,32 @@ class CloudFireStoreD {
   }
 
   ///  Listen to changes of the data in path and return the value that change each time there is change
-  Stream<Document> listenToChangeOfDataInPath(String dataPath) async* {
+  Stream<Document> listenToChangeOfDocumentDataInPath(String dataPath) async* {
     //  Sign in with user credentials
     try {
       //  Instantiate a reference to a document - this happens offline
       final DocumentReference ref = Firestore.instance.document(dataPath);
+
+      //  Subscribe to changes to that document
+      yield* ref.stream;
+//
+//    //  Get a snapshot of the document
+//      var document = await ref.get();
+
+//    print("snapshot: ${document["value"]}");
+
+    } catch (error) {
+      print("Can't reach server, error: $error");
+    }
+  }
+
+  ///  Listen to changes of the data in path and return the value that change each time there is change
+  Stream<List<Document>> listenToChangeOfCollectionDataInPath(
+      String dataPath) async* {
+    //  Sign in with user credentials
+    try {
+      //  Instantiate a reference to a document - this happens offline
+      final CollectionReference ref = Firestore.instance.collection(dataPath);
 
       //  Subscribe to changes to that document
       yield* ref.stream;
@@ -88,8 +111,8 @@ class CloudFireStoreD {
       //  Update the document
       await ref.update({fieldToUpdate: valueToUpdate});
     } catch (error) {
-      print("Can't reach server, error: " + error.toString());
-      return "Can't reach server, error: " + error.toString();
+      print("Can't reach server, error: $error");
+      return "Can't reach server, error: $error";
     }
     return 'Success';
   }
