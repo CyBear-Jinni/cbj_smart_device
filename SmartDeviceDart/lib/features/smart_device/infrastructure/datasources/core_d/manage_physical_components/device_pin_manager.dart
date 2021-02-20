@@ -202,7 +202,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
 
   @override
   PinInformation getFreeGpioPins({List<PinInformation> ignorePinsList}) {
-    return physicalDevice.getNextFreeGpioPin(ignorePinsList: ignorePinsList);
+    return physicalDevice?.getNextFreeGpioPin(ignorePinsList: ignorePinsList);
   }
 }
 

@@ -172,7 +172,8 @@ abstract class SmartDeviceBaseAbstract {
 
   ///  All the wishes that are legit to execute from the base class
   String wishInBaseClass(WishEnum wish, WishSourceEnum wishSourceEnum) {
-    if (wish == null) return 'Your wish does not exist';
+    String executionMassage;
+    if (wish == null) executionMassage = 'Your wish does not exist';
 
     final bool deviceStatus = getDeviceState();
     String resultOfTheWish;
@@ -180,39 +181,58 @@ abstract class SmartDeviceBaseAbstract {
     switch (wish) {
       case WishEnum.SOff:
         if (onOffPin == null) {
-          return 'Cant turn off this pin: $onOffPin Number';
+          executionMassage = 'Cant turn off this pin: $onOffPin Number';
         }
         resultOfTheWish = _SetOff(onOffPin);
         break;
       case WishEnum.SOn:
         if (onOffPin == null) {
-          return 'Cant turn on this pin: $onOffPin Number';
+          executionMassage = 'Cant turn on this pin: $onOffPin Number';
         }
         resultOfTheWish = _SetOn(onOffPin);
         break;
       case WishEnum.SChangeState:
         if (onOffPin == null) {
-          return 'Cant chane pin to the opposite state: $onOffPin Number';
+          executionMassage =
+              'Cant chane pin to the opposite state: $onOffPin Number';
         }
         resultOfTheWish = _SetChangeOppositeToState(onOffPin);
         break;
       case WishEnum.GState:
-        return deviceStatus.toString();
+        executionMassage = deviceStatus.toString();
+        break;
       default:
-        return 'Your wish does not exist for this class';
+        executionMassage = 'Your wish does not exist for this class';
     }
 
-    // if (deviceStatus != getDeviceState()) {
-    //   updateCloudValue(getDeviceState().toString());
-    // }
+    print('Device state is $deviceStatus');
 
-    return resultOfTheWish;
+    if (executionMassage == 'Turn on successfully' ||
+        executionMassage == 'Turn off successfully' ||
+        executionMassage == 'Cant turn on this pin: null Number' ||
+        executionMassage == 'Cant turn off this pin: null Number') {
+      updateDeviceDocumentCloudValue(id, 'state', 'ack');
+    } else {
+      updateDeviceDocumentCloudValue(id, 'stateMassage', executionMassage);
+    }
+
+    return executionMassage;
   }
 
-  void updateCloudValue(String value) {
+  void updateDeviceDocumentCloudValue(
+      String deviceId, String fieldToUpdate, String valueToUpdate) {
     cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
     if (cloudValueChangeU != null) {
-      cloudValueChangeU.updateDocument(id, value);
+      cloudValueChangeU.updateDeviceDocument(
+          deviceId, fieldToUpdate, valueToUpdate);
+    }
+  }
+
+  void updateThisDeviceDocumentCloudValue(
+      String fieldToUpdate, String valueToUpdate) {
+    cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
+    if (cloudValueChangeU != null) {
+      cloudValueChangeU.updateDeviceDocument(id, fieldToUpdate, valueToUpdate);
     }
   }
 

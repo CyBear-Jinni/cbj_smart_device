@@ -112,6 +112,8 @@ class LocalDbD {
         firebaseAccountsInformationD.userEmail;
     firebaseAccountsInformationMap[AccountsInformationD.userPassword] =
         firebaseAccountsInformationD.userPassword;
+    firebaseAccountsInformationMap[AccountsInformationD.homeId] =
+        firebaseAccountsInformationD.homeId;
 
     _hiveD.saveListOfDatabaseInformation(firebaseAccountsInformationMap);
   }
