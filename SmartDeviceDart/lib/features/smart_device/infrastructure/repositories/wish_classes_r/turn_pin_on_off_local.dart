@@ -16,7 +16,7 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
   ///  Function to start c script to interact with pins
   @override
   Future<String> pinOn(PinInformation pinNumber) async {
-    if (pinNumber.pinAndPhysicalPinConfiguration == null) {
+    if (pinNumber?.pinAndPhysicalPinConfiguration == null) {
       print('Error PinInformation.pinAndPhysicalPinConfiguration was not set');
       return 'Error PinInformation.pinAndPhysicalPinConfiguration was not set';
     }

@@ -94,9 +94,12 @@ class LocalDbR {
     final String userPassword =
         firebaseAccountsInformationMap[AccountsInformationD.userPassword];
 
+    final String homeId =
+        firebaseAccountsInformationMap[AccountsInformationD.homeId];
+
     final FirebaseAccountsInformationD firebaseAccountsInformationD =
         FirebaseAccountsInformationD(
-            fireBaseProjectId, fireBaseApiKey, userEmail, userPassword);
+            fireBaseProjectId, fireBaseApiKey, userEmail, userPassword, homeId);
 
     return firebaseAccountsInformationD;
   }

@@ -25,7 +25,7 @@ class LocalDbD {
 
     for (final SmartDeviceBaseAbstract smartDeviceBaseAbstract
         in smartDevicesList) {
-      final String deviceName = smartDeviceBaseAbstract.smartInstanceName;
+      final String deviceName = smartDeviceBaseAbstract.id;
       final String deviceTypeAsString = EnumHelper.deviceTypeToString(
           smartDeviceBaseAbstract.getDeviceType());
       String onOffPin;
@@ -112,6 +112,8 @@ class LocalDbD {
         firebaseAccountsInformationD.userEmail;
     firebaseAccountsInformationMap[AccountsInformationD.userPassword] =
         firebaseAccountsInformationD.userPassword;
+    firebaseAccountsInformationMap[AccountsInformationD.homeId] =
+        firebaseAccountsInformationD.homeId;
 
     _hiveD.saveListOfDatabaseInformation(firebaseAccountsInformationMap);
   }

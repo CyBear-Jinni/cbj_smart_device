@@ -5,7 +5,7 @@ import 'package:smart_device_dart/features/smart_device/domain/entities/wish_cla
 class OffWishU {
   static String setOff(
       DeviceInformation deviceInformation, PinInformation pinNumber) {
-    pinNumber.v = 0;
+    pinNumber?.v = 0;
     switch (deviceInformation.runtimeType) {
       case LocalDevice:
         return setOffLocal(deviceInformation as LocalDevice, pinNumber);
