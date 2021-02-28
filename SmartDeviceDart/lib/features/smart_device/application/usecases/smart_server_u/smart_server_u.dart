@@ -9,6 +9,7 @@ import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/e
 import 'package:smart_device_dart/features/smart_device/domain/entities/local_db_e/local_db_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
 
 /// This class get what to execute straight from the grpc request,
 class SmartServerU extends SmartServerServiceBase {
@@ -54,6 +55,26 @@ class SmartServerU extends SmartServerServiceBase {
   }
 
   @override
+  Future<CompInfo> getCompInfo(ServiceCall call, CommendStatus request) async {
+    final String compUuid = await MySingletonHelper.getUuid();
+
+    // final File f = File('../pubspec.yaml');
+    // f.readAsString().then((String text) {
+    //   Map yaml = loadYaml(text);
+    //   print(yaml['name']);
+    //   print(yaml['description']);
+    //   print(yaml['version']);
+    //   print(yaml['author']);
+    //   print(yaml['homepage']);
+    //   print(yaml['dependencies']);
+    // });
+
+    final CompInfo compInfo = CompInfo(compUuid: compUuid);
+
+    return Future<CompInfo>.value(compInfo);
+  }
+
+  @override
   Stream<SmartDevice> getAllDevices(
       ServiceCall call, SmartDeviceStatus request) async* {
     print('getAllDevices');
@@ -64,6 +85,7 @@ class SmartServerU extends SmartServerServiceBase {
       final SmartDevice smartDevice = SmartDevice();
       smartDevice.id = smartDeviceBaseAbstract.id;
       smartDevice.type = deviceType;
+      smartDevice.deviceCompUuid = await MySingletonHelper.getUuid();
 
       yield smartDevice;
     }
@@ -78,8 +100,7 @@ class SmartServerU extends SmartServerServiceBase {
 
     print(
         'Getting status of device $request and device status in bool $deviceStatus');
-    return SmartDeviceStatus()
-      ..onOffState = deviceStatus == 'true' ? true : false;
+    return SmartDeviceStatus()..onOffState = deviceStatus == 'true';
   }
 
   @override
