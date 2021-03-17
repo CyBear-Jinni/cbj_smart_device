@@ -10,6 +10,7 @@ import 'package:smart_device_dart/features/smart_device/domain/entities/local_db
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
+import 'package:uuid/uuid.dart';
 
 /// This class get what to execute straight from the grpc request,
 class SmartServerU extends SmartServerServiceBase {
@@ -56,45 +57,104 @@ class SmartServerU extends SmartServerServiceBase {
 
   @override
   Future<CompInfo> getCompInfo(ServiceCall call, CommendStatus request) async {
+    final String compId = Uuid().v1();
     final String compUuid = await MySingletonHelper.getUuid();
+    final List<SmartDeviceBaseAbstract> devicesList =
+        MySingleton.getSmartDevicesList();
 
-    // final File f = File('../pubspec.yaml');
-    // f.readAsString().then((String text) {
-    //   Map yaml = loadYaml(text);
-    //   print(yaml['name']);
-    //   print(yaml['description']);
-    //   print(yaml['version']);
-    //   print(yaml['author']);
-    //   print(yaml['homepage']);
-    //   print(yaml['dependencies']);
-    // });
+    final CompSpecs compSpecs = CompSpecs(
+      compId: compId,
+      compUuid: compUuid,
+    );
 
-    final CompInfo compInfo = CompInfo(compUuid: compUuid);
+    List<SmartDeviceInfo> smartDeviceInfoList = [];
+    devicesList.forEach((element) {
+      DeviceTypes deviceTypes;
+      switch (element.getDeviceType()) {
+        case DeviceType.Light:
+          deviceTypes = DeviceTypes.Light;
+          break;
+        case DeviceType.DynamicLight:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Blinds:
+          deviceTypes = DeviceTypes.Blinds;
+          break;
+        case DeviceType.Thermostat:
+          deviceTypes = DeviceTypes.Thermostat;
+          break;
+        case DeviceType.Fan:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.AirConditioner:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Camera:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Fridge:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Toaster:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.CoffeeMachine:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.SmartTV:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.RCAirplane:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.RCCar:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Speakers:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Roomba:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Irrigation:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.SmartBed:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.AnimalTracker:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.SmartCar:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+      }
+      final DeviceTypesActions deviceTypesActions = DeviceTypesActions(
+        deviceType: deviceTypes,
+        deviceAction:
+            element.getDeviceState() ? DeviceActions.On : DeviceActions.Off,
+        deviceStateGRPC: DeviceStateGRPC.waitingInComp,
+      );
+
+      final SmartDeviceInfo smartDeviceInfo = SmartDeviceInfo(
+        id: element.id,
+        senderId: compId,
+        deviceTypesActions: deviceTypesActions,
+        compSpecs: compSpecs,
+      );
+      smartDeviceInfoList.add(smartDeviceInfo);
+    });
+
+    final CompInfo compInfo =
+        CompInfo(compSpecs: compSpecs, smartDevicesInComp: smartDeviceInfoList);
 
     return Future<CompInfo>.value(compInfo);
-  }
-
-  @override
-  Stream<SmartDevice> getAllDevices(
-      ServiceCall call, SmartDeviceStatus request) async* {
-    print('getAllDevices');
-    for (final SmartDeviceBaseAbstract smartDeviceBaseAbstract
-        in MySingleton.getSmartDevicesList()) {
-      final String deviceType = smartDeviceBaseAbstract.runtimeType.toString();
-
-      final SmartDevice smartDevice = SmartDevice();
-      smartDevice.id = smartDeviceBaseAbstract.id;
-      smartDevice.type = deviceType;
-      smartDevice.deviceCompUuid = await MySingletonHelper.getUuid();
-
-      yield smartDevice;
-    }
   }
 
   //  Return the status of the specified device
   @override
   Future<SmartDeviceStatus> getStatus(
-      ServiceCall call, SmartDevice request) async {
+      ServiceCall call, SmartDeviceInfo request) async {
     final String deviceStatus =
         await executeWishEnumString(request, WishEnum.GState, _wishSourceEnum);
 
@@ -120,28 +180,28 @@ class SmartServerU extends SmartServerServiceBase {
 
   @override
   Future<CommendStatus> setOffDevice(
-      ServiceCall call, SmartDevice request) async {
+      ServiceCall call, SmartDeviceInfo request) async {
     print('Turn device ${request.id} off');
     return executeWishEnumServer(request, WishEnum.SOff, _wishSourceEnum);
   }
 
   @override
   Future<CommendStatus> setOnDevice(
-      ServiceCall call, SmartDevice request) async {
+      ServiceCall call, SmartDeviceInfo request) async {
     print('Turn device ${request.id} on');
     return executeWishEnumServer(request, WishEnum.SOn, _wishSourceEnum);
   }
 
   @override
   Future<CommendStatus> setBlindsUp(
-      ServiceCall call, SmartDevice request) async {
+      ServiceCall call, SmartDeviceInfo request) async {
     print('Turn blinds ${request.id} up');
     return executeWishEnumServer(request, WishEnum.SBlindsUp, _wishSourceEnum);
   }
 
   @override
   Future<CommendStatus> setBlindsDown(
-      ServiceCall call, SmartDevice request) async {
+      ServiceCall call, SmartDeviceInfo request) async {
     print('Turn blinds ${request.id} down');
 
     return executeWishEnumServer(
@@ -150,14 +210,14 @@ class SmartServerU extends SmartServerServiceBase {
 
   @override
   Future<CommendStatus> setBlindsStop(
-      ServiceCall call, SmartDevice request) async {
+      ServiceCall call, SmartDeviceInfo request) async {
     print('Turn blinds ${request.id} stop');
 
     return executeWishEnumServer(
         request, WishEnum.SBlindsStop, _wishSourceEnum);
   }
 
-  SmartDeviceBaseAbstract getSmartDeviceBaseAbstract(SmartDevice request) {
+  SmartDeviceBaseAbstract getSmartDeviceBaseAbstract(SmartDeviceInfo request) {
     try {
       return MySingleton.getSmartDevicesList().firstWhere(
           (smartDeviceBaseAbstractO) =>
@@ -170,7 +230,7 @@ class SmartServerU extends SmartServerServiceBase {
   }
 
   CommendStatus executeWishEnumServer(
-      SmartDevice request, WishEnum wishEnum, WishEnum) {
+      SmartDeviceInfo request, WishEnum wishEnum, WishEnum) {
     SmartDeviceBaseAbstract smartDevice = getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
       return CommendStatus()..success = false;
@@ -179,8 +239,8 @@ class SmartServerU extends SmartServerServiceBase {
     return CommendStatus()..success = smartDevice.onOff;
   }
 
-  Future<String> executeWishEnumString(SmartDevice request, WishEnum wishEnum,
-      WishSourceEnum wishSourceEnum) async {
+  Future<String> executeWishEnumString(SmartDeviceInfo request,
+      WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
     final SmartDeviceBaseAbstract smartDevice =
         getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
@@ -212,5 +272,22 @@ class SmartServerU extends SmartServerServiceBase {
 
     commendStatus.success = true;
     return Future<CommendStatus>.value(commendStatus);
+  }
+
+  @override
+  Future<CommendStatus> setCompInfo(ServiceCall call, CompInfo request) async {
+    final List<SmartDeviceBaseAbstract> smartDeviceList =
+        MySingleton.getSmartDevicesList();
+
+    for (final SmartDeviceBaseAbstract smartDevice in smartDeviceList) {
+      for (final SmartDeviceInfo smartDeviceInfo
+          in request.smartDevicesInComp) {
+        if (smartDevice.id == smartDeviceInfo.id) {
+          smartDevice.deviceInformation.setName(smartDeviceInfo.defaultName);
+          break;
+        }
+      }
+    }
+    return CommendStatus()..success = true;
   }
 }
