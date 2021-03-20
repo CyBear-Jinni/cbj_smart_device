@@ -47,4 +47,9 @@ class RemoteDataBaseController {
     return _cloudFireStoreNewD.updateDataInBoolField(
         dataPath, fieldToUpdate, valueToUpdate);
   }
+
+  Future<String> updateDocumentWithMap(
+      String dataPath, Map<String, String> mapToUpdate) {
+    return _cloudFireStoreNewD.updateDocumentWithMap(dataPath, mapToUpdate);
+  }
 }

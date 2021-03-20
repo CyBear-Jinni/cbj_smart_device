@@ -10,19 +10,19 @@ class CloudFireStoreListenToChangesD {
         RemoteDataBaseController(firebaseAccountsInformationD);
   }
 
-  String dataPath = '/SmartHomes/';
-  String devicesPath = '/Devices';
+  static String dataPath = '/SmartHomes/';
+  static String devicesPath = '/Devices';
   RemoteDataBaseController _dataBaseController;
   FirebaseAccountsInformationD firebaseAccountsInformationDCopy;
 
   Stream<Document> listenToDocumentAndExecute() async* {
-    String devicesDataPath =
+    final String devicesDataPath =
         dataPath + firebaseAccountsInformationDCopy.homeId + devicesPath;
     yield* _dataBaseController.listenToChangeOfDocumentInPath(devicesDataPath);
   }
 
   Stream<List<Document>> listenToCollectionAndExecute() async* {
-    String devicesDataPath =
+    final String devicesDataPath =
         dataPath + firebaseAccountsInformationDCopy.homeId + devicesPath;
     yield* _dataBaseController
         .listenToChangeOfCollectionInPath(devicesDataPath);
@@ -35,13 +35,19 @@ class CloudFireStoreListenToChangesD {
 
   Future<String> updateDeviceDocument(
       String deviceId, String fieldToUpdate, String valueToUpdate) {
-    String devicesDataPath = dataPath +
-        firebaseAccountsInformationDCopy.homeId +
-        devicesPath +
-        '/' +
-        deviceId;
+    final String devicesDataPath =
+        '$dataPath${firebaseAccountsInformationDCopy.homeId}$devicesPath/$deviceId';
 
     return _dataBaseController.updateDocument(
         devicesDataPath, fieldToUpdate, valueToUpdate);
+  }
+
+  Future<String> updateDeviceDocumentWithMap(
+      String deviceId, Map<String, String> mapToUpdate) {
+    final String devicesDataPath =
+        '$dataPath${firebaseAccountsInformationDCopy.homeId}$devicesPath/$deviceId';
+
+    return _dataBaseController.updateDocumentWithMap(
+        devicesDataPath, mapToUpdate);
   }
 }

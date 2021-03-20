@@ -30,4 +30,10 @@ class CloudManagerR extends CloudManagerRAbstract {
     return _cloudFireStoreListenToChanges.updateDeviceDocument(
         deviceId, fieldToUpdate, valueToUpdate);
   }
+
+  Future<String> updateDeviceDocumentWithMap(
+      String deviceId, Map<String, String> mapToUpdate) {
+    return _cloudFireStoreListenToChanges.updateDeviceDocumentWithMap(
+        deviceId, mapToUpdate);
+  }
 }

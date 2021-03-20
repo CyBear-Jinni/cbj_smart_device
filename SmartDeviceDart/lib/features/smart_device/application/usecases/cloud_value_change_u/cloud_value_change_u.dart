@@ -48,7 +48,7 @@ class CloudValueChangeU {
     DataConnectionChecker().addresses = DEFAULTADDRESSES;
 
     while (true) {
-      bool result = await DataConnectionChecker().hasConnection;
+      final bool result = await DataConnectionChecker().hasConnection;
       if (result == true) {
         print('Have internet');
         break;

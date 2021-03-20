@@ -5,6 +5,7 @@ import 'package:smart_device_dart/core/my_singleton.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/cloud_value_change_u/cloud_value_change_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/core_u/actions_to_preform_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import 'package:smart_device_dart/features/smart_device/domain/entities/cloud_value_change_e/cloud_value_change_e.dart';
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/domain/entities/local_db_e/local_db_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
@@ -42,7 +43,7 @@ class SmartServerU extends SmartServerServiceBase {
     }
 
     if (firebaseAccountInformationD.areAllValuesNotNull()) {
-      CloudValueChangeU cloudValueChangeUseCases =
+      final CloudValueChangeU cloudValueChangeUseCases =
           CloudValueChangeU(firebaseAccountInformationD);
       cloudValueChangeUseCases.listenToDataBase(); //  Listen to changes in the
       // database for this device
@@ -67,7 +68,7 @@ class SmartServerU extends SmartServerServiceBase {
       compUuid: compUuid,
     );
 
-    List<SmartDeviceInfo> smartDeviceInfoList = [];
+    final List<SmartDeviceInfo> smartDeviceInfoList = [];
     devicesList.forEach((element) {
       DeviceTypes deviceTypes;
       switch (element.getDeviceType()) {
@@ -168,10 +169,10 @@ class SmartServerU extends SmartServerServiceBase {
       ServiceCall call, SmartDeviceUpdateDetails request) {
     print(
         'Updating device name:${request.smartDevice.id} into: ${request.newName}');
-    SmartDeviceBaseAbstract smartDevice =
+    final SmartDeviceBaseAbstract smartDevice =
         getSmartDeviceBaseAbstract(request.smartDevice);
     smartDevice.id = request.newName;
-    CommendStatus commendStatus = CommendStatus();
+    final CommendStatus commendStatus = CommendStatus();
     commendStatus.success = true;
     final LocalDbE localDbE = LocalDbE();
     localDbE.saveAllDevices(MySingleton.getSmartDevicesList());
@@ -231,7 +232,8 @@ class SmartServerU extends SmartServerServiceBase {
 
   CommendStatus executeWishEnumServer(
       SmartDeviceInfo request, WishEnum wishEnum, WishEnum) {
-    SmartDeviceBaseAbstract smartDevice = getSmartDeviceBaseAbstract(request);
+    final SmartDeviceBaseAbstract smartDevice =
+        getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
       return CommendStatus()..success = false;
     }
@@ -246,48 +248,103 @@ class SmartServerU extends SmartServerServiceBase {
     if (smartDevice == null) {
       return 'SmartDevice is null in executeWishEnumString';
     }
-    return await ActionsToPreformU.executeWishEnum(
+    return ActionsToPreformU.executeWishEnum(
         smartDevice, wishEnum, wishSourceEnum);
   }
 
   @override
   Future<CommendStatus> setFirebaseAccountInformation(
-      ServiceCall call, FirebaseAccountInformation request) {
+      ServiceCall call, FirebaseAccountInformation request) async {
     print('This is the function setFirebaseAccountInformation');
+    final CommendStatus commendStatus =
+        await setFirebaseAccountInformationHelper(request);
 
-    final FirebaseAccountsInformationD firebaseAccountsInformationD =
-        FirebaseAccountsInformationD(
-            request.fireBaseProjectId,
-            request.fireBaseApiKey,
-            request.userEmail,
-            request.userPassword,
-            request.homeId);
-
-    final LocalDbE localDbE = LocalDbE();
-    localDbE.saveListOfDatabaseInformation(firebaseAccountsInformationD);
-
-    startListenToDb(firebaseAccountsInformationD);
-
-    final CommendStatus commendStatus = CommendStatus();
-
-    commendStatus.success = true;
     return Future<CommendStatus>.value(commendStatus);
   }
 
   @override
   Future<CommendStatus> setCompInfo(ServiceCall call, CompInfo request) async {
-    final List<SmartDeviceBaseAbstract> smartDeviceList =
-        MySingleton.getSmartDevicesList();
+    return SetCompHelper(request);
+  }
 
-    for (final SmartDeviceBaseAbstract smartDevice in smartDeviceList) {
-      for (final SmartDeviceInfo smartDeviceInfo
-          in request.smartDevicesInComp) {
-        if (smartDevice.id == smartDeviceInfo.id) {
-          smartDevice.deviceInformation.setName(smartDeviceInfo.defaultName);
-          break;
+  @override
+  Future<CommendStatus> firstSetup(
+      ServiceCall call, FirstSetupMessage request) async {
+    CompInfo compInfo = request.compInfo;
+    final CommendStatus commendStatusSetComp = SetCompHelper(compInfo);
+
+    final CommendStatus commendStatusSetFirebase =
+        await setFirebaseAccountInformationHelper(
+            request.firebaseAccountInformation);
+
+    if (commendStatusSetComp.success && commendStatusSetFirebase.success) {
+      return CommendStatus()..success = true;
+    } else {
+      return CommendStatus()..success = false;
+    }
+  }
+
+  CommendStatus SetCompHelper(CompInfo compInfo) {
+    try {
+      final List<SmartDeviceBaseAbstract> smartDeviceList =
+          MySingleton.getSmartDevicesList();
+
+      for (final SmartDeviceBaseAbstract smartDevice in smartDeviceList) {
+        for (final SmartDeviceInfo smartDeviceInfo
+            in compInfo.smartDevicesInComp) {
+          if (smartDevice.id == smartDeviceInfo.id) {
+            smartDevice.deviceInformation.setName(smartDeviceInfo.defaultName);
+            break;
+          }
         }
       }
+
+      final LocalDbE localDbE = LocalDbE();
+      localDbE.saveAllDevices(MySingleton.getSmartDevicesList());
+
+      return CommendStatus()..success = true;
+    } catch (e) {
+      return CommendStatus()..success = false;
     }
-    return CommendStatus()..success = true;
+  }
+
+  Future<CommendStatus> setFirebaseAccountInformationHelper(
+      FirebaseAccountInformation request) async {
+    try {
+      final FirebaseAccountsInformationD firebaseAccountsInformationD =
+          FirebaseAccountsInformationD(
+              request.fireBaseProjectId,
+              request.fireBaseApiKey,
+              request.userEmail,
+              request.userPassword,
+              request.homeId);
+
+      final CloudValueChangeE cloudValueChangeE =
+          CloudValueChangeE(firebaseAccountsInformationD);
+
+      for (final SmartDeviceBaseAbstract device
+          in MySingleton.getSmartDevicesList()) {
+        if (device.getDeviceType() == DeviceType.Light) {
+          final Map<String, String> dataToChange = {
+            'state': 'ack',
+          };
+
+          final String createDeviceInHomeSuccess = await cloudValueChangeE
+              .updateDeviceDocumentWithMap(device.id, dataToChange);
+          if (createDeviceInHomeSuccess.toLowerCase().contains('error')) {
+            return CommendStatus()..success = false;
+          }
+        }
+      }
+
+      final LocalDbE localDbE = LocalDbE();
+      localDbE.saveListOfDatabaseInformation(firebaseAccountsInformationD);
+
+      startListenToDb(firebaseAccountsInformationD);
+
+      return CommendStatus()..success = true;
+    } catch (e) {
+      return CommendStatus()..success = false;
+    }
   }
 }
