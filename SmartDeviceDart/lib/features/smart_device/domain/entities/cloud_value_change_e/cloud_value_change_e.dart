@@ -10,6 +10,11 @@ class CloudValueChangeE {
     }
   }
 
+  void setNewFirebaseAccounInfo(
+      FirebaseAccountsInformationD firebaseAccountsInformationD) {
+    _cloudManager = CloudManagerR(firebaseAccountsInformationD);
+  }
+
   static CloudManagerR _cloudManager;
 
   Stream<Document> listenToDocumentDataBase() async* {

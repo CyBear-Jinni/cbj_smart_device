@@ -34,6 +34,7 @@ class CloudFireStoreD {
       FirebaseAuth.initialize(_fireBaseApiKey, await HiveStore.create());
       await FirebaseAuth.instance.signIn(_userEmail, _userPassword);
 //      var user = await FirebaseAuth.instance.getUser();
+
     } catch (exception) {
       print('This was the exception here: $exception');
     }

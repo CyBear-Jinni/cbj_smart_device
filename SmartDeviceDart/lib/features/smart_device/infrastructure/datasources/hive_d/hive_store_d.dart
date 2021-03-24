@@ -1,7 +1,7 @@
-import 'package:smart_device_dart/core/my_singleton.dart';
-import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 import 'package:firedart/firedart.dart';
 import 'package:hive/hive.dart';
+import 'package:smart_device_dart/core/my_singleton.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 
 /// Stores tokens using a Hive store.
 /// Depends on the Hive plugin: https://pub.dev/packages/hive
@@ -12,7 +12,7 @@ class HiveStore extends TokenStore {
 
   static Future<HiveStore> create() async {
     String hiveFolderPath;
-    String snapCommonEnvironmentVariablePath =
+    final String snapCommonEnvironmentVariablePath =
         await SystemCommandsManager().getSnapCommonEnvironmentVariable();
     if (snapCommonEnvironmentVariablePath == null) {
       final String currentUserName = await MySingleton.getCurrentUserName();

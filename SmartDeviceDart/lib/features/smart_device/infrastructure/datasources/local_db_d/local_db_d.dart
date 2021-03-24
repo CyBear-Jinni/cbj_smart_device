@@ -19,7 +19,8 @@ class LocalDbD {
     return _hiveD.getListOfDatabaseInformation();
   }
 
-  void saveAllDevices(List<SmartDeviceBaseAbstract> smartDevicesList) {
+  Future<void> saveAllDevices(
+      List<SmartDeviceBaseAbstract> smartDevicesList) async {
     final Map<String, List<String>> smartDevicesMapList =
         <String, List<String>>{};
 
@@ -96,7 +97,8 @@ class LocalDbD {
       }
     }
 
-    _hiveD.saveAllDevices(smartDevicesMapList);
+    await _hiveD.saveAllDevices(smartDevicesMapList);
+    return;
   }
 
   void saveListOfDatabaseInformation(
