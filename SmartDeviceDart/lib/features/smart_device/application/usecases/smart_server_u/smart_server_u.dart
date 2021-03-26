@@ -141,6 +141,7 @@ class SmartServerU extends SmartServerServiceBase {
         senderId: compId,
         deviceTypesActions: deviceTypesActions,
         compSpecs: compSpecs,
+        defaultName: element.deviceInformation.getName(),
       );
       smartDeviceInfoList.add(smartDeviceInfo);
     });
