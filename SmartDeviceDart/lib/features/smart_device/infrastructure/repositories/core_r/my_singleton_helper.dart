@@ -2,12 +2,12 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 
 class MySingletonHelper {
   static Future<String> getUuid() {
-    SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
     return systemCommandsManager.getUuidOfCurrentDevice();
   }
 
   static Future<String> getCurrentUserName() {
-    SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
     return systemCommandsManager.getCurrentUserName();
   }
 }
