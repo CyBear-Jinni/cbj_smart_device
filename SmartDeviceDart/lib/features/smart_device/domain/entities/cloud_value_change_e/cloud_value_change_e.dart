@@ -4,14 +4,15 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/repositor
 
 class CloudValueChangeE {
   CloudValueChangeE(FirebaseAccountsInformationD firebaseAccountsInformationD) {
-    if (firebaseAccountsInformationD.fireBaseProjectId != null &&
-        firebaseAccountsInformationD.fireBaseApiKey != null &&
-        firebaseAccountsInformationD.userEmail != null &&
-        firebaseAccountsInformationD.userPassword != null &&
-        firebaseAccountsInformationD.homeId != null) {
+    if (doesFirebaseAccountLogit(firebaseAccountsInformationD)) {
       _cloudManager ??= CloudManagerR(firebaseAccountsInformationD);
 //    MySingleton.getSmartDevicesList()[0];
     }
+  }
+
+  void setNewFirebaseAccounInfo(
+      FirebaseAccountsInformationD firebaseAccountsInformationD) {
+    _cloudManager = CloudManagerR(firebaseAccountsInformationD);
   }
 
   static CloudManagerR _cloudManager;
@@ -32,5 +33,22 @@ class CloudValueChangeE {
       String deviceId, String fieldToUpdate, String valueToUpdate) {
     return _cloudManager.updateDeviceDocument(
         deviceId, fieldToUpdate, valueToUpdate);
+  }
+
+  Future<String> updateDeviceDocumentWithMap(
+      String deviceId, Map<String, String> mapToUpdate) {
+    return _cloudManager.updateDeviceDocumentWithMap(deviceId, mapToUpdate);
+  }
+
+  static bool doesFirebaseAccountLogit(
+      FirebaseAccountsInformationD firebaseAccountsInformationD) {
+    if (firebaseAccountsInformationD.fireBaseProjectId != null &&
+        firebaseAccountsInformationD.fireBaseApiKey != null &&
+        firebaseAccountsInformationD.userEmail != null &&
+        firebaseAccountsInformationD.userPassword != null &&
+        firebaseAccountsInformationD.homeId != null) {
+      return true;
+    }
+    return false;
   }
 }

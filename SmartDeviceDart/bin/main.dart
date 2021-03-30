@@ -10,7 +10,7 @@ void main(List<String> arguments) async {
     SharedVariables(arguments[0]);
   } catch (error) {
     print('Path/argument 1 is not specified');
-    print('error: ' + error.toString());
+    print('error: $error');
   }
 
   //  Getting physical device type from outside, and checking if this device configuration exist

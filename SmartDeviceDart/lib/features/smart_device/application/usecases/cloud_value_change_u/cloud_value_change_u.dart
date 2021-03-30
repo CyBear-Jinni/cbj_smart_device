@@ -19,6 +19,12 @@ class CloudValueChangeU {
   static CloudValueChangeU _cloudValueChangeU;
   CloudValueChangeE _cloudValueChangeEntity;
 
+  void setNewFirebaseAccounInfo(
+      FirebaseAccountsInformationD firebaseAccountsInformationD) {
+    _cloudValueChangeEntity
+        .setNewFirebaseAccounInfo(firebaseAccountsInformationD);
+  }
+
   static CloudValueChangeU getCloudValueChangeU() {
     return _cloudValueChangeU;
   }
@@ -31,6 +37,12 @@ class CloudValueChangeU {
       String deviceId, String fieldToUpdate, String valueToUpdate) {
     return _cloudValueChangeEntity.updateDeviceDocument(
         deviceId, fieldToUpdate, valueToUpdate);
+  }
+
+  Future<String> updateDeviceDocumentWithMap(
+      String deviceId, Map<String, String> mapToUpdate) {
+    return _cloudValueChangeEntity.updateDeviceDocumentWithMap(
+        deviceId, mapToUpdate);
   }
 
   ///  Listen to changes in the database for this device
@@ -48,7 +60,7 @@ class CloudValueChangeU {
     DataConnectionChecker().addresses = DEFAULTADDRESSES;
 
     while (true) {
-      bool result = await DataConnectionChecker().hasConnection;
+      final bool result = await DataConnectionChecker().hasConnection;
       if (result == true) {
         print('Have internet');
         break;

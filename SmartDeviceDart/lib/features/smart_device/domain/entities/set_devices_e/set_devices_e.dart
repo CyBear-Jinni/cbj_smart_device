@@ -5,6 +5,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/sma
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/set_devices_r/set_devices_r.dart';
+import 'package:uuid/uuid.dart';
 
 class SetDevicesE {
   SetDevicesE() {
@@ -46,7 +47,9 @@ class SetDevicesE {
         <SmartDeviceBaseAbstract>[];
     final String uuid = await getCurrentDeviceUUid();
 
+    String id;
     for (final DeviceType deviceType in deviceTypeList) {
+      id = Uuid().v1();
       if (deviceType == DeviceType.Light) {
         final int lightPinNumber = DevicePinListManager()
             .getFreePinsForSmartDeviceType(DeviceType.Light)[0]
@@ -60,7 +63,8 @@ class SetDevicesE {
             numberOfThatTypeThatExist(smartDeviceList, DeviceType.Light);
         smartDeviceList.add(LightObject(
             uuid, 'Light$deviceTypeCounter', lightPinNumber,
-            onOffButtonPinNumber: buttonPinNumber));
+            onOffButtonPinNumber: buttonPinNumber)
+          ..id = id);
       } else if (deviceType == DeviceType.Blinds) {
         List<PinInformation> lightPinAndButtonPin = DevicePinListManager()
             .getFreePinsForSmartDeviceType(DeviceType.Light);
@@ -82,21 +86,24 @@ class SetDevicesE {
 
         final int deviceTypeCounter =
             numberOfThatTypeThatExist(smartDeviceList, DeviceType.Blinds);
-        smartDeviceList.add(BlindsObject(
-            uuid,
-            'Blinds$deviceTypeCounter',
-            null,
-            //  onOffPinNumber
-            null,
-            //  onOffButtonPinNumber
-            blindUpPinNumber,
-            //  blindsUpPin
-            buttonUpPinNumber,
-            //  upButtonPinNumber
-            blindDownPinNumber,
-            //  blindsDownPin
-            buttonDownPinNumber // downButtonPinNumber
-            ));
+        smartDeviceList.add(
+          BlindsObject(
+              uuid,
+              'Blinds$deviceTypeCounter',
+              null,
+              //  onOffPinNumber
+              null,
+              //  onOffButtonPinNumber
+              blindUpPinNumber,
+              //  blindsUpPin
+              buttonUpPinNumber,
+              //  upButtonPinNumber
+              blindDownPinNumber,
+              //  blindsDownPin
+              buttonDownPinNumber // downButtonPinNumber
+              )
+            ..id = id,
+        );
       }
     }
     if (smartDeviceList.isEmpty) {

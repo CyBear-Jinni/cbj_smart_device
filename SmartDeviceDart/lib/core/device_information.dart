@@ -3,16 +3,26 @@ class DeviceInformation {
   DeviceInformation(this._uuid, this._name);
 
   ///  uuid of the device
-  final String _uuid;
+  String _uuid;
 
   ///  Name of the device
-  final String _name;
+  String _name;
 
   //  Getters
 
   String getUuid() => _uuid;
 
   String getName() => _name;
+
+  //  Setters
+
+  void setUuid(String value) {
+    _uuid = value;
+  }
+
+  void setName(String value) {
+    _name = value;
+  }
 }
 
 class RemoteDevice extends DeviceInformation {

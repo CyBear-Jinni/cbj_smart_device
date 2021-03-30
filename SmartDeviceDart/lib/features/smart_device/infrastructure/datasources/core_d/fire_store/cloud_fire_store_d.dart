@@ -34,6 +34,7 @@ class CloudFireStoreD {
       FirebaseAuth.initialize(_fireBaseApiKey, await HiveStore.create());
       await FirebaseAuth.instance.signIn(_userEmail, _userPassword);
 //      var user = await FirebaseAuth.instance.getUser();
+
     } catch (exception) {
       print('This was the exception here: $exception');
     }
@@ -107,9 +108,23 @@ class CloudFireStoreD {
       String dataPath, String fieldToUpdate, String valueToUpdate) async {
     try {
       //  Instantiate a reference to a document - this happens offline
-      var ref = Firestore.instance.document(dataPath);
+      final ref = Firestore.instance.document(dataPath);
       //  Update the document
       await ref.update({fieldToUpdate: valueToUpdate});
+    } catch (error) {
+      print("Can't reach server, error: $error");
+      return "Can't reach server, error: $error";
+    }
+    return 'Success';
+  }
+
+  Future<String> updateDocumentWithMap(
+      String dataPath, Map<String, String> mapToUpdate) async {
+    try {
+      //  Instantiate a reference to a document - this happens offline
+      final ref = Firestore.instance.document(dataPath);
+      //  Update the document
+      await ref.update(mapToUpdate);
     } catch (error) {
       print("Can't reach server, error: $error");
       return "Can't reach server, error: $error";

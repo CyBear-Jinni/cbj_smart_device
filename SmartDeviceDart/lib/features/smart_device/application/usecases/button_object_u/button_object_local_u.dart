@@ -73,7 +73,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
           .listenToButtonPress(buttonPinNumber)
           .then((int exitCode) async {
         print('Blind button number $buttonNumber was pressed');
-        WishEnum blindNewState = await changePinsOutput(
+        final WishEnum blindNewState = await changePinsOutput(
             smartDevice, firstLightPin, secondLightPin, buttonNumber);
         updateCloudValue(smartDevice.id, blindNewState);
       });
@@ -81,7 +81,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   }
 
   void updateCloudValue(String blindName, WishEnum wish) {
-    String wishAsString = EnumHelper.wishEnumToString(wish);
+    final String wishAsString = EnumHelper.wishEnumToString(wish);
     cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
     if (cloudValueChangeU != null) {
       cloudValueChangeU.updateDocument(blindName, wishAsString);
