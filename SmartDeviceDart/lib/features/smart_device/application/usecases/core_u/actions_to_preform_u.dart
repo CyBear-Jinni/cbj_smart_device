@@ -4,7 +4,8 @@ import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/e
 class ActionsToPreformU {
   static Future<String> executeWishEnum(SmartDeviceBaseAbstract smartDevice,
       WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
-    var deviceStatus = await smartDevice.executeWish(wishEnum, wishSourceEnum);
+    final deviceStatus =
+        await smartDevice.executeWish(wishEnum, wishSourceEnum);
     return deviceStatus;
   }
 }

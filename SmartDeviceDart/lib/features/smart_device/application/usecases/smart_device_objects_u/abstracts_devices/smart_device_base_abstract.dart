@@ -172,7 +172,7 @@ abstract class SmartDeviceBaseAbstract {
 
   ///  All the wishes that are legit to execute from the base class
   String wishInBaseClass(WishEnum wish, WishSourceEnum wishSourceEnum) {
-    String executionMassage;
+    String executionMassage = ' ';
     if (wish == null) executionMassage = 'Your wish does not exist';
 
     final bool deviceStatus = getDeviceState();
