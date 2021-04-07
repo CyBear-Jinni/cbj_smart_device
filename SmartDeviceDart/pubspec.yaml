@@ -30,6 +30,7 @@ dependencies:
   process_run: ^0.11.2+8
   # Provides parse, inspect, and manipulate stack traces
   stack_trace: ^1.9.6
+  uuid: ^2.2.2
 
 
 dev_dependencies:

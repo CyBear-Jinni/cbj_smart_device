@@ -13,7 +13,7 @@ description: |
   This is open source project so feel free to take a look at the code and join us advancing the world forward.
 
 grade: stable  # devel/stable
-confinement: strict  # devmode/classic/strict
+confinement: devmode  # devmode/classic/strict
 
 architectures:
   - build-on: armhf

@@ -2,6 +2,7 @@
   <dictionary name="guy">
     <words>
       <w>gpio</w>
+      <w>grpc</w>
       <w>jinni</w>
     </words>
   </dictionary>

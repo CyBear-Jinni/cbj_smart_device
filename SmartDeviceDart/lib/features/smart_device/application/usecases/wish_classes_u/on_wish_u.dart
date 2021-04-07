@@ -6,7 +6,7 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/repositor
 class OnWishU {
   static String setOn(
       DeviceInformation deviceInformation, PinInformation pinNumber) {
-    pinNumber.v = 1;
+    pinNumber?.v = 1;
 
     switch (deviceInformation.runtimeType) {
       case LocalDevice:

@@ -1,8 +1,8 @@
+import 'package:hive/hive.dart';
 import 'package:smart_device_dart/core/my_singleton.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/hive_d/hive_objects_d/hive_devices_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/hive_d/hive_store_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
-import 'package:hive/hive.dart';
 
 class HiveD {
   factory HiveD() {
@@ -23,70 +23,99 @@ class HiveD {
       'databaseInformation';
 
   Future<bool> contractorAsync() async {
-    if (finishedInitializing == null) {
-      String snapCommonEnvironmentVariablePath =
-          await SystemCommandsManager().getSnapCommonEnvironmentVariable();
-      if (snapCommonEnvironmentVariablePath == null) {
-        final String currentUserName = await MySingleton.getCurrentUserName();
-        hiveFolderPath = '/home/$currentUserName/Documents/hive';
-      } else {
-        hiveFolderPath = '$snapCommonEnvironmentVariablePath/hive';
+    try {
+      if (finishedInitializing == null) {
+        final String snapCommonEnvironmentVariablePath =
+            await SystemCommandsManager().getSnapCommonEnvironmentVariable();
+        if (snapCommonEnvironmentVariablePath == null) {
+          final String currentUserName = await MySingleton.getCurrentUserName();
+          hiveFolderPath = '/home/$currentUserName/Documents/hive';
+        } else {
+          hiveFolderPath = '$snapCommonEnvironmentVariablePath/hive';
+        }
+        print('Path of hive: $hiveFolderPath');
+        Hive.init(hiveFolderPath);
+        //
+        // Hive.openBox(
+        //     smartDeviceBoxName); // TODO: check if need await, it creates error: HiveError: Cannot read, unknown typeId: 34
+        Hive.registerAdapter(TokenAdapter());
+        Hive.registerAdapter(HiveDevicesDAdapter());
+
+        finishedInitializing = true;
       }
-      print('Path of hive: ' + hiveFolderPath);
-      Hive.init(hiveFolderPath);
-
-      Hive.openBox(
-          smartDeviceBoxName); // TODO: check if need await, it creates error: HiveError: Cannot read, unknown typeId: 34
-      Hive.registerAdapter(TokenAdapter());
-      Hive.registerAdapter(HiveDevicesDAdapter());
-
-      finishedInitializing = true;
+    } catch (error) {
+      print('error: $error');
     }
     return finishedInitializing;
   }
 
   Future<Map<String, List<String>>> getListOfSmartDevices() async {
-    await contractorAsync();
+    try {
+      await contractorAsync();
 
-    var box = await Hive.openBox(smartDeviceBoxName);
+      final box = await Hive.openBox(smartDeviceBoxName);
 
-    HiveDevicesD a = box.get(cellDeviceListInSmartDeviceBox) as HiveDevicesD;
+      final HiveDevicesD hiveDeviceD =
+          box.get(cellDeviceListInSmartDeviceBox) as HiveDevicesD;
 
-    return a?.smartDeviceList;
+      return hiveDeviceD?.smartDeviceList;
+    } catch (error) {
+      print('error: $error');
+    }
+    return null;
   }
 
   Future<Map<String, String>> getListOfDatabaseInformation() async {
-    await contractorAsync();
+    try {
+      await contractorAsync();
 
-    var box = await Hive.openBox(smartDeviceBoxName);
+      final box = await Hive.openBox(smartDeviceBoxName);
 
-    HiveDevicesD firebaseAccountsInformationMap =
-        box.get(cellDatabaseInformationInSmartDeviceBox) as HiveDevicesD;
+      final HiveDevicesD firebaseAccountsInformationMap =
+          box.get(cellDatabaseInformationInSmartDeviceBox) as HiveDevicesD;
 
-    return firebaseAccountsInformationMap?.databaseInformationList;
+      return firebaseAccountsInformationMap?.databaseInformationList;
+    } catch (error) {
+      print('error: $error');
+    }
+    return null;
   }
 
   Future<void> saveAllDevices(
       Map<String, List<String>> smartDevicesMapList) async {
-    await finishedInitializing;
+    try {
+      await contractorAsync();
 
-    var box = await Hive.openBox(smartDeviceBoxName);
+      final Box box = await Hive.openBox(smartDeviceBoxName);
 
-    final HiveDevicesD hiveDevicesD = HiveDevicesD()
-      ..smartDeviceList = smartDevicesMapList;
+      final HiveDevicesD hiveDevicesD = HiveDevicesD()
+        ..smartDeviceList = smartDevicesMapList;
 
-    await box.put(cellDeviceListInSmartDeviceBox, hiveDevicesD);
+      await box
+          .put(cellDeviceListInSmartDeviceBox, hiveDevicesD)
+          .catchError((a) {
+        print('Error is: $a');
+      });
+    } catch (error) {
+      print('error: $error');
+    }
+    return;
   }
 
   Future<void> saveListOfDatabaseInformation(
       Map<String, String> firebaseAccountsInformationMap) async {
-    await finishedInitializing;
+    try {
+      await contractorAsync();
 
-    var box = await Hive.openBox(smartDeviceBoxName);
+      final box = await Hive.openBox(smartDeviceBoxName);
 
-    final HiveDevicesD hiveDevicesD = HiveDevicesD()
-      ..databaseInformationList = firebaseAccountsInformationMap;
+      final HiveDevicesD hiveDevicesD = HiveDevicesD()
+        ..databaseInformationList = firebaseAccountsInformationMap;
 
-    await box.put(cellDatabaseInformationInSmartDeviceBox, hiveDevicesD);
+      await box.put(cellDatabaseInformationInSmartDeviceBox, hiveDevicesD);
+    } catch (error) {
+      print('error: $error');
+    }
+    return;
   }
 }

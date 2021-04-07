@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:grpc/grpc.dart';
 import 'package:smart_device_dart/core/my_singleton.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/cloud_value_change_u/cloud_value_change_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/core_u/actions_to_preform_u.dart';
@@ -8,7 +9,8 @@ import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/e
 import 'package:smart_device_dart/features/smart_device/domain/entities/local_db_e/local_db_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
-import 'package:grpc/grpc.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
+import 'package:uuid/uuid.dart';
 
 /// This class get what to execute straight from the grpc request,
 class SmartServerU extends SmartServerServiceBase {
@@ -40,7 +42,7 @@ class SmartServerU extends SmartServerServiceBase {
     }
 
     if (firebaseAccountInformationD.areAllValuesNotNull()) {
-      CloudValueChangeU cloudValueChangeUseCases =
+      final CloudValueChangeU cloudValueChangeUseCases =
           CloudValueChangeU(firebaseAccountInformationD);
       cloudValueChangeUseCases.listenToDataBase(); //  Listen to changes in the
       // database for this device
@@ -54,75 +56,154 @@ class SmartServerU extends SmartServerServiceBase {
   }
 
   @override
-  Stream<SmartDevice> getAllDevices(
-      ServiceCall call, SmartDeviceStatus request) async* {
-    print('getAllDevices');
-    for (final SmartDeviceBaseAbstract smartDeviceBaseAbstract
-        in MySingleton.getSmartDevicesList()) {
-      final String deviceType = smartDeviceBaseAbstract.runtimeType.toString();
+  Future<CompInfo> getCompInfo(ServiceCall call, CommendStatus request) async {
+    final String compId = Uuid().v1();
+    final String compUuid = await MySingletonHelper.getUuid();
+    final List<SmartDeviceBaseAbstract> devicesList =
+        MySingleton.getSmartDevicesList();
 
-      final SmartDevice smartDevice = SmartDevice();
-      smartDevice.uuid = smartDeviceBaseAbstract.uuid;
-      smartDevice.name = smartDeviceBaseAbstract.smartInstanceName;
-      smartDevice.deviceType = deviceType;
+    final CompSpecs compSpecs = CompSpecs(
+      compId: compId,
+      compUuid: compUuid,
+    );
 
-      yield smartDevice;
-    }
+    final List<SmartDeviceInfo> smartDeviceInfoList = [];
+    devicesList.forEach((element) {
+      DeviceTypes deviceTypes;
+      switch (element.getDeviceType()) {
+        case DeviceType.Light:
+          deviceTypes = DeviceTypes.Light;
+          break;
+        case DeviceType.DynamicLight:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Blinds:
+          deviceTypes = DeviceTypes.Blinds;
+          break;
+        case DeviceType.Thermostat:
+          deviceTypes = DeviceTypes.Thermostat;
+          break;
+        case DeviceType.Fan:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.AirConditioner:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Camera:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Fridge:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Toaster:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.CoffeeMachine:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.SmartTV:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.RCAirplane:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.RCCar:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Speakers:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Roomba:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.Irrigation:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.SmartBed:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.AnimalTracker:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+        case DeviceType.SmartCar:
+          deviceTypes = DeviceTypes.TypeNotSupported;
+          break;
+      }
+      final DeviceTypesActions deviceTypesActions = DeviceTypesActions(
+        deviceType: deviceTypes,
+        deviceAction:
+            element.getDeviceState() ? DeviceActions.On : DeviceActions.Off,
+        deviceStateGRPC: DeviceStateGRPC.waitingInComp,
+      );
+
+      final SmartDeviceInfo smartDeviceInfo = SmartDeviceInfo(
+        id: element.id,
+        senderId: compId,
+        deviceTypesActions: deviceTypesActions,
+        compSpecs: compSpecs,
+        defaultName: element.deviceInformation.getName(),
+      );
+      smartDeviceInfoList.add(smartDeviceInfo);
+    });
+
+    final CompInfo compInfo =
+        CompInfo(compSpecs: compSpecs, smartDevicesInComp: smartDeviceInfoList);
+
+    return Future<CompInfo>.value(compInfo);
   }
 
   //  Return the status of the specified device
   @override
   Future<SmartDeviceStatus> getStatus(
-      ServiceCall call, SmartDevice request) async {
+      ServiceCall call, SmartDeviceInfo request) async {
     final String deviceStatus =
         await executeWishEnumString(request, WishEnum.GState, _wishSourceEnum);
 
     print(
         'Getting status of device $request and device status in bool $deviceStatus');
-    return SmartDeviceStatus()
-      ..onOffState = deviceStatus == 'true' ? true : false;
+    return SmartDeviceStatus()..onOffState = deviceStatus == 'true';
   }
 
   @override
   Future<CommendStatus> updateDeviceName(
-      ServiceCall call, SmartDeviceUpdateDetails request) {
+      ServiceCall call, SmartDeviceUpdateDetails request) async {
     print(
-        'Updating device name:${request.smartDevice.name} into: ${request.newName}');
-    SmartDeviceBaseAbstract smartDevice =
+        'Updating device name:${request.smartDevice.id} into: ${request.newName}');
+    final SmartDeviceBaseAbstract smartDevice =
         getSmartDeviceBaseAbstract(request.smartDevice);
-    smartDevice.smartInstanceName = request.newName;
-    CommendStatus commendStatus = CommendStatus();
+    smartDevice.id = request.newName;
+    final CommendStatus commendStatus = CommendStatus();
     commendStatus.success = true;
     final LocalDbE localDbE = LocalDbE();
-    localDbE.saveAllDevices(MySingleton.getSmartDevicesList());
+    await localDbE.saveAllDevices(MySingleton.getSmartDevicesList());
     return Future<CommendStatus>.value(commendStatus);
   }
 
   @override
   Future<CommendStatus> setOffDevice(
-      ServiceCall call, SmartDevice request) async {
-    print('Turn device ${request.name} off');
+      ServiceCall call, SmartDeviceInfo request) async {
+    print('Turn device ${request.id} off');
     return executeWishEnumServer(request, WishEnum.SOff, _wishSourceEnum);
   }
 
   @override
   Future<CommendStatus> setOnDevice(
-      ServiceCall call, SmartDevice request) async {
-    print('Turn device ${request.name} on');
+      ServiceCall call, SmartDeviceInfo request) async {
+    print('Turn device ${request.id} on');
     return executeWishEnumServer(request, WishEnum.SOn, _wishSourceEnum);
   }
 
   @override
   Future<CommendStatus> setBlindsUp(
-      ServiceCall call, SmartDevice request) async {
-    print('Turn blinds ${request.name} up');
+      ServiceCall call, SmartDeviceInfo request) async {
+    print('Turn blinds ${request.id} up');
     return executeWishEnumServer(request, WishEnum.SBlindsUp, _wishSourceEnum);
   }
 
   @override
   Future<CommendStatus> setBlindsDown(
-      ServiceCall call, SmartDevice request) async {
-    print('Turn blinds ${request.name} down');
+      ServiceCall call, SmartDeviceInfo request) async {
+    print('Turn blinds ${request.id} down');
 
     return executeWishEnumServer(
         request, WishEnum.SBlindsDown, _wishSourceEnum);
@@ -130,28 +211,29 @@ class SmartServerU extends SmartServerServiceBase {
 
   @override
   Future<CommendStatus> setBlindsStop(
-      ServiceCall call, SmartDevice request) async {
-    print('Turn blinds ${request.name} stop');
+      ServiceCall call, SmartDeviceInfo request) async {
+    print('Turn blinds ${request.id} stop');
 
     return executeWishEnumServer(
         request, WishEnum.SBlindsStop, _wishSourceEnum);
   }
 
-  SmartDeviceBaseAbstract getSmartDeviceBaseAbstract(SmartDevice request) {
+  SmartDeviceBaseAbstract getSmartDeviceBaseAbstract(SmartDeviceInfo request) {
     try {
       return MySingleton.getSmartDevicesList().firstWhere(
           (smartDeviceBaseAbstractO) =>
-              smartDeviceBaseAbstractO.smartInstanceName == request.name);
+              smartDeviceBaseAbstractO.id == request.id);
     } catch (exception) {
       print(
-          'Exception, device name ${request.name} could not be found: ${exception.message}');
+          'Exception, device name ${request.id} could not be found: ${exception.message}');
       return null;
     }
   }
 
   CommendStatus executeWishEnumServer(
-      SmartDevice request, WishEnum wishEnum, WishEnum) {
-    SmartDeviceBaseAbstract smartDevice = getSmartDeviceBaseAbstract(request);
+      SmartDeviceInfo request, WishEnum wishEnum, WishEnum) {
+    final SmartDeviceBaseAbstract smartDevice =
+        getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
       return CommendStatus()..success = false;
     }
@@ -159,34 +241,114 @@ class SmartServerU extends SmartServerServiceBase {
     return CommendStatus()..success = smartDevice.onOff;
   }
 
-  Future<String> executeWishEnumString(SmartDevice request, WishEnum wishEnum,
-      WishSourceEnum wishSourceEnum) async {
+  Future<String> executeWishEnumString(SmartDeviceInfo request,
+      WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
     final SmartDeviceBaseAbstract smartDevice =
         getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
       return 'SmartDevice is null in executeWishEnumString';
     }
-    return await ActionsToPreformU.executeWishEnum(
+    return ActionsToPreformU.executeWishEnum(
         smartDevice, wishEnum, wishSourceEnum);
   }
 
   @override
   Future<CommendStatus> setFirebaseAccountInformation(
-      ServiceCall call, FirebaseAccountInformation request) {
+      ServiceCall call, FirebaseAccountInformation request) async {
     print('This is the function setFirebaseAccountInformation');
+    final CommendStatus commendStatus =
+        await setFirebaseAccountInformationHelper(request);
 
-    final FirebaseAccountsInformationD firebaseAccountsInformationD =
-        FirebaseAccountsInformationD(request.fireBaseProjectId,
-            request.fireBaseApiKey, request.userEmail, request.userPassword);
-
-    final LocalDbE localDbE = LocalDbE();
-    localDbE.saveListOfDatabaseInformation(firebaseAccountsInformationD);
-
-    startListenToDb(firebaseAccountsInformationD);
-
-    final CommendStatus commendStatus = CommendStatus();
-
-    commendStatus.success = true;
     return Future<CommendStatus>.value(commendStatus);
+  }
+
+  @override
+  Future<CommendStatus> setCompInfo(ServiceCall call, CompInfo request) async {
+    return SetCompHelper(request);
+  }
+
+  @override
+  Future<CommendStatus> firstSetup(
+      ServiceCall call, FirstSetupMessage request) async {
+    try {
+      final CompInfo compInfo = request.compInfo;
+      final CommendStatus commendStatusSetComp = await SetCompHelper(compInfo);
+
+      final CommendStatus commendStatusSetFirebase =
+          await setFirebaseAccountInformationHelper(
+              request.firebaseAccountInformation);
+
+      if (commendStatusSetComp.success && commendStatusSetFirebase.success) {
+        return CommendStatus()..success = true;
+      }
+    } catch (e) {}
+
+    return CommendStatus()..success = false;
+  }
+
+  Future<CommendStatus> SetCompHelper(CompInfo compInfo) async {
+    try {
+      final List<SmartDeviceBaseAbstract> smartDeviceList =
+          MySingleton.getSmartDevicesList();
+
+      for (final SmartDeviceBaseAbstract smartDevice in smartDeviceList) {
+        for (final SmartDeviceInfo smartDeviceInfo
+            in compInfo.smartDevicesInComp) {
+          if (smartDevice.id == smartDeviceInfo.id) {
+            smartDevice.deviceInformation.setName(smartDeviceInfo.defaultName);
+            break;
+          }
+        }
+      }
+
+      final LocalDbE localDbE = LocalDbE();
+      await localDbE.saveAllDevices(MySingleton.getSmartDevicesList());
+
+      return CommendStatus()..success = true;
+    } catch (e) {
+      return CommendStatus()..success = false;
+    }
+  }
+
+  Future<CommendStatus> setFirebaseAccountInformationHelper(
+      FirebaseAccountInformation request) async {
+    try {
+      final FirebaseAccountsInformationD firebaseAccountsInformationD =
+          FirebaseAccountsInformationD(
+              request.fireBaseProjectId,
+              request.fireBaseApiKey,
+              request.userEmail,
+              request.userPassword,
+              request.homeId);
+
+      CloudValueChangeU cloudValueChangeU =
+          CloudValueChangeU(firebaseAccountsInformationD);
+
+      cloudValueChangeU.setNewFirebaseAccounInfo(firebaseAccountsInformationD);
+
+      for (final SmartDeviceBaseAbstract device
+          in MySingleton.getSmartDevicesList()) {
+        if (device.getDeviceType() == DeviceType.Light) {
+          final Map<String, String> dataToChange = {
+            'state': 'ack',
+          };
+
+          final String createDeviceInHomeSuccess = await cloudValueChangeU
+              .updateDeviceDocumentWithMap(device.id, dataToChange);
+          if (createDeviceInHomeSuccess.toLowerCase().contains('error')) {
+            return CommendStatus()..success = false;
+          }
+        }
+      }
+
+      final LocalDbE localDbE = LocalDbE();
+      localDbE.saveListOfDatabaseInformation(firebaseAccountsInformationD);
+
+      startListenToDb(firebaseAccountsInformationD);
+
+      return CommendStatus()..success = true;
+    } catch (e) {
+      return CommendStatus()..success = false;
+    }
   }
 }

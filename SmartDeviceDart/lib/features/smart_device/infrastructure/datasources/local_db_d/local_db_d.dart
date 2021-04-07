@@ -19,13 +19,14 @@ class LocalDbD {
     return _hiveD.getListOfDatabaseInformation();
   }
 
-  void saveAllDevices(List<SmartDeviceBaseAbstract> smartDevicesList) {
+  Future<void> saveAllDevices(
+      List<SmartDeviceBaseAbstract> smartDevicesList) async {
     final Map<String, List<String>> smartDevicesMapList =
         <String, List<String>>{};
 
     for (final SmartDeviceBaseAbstract smartDeviceBaseAbstract
         in smartDevicesList) {
-      final String deviceName = smartDeviceBaseAbstract.smartInstanceName;
+      final String deviceName = smartDeviceBaseAbstract.id;
       final String deviceTypeAsString = EnumHelper.deviceTypeToString(
           smartDeviceBaseAbstract.getDeviceType());
       String onOffPin;
@@ -96,7 +97,8 @@ class LocalDbD {
       }
     }
 
-    _hiveD.saveAllDevices(smartDevicesMapList);
+    await _hiveD.saveAllDevices(smartDevicesMapList);
+    return;
   }
 
   void saveListOfDatabaseInformation(
@@ -112,6 +114,8 @@ class LocalDbD {
         firebaseAccountsInformationD.userEmail;
     firebaseAccountsInformationMap[AccountsInformationD.userPassword] =
         firebaseAccountsInformationD.userPassword;
+    firebaseAccountsInformationMap[AccountsInformationD.homeId] =
+        firebaseAccountsInformationD.homeId;
 
     _hiveD.saveListOfDatabaseInformation(firebaseAccountsInformationMap);
   }

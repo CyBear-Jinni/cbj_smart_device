@@ -74,7 +74,8 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     if (wishExecuteResult != null) {
       if (wishSourceEnum != WishSourceEnum.FireBase) {
         final String wishEnumString = EnumHelper.wishEnumToString(wish);
-        super.updateCloudValue(wishEnumString);
+        super.updateThisDeviceDocumentCloudValue('action', wishEnumString);
+        super.updateThisDeviceDocumentCloudValue('state', 'ack');
       }
       return wishExecuteResult;
     }
