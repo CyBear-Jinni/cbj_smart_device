@@ -120,7 +120,7 @@ class CloudValueChangeU {
         .listenToDocumentDataBase()
         .listen((Document document) {
       final Document firestoreDocument = document;
-      print('Change detected in Firestore');
+      print('Change detected to Document Firestore');
 
       final Map<SmartDeviceBaseAbstract, String> devicesNamesThatValueChanged =
           <SmartDeviceBaseAbstract, String>{};
