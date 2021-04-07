@@ -176,7 +176,7 @@ abstract class SmartDeviceBaseAbstract {
     if (wish == null) executionMassage = 'Your wish does not exist';
 
     final bool deviceStatus = getDeviceState();
-    String resultOfTheWish;
+    String resultOfTheWish = '';
 
     switch (wish) {
       case WishEnum.SOff:
@@ -207,8 +207,8 @@ abstract class SmartDeviceBaseAbstract {
 
     print('Device state is $deviceStatus');
 
-    if (executionMassage == 'Turn on successfully' ||
-        executionMassage == 'Turn off successfully' ||
+    if (resultOfTheWish == 'Turn on successfully' ||
+        resultOfTheWish == 'Turn off successfully' ||
         executionMassage == 'Cant turn on this pin: null Number' ||
         executionMassage == 'Cant turn off this pin: null Number') {
       updateDeviceDocumentCloudValue(id, 'state', 'ack');
