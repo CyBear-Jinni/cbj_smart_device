@@ -24,8 +24,8 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
         if (returnValue < 0) {
           errorCounter++;
           if (errorCounter > 10) {
-            print(
-                'Stop the listening to the button, it failed more than $errorCounter times');
+            print('Stop the listening to the button, it failed more than '
+                '$errorCounter times');
           }
           return;
         }

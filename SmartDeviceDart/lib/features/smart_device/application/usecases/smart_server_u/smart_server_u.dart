@@ -321,7 +321,7 @@ class SmartServerU extends SmartServerServiceBase {
               request.userPassword,
               request.homeId);
 
-      CloudValueChangeU cloudValueChangeU =
+      final CloudValueChangeU cloudValueChangeU =
           CloudValueChangeU(firebaseAccountsInformationD);
 
       cloudValueChangeU.setNewFirebaseAccounInfo(firebaseAccountsInformationD);
