@@ -28,12 +28,16 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
       return result.stdout.toString();
     });
 
-    if (blkid.contains(df)) {
+    if (doesExistAndStringContainUuid(blkid, df)) {
       blkid = blkid.substring(blkid.indexOf(df));
-    } else if (blkid.contains('/dev/mmcblk0p1')) {
+    } else if (doesExistAndStringContainUuid(blkid, '/dev/mmcblk0p1')) {
       blkid = blkid.substring(blkid.indexOf('/dev/mmcblk0p1'));
-    } else if (blkid.contains('/dev/mmcblk0p2')) {
+    } else if (doesExistAndStringContainUuid(blkid, '/dev/mmcblk0p2')) {
       blkid = blkid.substring(blkid.indexOf('/dev/mmcblk0p2'));
+    } else if (doesExistAndStringContainUuid(blkid, '/dev/zram0')) {
+      blkid = blkid.substring(blkid.indexOf('/dev/zram0'));
+    } else if (doesExistAndStringContainUuid(blkid, '/dev/zram1')) {
+      blkid = blkid.substring(blkid.indexOf('/dev/zram1'));
     } else {
       blkid = blkid.substring(blkid.indexOf('/dev/'));
     }
@@ -76,5 +80,10 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
   @override
   Future<String> getDeviceConfiguration() {
     return getFileContent('/etc/cbjinni/deviceConfigs.txt');
+  }
+
+  bool doesExistAndStringContainUuid(String blkid, String driveName) {
+    return blkid.contains(driveName) &&
+        (blkid.substring(blkid.indexOf(driveName))).contains('UUID="');
   }
 }
