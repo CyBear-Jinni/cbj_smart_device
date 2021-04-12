@@ -30,6 +30,8 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
 
     if (blkid.contains(df)) {
       blkid = blkid.substring(blkid.indexOf(df));
+    } else if (blkid.contains('/dev/mmcblk0p1')) {
+      blkid = blkid.substring(blkid.indexOf('/dev/mmcblk0p1'));
     } else if (blkid.contains('/dev/mmcblk0p2')) {
       blkid = blkid.substring(blkid.indexOf('/dev/mmcblk0p2'));
     } else {
@@ -46,7 +48,7 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String> getDeviceHostName() async {
-    String hostName = await Process.run('hostname', <String>['-s'])
+    final String hostName = await Process.run('hostname', <String>['-s'])
         .then((ProcessResult result) {
 //      String hostName = result.stdout;
 //      hostName = hostName.substring(

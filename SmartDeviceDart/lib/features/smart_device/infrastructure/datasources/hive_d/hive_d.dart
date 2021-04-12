@@ -31,6 +31,7 @@ class HiveD {
           final String currentUserName = await MySingleton.getCurrentUserName();
           hiveFolderPath = '/home/$currentUserName/Documents/hive';
         } else {
+          // /var/snap/cybear-jinni/common/hive
           hiveFolderPath = '$snapCommonEnvironmentVariablePath/hive';
         }
         print('Path of hive: $hiveFolderPath');

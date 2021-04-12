@@ -211,7 +211,23 @@ abstract class SmartDeviceBaseAbstract {
         resultOfTheWish == 'Turn off successfully' ||
         executionMassage == 'Cant turn on this pin: null Number' ||
         executionMassage == 'Cant turn off this pin: null Number') {
-      updateDeviceDocumentCloudValue(id, 'state', 'ack');
+      if (wishSourceEnum == WishSourceEnum.ButtonPress) {
+        if (wish == WishEnum.SOn) {
+          final Map<String, String> mapToUpdate = {
+            'action': 'on',
+            'state': 'ack'
+          };
+          updateDeviceDocumentWithMap(id, mapToUpdate);
+        } else if (wish == WishEnum.SOff) {
+          final Map<String, String> mapToUpdate = {
+            'action': 'off',
+            'state': 'ack'
+          };
+          updateDeviceDocumentWithMap(id, mapToUpdate);
+        }
+      } else {
+        updateDeviceDocumentCloudValue(id, 'state', 'ack');
+      }
     } else {
       updateDeviceDocumentCloudValue(id, 'stateMassage', executionMassage);
     }
@@ -224,6 +240,15 @@ abstract class SmartDeviceBaseAbstract {
     cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
     if (cloudValueChangeU != null) {
       cloudValueChangeU.updateDeviceDocument(
+          deviceId, fieldToUpdate, valueToUpdate);
+    }
+  }
+
+  void updateDeviceDocumentWithMap(
+      String deviceId, Map<String, String> mapToUpdate) {
+    cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
+    if (cloudValueChangeU != null) {
+      cloudValueChangeU.updateDeviceDocumentWithMap(
           deviceId, fieldToUpdate, valueToUpdate);
     }
   }
