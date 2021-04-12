@@ -248,8 +248,7 @@ abstract class SmartDeviceBaseAbstract {
       String deviceId, Map<String, String> mapToUpdate) {
     cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
     if (cloudValueChangeU != null) {
-      cloudValueChangeU.updateDeviceDocumentWithMap(
-          deviceId, fieldToUpdate, valueToUpdate);
+      cloudValueChangeU.updateDeviceDocumentWithMap(deviceId, mapToUpdate);
     }
   }
 
