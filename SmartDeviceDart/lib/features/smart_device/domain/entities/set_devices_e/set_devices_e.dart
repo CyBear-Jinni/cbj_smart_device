@@ -41,7 +41,7 @@ class SetDevicesE {
     }
 
     if (deviceTypeList.isEmpty) {
-      return null;
+      return [];
     }
 
     final List<SmartDeviceBaseAbstract> smartDeviceList =
@@ -52,7 +52,7 @@ class SetDevicesE {
     try {
       uuid = await getCurrentDeviceUUid();
     } catch (e) {
-      print('Can\'t get uuid: $e');
+      print("Can't get uuid: $e");
     }
 
     String id;
@@ -138,7 +138,7 @@ class SetDevicesE {
       }
     }
     if (smartDeviceList.isEmpty) {
-      return null;
+      return [];
     }
     return smartDeviceList;
   }

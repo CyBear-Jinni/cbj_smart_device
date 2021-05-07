@@ -541,5 +541,5 @@ class NanoPiNEOAirConfiguration extends DeviceConfigurationBaseClass {
 
   @override
   PinInformation getNextFreeGpioPin({List<PinInformation> ignorePinsList}) =>
-      getNextFreeGpioPinHelper(pinList);
+      getNextFreeGpioPinHelper(pinList, ignorePinsList: ignorePinsList);
 }
