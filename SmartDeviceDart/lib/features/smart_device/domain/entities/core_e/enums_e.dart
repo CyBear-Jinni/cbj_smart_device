@@ -29,7 +29,7 @@ enum DeviceType {
   Irrigation,
   SmartBed,
   AnimalTracker,
-  SmartCar
+  SmartCar,
 }
 
 ///  List of all the wishes that can be made
@@ -43,7 +43,9 @@ enum WishEnum {
   GState, //  Get device state on/off
   SBlindsUp, //  Turn the blinds up
   SBlindsDown, //  Turn the blinds Down
-  SBlindsStop //  Stop the blinds
+  SBlindsStop, //  Stop the blinds
+  SThermostatOn, // Turn on the thermostat
+  SThermostatOff, // Turn off the thermostat
 }
 
 /// List of all the sources
@@ -62,12 +64,12 @@ enum PhysicalDeviceType {
   NanoPiNeo,
   NanoPiNeo2,
   RaspberryPi,
-  NotSupported
+  NotSupported,
 }
 
 enum RaspberryPiType {
   Raspberry_Pi_3_Model_B_Rev_1_2,
-  Raspberry_Pi_4_Model_B_Rev_1_4
+  Raspberry_Pi_4_Model_B_Rev_1_4,
 }
 
 class EnumHelper {
@@ -130,7 +132,7 @@ class EnumHelper {
       case DeviceType.Blinds:
         return BlindsObject(null, null, null, null, null, null, null, null);
       case DeviceType.Thermostat:
-        return ThermostatObject(null, null, null);
+        return ThermostatObject(null, null, null, null, null);
       case DeviceType.Fan:
         return FanObject(null, null, null);
       case DeviceType.AirConditioner:

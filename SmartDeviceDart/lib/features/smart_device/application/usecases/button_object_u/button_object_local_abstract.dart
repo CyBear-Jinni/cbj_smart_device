@@ -13,6 +13,9 @@ abstract class ButtonObjectLocalAbstract {
   void buttonPressed(SmartDeviceBaseAbstract smartDevice,
       PinInformation buttonPinNumber, PinInformation lightPin);
 
+  void buttonPressedForThermostat(SmartDeviceBaseAbstract smartDevice,
+      PinInformation buttonPinNumber, PinInformation lightPin);
+
   ///  Listen to two buttons but work only if one is pressed.
   void listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
       SmartDeviceBaseAbstract smartDevice,
@@ -21,7 +24,7 @@ abstract class ButtonObjectLocalAbstract {
       PinInformation secondButtonPinNumber,
       PinInformation secondLightPin);
 
-  void listenToButtonPressAndDoAction(
+  void listenToButtonPressAndCangeBlindStateAccordingly(
       SmartDeviceBaseAbstract smartDevice,
       PinInformation buttonPinNumber,
       PinInformation firstLightPin,

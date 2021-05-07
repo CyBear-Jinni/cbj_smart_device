@@ -46,6 +46,41 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
     }
   }
 
+  @override
+  void buttonPressedForThermostat(SmartDeviceBaseAbstract smartDevice,
+      PinInformation buttonPinNumber, PinInformation thermostat) async {
+    int errorCounter = 0;
+
+    try {
+      while (true) {
+        final int returnValue =
+            await buttonObjectRepository.listenToButtonPress(buttonPinNumber);
+
+        if (returnValue < 0) {
+          errorCounter++;
+          if (errorCounter > 10) {
+            print('Stop the listening to the button, it failed more than '
+                '$errorCounter times');
+          }
+          return;
+        }
+
+        if (thermostat.v == 1) {
+          await smartDevice.executeWish(
+              WishEnum.SThermostatOff, WishSourceEnum.ButtonPress);
+        } else {
+          await smartDevice.executeWish(
+              WishEnum.SThermostatOn, WishSourceEnum.ButtonPress);
+        }
+
+        await Future.delayed(const Duration(seconds: 1));
+      }
+    } catch (error) {
+      print('Path/argument 1 is not specified');
+      print('error: $error');
+    }
+  }
+
   ///  Listen to two buttons but work only if one is pressed.
   @override
   Future<void> listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
@@ -54,15 +89,15 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
       PinInformation firstLightPin,
       PinInformation secondButtonPinNumber,
       PinInformation secondLightPin) async {
-    listenToButtonPressAndDoAction(
+    listenToButtonPressAndCangeBlindStateAccordingly(
         smartDevice, firstButtonPinNumber, firstLightPin, secondLightPin, 1);
 
-    listenToButtonPressAndDoAction(
+    listenToButtonPressAndCangeBlindStateAccordingly(
         smartDevice, secondButtonPinNumber, firstLightPin, secondLightPin, 2);
   }
 
   @override
-  void listenToButtonPressAndDoAction(
+  void listenToButtonPressAndCangeBlindStateAccordingly(
       SmartDeviceBaseAbstract smartDevice,
       PinInformation buttonPinNumber,
       PinInformation firstLightPin,

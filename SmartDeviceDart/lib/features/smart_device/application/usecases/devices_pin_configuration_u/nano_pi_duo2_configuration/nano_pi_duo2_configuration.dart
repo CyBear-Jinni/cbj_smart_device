@@ -366,6 +366,6 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         return pinInformationExistInList;
       }
     }
-    return getNextFreeGpioPinHelper(pinList);
+    return getNextFreeGpioPinHelper(pinList, ignorePinsList: ignorePinsList);
   }
 }
