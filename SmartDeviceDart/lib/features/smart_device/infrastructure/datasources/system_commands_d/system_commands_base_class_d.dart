@@ -5,6 +5,8 @@ abstract class SystemCommandsBaseClassD {
 
   Future<String> getDeviceHostName();
 
+  Future<String> getAllEtcReleaseFilesText();
+
   Future<String> getFileContent(fileFullPath);
 
   Future<String> getDeviceConfiguration();

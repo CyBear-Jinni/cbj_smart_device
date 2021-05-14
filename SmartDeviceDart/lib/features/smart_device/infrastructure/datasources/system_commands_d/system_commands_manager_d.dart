@@ -33,6 +33,10 @@ class SystemCommandsManager {
     return systemCommandsBaseClassD.getDeviceHostName();
   }
 
+  Future<String> getAllEtcReleaseFilesText() {
+    return systemCommandsBaseClassD.getAllEtcReleaseFilesText();
+  }
+
   Future<String> getFileContent(fileFullPath) {
     return systemCommandsBaseClassD.getFileContent(fileFullPath);
   }
