@@ -64,6 +64,30 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
   }
 
   @override
+  Future<String> getAllEtcReleaseFilesText() async {
+    String etcReleaseFiles = '';
+
+    try {
+      final List<FileSystemEntity> allContents =
+          await Directory('/etc/').list().toList();
+
+      final List<String> etcReleaseFilesNames = [];
+      for (final FileSystemEntity f in allContents) {
+        if (f.toString().contains('release')) {
+          etcReleaseFilesNames.add(f.path.toString());
+        }
+      }
+      for (final String releaseContent in etcReleaseFilesNames) {
+        etcReleaseFiles += File(releaseContent).readAsStringSync();
+      }
+    } catch (error) {
+      print('Error getting all files from /etc/that end with release');
+      print('error: $error');
+    }
+    return etcReleaseFiles;
+  }
+
+  @override
   Future<String> getFileContent(fileFullPath) async {
     final String fileContent =
         await Process.run('cat', <String>[fileFullPath.toString()])

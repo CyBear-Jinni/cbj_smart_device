@@ -27,7 +27,11 @@ abstract class DevicePinListManagerAbstract {
   ///  Will save the current physical device pin configuration
   static DeviceConfigurationBaseClass physicalDevice;
 
+  /// Recognize device physical type from host name and set it in the singleton
   Future setPhysicalDeviceTypeByHostName();
+
+  /// Set recognize and set the physical device type in the singleton
+  Future setPhysicalDeviceType();
 
   /// Return a list of free pins that are not taken, the list will consist of
   /// the different pins types depending on the smart device type needed pins
@@ -59,7 +63,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
         convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
             deviceHostName);
 
-    String raspberryPiVersion =
+    final String raspberryPiVersion =
         await systemCommandsManager.getRaspberryPiDeviceVersion();
 
     if (physicalDeviceType == null &&
@@ -96,7 +100,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
         }
       case PhysicalDeviceType.RaspberryPi:
         {
-          RaspberryPiType raspberryPiType =
+          final RaspberryPiType raspberryPiType =
               EnumHelper.stringToRaspberryPiType(raspberryPiVersion);
 
           switch (raspberryPiType) {
@@ -129,6 +133,104 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
               'control the pins.');
           break;
         }
+    }
+    print('This device is of type:'
+        ' ${EnumHelper.physicalDeviceTypeToString(physicalDeviceType)}');
+  }
+
+  @override
+  Future setPhysicalDeviceType() async {
+    final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    final String etcReleaseOutput =
+        await systemCommandsManager.getAllEtcReleaseFilesText();
+
+    final List<String> etcReleaseFilesAsList = etcReleaseOutput.split('\n');
+    try {
+      String deviceHostName = etcReleaseFilesAsList.firstWhere(
+          (etcReleaseSingleLine) => etcReleaseSingleLine.contains('BOARD'));
+      deviceHostName =
+          deviceHostName.substring(deviceHostName.indexOf('=') + 1);
+      print('Now');
+      print(deviceHostName);
+      deviceHostName = deviceHostName.replaceAll('-', '').replaceAll(' ', '');
+
+      physicalDeviceType =
+          convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
+              deviceHostName);
+
+      final String raspberryPiVersion =
+          await systemCommandsManager.getRaspberryPiDeviceVersion();
+
+      if (physicalDeviceType == null &&
+          raspberryPiVersion != null &&
+          raspberryPiVersion
+              .toLowerCase()
+              .contains('Raspberry_Pi'.toLowerCase())) {
+        physicalDeviceType = PhysicalDeviceType.RaspberryPi;
+      }
+
+      print('phys type is $physicalDeviceType');
+      //  Save the current physical device configuration to the
+      //  physicalDevice variable
+      switch (physicalDeviceType) {
+        case PhysicalDeviceType.NanoPiDuo2:
+          {
+            physicalDevice = NanoPiDuo2Configuration();
+            break;
+          }
+        case PhysicalDeviceType.NanoPiAir:
+          {
+            physicalDevice = NanoPiNEOAirConfiguration();
+            break;
+          }
+        case PhysicalDeviceType.NanoPiNeo:
+          {
+            physicalDevice = NanoPiNeoConfiguration();
+            break;
+          }
+        case PhysicalDeviceType.NanoPiNeo2:
+          {
+            physicalDevice = NanoPiNeo2Configuration();
+            break;
+          }
+        case PhysicalDeviceType.RaspberryPi:
+          {
+            final RaspberryPiType raspberryPiType =
+                EnumHelper.stringToRaspberryPiType(raspberryPiVersion);
+
+            switch (raspberryPiType) {
+              case RaspberryPiType.Raspberry_Pi_3_Model_B_Rev_1_2:
+                {
+                  print('Raspberry Pi 3 Model B Rev 1.2 found');
+                  physicalDevice = RaspberryPi3ModelBRev1_2Configuration();
+                  break;
+                }
+              case RaspberryPiType.Raspberry_Pi_4_Model_B_Rev_1_4:
+                {
+                  print('Raspberry Pi 4 Model B Rev 1.4 found');
+                  // Have same pin configuration as Pi 3
+                  physicalDevice = RaspberryPi3ModelBRev1_2Configuration();
+                  break;
+                }
+              default:
+                {
+                  print('Raspberry pi $raspberryPiVersion is not supported');
+                  print('The software will not be able to control the pins');
+                  break;
+                }
+            }
+            break;
+          }
+        default:
+          {
+            print('Detected deviceHostName $deviceHostName \n'
+                'Device is not supported, the software will not be able to '
+                'control the pins.');
+            break;
+          }
+      }
+    } catch (e) {
+      print('Bord type does not exist');
     }
     print('This device is of type:'
         ' ${EnumHelper.physicalDeviceTypeToString(physicalDeviceType)}');
@@ -249,5 +351,10 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
   PinInformation getFreeGpioPins({List<PinInformation> ignorePinsList}) {
     print('Computer does not give free gpio pins, only smart device');
     throw UnimplementedError();
+  }
+
+  @override
+  Future setPhysicalDeviceType() {
+    return Future<String>.value('PC');
   }
 }

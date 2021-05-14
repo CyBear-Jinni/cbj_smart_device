@@ -13,8 +13,8 @@ void main(List<String> arguments) async {
     print('error: $error');
   }
 
-  //  Getting physical device type from outside, and checking if this device configuration exist
-  await DevicePinListManager().setPhysicalDeviceTypeByHostName();
+  //  Setting device model and checking if configuration for this model exist
+  await DevicePinListManager().setPhysicalDeviceType();
 
   SmartDeviceManagerU();
 }

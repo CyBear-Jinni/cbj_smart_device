@@ -42,6 +42,12 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
   }
 
   @override
+  Future<String> getAllEtcReleaseFilesText() {
+    //TODO: add implementation, for now will return getDeviceHostName
+    return getDeviceHostName();
+  }
+
+  @override
   Future<String> getFileContent(fileFullPath) async {
     final String fileText = await Process.run(
             'cmd', <String>['/C', 'more', fileFullPath.toString()])
@@ -81,7 +87,8 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
     return driveLetter.substring(0, driveLetter.indexOf('\r'));
   }
 
-  //TODO: Currently does not work as echo %~dp0 will not work at the command line, only in a batch file.
+  //TODO: Currently does not work as echo %~dp0 will not work at the command
+  // line, only in a batch file.
   Future<String> getOsDriveLetter() async {
     final String driveLetter =
         await Process.run('cmd', <String>['/C', 'echo', '%~d0'])
