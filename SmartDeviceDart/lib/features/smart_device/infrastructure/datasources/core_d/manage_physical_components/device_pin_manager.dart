@@ -27,9 +27,6 @@ abstract class DevicePinListManagerAbstract {
   ///  Will save the current physical device pin configuration
   static DeviceConfigurationBaseClass physicalDevice;
 
-  /// Recognize device physical type from host name and set it in the singleton
-  Future setPhysicalDeviceTypeByHostName();
-
   /// Set recognize and set the physical device type in the singleton
   Future setPhysicalDeviceType();
 
@@ -52,91 +49,6 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
 
   ///  Will save the current physical device pin configuration
   static DeviceConfigurationBaseClass physicalDevice;
-
-  @override
-  Future setPhysicalDeviceTypeByHostName() async {
-    final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
-    String deviceHostName = await systemCommandsManager.getDeviceHostName();
-    deviceHostName = deviceHostName.replaceAll('-', '').replaceAll(' ', '');
-
-    physicalDeviceType =
-        convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
-            deviceHostName);
-
-    final String raspberryPiVersion =
-        await systemCommandsManager.getRaspberryPiDeviceVersion();
-
-    if (physicalDeviceType == null &&
-        raspberryPiVersion != null &&
-        raspberryPiVersion
-            .toLowerCase()
-            .contains('Raspberry_Pi'.toLowerCase())) {
-      physicalDeviceType = PhysicalDeviceType.RaspberryPi;
-    }
-
-    print('phys type is $physicalDeviceType');
-    //  Save the current physical device configuration to the
-    //  physicalDevice variable
-    switch (physicalDeviceType) {
-      case PhysicalDeviceType.NanoPiDuo2:
-        {
-          physicalDevice = NanoPiDuo2Configuration();
-          break;
-        }
-      case PhysicalDeviceType.NanoPiAir:
-        {
-          physicalDevice = NanoPiNEOAirConfiguration();
-          break;
-        }
-      case PhysicalDeviceType.NanoPiNeo:
-        {
-          physicalDevice = NanoPiNeoConfiguration();
-          break;
-        }
-      case PhysicalDeviceType.NanoPiNeo2:
-        {
-          physicalDevice = NanoPiNeo2Configuration();
-          break;
-        }
-      case PhysicalDeviceType.RaspberryPi:
-        {
-          final RaspberryPiType raspberryPiType =
-              EnumHelper.stringToRaspberryPiType(raspberryPiVersion);
-
-          switch (raspberryPiType) {
-            case RaspberryPiType.Raspberry_Pi_3_Model_B_Rev_1_2:
-              {
-                print('Raspberry Pi 3 Model B Rev 1.2 found');
-                physicalDevice = RaspberryPi3ModelBRev1_2Configuration();
-                break;
-              }
-            case RaspberryPiType.Raspberry_Pi_4_Model_B_Rev_1_4:
-              {
-                print('Raspberry Pi 4 Model B Rev 1.4 found');
-                // Have same pin configuration as Pi 3
-                physicalDevice = RaspberryPi3ModelBRev1_2Configuration();
-                break;
-              }
-            default:
-              {
-                print('Raspberry pi $raspberryPiVersion is not supported');
-                print('The software will not be able to control the pins');
-                break;
-              }
-          }
-          break;
-        }
-      default:
-        {
-          print('Detected deviceHostName $deviceHostName \n'
-              'Device is not supported, the software will not be able to '
-              'control the pins.');
-          break;
-        }
-    }
-    print('This device is of type:'
-        ' ${EnumHelper.physicalDeviceTypeToString(physicalDeviceType)}');
-  }
 
   @override
   Future setPhysicalDeviceType() async {
@@ -334,11 +246,6 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
   @override
   PinInformation getGpioPin(int pinNumber) {
     return PinInformation();
-  }
-
-  @override
-  Future<String> setPhysicalDeviceTypeByHostName() {
-    return Future<String>.value('PC');
   }
 
   @override
