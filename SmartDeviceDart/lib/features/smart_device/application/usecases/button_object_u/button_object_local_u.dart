@@ -5,6 +5,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/sma
 import 'package:smart_device_dart/features/smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   ButtonObjectLocalU({this.cloudValueChangeU});
@@ -31,11 +32,11 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
         }
 
         if (lightPin.v == 1) {
-          await smartDevice.executeWish(
-              WishEnum.SOff, WishSourceEnum.ButtonPress);
+          await smartDevice.executeDeviceAction(
+              DeviceActions.Off, WishSourceEnum.ButtonPress);
         } else {
-          await smartDevice.executeWish(
-              WishEnum.SOn, WishSourceEnum.ButtonPress);
+          await smartDevice.executeDeviceAction(
+              DeviceActions.On, WishSourceEnum.ButtonPress);
         }
 
         await Future.delayed(const Duration(seconds: 1));
@@ -66,11 +67,11 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
         }
 
         if (thermostat.v == 1) {
-          await smartDevice.executeWish(
-              WishEnum.SThermostatOff, WishSourceEnum.ButtonPress);
+          await smartDevice.executeDeviceAction(
+              DeviceActions.ActionNotSupported, WishSourceEnum.ButtonPress);
         } else {
-          await smartDevice.executeWish(
-              WishEnum.SThermostatOn, WishSourceEnum.ButtonPress);
+          await smartDevice.executeDeviceAction(
+              DeviceActions.ActionNotSupported, WishSourceEnum.ButtonPress);
         }
 
         await Future.delayed(const Duration(seconds: 1));
@@ -108,15 +109,15 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
           .listenToButtonPress(buttonPinNumber)
           .then((int exitCode) async {
         print('Blind button number $buttonNumber was pressed');
-        final WishEnum blindNewState = await changePinsOutput(
+        final DeviceActions blindNewAction = await changePinsOutput(
             smartDevice, firstLightPin, secondLightPin, buttonNumber);
-        updateCloudValue(smartDevice.id, blindNewState);
+        updateCloudValue(smartDevice.id, blindNewAction);
       });
     }
   }
 
-  void updateCloudValue(String blindName, WishEnum wish) {
-    final String wishAsString = EnumHelper.wishEnumToString(wish);
+  void updateCloudValue(String blindName, DeviceActions action) {
+    final String wishAsString = EnumHelper.deviceActionToString(action);
     cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
     if (cloudValueChangeU != null) {
       cloudValueChangeU.updateDocument(blindName, wishAsString);
@@ -125,36 +126,36 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
   ///  Logic of two buttons that cannot be pressed together
   @override
-  Future<WishEnum> changePinsOutput(
+  Future<DeviceActions> changePinsOutput(
       SmartDeviceBaseAbstract smartDevice,
       PinInformation firstLightPin,
       PinInformation secondLightPin,
       int buttonPressNumber) async {
-    WishEnum blindNewState;
+    DeviceActions blindNewAction;
     if (firstLightPin.v == 1 || secondLightPin.v == 1) {
       firstLightPin.onDuration = 0;
       OffWishU.setOff(smartDevice.deviceInformation, firstLightPin);
 
       secondLightPin.onDuration = 0;
       OffWishU.setOff(smartDevice.deviceInformation, secondLightPin);
-      blindNewState = WishEnum.SBlindsStop;
+      blindNewAction = DeviceActions.Stop;
     } else if (buttonPressNumber == 1) {
       secondLightPin.onDuration = 0;
       OffWishU.setOff(smartDevice.deviceInformation, secondLightPin);
 
       firstLightPin.onDuration = -1;
       OnWishU.setOn(smartDevice.deviceInformation, firstLightPin);
-      blindNewState = WishEnum.SBlindsUp;
+      blindNewAction = DeviceActions.MoveUP;
     } else if (buttonPressNumber == 2) {
       firstLightPin.onDuration = 0;
       OffWishU.setOff(smartDevice.deviceInformation, firstLightPin);
 
       secondLightPin.onDuration = -1;
       OnWishU.setOn(smartDevice.deviceInformation, secondLightPin);
-      blindNewState = WishEnum.SBlindsDown;
+      blindNewAction = DeviceActions.MoveDon;
     }
 
     await Future.delayed(const Duration(seconds: 1));
-    return blindNewState;
+    return blindNewAction;
   }
 }

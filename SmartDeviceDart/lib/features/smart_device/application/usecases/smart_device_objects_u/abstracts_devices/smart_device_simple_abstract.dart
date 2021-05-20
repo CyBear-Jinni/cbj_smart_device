@@ -1,4 +1,5 @@
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 import 'smart_device_base_abstract.dart';
 
@@ -17,21 +18,23 @@ abstract class SmartDeviceSimpleAbstract extends SmartDeviceBaseAbstract {
   void setDeviceType(DeviceType deviceType) => super.setDeviceType(deviceType);
 
   @override
-  Future<String> executeWishString(
+  Future<String> executeActionString(
       String wishString, WishSourceEnum wishSourceEnum) async {
-    WishEnum wish = convertWishStringToWishesObject(wishString);
-    return executeWish(wish, wishSourceEnum);
+    final DeviceActions deviceAction =
+        convertWishStringToWishesObject(wishString);
+    return executeDeviceAction(deviceAction, wishSourceEnum);
   }
 
   @override
-  Future<String> executeWish(
-      WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
-    return wishInSimpleClass(wishEnum, wishSourceEnum);
+  Future<String> executeDeviceAction(
+      DeviceActions deviceAction, WishSourceEnum wishSourceEnum) async {
+    return wishInSimpleClass(deviceAction, wishSourceEnum);
   }
 
   ///  All the wishes that are legit to execute from the simple class
-  String wishInSimpleClass(WishEnum wish, WishSourceEnum wishSourceEnum) {
-    if (wish == null) return 'Your wish does not exist on simple class';
-    return wishInBaseClass(wish, wishSourceEnum);
+  String wishInSimpleClass(
+      DeviceActions deviceAction, WishSourceEnum wishSourceEnum) {
+    if (deviceAction == null) return 'Your wish does not exist on simple class';
+    return wishInBaseClass(deviceAction, wishSourceEnum);
   }
 }

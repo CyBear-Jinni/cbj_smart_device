@@ -5,6 +5,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/sma
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/thermostat_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 enum DeviceType {
   Light, //  Light ON/OFF
@@ -32,21 +33,21 @@ enum DeviceType {
   SmartCar,
 }
 
-///  List of all the wishes that can be made
-enum WishEnum {
-  SOn, //  Turn the device on
-  SOff, //  Turn the device off
-  SChangeState, //  Change device state to the opposite one
-  SDynamic, //  Set Dynamic Value
-  ODynamic, //  Open connection to change dynamic value
-  SMovement, //  Open connection to change dynamic value
-  GState, //  Get device state on/off
-  SBlindsUp, //  Turn the blinds up
-  SBlindsDown, //  Turn the blinds Down
-  SBlindsStop, //  Stop the blinds
-  SThermostatOn, // Turn on the thermostat
-  SThermostatOff, // Turn off the thermostat
-}
+// ///  List of all the wishes that can be made
+// enum WishEnum {
+//   SOn, //  Turn the device on
+//   SOff, //  Turn the device off
+//   SChangeState, //  Change device state to the opposite one
+//   SDynamic, //  Set Dynamic Value
+//   ODynamic, //  Open connection to change dynamic value
+//   SMovement, //  Open connection to change dynamic value
+//   GState, //  Get device state on/off
+//   SBlindsUp, //  Turn the blinds up
+//   SBlindsDown, //  Turn the blinds Down
+//   SBlindsStop, //  Stop the blinds
+//   SThermostatOn, // Turn on the thermostat
+//   SThermostatOff, // Turn off the thermostat
+// }
 
 /// List of all the sources
 enum WishSourceEnum {
@@ -101,16 +102,16 @@ class EnumHelper {
     return null;
   }
 
-  ///  Convert wishEnum to string
-  static String wishEnumToString(WishEnum wishEnum) {
-    return wishEnum.toString().replaceAll('WishEnum.', '');
+  ///  Convert deviceAction to string
+  static String deviceActionToString(DeviceActions actionEnum) {
+    return actionEnum.toString().replaceAll('DeviceActions.', '');
   }
 
-  ///  Convert string to wishEnum
-  static WishEnum stringToWishEnum(String wishEnumString) {
-    for (final WishEnum wishEnum in WishEnum.values) {
-      if (wishEnumToString(wishEnum) == wishEnumString) {
-        return wishEnum;
+  ///  Convert string to deviceAction
+  static DeviceActions stringToDeviceActions(String deviceActionString) {
+    for (final DeviceActions deviceAction in DeviceActions.values) {
+      if (deviceActionToString(deviceAction) == deviceActionString) {
+        return deviceAction;
       }
     }
     return null;
