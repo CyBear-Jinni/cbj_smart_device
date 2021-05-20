@@ -3,6 +3,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/sma
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/hive_d/hive_d.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 class LocalDbD {
   LocalDbD() {
@@ -46,7 +47,7 @@ class LocalDbD {
             .onOffButtonPin.pinAndPhysicalPinConfiguration
             .toString();
       }
-      if (smartDeviceBaseAbstract.getDeviceType() == DeviceType.Blinds) {
+      if (smartDeviceBaseAbstract.getDeviceType() == DeviceTypes.Blinds) {
         final BlindsObject blindsObjectTemp =
             smartDeviceBaseAbstract as BlindsObject;
 

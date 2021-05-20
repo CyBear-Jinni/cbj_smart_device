@@ -5,7 +5,6 @@ import 'package:smart_device_dart/core/my_singleton.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/cloud_value_change_u/cloud_value_change_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/core_u/actions_to_preform_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
-import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/domain/entities/local_db_e/local_db_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
@@ -71,63 +70,17 @@ class SmartServerU extends SmartServerServiceBase {
     devicesList.forEach((element) {
       DeviceTypes deviceTypes;
       switch (element.getDeviceType()) {
-        case DeviceType.Light:
+        case DeviceTypes.Light:
           deviceTypes = DeviceTypes.Light;
           break;
-        case DeviceType.DynamicLight:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.Blinds:
+        case DeviceTypes.Blinds:
           deviceTypes = DeviceTypes.Blinds;
           break;
-        case DeviceType.Thermostat:
+        case DeviceTypes.Thermostat:
           deviceTypes = DeviceTypes.Thermostat;
           break;
-        case DeviceType.Fan:
+        default:
           deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.AirConditioner:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.Camera:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.Fridge:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.Toaster:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.CoffeeMachine:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.SmartTV:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.RCAirplane:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.RCCar:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.Speakers:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.Roomba:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.Irrigation:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.SmartBed:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.AnimalTracker:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
-        case DeviceType.SmartCar:
-          deviceTypes = DeviceTypes.TypeNotSupported;
-          break;
       }
       final DeviceTypesActions deviceTypesActions = DeviceTypesActions(
         deviceType: deviceTypes,
@@ -329,7 +282,7 @@ class SmartServerU extends SmartServerServiceBase {
 
       for (final SmartDeviceBaseAbstract device
           in MySingleton.getSmartDevicesList()) {
-        if (device.getDeviceType() == DeviceType.Light) {
+        if (device.getDeviceType() == DeviceTypes.Light) {
           final Map<String, String> dataToChange = {
             'state': DeviceStateGRPC.ack.toString(),
           };

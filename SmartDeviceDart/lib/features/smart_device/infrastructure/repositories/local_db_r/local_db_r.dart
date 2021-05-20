@@ -5,6 +5,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/sma
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/local_db_d/local_db_d.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 class LocalDbR {
   LocalDbR() {
@@ -25,7 +26,8 @@ class LocalDbR {
     }
     for (final String deviceName in deviceListMap.keys) {
       final List<String> values = deviceListMap[deviceName];
-      final DeviceType deviceType = EnumHelper.stringToDeviceType(values.first);
+      final DeviceTypes deviceType =
+          EnumHelper.stringToDeviceType(values.first);
 
       final int onOffPinNumber =
           values[1] == null ? null : int.parse(values[1]);
@@ -33,13 +35,13 @@ class LocalDbR {
           values[2] == null ? null : int.parse(values[2]);
 
       switch (deviceType) {
-        case DeviceType.Light:
+        case DeviceTypes.Light:
           print('Adding from local db light object');
           smartDeviceBaseAbstractList.add(LightObject(
               currentDeviceUuid, deviceName, onOffPinNumber,
               onOffButtonPinNumber: onOffButtonPinNumber));
           break;
-        case DeviceType.Blinds:
+        case DeviceTypes.Blinds:
           print('Adding from local db blind object');
           if (values.length < 7) {
             break;
