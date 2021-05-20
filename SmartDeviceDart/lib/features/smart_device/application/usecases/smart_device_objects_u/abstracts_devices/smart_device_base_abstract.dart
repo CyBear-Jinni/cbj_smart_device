@@ -8,6 +8,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/wis
 import 'package:smart_device_dart/features/smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pb.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/smart_device_objects_r/smart_device_objects_r.dart';
 
 ///  The super base class of all the smart device class and
@@ -147,11 +148,11 @@ abstract class SmartDeviceBaseAbstract {
 
   ///  Return PossibleWishes object if
   ///  string wish exist (in general) else return null
-  WishEnum convertWishStringToWishesObject(String wish) {
-    for (final WishEnum possibleWish in WishEnum.values) {
-      print('Wish value ${EnumHelper.wishEnumToString(possibleWish)}');
-      if (EnumHelper.wishEnumToString(possibleWish) == wish) {
-        return possibleWish; //  If wish exist return the PossibleWish object
+  DeviceActions convertWishStringToWishesObject(String wish) {
+    for (final DeviceActions possibleAction in DeviceActions.values) {
+      print('Wish value ${EnumHelper.deviceActionToString(possibleAction)}');
+      if (EnumHelper.deviceActionToString(possibleAction) == wish) {
+        return possibleAction; //  If wish exist return the PossibleWish object
       }
     }
     return null;
@@ -159,47 +160,44 @@ abstract class SmartDeviceBaseAbstract {
 
   ///  Check if wish exist at all if true than check if base abstract have
   ///  this wish and if true than execute it
-  Future<String> executeWishString(
-      String wishString, WishSourceEnum wishSourceEnum) async {
-    final WishEnum wish = convertWishStringToWishesObject(wishString);
-    return executeWish(wish, wishSourceEnum);
+  Future<String> executeActionString(
+      String wishString, DeviceStateGRPC deviceState) async {
+    final DeviceActions action = convertWishStringToWishesObject(wishString);
+    return executeDeviceAction(action, deviceState);
   }
 
-  Future<String> executeWish(
-      WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
-    return wishInBaseClass(wishEnum, wishSourceEnum);
+  Future<String> executeDeviceAction(
+      DeviceActions action, DeviceStateGRPC deviceState) async {
+    return wishInBaseClass(action, deviceState);
   }
 
   ///  All the wishes that are legit to execute from the base class
-  String wishInBaseClass(WishEnum wish, WishSourceEnum wishSourceEnum) {
+  String wishInBaseClass(DeviceActions action, DeviceStateGRPC deviceState) {
     String executionMassage = ' ';
-    if (wish == null) executionMassage = 'Your wish does not exist';
+    if (action == null) executionMassage = 'Your wish does not exist';
 
     final bool deviceStatus = getDeviceState();
     String resultOfTheWish = '';
 
-    switch (wish) {
-      case WishEnum.SOff:
+    switch (action) {
+      case DeviceActions.Off:
         if (onOffPin == null) {
           executionMassage = 'Cant turn off this pin: $onOffPin Number';
         }
         resultOfTheWish = _SetOff(onOffPin);
         break;
-      case WishEnum.SOn:
+      case DeviceActions.On:
         if (onOffPin == null) {
           executionMassage = 'Cant turn on this pin: $onOffPin Number';
         }
         resultOfTheWish = _SetOn(onOffPin);
         break;
-      case WishEnum.SChangeState:
+      case DeviceActions.ActionNotSupported:
         if (onOffPin == null) {
           executionMassage =
               'Cant chane pin to the opposite state: $onOffPin Number';
         }
         resultOfTheWish = _SetChangeOppositeToState(onOffPin);
-        break;
-      case WishEnum.GState:
-        executionMassage = deviceStatus.toString();
         break;
       default:
         executionMassage = 'Your wish does not exist for this class';
@@ -211,22 +209,23 @@ abstract class SmartDeviceBaseAbstract {
         resultOfTheWish == 'Turn off successfully' ||
         executionMassage == 'Cant turn on this pin: null Number' ||
         executionMassage == 'Cant turn off this pin: null Number') {
-      if (wishSourceEnum == WishSourceEnum.ButtonPress) {
-        if (wish == WishEnum.SOn) {
+      if (deviceState == DeviceStateGRPC.waitingInComp) {
+        if (action == DeviceActions.On) {
           final Map<String, String> mapToUpdate = {
-            'action': 'on',
-            'state': 'ack'
+            'action': DeviceActions.On.toString(),
+            'state': DeviceStateGRPC.ack.toString()
           };
           updateDeviceDocumentWithMap(id, mapToUpdate);
-        } else if (wish == WishEnum.SOff) {
+        } else if (action == DeviceActions.Off) {
           final Map<String, String> mapToUpdate = {
-            'action': 'off',
-            'state': 'ack'
+            'action': DeviceActions.Off.toString(),
+            'state': DeviceStateGRPC.ack.toString()
           };
           updateDeviceDocumentWithMap(id, mapToUpdate);
         }
       } else {
-        updateDeviceDocumentCloudValue(id, 'state', 'ack');
+        updateDeviceDocumentCloudValue(
+            id, 'state', DeviceStateGRPC.ack.toString());
       }
     } else {
       updateDeviceDocumentCloudValue(id, 'stateMassage', executionMassage);

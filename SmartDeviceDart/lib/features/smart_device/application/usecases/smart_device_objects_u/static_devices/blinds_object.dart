@@ -5,6 +5,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/sma
 import 'package:smart_device_dart/features/smart_device/application/usecases/wish_classes_u/blinds_wish_u.dart';
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 /// Object to control blinds
 class BlindsObject extends SmartDeviceStaticAbstract {
@@ -43,44 +44,47 @@ class BlindsObject extends SmartDeviceStaticAbstract {
   DeviceType getDeviceType() => DeviceType.Blinds;
 
   @override
-  Future<String> executeWishString(
-      String wishString, WishSourceEnum wishSourceEnum) async {
-    final WishEnum wish = convertWishStringToWishesObject(wishString);
-    return executeWish(wish, wishSourceEnum);
+  Future<String> executeActionString(
+      String wishString, DeviceStateGRPC deviceState) async {
+    final DeviceActions deviceAction =
+        convertWishStringToWishesObject(wishString);
+    return executeDeviceAction(deviceAction, deviceState);
   }
 
   @override
-  Future<String> executeWish(
-      WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
-    return wishInBlindsClass(wishEnum, wishSourceEnum);
+  Future<String> executeDeviceAction(
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
+    return deviceActionInBlindsClass(deviceAction, deviceState);
   }
 
   ///  All the wishes that are legit to execute from the blinds class
-  Future<String> wishInBlindsClass(
-      WishEnum wish, WishSourceEnum wishSourceEnum) async {
+  Future<String> deviceActionInBlindsClass(
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
     String wishExecuteResult;
 
-    if (wish == null) return 'Your wish does not exist in blinds class';
-    if (wish == WishEnum.SBlindsUp) {
+    if (deviceAction == null) return 'Your wish does not exist in blinds class';
+    if (deviceAction == DeviceActions.MoveUP) {
       wishExecuteResult = await BlindsWishU.BlindsUp(this);
     }
-    if (wish == WishEnum.SBlindsDown) {
+    if (deviceAction == DeviceActions.MoveDon) {
       wishExecuteResult = await BlindsWishU.blindsDown(this);
     }
-    if (wish == WishEnum.SBlindsStop) {
+    if (deviceAction == DeviceActions.Stop) {
       wishExecuteResult = await BlindsWishU.blindsStop(this);
     }
 
     if (wishExecuteResult != null) {
-      if (wishSourceEnum != WishSourceEnum.FireBase) {
-        final String wishEnumString = EnumHelper.wishEnumToString(wish);
-        super.updateThisDeviceDocumentCloudValue('action', wishEnumString);
-        super.updateThisDeviceDocumentCloudValue('state', 'ack');
+      if (deviceState != DeviceStateGRPC.waitingInFirebase) {
+        final String deviceActionString =
+            EnumHelper.deviceActionToString(deviceAction);
+        super.updateThisDeviceDocumentCloudValue('action', deviceActionString);
+        super.updateThisDeviceDocumentCloudValue(
+            'state', DeviceStateGRPC.ack.toString());
       }
       return wishExecuteResult;
     }
 
-    return wishInStaticClass(wish, wishSourceEnum);
+    return wishInStaticClass(deviceAction, deviceState);
   }
 
   /// Listening to two buttons press but will not do action for the two of them

@@ -5,7 +5,7 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 class CommonBatchCommandsD implements SystemCommandsBaseClassD {
   @override
   Future<String> getCurrentUserName() async {
-    String whoami =
+    final String whoami =
         await Process.run('cmd', <String>['/C', 'echo', '%username%'])
             .then((ProcessResult result) {
       return result.stdout.toString();
@@ -15,7 +15,7 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String> getUuidOfCurrentDevice() async {
-    String uuid = await Process.run('cmd', <String>[
+    final String uuid = await Process.run('cmd', <String>[
       '/C',
       'wmic',
       'path',
@@ -33,7 +33,7 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String> getDeviceHostName() async {
-    String hostName =
+    final String hostName =
         await Process.run('cmd', <String>['/C', 'echo', '%COMPUTERNAME%'])
             .then((ProcessResult result) {
       return result.stdout.toString();

@@ -1,4 +1,5 @@
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 import 'smart_device_base_abstract.dart';
 
@@ -25,27 +26,28 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBaseAbstract {
 
   ///  All the wishes that are legit to execute from the static class
   @override
-  Future<String> executeWishString(
-      String wishString, WishSourceEnum wishSourceEnum) async {
+  Future<String> executeActionString(
+      String wishString, DeviceStateGRPC deviceState) async {
     var wish = convertWishStringToWishesObject(wishString);
     print(wishString);
     print(wish.toString());
     if (wish == null) return 'Your wish does not exist on static class';
-    return executeWish(wish, wishSourceEnum);
+    return executeDeviceAction(wish, deviceState);
   }
 
   @override
-  Future<String> executeWish(
-      WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
-    return wishInStaticClass(wishEnum, wishSourceEnum);
+  Future<String> executeDeviceAction(
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
+    return wishInStaticClass(deviceAction, deviceState);
   }
 
-  String wishInStaticClass(WishEnum wish, WishSourceEnum wishSourceEnum) {
-    switch (wish) {
-      case WishEnum.SMovement:
+  String wishInStaticClass(
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) {
+    switch (deviceAction) {
+      case DeviceActions.Stop:
         return _HowMuchToMove();
       default:
-        return wishInBaseClass(wish, wishSourceEnum);
+        return wishInBaseClass(deviceAction, deviceState);
     }
   }
 }

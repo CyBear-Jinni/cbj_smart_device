@@ -14,7 +14,7 @@ import 'package:uuid/uuid.dart';
 
 /// This class get what to execute straight from the grpc request,
 class SmartServerU extends SmartServerServiceBase {
-  static const WishSourceEnum _wishSourceEnum = WishSourceEnum.ServerRequest;
+  static const DeviceStateGRPC _deviceState = DeviceStateGRPC.waitingInFirebase;
 
   ///  Listening to port and deciding what to do with the response
   void waitForConnection(
@@ -156,8 +156,8 @@ class SmartServerU extends SmartServerServiceBase {
   @override
   Future<SmartDeviceStatus> getStatus(
       ServiceCall call, SmartDeviceInfo request) async {
-    final String deviceStatus =
-        await executeWishEnumString(request, WishEnum.GState, _wishSourceEnum);
+    final String deviceStatus = await executeDeviceActionString(
+        request, DeviceActions.ActionNotSupported, _deviceState);
 
     print(
         'Getting status of device $request and device status in bool $deviceStatus');
@@ -183,21 +183,22 @@ class SmartServerU extends SmartServerServiceBase {
   Future<CommendStatus> setOffDevice(
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn device ${request.id} off');
-    return executeWishEnumServer(request, WishEnum.SOff, _wishSourceEnum);
+    return executeDeviceActionServer(request, DeviceActions.Off, _deviceState);
   }
 
   @override
   Future<CommendStatus> setOnDevice(
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn device ${request.id} on');
-    return executeWishEnumServer(request, WishEnum.SOn, _wishSourceEnum);
+    return executeDeviceActionServer(request, DeviceActions.On, _deviceState);
   }
 
   @override
   Future<CommendStatus> setBlindsUp(
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn blinds ${request.id} up');
-    return executeWishEnumServer(request, WishEnum.SBlindsUp, _wishSourceEnum);
+    return executeDeviceActionServer(
+        request, DeviceActions.MoveUP, _deviceState);
   }
 
   @override
@@ -205,8 +206,8 @@ class SmartServerU extends SmartServerServiceBase {
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn blinds ${request.id} down');
 
-    return executeWishEnumServer(
-        request, WishEnum.SBlindsDown, _wishSourceEnum);
+    return executeDeviceActionServer(
+        request, DeviceActions.MoveDon, _deviceState);
   }
 
   @override
@@ -214,8 +215,7 @@ class SmartServerU extends SmartServerServiceBase {
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn blinds ${request.id} stop');
 
-    return executeWishEnumServer(
-        request, WishEnum.SBlindsStop, _wishSourceEnum);
+    return executeDeviceActionServer(request, DeviceActions.Stop, _deviceState);
   }
 
   SmartDeviceBaseAbstract getSmartDeviceBaseAbstract(SmartDeviceInfo request) {
@@ -224,32 +224,33 @@ class SmartServerU extends SmartServerServiceBase {
           (smartDeviceBaseAbstractO) =>
               smartDeviceBaseAbstractO.id == request.id);
     } catch (exception) {
-      print(
-          'Exception, device name ${request.id} could not be found: ${exception.message}');
+      print('Exception, device name ${request.id} could not be found:'
+          ' ${exception.message}');
       return null;
     }
   }
 
-  CommendStatus executeWishEnumServer(
-      SmartDeviceInfo request, WishEnum wishEnum, WishEnum) {
+  CommendStatus executeDeviceActionServer(SmartDeviceInfo request,
+      DeviceActions deviceAction, DeviceStateGRPC _deviceState) {
     final SmartDeviceBaseAbstract smartDevice =
         getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
       return CommendStatus()..success = false;
     }
-    ActionsToPreformU.executeWishEnum(smartDevice, wishEnum, _wishSourceEnum);
+    ActionsToPreformU.executeDeviceAction(
+        smartDevice, deviceAction, _deviceState);
     return CommendStatus()..success = smartDevice.onOff;
   }
 
-  Future<String> executeWishEnumString(SmartDeviceInfo request,
-      WishEnum wishEnum, WishSourceEnum wishSourceEnum) async {
+  Future<String> executeDeviceActionString(SmartDeviceInfo request,
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
     final SmartDeviceBaseAbstract smartDevice =
         getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
-      return 'SmartDevice is null in executeWishEnumString';
+      return 'SmartDevice is null in execute DeviceActions String';
     }
-    return ActionsToPreformU.executeWishEnum(
-        smartDevice, wishEnum, wishSourceEnum);
+    return ActionsToPreformU.executeDeviceAction(
+        smartDevice, deviceAction, deviceState);
   }
 
   @override
@@ -330,7 +331,7 @@ class SmartServerU extends SmartServerServiceBase {
           in MySingleton.getSmartDevicesList()) {
         if (device.getDeviceType() == DeviceType.Light) {
           final Map<String, String> dataToChange = {
-            'state': 'ack',
+            'state': DeviceStateGRPC.ack.toString(),
           };
 
           final String createDeviceInHomeSuccess = await cloudValueChangeU

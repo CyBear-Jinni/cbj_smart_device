@@ -9,6 +9,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/sma
 import 'package:smart_device_dart/features/smart_device/domain/entities/cloud_value_change_e/cloud_value_change_e.dart';
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 class CloudValueChangeU {
   CloudValueChangeU(FirebaseAccountsInformationD firebaseAccountsInformationD) {
@@ -85,7 +86,8 @@ class CloudValueChangeU {
         MySingleton.getSmartDevicesList()
             .forEach((SmartDeviceBaseAbstract element) {
           if (document.id == element.id) {
-            if (document.map['state'].toString() != 'ack') {
+            if (document.map['state'].toString() !=
+                DeviceStateGRPC.ack.toString()) {
               devicesNamesThatValueChanged[element] =
                   document.map['action'].toString();
             }
@@ -97,20 +99,18 @@ class CloudValueChangeU {
           (SmartDeviceBaseAbstract smartDeviceBaseAbstract, String value) {
         print('FireBase "${smartDeviceBaseAbstract.id}" have different value,'
             ' will now change to $value');
-        WishEnum wishEnum;
-        switch (value) {
-          case 'on':
-            wishEnum = WishEnum.SOn;
-            break;
-          case 'off':
-            wishEnum = WishEnum.SOff;
-            break;
-          default:
-            wishEnum = EnumHelper.stringToWishEnum(value);
-            break;
+        DeviceActions deviceAction;
+
+        if (value == DeviceActions.On.toString()) {
+          deviceAction = DeviceActions.On;
+        } else if (value == DeviceActions.Off.toString()) {
+          deviceAction = DeviceActions.Off;
+        } else {
+          deviceAction = EnumHelper.stringToDeviceActions(value);
         }
-        ActionsToPreformU.executeWishEnum(
-            smartDeviceBaseAbstract, wishEnum, WishSourceEnum.FireBase);
+
+        ActionsToPreformU.executeDeviceAction(smartDeviceBaseAbstract,
+            deviceAction, DeviceStateGRPC.waitingInFirebase);
       });
     });
   }
@@ -137,22 +137,20 @@ class CloudValueChangeU {
 
       devicesNamesThatValueChanged.forEach(
           (SmartDeviceBaseAbstract smartDeviceBaseAbstract, String value) {
-        print(
-            'FireBase "${smartDeviceBaseAbstract.id}" have different value, will now change to $value');
-        WishEnum wishEnum;
-        switch (value) {
-          case 'true':
-            wishEnum = WishEnum.SOn;
-            break;
-          case 'false':
-            wishEnum = WishEnum.SOff;
-            break;
-          default:
-            wishEnum = EnumHelper.stringToWishEnum(value);
-            break;
+        print('FireBase "${smartDeviceBaseAbstract.id}" have different value,'
+            ' will now change to $value');
+        DeviceActions deviceAction;
+
+        if (value == DeviceActions.On.toString()) {
+          deviceAction = DeviceActions.On;
+        } else if (value == DeviceActions.Off.toString()) {
+          deviceAction = DeviceActions.Off;
+        } else {
+          deviceAction = EnumHelper.stringToDeviceActions(value);
         }
-        ActionsToPreformU.executeWishEnum(
-            smartDeviceBaseAbstract, wishEnum, WishSourceEnum.FireBase);
+
+        ActionsToPreformU.executeDeviceAction(smartDeviceBaseAbstract,
+            deviceAction, DeviceStateGRPC.waitingInFirebase);
       });
     });
   }
