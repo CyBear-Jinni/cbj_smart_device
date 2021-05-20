@@ -1,5 +1,4 @@
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_simple_abstract.dart';
-import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 class LightObject extends SmartDeviceSimpleAbstract {
@@ -7,7 +6,7 @@ class LightObject extends SmartDeviceSimpleAbstract {
       {int onOffButtonPinNumber})
       : super(uuid, smartInstanceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber) {
-    setDeviceType(DeviceType.Light);
+    setDeviceType(DeviceTypes.Light);
     print('New light object');
   }
 
@@ -15,11 +14,11 @@ class LightObject extends SmartDeviceSimpleAbstract {
   List<String> getNeededPinTypesList() => <String>['gpio', 'gpio'];
 
   @override
-  void setDeviceType(DeviceType deviceType) => super.setDeviceType(deviceType);
+  void setDeviceType(DeviceTypes deviceType) => super.setDeviceType(deviceType);
 
   ///  Return smart device type
   @override
-  DeviceType getDeviceType() => DeviceType.Light;
+  DeviceTypes getDeviceType() => DeviceTypes.Light;
 
   @override
   Future<String> executeActionString(

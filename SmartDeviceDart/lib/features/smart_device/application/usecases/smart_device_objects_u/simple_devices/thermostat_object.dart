@@ -22,7 +22,7 @@ class ThermostatObject extends SmartDeviceSimpleAbstract {
     thermostatButtonPin =
         DevicePinListManager().getGpioPin(thermostatButtonPinNumber);
     listenToTwoButtonsPress();
-    setDeviceType(DeviceType.Thermostat);
+    setDeviceType(DeviceTypes.Thermostat);
   }
 
   PinInformation thermostatPin, thermostatButtonPin;
@@ -31,11 +31,11 @@ class ThermostatObject extends SmartDeviceSimpleAbstract {
   List<String> getNeededPinTypesList() => <String>['gpio', 'gpio'];
 
   @override
-  void setDeviceType(DeviceType deviceType) => super.setDeviceType(deviceType);
+  void setDeviceType(DeviceTypes deviceType) => super.setDeviceType(deviceType);
 
   ///  Return smart device type
   @override
-  DeviceType getDeviceType() => DeviceType.Thermostat;
+  DeviceTypes getDeviceType() => DeviceTypes.Thermostat;
 
   @override
   Future<String> executeActionString(

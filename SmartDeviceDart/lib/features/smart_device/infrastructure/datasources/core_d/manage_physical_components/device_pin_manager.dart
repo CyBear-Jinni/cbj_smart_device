@@ -7,6 +7,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/dev
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/raspberry_pi3_model_b_rev_1_2/raspberry_pi3_model_b_rev_1_2_configuration.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 
 ///  This class save all the configuration of the pins per device,
@@ -32,7 +33,7 @@ abstract class DevicePinListManagerAbstract {
 
   /// Return a list of free pins that are not taken, the list will consist of
   /// the different pins types depending on the smart device type needed pins
-  List<PinInformation> getFreePinsForSmartDeviceType(DeviceType deviceType);
+  List<PinInformation> getFreePinsForSmartDeviceType(DeviceTypes deviceType);
 
   /// Return a list of free gpio pins that are not taken
   PinInformation getFreeGpioPins({List<PinInformation> ignorePinsList});
@@ -192,7 +193,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
   }
 
   @override
-  List<PinInformation> getFreePinsForSmartDeviceType(DeviceType deviceType) {
+  List<PinInformation> getFreePinsForSmartDeviceType(DeviceTypes deviceType) {
     final dynamic smartDeviceBaseAbstract =
         EnumHelper.deviceTypeToSmartDeviceBaseAbstractObject(deviceType);
 
@@ -249,7 +250,7 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
   }
 
   @override
-  List<PinInformation> getFreePinsForSmartDeviceType(DeviceType deviceType) {
+  List<PinInformation> getFreePinsForSmartDeviceType(DeviceTypes deviceType) {
     print('Computer does not give free pins, only smart device');
     throw UnimplementedError();
   }

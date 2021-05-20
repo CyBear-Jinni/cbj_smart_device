@@ -71,7 +71,7 @@ abstract class SmartDeviceBaseAbstract {
   CloudValueChangeU cloudValueChangeU;
 
   ///  The type of the smart device Light blinds etc
-  DeviceType smartDeviceType;
+  DeviceTypes smartDeviceType;
 
   /// Get a list of the pins Types that this device need
   List<String> getNeededPinTypesList() => null;
@@ -79,7 +79,7 @@ abstract class SmartDeviceBaseAbstract {
   //  Getters
 
   ///  Get smart device type
-  DeviceType getDeviceType() => smartDeviceType;
+  DeviceTypes getDeviceType() => smartDeviceType;
 
   /// Returning the non abstract of this object
   Type getTheNonAbstractObjectOfThisInstance() {
@@ -125,7 +125,7 @@ abstract class SmartDeviceBaseAbstract {
     return 'Turn off successfully';
   }
 
-  void setDeviceType(DeviceType deviceType) => smartDeviceType = deviceType;
+  void setDeviceType(DeviceTypes deviceType) => smartDeviceType = deviceType;
 
   ///  Turn device pin to the opposite state
   String _SetChangeOppositeToState(PinInformation pinNumber) {

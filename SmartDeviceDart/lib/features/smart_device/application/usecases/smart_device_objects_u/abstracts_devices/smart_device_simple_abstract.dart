@@ -1,4 +1,3 @@
-import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 import 'smart_device_base_abstract.dart';
@@ -15,7 +14,7 @@ abstract class SmartDeviceSimpleAbstract extends SmartDeviceBaseAbstract {
   double howMuchTimeTheDeviceDoingAction;
 
   @override
-  void setDeviceType(DeviceType deviceType) => super.setDeviceType(deviceType);
+  void setDeviceType(DeviceTypes deviceType) => super.setDeviceType(deviceType);
 
   @override
   Future<String> executeActionString(

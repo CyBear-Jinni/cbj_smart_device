@@ -28,7 +28,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     this.blindsDownPin = DevicePinListManager().getGpioPin(blindsDownPin);
     listenToTwoButtonsPress(cloudValueChangeU);
 
-    setDeviceType(DeviceType.Blinds);
+    setDeviceType(DeviceTypes.Blinds);
   }
 
   PinInformation buttonPinUp, blindsUpPin, buttonPinDown, blindsDownPin;
@@ -38,10 +38,10 @@ class BlindsObject extends SmartDeviceStaticAbstract {
       <String>['gpio', 'gpio', 'gpio', 'gpio'];
 
   @override
-  void setDeviceType(DeviceType deviceType) => super.setDeviceType(deviceType);
+  void setDeviceType(DeviceTypes deviceType) => super.setDeviceType(deviceType);
 
   @override
-  DeviceType getDeviceType() => DeviceType.Blinds;
+  DeviceTypes getDeviceType() => DeviceTypes.Blinds;
 
   @override
   Future<String> executeActionString(
