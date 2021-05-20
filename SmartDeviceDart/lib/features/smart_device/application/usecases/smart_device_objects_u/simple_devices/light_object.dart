@@ -23,15 +23,15 @@ class LightObject extends SmartDeviceSimpleAbstract {
 
   @override
   Future<String> executeActionString(
-      String wishString, WishSourceEnum wishSourceEnum) async {
+      String wishString, DeviceStateGRPC deviceState) async {
     final DeviceActions deviceAction =
         convertWishStringToWishesObject(wishString);
-    return executeDeviceAction(deviceAction, wishSourceEnum);
+    return executeDeviceAction(deviceAction, deviceState);
   }
 
   @override
   Future<String> executeDeviceAction(
-      DeviceActions deviceAction, WishSourceEnum wishSourceEnum) async {
-    return wishInSimpleClass(deviceAction, wishSourceEnum);
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
+    return wishInSimpleClass(deviceAction, deviceState);
   }
 }

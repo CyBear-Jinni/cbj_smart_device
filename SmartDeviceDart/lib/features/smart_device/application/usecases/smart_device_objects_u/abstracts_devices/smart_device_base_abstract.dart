@@ -161,18 +161,18 @@ abstract class SmartDeviceBaseAbstract {
   ///  Check if wish exist at all if true than check if base abstract have
   ///  this wish and if true than execute it
   Future<String> executeActionString(
-      String wishString, WishSourceEnum wishSourceEnum) async {
+      String wishString, DeviceStateGRPC deviceState) async {
     final DeviceActions action = convertWishStringToWishesObject(wishString);
-    return executeDeviceAction(action, wishSourceEnum);
+    return executeDeviceAction(action, deviceState);
   }
 
   Future<String> executeDeviceAction(
-      DeviceActions action, WishSourceEnum wishSourceEnum) async {
-    return wishInBaseClass(action, wishSourceEnum);
+      DeviceActions action, DeviceStateGRPC deviceState) async {
+    return wishInBaseClass(action, deviceState);
   }
 
   ///  All the wishes that are legit to execute from the base class
-  String wishInBaseClass(DeviceActions action, WishSourceEnum wishSourceEnum) {
+  String wishInBaseClass(DeviceActions action, DeviceStateGRPC deviceState) {
     String executionMassage = ' ';
     if (action == null) executionMassage = 'Your wish does not exist';
 
@@ -209,7 +209,7 @@ abstract class SmartDeviceBaseAbstract {
         resultOfTheWish == 'Turn off successfully' ||
         executionMassage == 'Cant turn on this pin: null Number' ||
         executionMassage == 'Cant turn off this pin: null Number') {
-      if (wishSourceEnum == WishSourceEnum.ButtonPress) {
+      if (deviceState == DeviceStateGRPC.waitingInComp) {
         if (action == DeviceActions.On) {
           final Map<String, String> mapToUpdate = {
             'action': DeviceActions.On.toString(),

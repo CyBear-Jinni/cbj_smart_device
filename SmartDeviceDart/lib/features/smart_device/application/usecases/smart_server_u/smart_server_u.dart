@@ -14,7 +14,7 @@ import 'package:uuid/uuid.dart';
 
 /// This class get what to execute straight from the grpc request,
 class SmartServerU extends SmartServerServiceBase {
-  static const WishSourceEnum _wishSourceEnum = WishSourceEnum.ServerRequest;
+  static const DeviceStateGRPC _deviceState = DeviceStateGRPC.waitingInFirebase;
 
   ///  Listening to port and deciding what to do with the response
   void waitForConnection(
@@ -157,7 +157,7 @@ class SmartServerU extends SmartServerServiceBase {
   Future<SmartDeviceStatus> getStatus(
       ServiceCall call, SmartDeviceInfo request) async {
     final String deviceStatus = await executeDeviceActionString(
-        request, DeviceActions.ActionNotSupported, _wishSourceEnum);
+        request, DeviceActions.ActionNotSupported, _deviceState);
 
     print(
         'Getting status of device $request and device status in bool $deviceStatus');
@@ -183,16 +183,14 @@ class SmartServerU extends SmartServerServiceBase {
   Future<CommendStatus> setOffDevice(
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn device ${request.id} off');
-    return executeDeviceActionServer(
-        request, DeviceActions.Off, _wishSourceEnum);
+    return executeDeviceActionServer(request, DeviceActions.Off, _deviceState);
   }
 
   @override
   Future<CommendStatus> setOnDevice(
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn device ${request.id} on');
-    return executeDeviceActionServer(
-        request, DeviceActions.On, _wishSourceEnum);
+    return executeDeviceActionServer(request, DeviceActions.On, _deviceState);
   }
 
   @override
@@ -200,7 +198,7 @@ class SmartServerU extends SmartServerServiceBase {
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn blinds ${request.id} up');
     return executeDeviceActionServer(
-        request, DeviceActions.MoveUP, _wishSourceEnum);
+        request, DeviceActions.MoveUP, _deviceState);
   }
 
   @override
@@ -209,7 +207,7 @@ class SmartServerU extends SmartServerServiceBase {
     print('Turn blinds ${request.id} down');
 
     return executeDeviceActionServer(
-        request, DeviceActions.MoveDon, _wishSourceEnum);
+        request, DeviceActions.MoveDon, _deviceState);
   }
 
   @override
@@ -217,8 +215,7 @@ class SmartServerU extends SmartServerServiceBase {
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn blinds ${request.id} stop');
 
-    return executeDeviceActionServer(
-        request, DeviceActions.Stop, _wishSourceEnum);
+    return executeDeviceActionServer(request, DeviceActions.Stop, _deviceState);
   }
 
   SmartDeviceBaseAbstract getSmartDeviceBaseAbstract(SmartDeviceInfo request) {
@@ -227,33 +224,33 @@ class SmartServerU extends SmartServerServiceBase {
           (smartDeviceBaseAbstractO) =>
               smartDeviceBaseAbstractO.id == request.id);
     } catch (exception) {
-      print(
-          'Exception, device name ${request.id} could not be found: ${exception.message}');
+      print('Exception, device name ${request.id} could not be found:'
+          ' ${exception.message}');
       return null;
     }
   }
 
   CommendStatus executeDeviceActionServer(SmartDeviceInfo request,
-      DeviceActions deviceAction, WishSourceEnum _wishSourceEnum) {
+      DeviceActions deviceAction, DeviceStateGRPC _deviceState) {
     final SmartDeviceBaseAbstract smartDevice =
         getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
       return CommendStatus()..success = false;
     }
     ActionsToPreformU.executeDeviceAction(
-        smartDevice, deviceAction, _wishSourceEnum);
+        smartDevice, deviceAction, _deviceState);
     return CommendStatus()..success = smartDevice.onOff;
   }
 
   Future<String> executeDeviceActionString(SmartDeviceInfo request,
-      DeviceActions deviceAction, WishSourceEnum wishSourceEnum) async {
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
     final SmartDeviceBaseAbstract smartDevice =
         getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
       return 'SmartDevice is null in execute DeviceActions String';
     }
     return ActionsToPreformU.executeDeviceAction(
-        smartDevice, deviceAction, wishSourceEnum);
+        smartDevice, deviceAction, deviceState);
   }
 
   @override

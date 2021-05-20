@@ -1,5 +1,4 @@
 import 'package:smart_device_dart/features/smart_device/application/usecases/wish_classes_u/dynamic_wish_u.dart';
-import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 import 'smart_device_simple_abstract.dart';
@@ -17,17 +16,17 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
 
   @override
   Future<String> executeActionString(
-      String wishString, WishSourceEnum wishSourceEnum) async {
+      String wishString, DeviceStateGRPC deviceState) async {
     final DeviceActions deviceAction =
         convertWishStringToWishesObject(wishString);
     if (deviceAction == null) return 'Your deviceAction does not exist on ';
-    return executeDeviceAction(deviceAction, wishSourceEnum);
+    return executeDeviceAction(deviceAction, deviceState);
   }
 
   @override
   Future<String> executeDeviceAction(
-      DeviceActions deviceAction, WishSourceEnum wishSourceEnum) async {
-    return _WishInDynamicClass(deviceAction, wishSourceEnum);
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
+    return _WishInDynamicClass(deviceAction, deviceState);
   }
 
   ///  Set dynamic value
@@ -50,14 +49,14 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
 
   ///  All the wishes that are legit to execute from the dynamic class
   String _WishInDynamicClass(
-      DeviceActions deviceAction, WishSourceEnum wishSourceEnum) {
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) {
     switch (deviceAction) {
       case DeviceActions.ActionNotSupported:
         return _SetDynamicValue();
       case DeviceActions.ActionNotSupported:
         return _OpenDynamicValue();
       default:
-        return wishInSimpleClass(deviceAction, wishSourceEnum);
+        return wishInSimpleClass(deviceAction, deviceState);
     }
   }
 }

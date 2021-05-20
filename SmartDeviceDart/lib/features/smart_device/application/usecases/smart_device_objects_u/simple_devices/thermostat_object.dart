@@ -39,21 +39,21 @@ class ThermostatObject extends SmartDeviceSimpleAbstract {
 
   @override
   Future<String> executeActionString(
-      String wishString, WishSourceEnum wishSourceEnum) async {
+      String wishString, DeviceStateGRPC deviceState) async {
     final DeviceActions deviceAction =
         convertWishStringToWishesObject(wishString);
-    return executeDeviceAction(deviceAction, wishSourceEnum);
+    return executeDeviceAction(deviceAction, deviceState);
   }
 
   @override
   Future<String> executeDeviceAction(
-      DeviceActions deviceAction, WishSourceEnum wishSourceEnum) async {
-    return wishInThermostatClass(deviceAction, wishSourceEnum);
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
+    return wishInThermostatClass(deviceAction, deviceState);
   }
 
   ///  All the wishes that are legit to execute from the blinds class
   Future<String> wishInThermostatClass(
-      DeviceActions deviceAction, WishSourceEnum wishSourceEnum) async {
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
     String wishExecuteResult;
 
     if (deviceAction == null)
@@ -66,7 +66,7 @@ class ThermostatObject extends SmartDeviceSimpleAbstract {
     }
 
     if (wishExecuteResult != null) {
-      if (wishSourceEnum != WishSourceEnum.FireBase) {
+      if (deviceState != DeviceStateGRPC.waitingInFirebase) {
         final String deviceActionString =
             EnumHelper.deviceActionToString(deviceAction);
         super.updateThisDeviceDocumentCloudValue('action', deviceActionString);
@@ -76,7 +76,7 @@ class ThermostatObject extends SmartDeviceSimpleAbstract {
       return wishExecuteResult;
     }
 
-    return wishInSimpleClass(deviceAction, wishSourceEnum);
+    return wishInSimpleClass(deviceAction, deviceState);
   }
 
   void listenToTwoButtonsPress() {

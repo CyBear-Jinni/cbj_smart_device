@@ -33,10 +33,10 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
         if (lightPin.v == 1) {
           await smartDevice.executeDeviceAction(
-              DeviceActions.Off, WishSourceEnum.ButtonPress);
+              DeviceActions.Off, DeviceStateGRPC.waitingInComp);
         } else {
           await smartDevice.executeDeviceAction(
-              DeviceActions.On, WishSourceEnum.ButtonPress);
+              DeviceActions.On, DeviceStateGRPC.waitingInComp);
         }
 
         await Future.delayed(const Duration(seconds: 1));
@@ -68,10 +68,10 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
         if (thermostat.v == 1) {
           await smartDevice.executeDeviceAction(
-              DeviceActions.ActionNotSupported, WishSourceEnum.ButtonPress);
+              DeviceActions.ActionNotSupported, DeviceStateGRPC.waitingInComp);
         } else {
           await smartDevice.executeDeviceAction(
-              DeviceActions.ActionNotSupported, WishSourceEnum.ButtonPress);
+              DeviceActions.ActionNotSupported, DeviceStateGRPC.waitingInComp);
         }
 
         await Future.delayed(const Duration(seconds: 1));

@@ -109,8 +109,8 @@ class CloudValueChangeU {
           deviceAction = EnumHelper.stringToDeviceActions(value);
         }
 
-        ActionsToPreformU.executeDeviceAction(
-            smartDeviceBaseAbstract, deviceAction, WishSourceEnum.FireBase);
+        ActionsToPreformU.executeDeviceAction(smartDeviceBaseAbstract,
+            deviceAction, DeviceStateGRPC.waitingInFirebase);
       });
     });
   }
@@ -149,8 +149,8 @@ class CloudValueChangeU {
           deviceAction = EnumHelper.stringToDeviceActions(value);
         }
 
-        ActionsToPreformU.executeDeviceAction(
-            smartDeviceBaseAbstract, deviceAction, WishSourceEnum.FireBase);
+        ActionsToPreformU.executeDeviceAction(smartDeviceBaseAbstract,
+            deviceAction, DeviceStateGRPC.waitingInFirebase);
       });
     });
   }

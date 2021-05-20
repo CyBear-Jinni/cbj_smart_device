@@ -45,21 +45,21 @@ class BlindsObject extends SmartDeviceStaticAbstract {
 
   @override
   Future<String> executeActionString(
-      String wishString, WishSourceEnum wishSourceEnum) async {
+      String wishString, DeviceStateGRPC deviceState) async {
     final DeviceActions deviceAction =
         convertWishStringToWishesObject(wishString);
-    return executeDeviceAction(deviceAction, wishSourceEnum);
+    return executeDeviceAction(deviceAction, deviceState);
   }
 
   @override
   Future<String> executeDeviceAction(
-      DeviceActions deviceAction, WishSourceEnum wishSourceEnum) async {
-    return deviceActionInBlindsClass(deviceAction, wishSourceEnum);
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
+    return deviceActionInBlindsClass(deviceAction, deviceState);
   }
 
   ///  All the wishes that are legit to execute from the blinds class
   Future<String> deviceActionInBlindsClass(
-      DeviceActions deviceAction, WishSourceEnum wishSourceEnum) async {
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
     String wishExecuteResult;
 
     if (deviceAction == null) return 'Your wish does not exist in blinds class';
@@ -74,7 +74,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     }
 
     if (wishExecuteResult != null) {
-      if (wishSourceEnum != WishSourceEnum.FireBase) {
+      if (deviceState != DeviceStateGRPC.waitingInFirebase) {
         final String deviceActionString =
             EnumHelper.deviceActionToString(deviceAction);
         super.updateThisDeviceDocumentCloudValue('action', deviceActionString);
@@ -84,7 +84,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
       return wishExecuteResult;
     }
 
-    return wishInStaticClass(deviceAction, wishSourceEnum);
+    return wishInStaticClass(deviceAction, deviceState);
   }
 
   /// Listening to two buttons press but will not do action for the two of them

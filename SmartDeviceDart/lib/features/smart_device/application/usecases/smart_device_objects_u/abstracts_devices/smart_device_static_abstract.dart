@@ -27,27 +27,27 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBaseAbstract {
   ///  All the wishes that are legit to execute from the static class
   @override
   Future<String> executeActionString(
-      String wishString, WishSourceEnum wishSourceEnum) async {
+      String wishString, DeviceStateGRPC deviceState) async {
     var wish = convertWishStringToWishesObject(wishString);
     print(wishString);
     print(wish.toString());
     if (wish == null) return 'Your wish does not exist on static class';
-    return executeDeviceAction(wish, wishSourceEnum);
+    return executeDeviceAction(wish, deviceState);
   }
 
   @override
   Future<String> executeDeviceAction(
-      DeviceActions deviceAction, WishSourceEnum wishSourceEnum) async {
-    return wishInStaticClass(deviceAction, wishSourceEnum);
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
+    return wishInStaticClass(deviceAction, deviceState);
   }
 
   String wishInStaticClass(
-      DeviceActions deviceAction, WishSourceEnum wishSourceEnum) {
+      DeviceActions deviceAction, DeviceStateGRPC deviceState) {
     switch (deviceAction) {
       case DeviceActions.Stop:
         return _HowMuchToMove();
       default:
-        return wishInBaseClass(deviceAction, wishSourceEnum);
+        return wishInBaseClass(deviceAction, deviceState);
     }
   }
 }

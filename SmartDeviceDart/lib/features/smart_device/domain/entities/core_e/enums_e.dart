@@ -49,14 +49,14 @@ enum DeviceType {
 //   SThermostatOff, // Turn off the thermostat
 // }
 
-/// List of all the sources
-enum WishSourceEnum {
-  ServerRequest,
-  FireBase,
-  ButtonPress,
-  VoiceAssistant,
-  ScheduleRequests,
-}
+// /// List of all the sources
+// enum WishSourceEnum {
+//   ServerRequest,
+//   FireBase,
+//   ButtonPress,
+//   VoiceAssistant,
+//   ScheduleRequests,
+// }
 
 ///  List of all physical devices types
 enum PhysicalDeviceType {
