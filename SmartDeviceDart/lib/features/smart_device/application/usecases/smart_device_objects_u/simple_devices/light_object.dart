@@ -6,7 +6,7 @@ class LightObject extends SmartDeviceSimpleAbstract {
       {int onOffButtonPinNumber})
       : super(uuid, smartInstanceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber) {
-    setDeviceType(DeviceTypes.Light);
+    setDeviceType(DeviceTypes.light);
     print('New light object');
   }
 
@@ -18,7 +18,7 @@ class LightObject extends SmartDeviceSimpleAbstract {
 
   ///  Return smart device type
   @override
-  DeviceTypes getDeviceType() => DeviceTypes.Light;
+  DeviceTypes getDeviceType() => DeviceTypes.light;
 
   @override
   Future<String> executeActionString(

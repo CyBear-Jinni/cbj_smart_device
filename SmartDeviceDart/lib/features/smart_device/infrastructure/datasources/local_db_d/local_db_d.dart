@@ -47,7 +47,7 @@ class LocalDbD {
             .onOffButtonPin.pinAndPhysicalPinConfiguration
             .toString();
       }
-      if (smartDeviceBaseAbstract.getDeviceType() == DeviceTypes.Blinds) {
+      if (smartDeviceBaseAbstract.getDeviceType() == DeviceTypes.blinds) {
         final BlindsObject blindsObjectTemp =
             smartDeviceBaseAbstract as BlindsObject;
 

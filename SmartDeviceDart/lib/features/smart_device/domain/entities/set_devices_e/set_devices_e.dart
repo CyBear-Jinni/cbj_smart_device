@@ -1,7 +1,7 @@
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
-import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/thermostat_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
@@ -61,45 +61,45 @@ class SetDevicesE {
       id = Uuid().v1();
 
       /// Setting up for Light
-      if (deviceType == DeviceTypes.Light) {
+      if (deviceType == DeviceTypes.light) {
         final int lightPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceTypes.Light)[0]
+            .getFreePinsForSmartDeviceType(DeviceTypes.light)[0]
             ?.pinAndPhysicalPinConfiguration;
 
         final int buttonPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceTypes.Light)[1]
+            .getFreePinsForSmartDeviceType(DeviceTypes.light)[1]
             ?.pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter =
-            numberOfThatTypeThatExist(smartDeviceList, DeviceTypes.Light);
+            numberOfThatTypeThatExist(smartDeviceList, DeviceTypes.light);
         smartDeviceList.add(LightObject(
             uuid, 'Light$deviceTypeCounter', lightPinNumber,
             onOffButtonPinNumber: buttonPinNumber)
           ..id = id);
       }
 
-      /// Setting up for Thermostat
-      else if (deviceType == DeviceTypes.Thermostat) {
-        final int thermostatPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceTypes.Light)[0]
+      /// Setting up for Boiler
+      else if (deviceType == DeviceTypes.boiler) {
+        final int boilerPinNumber = DevicePinListManager()
+            .getFreePinsForSmartDeviceType(DeviceTypes.light)[0]
             ?.pinAndPhysicalPinConfiguration;
 
         final int buttonPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceTypes.Light)[1]
+            .getFreePinsForSmartDeviceType(DeviceTypes.light)[1]
             ?.pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter =
-            numberOfThatTypeThatExist(smartDeviceList, DeviceTypes.Thermostat);
-        smartDeviceList.add(ThermostatObject(uuid,
-            'Thermostat$deviceTypeCounter', null, null, thermostatPinNumber,
-            thermostatButtonPinNumber: buttonPinNumber)
+            numberOfThatTypeThatExist(smartDeviceList, DeviceTypes.boiler);
+        smartDeviceList.add(BoilerObject(
+            uuid, 'Boiler$deviceTypeCounter', null, null, boilerPinNumber,
+            boilerButtonPinNumber: buttonPinNumber)
           ..id = id);
       }
 
       /// Setting up for Blinds
-      else if (deviceType == DeviceTypes.Blinds) {
+      else if (deviceType == DeviceTypes.blinds) {
         final List<PinInformation> lightPinAndButtonPin = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceTypes.Blinds);
+            .getFreePinsForSmartDeviceType(DeviceTypes.blinds);
 
         final int blindUpPinNumber =
             lightPinAndButtonPin[0]?.pinAndPhysicalPinConfiguration;
@@ -114,7 +114,7 @@ class SetDevicesE {
             lightPinAndButtonPin[3]?.pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter =
-            numberOfThatTypeThatExist(smartDeviceList, DeviceTypes.Blinds);
+            numberOfThatTypeThatExist(smartDeviceList, DeviceTypes.blinds);
         smartDeviceList.add(
           BlindsObject(
               uuid,

@@ -180,19 +180,19 @@ abstract class SmartDeviceBaseAbstract {
     String resultOfTheWish = '';
 
     switch (action) {
-      case DeviceActions.Off:
+      case DeviceActions.off:
         if (onOffPin == null) {
           executionMassage = 'Cant turn off this pin: $onOffPin Number';
         }
         resultOfTheWish = _SetOff(onOffPin);
         break;
-      case DeviceActions.On:
+      case DeviceActions.on:
         if (onOffPin == null) {
           executionMassage = 'Cant turn on this pin: $onOffPin Number';
         }
         resultOfTheWish = _SetOn(onOffPin);
         break;
-      case DeviceActions.ActionNotSupported:
+      case DeviceActions.actionNotSupported:
         if (onOffPin == null) {
           executionMassage =
               'Cant chane pin to the opposite state: $onOffPin Number';
@@ -210,15 +210,15 @@ abstract class SmartDeviceBaseAbstract {
         executionMassage == 'Cant turn on this pin: null Number' ||
         executionMassage == 'Cant turn off this pin: null Number') {
       if (deviceState == DeviceStateGRPC.waitingInComp) {
-        if (action == DeviceActions.On) {
+        if (action == DeviceActions.on) {
           final Map<String, String> mapToUpdate = {
-            'action': DeviceActions.On.toString(),
+            'action': DeviceActions.on.toString(),
             'state': DeviceStateGRPC.ack.toString()
           };
           updateDeviceDocumentWithMap(id, mapToUpdate);
-        } else if (action == DeviceActions.Off) {
+        } else if (action == DeviceActions.off) {
           final Map<String, String> mapToUpdate = {
-            'action': DeviceActions.Off.toString(),
+            'action': DeviceActions.off.toString(),
             'state': DeviceStateGRPC.ack.toString()
           };
           updateDeviceDocumentWithMap(id, mapToUpdate);

@@ -51,9 +51,9 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
   String _WishInDynamicClass(
       DeviceActions deviceAction, DeviceStateGRPC deviceState) {
     switch (deviceAction) {
-      case DeviceActions.ActionNotSupported:
+      case DeviceActions.actionNotSupported:
         return _SetDynamicValue();
-      case DeviceActions.ActionNotSupported:
+      case DeviceActions.actionNotSupported:
         return _OpenDynamicValue();
       default:
         return wishInSimpleClass(deviceAction, deviceState);

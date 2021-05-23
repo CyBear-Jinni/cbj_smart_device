@@ -70,22 +70,22 @@ class SmartServerU extends SmartServerServiceBase {
     devicesList.forEach((element) {
       DeviceTypes deviceTypes;
       switch (element.getDeviceType()) {
-        case DeviceTypes.Light:
-          deviceTypes = DeviceTypes.Light;
+        case DeviceTypes.light:
+          deviceTypes = DeviceTypes.light;
           break;
-        case DeviceTypes.Blinds:
-          deviceTypes = DeviceTypes.Blinds;
+        case DeviceTypes.blinds:
+          deviceTypes = DeviceTypes.blinds;
           break;
-        case DeviceTypes.Thermostat:
-          deviceTypes = DeviceTypes.Thermostat;
+        case DeviceTypes.boiler:
+          deviceTypes = DeviceTypes.boiler;
           break;
         default:
-          deviceTypes = DeviceTypes.TypeNotSupported;
+          deviceTypes = DeviceTypes.typeNotSupported;
       }
       final DeviceTypesActions deviceTypesActions = DeviceTypesActions(
         deviceType: deviceTypes,
         deviceAction:
-            element.getDeviceState() ? DeviceActions.On : DeviceActions.Off,
+            element.getDeviceState() ? DeviceActions.on : DeviceActions.off,
         deviceStateGRPC: DeviceStateGRPC.waitingInComp,
       );
 
@@ -110,7 +110,7 @@ class SmartServerU extends SmartServerServiceBase {
   Future<SmartDeviceStatus> getStatus(
       ServiceCall call, SmartDeviceInfo request) async {
     final String deviceStatus = await executeDeviceActionString(
-        request, DeviceActions.ActionNotSupported, _deviceState);
+        request, DeviceActions.actionNotSupported, _deviceState);
 
     print(
         'Getting status of device $request and device status in bool $deviceStatus');
@@ -136,14 +136,14 @@ class SmartServerU extends SmartServerServiceBase {
   Future<CommendStatus> setOffDevice(
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn device ${request.id} off');
-    return executeDeviceActionServer(request, DeviceActions.Off, _deviceState);
+    return executeDeviceActionServer(request, DeviceActions.off, _deviceState);
   }
 
   @override
   Future<CommendStatus> setOnDevice(
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn device ${request.id} on');
-    return executeDeviceActionServer(request, DeviceActions.On, _deviceState);
+    return executeDeviceActionServer(request, DeviceActions.on, _deviceState);
   }
 
   @override
@@ -151,7 +151,7 @@ class SmartServerU extends SmartServerServiceBase {
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn blinds ${request.id} up');
     return executeDeviceActionServer(
-        request, DeviceActions.MoveUP, _deviceState);
+        request, DeviceActions.moveUP, _deviceState);
   }
 
   @override
@@ -160,7 +160,7 @@ class SmartServerU extends SmartServerServiceBase {
     print('Turn blinds ${request.id} down');
 
     return executeDeviceActionServer(
-        request, DeviceActions.MoveDon, _deviceState);
+        request, DeviceActions.moveDown, _deviceState);
   }
 
   @override
@@ -168,7 +168,7 @@ class SmartServerU extends SmartServerServiceBase {
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn blinds ${request.id} stop');
 
-    return executeDeviceActionServer(request, DeviceActions.Stop, _deviceState);
+    return executeDeviceActionServer(request, DeviceActions.stop, _deviceState);
   }
 
   SmartDeviceBaseAbstract getSmartDeviceBaseAbstract(SmartDeviceInfo request) {
@@ -282,7 +282,7 @@ class SmartServerU extends SmartServerServiceBase {
 
       for (final SmartDeviceBaseAbstract device
           in MySingleton.getSmartDevicesList()) {
-        if (device.getDeviceType() == DeviceTypes.Light) {
+        if (device.getDeviceType() == DeviceTypes.light) {
           final Map<String, String> dataToChange = {
             'state': DeviceStateGRPC.ack.toString(),
           };

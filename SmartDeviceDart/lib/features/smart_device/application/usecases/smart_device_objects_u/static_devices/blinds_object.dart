@@ -28,7 +28,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     this.blindsDownPin = DevicePinListManager().getGpioPin(blindsDownPin);
     listenToTwoButtonsPress(cloudValueChangeU);
 
-    setDeviceType(DeviceTypes.Blinds);
+    setDeviceType(DeviceTypes.blinds);
   }
 
   PinInformation buttonPinUp, blindsUpPin, buttonPinDown, blindsDownPin;
@@ -41,7 +41,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
   void setDeviceType(DeviceTypes deviceType) => super.setDeviceType(deviceType);
 
   @override
-  DeviceTypes getDeviceType() => DeviceTypes.Blinds;
+  DeviceTypes getDeviceType() => DeviceTypes.blinds;
 
   @override
   Future<String> executeActionString(
@@ -63,13 +63,13 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     String wishExecuteResult;
 
     if (deviceAction == null) return 'Your wish does not exist in blinds class';
-    if (deviceAction == DeviceActions.MoveUP) {
+    if (deviceAction == DeviceActions.moveUP) {
       wishExecuteResult = await BlindsWishU.BlindsUp(this);
     }
-    if (deviceAction == DeviceActions.MoveDon) {
+    if (deviceAction == DeviceActions.moveDown) {
       wishExecuteResult = await BlindsWishU.blindsDown(this);
     }
-    if (deviceAction == DeviceActions.Stop) {
+    if (deviceAction == DeviceActions.stop) {
       wishExecuteResult = await BlindsWishU.blindsStop(this);
     }
 
