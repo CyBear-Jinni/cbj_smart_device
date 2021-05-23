@@ -56,8 +56,9 @@ class ThermostatObject extends SmartDeviceSimpleAbstract {
       DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
     String wishExecuteResult;
 
-    if (deviceAction == null)
+    if (deviceAction == null) {
       return 'Your wish does not exist in thermostat class';
+    }
     if (deviceAction == DeviceActions.ActionNotSupported) {
       wishExecuteResult = OnWishU.setOn(deviceInformation, thermostatPin);
     }
@@ -84,7 +85,7 @@ class ThermostatObject extends SmartDeviceSimpleAbstract {
       ButtonObjectLocalU()
           .buttonPressedForThermostat(this, thermostatButtonPin, thermostatPin);
     } else {
-      print('Cannot listen to blinds, one of the variables is null');
+      print('Cannot listen to thermostat, one of the variables is null');
     }
   }
 }

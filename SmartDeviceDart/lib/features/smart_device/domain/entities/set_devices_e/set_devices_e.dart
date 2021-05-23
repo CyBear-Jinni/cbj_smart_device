@@ -98,8 +98,8 @@ class SetDevicesE {
 
       /// Setting up for Blinds
       else if (deviceType == DeviceTypes.Blinds) {
-        List<PinInformation> lightPinAndButtonPin = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceTypes.Light);
+        final List<PinInformation> lightPinAndButtonPin = DevicePinListManager()
+            .getFreePinsForSmartDeviceType(DeviceTypes.Blinds);
 
         final int blindUpPinNumber =
             lightPinAndButtonPin[0]?.pinAndPhysicalPinConfiguration;
@@ -107,14 +107,11 @@ class SetDevicesE {
         final int buttonUpPinNumber =
             lightPinAndButtonPin[1]?.pinAndPhysicalPinConfiguration;
 
-        lightPinAndButtonPin = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceTypes.Light);
-
         final int blindDownPinNumber =
-            lightPinAndButtonPin[0]?.pinAndPhysicalPinConfiguration;
+            lightPinAndButtonPin[2]?.pinAndPhysicalPinConfiguration;
 
         final int buttonDownPinNumber =
-            lightPinAndButtonPin[1]?.pinAndPhysicalPinConfiguration;
+            lightPinAndButtonPin[3]?.pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter =
             numberOfThatTypeThatExist(smartDeviceList, DeviceTypes.Blinds);
