@@ -74,7 +74,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     }
 
     if (wishExecuteResult != null) {
-      if (deviceState != DeviceStateGRPC.waitingInFirebase) {
+      if (deviceState != DeviceStateGRPC.ack) {
         final String deviceActionString =
             EnumHelper.deviceActionToString(deviceAction);
         super.updateThisDeviceDocumentCloudValue('action', deviceActionString);
@@ -99,6 +99,8 @@ class BlindsObject extends SmartDeviceStaticAbstract {
               this, buttonPinUp, blindsUpPin, buttonPinDown, blindsDownPin);
     } else {
       print('Cannot listen to blinds, one of the variables is null');
+      print(
+          'ButtonPinUp: $buttonPinUp, ButtonPinDown: $buttonPinDown, BlindsUpPin: $blindsUpPin, BlindsDownPin: $blindsDownPin');
     }
   }
 }

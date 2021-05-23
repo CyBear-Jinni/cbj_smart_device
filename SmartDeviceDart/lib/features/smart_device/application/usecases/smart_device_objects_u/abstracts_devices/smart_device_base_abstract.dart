@@ -32,7 +32,7 @@ abstract class SmartDeviceBaseAbstract {
 
   ///  Save data about the device, remote or local IP or pin number
   DeviceInformation deviceInformation =
-      LocalDevice('This is the mac Address', 'This is the name of the device');
+      LocalDevice('This is the mac Address', '');
 
   ///  Unique id of the device
   String id;
