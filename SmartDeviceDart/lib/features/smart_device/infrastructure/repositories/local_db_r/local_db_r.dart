@@ -35,13 +35,13 @@ class LocalDbR {
           values[2] == null ? null : int.parse(values[2]);
 
       switch (deviceType) {
-        case DeviceTypes.Light:
+        case DeviceTypes.light:
           print('Adding from local db light object');
           smartDeviceBaseAbstractList.add(LightObject(
               currentDeviceUuid, deviceName, onOffPinNumber,
               onOffButtonPinNumber: onOffButtonPinNumber));
           break;
-        case DeviceTypes.Blinds:
+        case DeviceTypes.blinds:
           print('Adding from local db blind object');
           if (values.length < 7) {
             break;

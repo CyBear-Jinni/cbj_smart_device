@@ -13,7 +13,7 @@ abstract class ButtonObjectLocalAbstract {
   void buttonPressed(SmartDeviceBaseAbstract smartDevice,
       PinInformation buttonPinNumber, PinInformation lightPin);
 
-  void buttonPressedForThermostat(SmartDeviceBaseAbstract smartDevice,
+  void buttonPressedForBoiler(SmartDeviceBaseAbstract smartDevice,
       PinInformation buttonPinNumber, PinInformation lightPin);
 
   ///  Listen to two buttons but work only if one is pressed.

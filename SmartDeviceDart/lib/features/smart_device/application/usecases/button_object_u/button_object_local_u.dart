@@ -33,10 +33,10 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
         if (lightPin.v == 1) {
           await smartDevice.executeDeviceAction(
-              DeviceActions.Off, DeviceStateGRPC.waitingInComp);
+              DeviceActions.off, DeviceStateGRPC.waitingInComp);
         } else {
           await smartDevice.executeDeviceAction(
-              DeviceActions.On, DeviceStateGRPC.waitingInComp);
+              DeviceActions.on, DeviceStateGRPC.waitingInComp);
         }
 
         await Future.delayed(const Duration(seconds: 1));
@@ -48,8 +48,8 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   }
 
   @override
-  void buttonPressedForThermostat(SmartDeviceBaseAbstract smartDevice,
-      PinInformation buttonPinNumber, PinInformation thermostat) async {
+  void buttonPressedForBoiler(SmartDeviceBaseAbstract smartDevice,
+      PinInformation buttonPinNumber, PinInformation boiler) async {
     int errorCounter = 0;
 
     try {
@@ -66,12 +66,12 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
           return;
         }
 
-        if (thermostat.v == 1) {
+        if (boiler.v == 1) {
           await smartDevice.executeDeviceAction(
-              DeviceActions.ActionNotSupported, DeviceStateGRPC.waitingInComp);
+              DeviceActions.actionNotSupported, DeviceStateGRPC.waitingInComp);
         } else {
           await smartDevice.executeDeviceAction(
-              DeviceActions.ActionNotSupported, DeviceStateGRPC.waitingInComp);
+              DeviceActions.actionNotSupported, DeviceStateGRPC.waitingInComp);
         }
 
         await Future.delayed(const Duration(seconds: 1));
@@ -138,21 +138,21 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
       secondLightPin.onDuration = 0;
       OffWishU.setOff(smartDevice.deviceInformation, secondLightPin);
-      blindNewAction = DeviceActions.Stop;
+      blindNewAction = DeviceActions.stop;
     } else if (buttonPressNumber == 1) {
       secondLightPin.onDuration = 0;
       OffWishU.setOff(smartDevice.deviceInformation, secondLightPin);
 
       firstLightPin.onDuration = -1;
       OnWishU.setOn(smartDevice.deviceInformation, firstLightPin);
-      blindNewAction = DeviceActions.MoveUP;
+      blindNewAction = DeviceActions.moveUP;
     } else if (buttonPressNumber == 2) {
       firstLightPin.onDuration = 0;
       OffWishU.setOff(smartDevice.deviceInformation, firstLightPin);
 
       secondLightPin.onDuration = -1;
       OnWishU.setOn(smartDevice.deviceInformation, secondLightPin);
-      blindNewAction = DeviceActions.MoveDon;
+      blindNewAction = DeviceActions.moveDown;
     }
 
     await Future.delayed(const Duration(seconds: 1));

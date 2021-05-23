@@ -101,10 +101,10 @@ class CloudValueChangeU {
             ' will now change to $value');
         DeviceActions deviceAction;
 
-        if (value == DeviceActions.On.toString()) {
-          deviceAction = DeviceActions.On;
-        } else if (value == DeviceActions.Off.toString()) {
-          deviceAction = DeviceActions.Off;
+        if (value == DeviceActions.on.toString()) {
+          deviceAction = DeviceActions.on;
+        } else if (value == DeviceActions.off.toString()) {
+          deviceAction = DeviceActions.off;
         } else {
           deviceAction = EnumHelper.stringToDeviceActions(value);
         }
@@ -141,10 +141,10 @@ class CloudValueChangeU {
             ' will now change to $value');
         DeviceActions deviceAction;
 
-        if (value == DeviceActions.On.toString()) {
-          deviceAction = DeviceActions.On;
-        } else if (value == DeviceActions.Off.toString()) {
-          deviceAction = DeviceActions.Off;
+        if (value == DeviceActions.on.toString()) {
+          deviceAction = DeviceActions.on;
+        } else if (value == DeviceActions.off.toString()) {
+          deviceAction = DeviceActions.off;
         } else {
           deviceAction = EnumHelper.stringToDeviceActions(value);
         }

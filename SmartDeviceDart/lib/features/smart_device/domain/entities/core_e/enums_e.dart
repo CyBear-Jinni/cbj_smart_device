@@ -1,6 +1,6 @@
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
-import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/thermostat_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
@@ -8,7 +8,7 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 //   Light, //  Light ON/OFF
 //   DynamicLight, //  Light with brightness 0% to 100%
 //   Blinds,
-//   Thermostat,
+//   Boiler,
 //   Fan,
 //   AirConditioner,
 //   Camera,
@@ -42,8 +42,8 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 //   SBlindsUp, //  Turn the blinds up
 //   SBlindsDown, //  Turn the blinds Down
 //   SBlindsStop, //  Stop the blinds
-//   SThermostatOn, // Turn on the thermostat
-//   SThermostatOff, // Turn off the thermostat
+//   SBoilerOn, // Turn on the boiler
+//   SBoilerOff, // Turn off the boiler
 // }
 
 // /// List of all the sources
@@ -123,12 +123,12 @@ class EnumHelper {
   static dynamic deviceTypeToSmartDeviceBaseAbstractObject(
       DeviceTypes deviceType) {
     switch (deviceType) {
-      case DeviceTypes.Light:
+      case DeviceTypes.light:
         return LightObject(null, null, null);
-      case DeviceTypes.Blinds:
+      case DeviceTypes.blinds:
         return BlindsObject(null, null, null, null, null, null, null, null);
-      case DeviceTypes.Thermostat:
-        return ThermostatObject(null, null, null, null, null);
+      case DeviceTypes.boiler:
+        return BoilerObject(null, null, null, null, null);
       default:
         print('Type $deviceType is not supported');
     }
@@ -139,12 +139,12 @@ class EnumHelper {
   static Type getTheNonAbstractObjectOfSmartDeviceBaseAbstract(
       SmartDeviceBaseAbstract smartDeviceBaseAbstract, DeviceTypes deviceType) {
     switch (deviceType) {
-      case DeviceTypes.Light:
+      case DeviceTypes.light:
         return LightObject;
-      case DeviceTypes.Blinds:
+      case DeviceTypes.blinds:
         return BlindsObject;
-      case DeviceTypes.Thermostat:
-        return ThermostatObject;
+      case DeviceTypes.boiler:
+        return BoilerObject;
       default:
         throw Exception('$deviceType Conditioner was not implemented yet');
     }

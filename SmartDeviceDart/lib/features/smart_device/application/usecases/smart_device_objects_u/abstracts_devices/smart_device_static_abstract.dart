@@ -43,7 +43,7 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBaseAbstract {
   String wishInStaticClass(
       DeviceActions deviceAction, DeviceStateGRPC deviceState) {
     switch (deviceAction) {
-      case DeviceActions.Stop:
+      case DeviceActions.stop:
         return _HowMuchToMove();
       default:
         return wishInBaseClass(deviceAction, deviceState);
