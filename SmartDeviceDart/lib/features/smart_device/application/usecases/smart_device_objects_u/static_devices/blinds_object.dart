@@ -74,7 +74,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     }
 
     if (wishExecuteResult != null) {
-      if (deviceState != DeviceStateGRPC.waitingInFirebase) {
+      if (deviceState != DeviceStateGRPC.ack) {
         final String deviceActionString =
             EnumHelper.deviceActionToString(deviceAction);
         super.updateThisDeviceDocumentCloudValue('action', deviceActionString);
