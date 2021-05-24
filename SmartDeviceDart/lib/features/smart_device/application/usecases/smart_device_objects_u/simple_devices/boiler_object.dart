@@ -58,10 +58,10 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
     if (deviceAction == null) {
       return 'Your wish does not exist in boiler class';
     }
-    if (deviceAction == DeviceActions.actionNotSupported) {
+    if (deviceAction == DeviceActions.on) {
       wishExecuteResult = OnWishU.setOn(deviceInformation, boilerPin);
     }
-    if (deviceAction == DeviceActions.actionNotSupported) {
+    if (deviceAction == DeviceActions.off) {
       wishExecuteResult = OffWishU.setOff(deviceInformation, boilerPin);
     }
 

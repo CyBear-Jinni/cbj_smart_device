@@ -195,7 +195,7 @@ abstract class SmartDeviceBaseAbstract {
       case DeviceActions.actionNotSupported:
         if (onOffPin == null) {
           executionMassage =
-              'Cant chane pin to the opposite state: $onOffPin Number';
+              'Cant change pin to the opposite state: $onOffPin Number';
         }
         resultOfTheWish = _SetChangeOppositeToState(onOffPin);
         break;
