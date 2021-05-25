@@ -1,6 +1,7 @@
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
-import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/button_object_r/button_object_r.dart';
 
 abstract class ButtonObjectLocalAbstract {
@@ -13,27 +14,27 @@ abstract class ButtonObjectLocalAbstract {
   void buttonPressed(SmartDeviceBaseAbstract smartDevice,
       PinInformation buttonPinNumber, PinInformation lightPin);
 
-  void buttonPressedForBoiler(SmartDeviceBaseAbstract smartDevice,
+  void buttonPressedForBoiler(BoilerObject smartDevice,
       PinInformation buttonPinNumber, PinInformation lightPin);
 
   ///  Listen to two buttons but work only if one is pressed.
   void listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
-      SmartDeviceBaseAbstract smartDevice,
+      BlindsObject blindsObject,
       PinInformation firstButtonPinNumber,
       PinInformation firstLightPin,
       PinInformation secondButtonPinNumber,
       PinInformation secondLightPin);
 
   void listenToButtonPressAndCangeBlindStateAccordingly(
-      SmartDeviceBaseAbstract smartDevice,
+      BlindsObject blindsObject,
       PinInformation buttonPinNumber,
       PinInformation firstLightPin,
       PinInformation secondLightPin,
       int buttonNumber);
 
   ///  Logic of two buttons
-  Future<DeviceActions> changePinsOutput(
-      SmartDeviceBaseAbstract smartDevice,
+  Future<void> changeBlindsPinsOutput(
+      BlindsObject blindsObject,
       PinInformation firstLightPin,
       PinInformation secondLightPin,
       int buttonPressNumber);

@@ -1,17 +1,11 @@
 import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/button_object_local_abstract.dart';
-import 'package:smart_device_dart/features/smart_device/application/usecases/cloud_value_change_u/cloud_value_change_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
-import 'package:smart_device_dart/features/smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
-import 'package:smart_device_dart/features/smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
-import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
-  ButtonObjectLocalU({this.cloudValueChangeU});
-
-  CloudValueChangeU cloudValueChangeU;
-
   @override
   void buttonPressed(SmartDeviceBaseAbstract smartDevice,
       PinInformation buttonPinNumber, PinInformation lightPin) async {
@@ -48,7 +42,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   }
 
   @override
-  void buttonPressedForBoiler(SmartDeviceBaseAbstract smartDevice,
+  void buttonPressedForBoiler(BoilerObject boilerObjcet,
       PinInformation buttonPinNumber, PinInformation boiler) async {
     int errorCounter = 0;
 
@@ -67,11 +61,11 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
         }
 
         if (boiler.v == 1) {
-          await smartDevice.executeDeviceAction(
-              DeviceActions.actionNotSupported, DeviceStateGRPC.waitingInComp);
+          await boilerObjcet.executeDeviceAction(
+              DeviceActions.off, DeviceStateGRPC.waitingInComp);
         } else {
-          await smartDevice.executeDeviceAction(
-              DeviceActions.actionNotSupported, DeviceStateGRPC.waitingInComp);
+          await boilerObjcet.executeDeviceAction(
+              DeviceActions.on, DeviceStateGRPC.waitingInComp);
         }
 
         await Future.delayed(const Duration(seconds: 1));
@@ -85,21 +79,21 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   ///  Listen to two buttons but work only if one is pressed.
   @override
   Future<void> listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
-      SmartDeviceBaseAbstract smartDevice,
+      BlindsObject smartDevice,
       PinInformation firstButtonPinNumber,
-      PinInformation firstLightPin,
+      PinInformation firstBlindsPin,
       PinInformation secondButtonPinNumber,
-      PinInformation secondLightPin) async {
+      PinInformation secondBlindsPin) async {
     listenToButtonPressAndCangeBlindStateAccordingly(
-        smartDevice, firstButtonPinNumber, firstLightPin, secondLightPin, 1);
+        smartDevice, firstButtonPinNumber, firstBlindsPin, secondBlindsPin, 1);
 
     listenToButtonPressAndCangeBlindStateAccordingly(
-        smartDevice, secondButtonPinNumber, firstLightPin, secondLightPin, 2);
+        smartDevice, secondButtonPinNumber, firstBlindsPin, secondBlindsPin, 2);
   }
 
   @override
   void listenToButtonPressAndCangeBlindStateAccordingly(
-      SmartDeviceBaseAbstract smartDevice,
+      BlindsObject blindsObject,
       PinInformation buttonPinNumber,
       PinInformation firstLightPin,
       PinInformation secondLightPin,
@@ -109,53 +103,31 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
           .listenToButtonPress(buttonPinNumber)
           .then((int exitCode) async {
         print('Blind button number $buttonNumber was pressed');
-        final DeviceActions blindNewAction = await changePinsOutput(
-            smartDevice, firstLightPin, secondLightPin, buttonNumber);
-        updateCloudValue(smartDevice.id, blindNewAction);
+        await changeBlindsPinsOutput(
+            blindsObject, firstLightPin, secondLightPin, buttonNumber);
       });
-    }
-  }
-
-  void updateCloudValue(String blindName, DeviceActions action) {
-    final String wishAsString = EnumHelper.deviceActionToString(action);
-    cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
-    if (cloudValueChangeU != null) {
-      cloudValueChangeU.updateDocument(blindName, wishAsString);
     }
   }
 
   ///  Logic of two buttons that cannot be pressed together
   @override
-  Future<DeviceActions> changePinsOutput(
-      SmartDeviceBaseAbstract smartDevice,
-      PinInformation firstLightPin,
-      PinInformation secondLightPin,
+  Future<void> changeBlindsPinsOutput(
+      BlindsObject blindsObject,
+      PinInformation firstBlindsPin,
+      PinInformation secondBlindsPin,
       int buttonPressNumber) async {
-    DeviceActions blindNewAction;
-    if (firstLightPin.v == 1 || secondLightPin.v == 1) {
-      firstLightPin.onDuration = 0;
-      OffWishU.setOff(smartDevice.deviceInformation, firstLightPin);
-
-      secondLightPin.onDuration = 0;
-      OffWishU.setOff(smartDevice.deviceInformation, secondLightPin);
-      blindNewAction = DeviceActions.stop;
+    if (firstBlindsPin.v == 1 || secondBlindsPin.v == 1) {
+      firstBlindsPin.onDuration = 0;
+      await blindsObject.executeDeviceAction(
+          DeviceActions.stop, DeviceStateGRPC.waitingInComp);
     } else if (buttonPressNumber == 1) {
-      secondLightPin.onDuration = 0;
-      OffWishU.setOff(smartDevice.deviceInformation, secondLightPin);
-
-      firstLightPin.onDuration = -1;
-      OnWishU.setOn(smartDevice.deviceInformation, firstLightPin);
-      blindNewAction = DeviceActions.moveUP;
+      await blindsObject.executeDeviceAction(
+          DeviceActions.moveUP, DeviceStateGRPC.waitingInComp);
     } else if (buttonPressNumber == 2) {
-      firstLightPin.onDuration = 0;
-      OffWishU.setOff(smartDevice.deviceInformation, firstLightPin);
-
-      secondLightPin.onDuration = -1;
-      OnWishU.setOn(smartDevice.deviceInformation, secondLightPin);
-      blindNewAction = DeviceActions.moveDown;
+      await blindsObject.executeDeviceAction(
+          DeviceActions.moveDown, DeviceStateGRPC.waitingInComp);
     }
 
     await Future.delayed(const Duration(seconds: 1));
-    return blindNewAction;
   }
 }
