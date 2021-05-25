@@ -92,8 +92,7 @@ class SetDevicesE {
         final int deviceTypeCounter =
             numberOfThatTypeThatExist(smartDeviceList, DeviceTypes.boiler);
         smartDeviceList.add(BoilerObject(
-            uuid, 'Boiler$deviceTypeCounter', null, null, boilerPinNumber,
-            boilerButtonPinNumber: buttonPinNumber)
+            uuid, 'Boiler$deviceTypeCounter', boilerPinNumber, buttonPinNumber)
           ..id = id);
       }
 

@@ -11,12 +11,10 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
   BoilerObject(
     String uuid,
     String smartInstanceName,
-    int onOffPinNumber, // Not in use
-    int onOffButtonPinNumber, // Not in use
-    int boilerPinNUmber, {
+    int boilerPinNUmber,
     int boilerButtonPinNumber,
-  }) : super(uuid, smartInstanceName, onOffPinNumber,
-            onOffButtonPinNumber: onOffButtonPinNumber) {
+  ) : super(uuid, smartInstanceName, boilerPinNUmber,
+            onOffButtonPinNumber: boilerButtonPinNumber) {
     print('New boiler object');
     boilerPin = DevicePinListManager().getGpioPin(boilerPinNUmber);
     boilerButtonPin = DevicePinListManager().getGpioPin(boilerButtonPinNumber);
