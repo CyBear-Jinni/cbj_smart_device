@@ -62,13 +62,13 @@ class SetDevicesE {
 
       /// Setting up for Light
       if (deviceType == DeviceTypes.light) {
-        final int lightPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceTypes.light)[0]
-            ?.pinAndPhysicalPinConfiguration;
+        final List<PinInformation> lightPins = DevicePinListManager()
+            .getFreePinsForSmartDeviceType(DeviceTypes.light);
 
-        final int buttonPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceTypes.light)[1]
-            ?.pinAndPhysicalPinConfiguration;
+        final int lightPinNumber = lightPins[0]?.pinAndPhysicalPinConfiguration;
+
+        final int buttonPinNumber =
+            lightPins[1]?.pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter =
             numberOfThatTypeThatExist(smartDeviceList, DeviceTypes.light);
@@ -80,19 +80,19 @@ class SetDevicesE {
 
       /// Setting up for Boiler
       else if (deviceType == DeviceTypes.boiler) {
-        final int boilerPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceTypes.light)[0]
-            ?.pinAndPhysicalPinConfiguration;
+        final List<PinInformation> boilerPins = DevicePinListManager()
+            .getFreePinsForSmartDeviceType(DeviceTypes.boiler);
 
-        final int buttonPinNumber = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceTypes.light)[1]
-            ?.pinAndPhysicalPinConfiguration;
+        final int boilerPinNumber =
+            boilerPins[0]?.pinAndPhysicalPinConfiguration;
+
+        final int buttonPinNumber =
+            boilerPins[1]?.pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter =
             numberOfThatTypeThatExist(smartDeviceList, DeviceTypes.boiler);
         smartDeviceList.add(BoilerObject(
-            uuid, 'Boiler$deviceTypeCounter', null, null, boilerPinNumber,
-            boilerButtonPinNumber: buttonPinNumber)
+            uuid, 'Boiler$deviceTypeCounter', boilerPinNumber, buttonPinNumber)
           ..id = id);
       }
 

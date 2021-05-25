@@ -48,7 +48,7 @@ class CloudValueChangeU {
 
   ///  Listen to changes in the database for this device
   Future<void> listenToDataBase() async {
-    final List<AddressCheckOptions> DEFAULTADDRESSES =
+    final List<AddressCheckOptions> defaultAddresses =
         List<AddressCheckOptions>.unmodifiable([
       AddressCheckOptions(
         InternetAddress('1.1.1.1'), // CloudFlare
@@ -58,7 +58,7 @@ class CloudValueChangeU {
       ),
     ]);
 
-    DataConnectionChecker().addresses = DEFAULTADDRESSES;
+    DataConnectionChecker().addresses = defaultAddresses;
 
     while (true) {
       final bool result = await DataConnectionChecker().hasConnection;

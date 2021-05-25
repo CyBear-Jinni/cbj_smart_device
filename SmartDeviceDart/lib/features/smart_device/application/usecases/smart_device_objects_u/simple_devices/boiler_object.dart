@@ -11,12 +11,10 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
   BoilerObject(
     String uuid,
     String smartInstanceName,
-    int onOffPinNumber, // Not in use
-    int onOffButtonPinNumber, // Not in use
-    int boilerPinNUmber, {
+    int boilerPinNUmber,
     int boilerButtonPinNumber,
-  }) : super(uuid, smartInstanceName, onOffPinNumber,
-            onOffButtonPinNumber: onOffButtonPinNumber) {
+  ) : super(uuid, smartInstanceName, boilerPinNUmber,
+            onOffButtonPinNumber: boilerButtonPinNumber) {
     print('New boiler object');
     boilerPin = DevicePinListManager().getGpioPin(boilerPinNUmber);
     boilerButtonPin = DevicePinListManager().getGpioPin(boilerButtonPinNumber);
@@ -58,10 +56,10 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
     if (deviceAction == null) {
       return 'Your wish does not exist in boiler class';
     }
-    if (deviceAction == DeviceActions.actionNotSupported) {
+    if (deviceAction == DeviceActions.on) {
       wishExecuteResult = OnWishU.setOn(deviceInformation, boilerPin);
     }
-    if (deviceAction == DeviceActions.actionNotSupported) {
+    if (deviceAction == DeviceActions.off) {
       wishExecuteResult = OffWishU.setOff(deviceInformation, boilerPin);
     }
 
