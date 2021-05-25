@@ -45,7 +45,7 @@ class LocalDbR {
         case DeviceTypes.boiler:
           print('Adding from local db boiler object');
           smartDeviceBaseAbstractList.add(BoilerObject(currentDeviceUuid,
-              deviceName, onOffPinNumber, onOffButtonPinNumber));
+              deviceName, null, onOffPinNumber, onOffButtonPinNumber));
           break;
         case DeviceTypes.blinds:
           print('Adding from local db blind object');

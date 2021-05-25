@@ -89,10 +89,13 @@ class SetDevicesE {
         final int buttonPinNumber =
             boilerPins[1]?.pinAndPhysicalPinConfiguration;
 
+        print('boilerPinNumber: $boilerPinNumber');
+        print('buttonPinNumber: $buttonPinNumber');
+
         final int deviceTypeCounter =
             numberOfThatTypeThatExist(smartDeviceList, DeviceTypes.boiler);
-        smartDeviceList.add(BoilerObject(
-            uuid, 'Boiler$deviceTypeCounter', boilerPinNumber, buttonPinNumber)
+        smartDeviceList.add(BoilerObject(uuid, 'Boiler$deviceTypeCounter', null,
+            boilerPinNumber, buttonPinNumber)
           ..id = id);
       }
 

@@ -8,13 +8,11 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 class BoilerObject extends SmartDeviceSimpleAbstract {
-  BoilerObject(
-    String uuid,
-    String smartInstanceName,
-    int boilerPinNUmber,
-    int boilerButtonPinNumber,
-  ) : super(uuid, smartInstanceName, boilerPinNUmber,
-            onOffButtonPinNumber: boilerButtonPinNumber) {
+  BoilerObject(String uuid, String smartInstanceName, int onOffPinNumber,
+      int boilerPinNUmber, int boilerButtonPinNumber,
+      {int onOffButtonPinNumber})
+      : super(uuid, smartInstanceName, onOffPinNumber,
+            onOffButtonPinNumber: onOffButtonPinNumber) {
     print('New boiler object');
     boilerPin = DevicePinListManager().getGpioPin(boilerPinNUmber);
     boilerButtonPin = DevicePinListManager().getGpioPin(boilerButtonPinNumber);

@@ -433,7 +433,7 @@ class NanoPiNEOAirConfiguration extends DeviceConfigurationBaseClass {
       category: 'Power',
       index: 7,
       name: 'GND',
-      description: 'Gound, 0V',
+      description: 'Ground, 0V',
     ),
     PinInformation(
       category: 'MCLK',
@@ -445,7 +445,7 @@ class NanoPiNEOAirConfiguration extends DeviceConfigurationBaseClass {
       category: 'Power',
       index: 9,
       name: 'GND',
-      description: 'Gound, 0V',
+      description: 'Ground, 0V',
     ),
     PinInformation(
       category: 'NC',
@@ -469,7 +469,7 @@ class NanoPiNEOAirConfiguration extends DeviceConfigurationBaseClass {
       category: 'Power',
       index: 13,
       name: 'GND',
-      description: 'Gound, 0V',
+      description: 'Ground, 0V',
     ),
     PinInformation(
       category: 'PCLK',
@@ -481,7 +481,7 @@ class NanoPiNEOAirConfiguration extends DeviceConfigurationBaseClass {
       category: 'Power',
       index: 15,
       name: 'GND',
-      description: 'Gound, 0V',
+      description: 'Ground, 0V',
     ),
     PinInformation(
       category: 'Data bit7-0',
@@ -535,7 +535,7 @@ class NanoPiNEOAirConfiguration extends DeviceConfigurationBaseClass {
       category: 'Power',
       index: 24,
       name: 'GND',
-      description: 'Gound, 0V',
+      description: 'Ground, 0V',
     ),
   ];
 
