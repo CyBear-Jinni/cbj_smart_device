@@ -30,28 +30,39 @@ class LocalDbR {
       final DeviceTypes deviceType =
           EnumHelper.stringToDeviceType(values.first);
 
-      final int onOffPinNumber =
-          values[1] == null ? null : int.parse(values[1]);
-      final int onOffButtonPinNumber =
-          values[2] == null ? null : int.parse(values[2]);
-
       switch (deviceType) {
         case DeviceTypes.light:
+          final int onOffPinNumber =
+              values[1] == null ? null : int.parse(values[1]);
+          final int onOffButtonPinNumber =
+              values[2] == null ? null : int.parse(values[2]);
           print('Adding from local db light object');
           smartDeviceBaseAbstractList.add(LightObject(
               currentDeviceUuid, deviceName, onOffPinNumber,
               onOffButtonPinNumber: onOffButtonPinNumber));
           break;
         case DeviceTypes.boiler:
+          final int boilerPinNumber =
+              values[2] == null ? null : int.parse(values[2]);
+          final int boilerButtonPinNumber =
+              values[3] == null ? null : int.parse(values[3]);
+          final int onOffButtonPinNumber =
+              values[4] == null ? null : int.parse(values[4]);
           print('Adding from local db boiler object');
           smartDeviceBaseAbstractList.add(BoilerObject(currentDeviceUuid,
-              deviceName, null, onOffPinNumber, onOffButtonPinNumber));
+              deviceName, null, boilerPinNumber, boilerButtonPinNumber,
+              onOffButtonPinNumber: onOffButtonPinNumber));
           break;
         case DeviceTypes.blinds:
           print('Adding from local db blind object');
           if (values.length < 7) {
             break;
           }
+
+          final int onOffPinNumber =
+              values[1] == null ? null : int.parse(values[1]);
+          final int onOffButtonPinNumber =
+              values[2] == null ? null : int.parse(values[2]);
           final int blindsUpPin =
               values[3] == null ? null : int.parse(values[3]);
           final int upButtonPinNumber =
