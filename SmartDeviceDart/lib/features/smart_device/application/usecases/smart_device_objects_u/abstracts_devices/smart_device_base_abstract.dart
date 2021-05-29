@@ -223,6 +223,7 @@ abstract class SmartDeviceBaseAbstract {
           };
           updateDeviceDocumentWithMap(id, mapToUpdate);
         }
+      } else if (deviceState == DeviceStateGRPC.ack) {
       } else {
         updateDeviceDocumentCloudValue(
             id, 'state', DeviceStateGRPC.ack.toString());

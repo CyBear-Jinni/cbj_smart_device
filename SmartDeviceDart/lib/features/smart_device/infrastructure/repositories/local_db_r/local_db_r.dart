@@ -43,15 +43,16 @@ class LocalDbR {
           break;
         case DeviceTypes.boiler:
           final int boilerPinNumber =
-              values[2] == null ? null : int.parse(values[2]);
+              values[1] == null ? null : int.parse(values[1]);
           final int boilerButtonPinNumber =
-              values[3] == null ? null : int.parse(values[3]);
-          final int onOffButtonPinNumber =
-              values[4] == null ? null : int.parse(values[4]);
+              values[2] == null ? null : int.parse(values[2]);
           print('Adding from local db boiler object');
-          smartDeviceBaseAbstractList.add(BoilerObject(currentDeviceUuid,
-              deviceName, null, boilerPinNumber, boilerButtonPinNumber,
-              onOffButtonPinNumber: onOffButtonPinNumber));
+          smartDeviceBaseAbstractList.add(BoilerObject(
+            currentDeviceUuid,
+            deviceName,
+            boilerPinNumber,
+            boilerButtonPinNumber,
+          ));
           break;
         case DeviceTypes.blinds:
           print('Adding from local db blind object');

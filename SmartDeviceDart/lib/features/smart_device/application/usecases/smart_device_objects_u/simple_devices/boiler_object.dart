@@ -8,15 +8,14 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 class BoilerObject extends SmartDeviceSimpleAbstract {
-  BoilerObject(String uuid, String smartInstanceName, int onOffPinNumber,
-      int boilerPinNUmber, int boilerButtonPinNumber,
-      {int onOffButtonPinNumber})
+  BoilerObject(String uuid, String smartInstanceName, int boilerPinNUmber,
+      int boilerButtonPinNumber, {int onOffPinNumber, int onOffButtonPinNumber})
       : super(uuid, smartInstanceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber) {
     print('New boiler object');
     boilerPin = DevicePinListManager().getGpioPin(boilerPinNUmber);
     boilerButtonPin = DevicePinListManager().getGpioPin(boilerButtonPinNumber);
-    listenToTwoButtonsPress();
+    listenButtonsPress();
     setDeviceType(DeviceTypes.boiler);
   }
 
@@ -62,7 +61,7 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
     }
 
     if (wishExecuteResult != null) {
-      if (deviceState != DeviceStateGRPC.waitingInFirebase) {
+      if (deviceState != DeviceStateGRPC.ack) {
         final String deviceActionString =
             EnumHelper.deviceActionToString(deviceAction);
         super.updateThisDeviceDocumentCloudValue('action', deviceActionString);
@@ -75,7 +74,7 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
     return wishInSimpleClass(deviceAction, deviceState);
   }
 
-  void listenToTwoButtonsPress() {
+  void listenButtonsPress() {
     if (boilerPin != null && boilerButtonPin != null) {
       ButtonObjectLocalU()
           .buttonPressedForBoiler(this, boilerButtonPin, boilerPin);

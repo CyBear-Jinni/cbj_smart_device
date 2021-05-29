@@ -128,7 +128,7 @@ class EnumHelper {
       case DeviceTypes.blinds:
         return BlindsObject(null, null, null, null, null, null, null, null);
       case DeviceTypes.boiler:
-        return BoilerObject(null, null, null, null, null);
+        return BoilerObject(null, null, null, null);
       default:
         print('Type $deviceType is not supported');
     }

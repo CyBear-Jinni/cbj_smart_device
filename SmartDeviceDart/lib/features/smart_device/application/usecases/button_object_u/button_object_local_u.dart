@@ -42,7 +42,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   }
 
   @override
-  void buttonPressedForBoiler(BoilerObject boilerObjcet,
+  void buttonPressedForBoiler(BoilerObject boilerObject,
       PinInformation buttonPinNumber, PinInformation boiler) async {
     int errorCounter = 0;
 
@@ -50,6 +50,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
       while (true) {
         final int returnValue =
             await buttonObjectRepository.listenToButtonPress(buttonPinNumber);
+        print('Boiler button number $buttonPinNumber was pressed');
 
         if (returnValue < 0) {
           errorCounter++;
@@ -61,10 +62,10 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
         }
 
         if (boiler.v == 1) {
-          await boilerObjcet.executeDeviceAction(
+          await boilerObject.executeDeviceAction(
               DeviceActions.off, DeviceStateGRPC.waitingInComp);
         } else {
-          await boilerObjcet.executeDeviceAction(
+          await boilerObject.executeDeviceAction(
               DeviceActions.on, DeviceStateGRPC.waitingInComp);
         }
 
