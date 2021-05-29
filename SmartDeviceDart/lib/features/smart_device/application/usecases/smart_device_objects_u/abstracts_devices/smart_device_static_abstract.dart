@@ -27,7 +27,7 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBaseAbstract {
   @override
   Future<String> executeActionString(
       String wishString, DeviceStateGRPC deviceState) async {
-    var wish = convertWishStringToWishesObject(wishString);
+    final wish = convertWishStringToWishesObject(wishString);
     print(wishString);
     print(wish.toString());
     if (wish == null) return 'Your wish does not exist on static class';
