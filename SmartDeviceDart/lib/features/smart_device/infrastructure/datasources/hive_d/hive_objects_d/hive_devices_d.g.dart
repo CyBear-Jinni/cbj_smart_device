@@ -8,18 +8,18 @@ part of 'hive_devices_d.dart';
 
 class HiveDevicesDAdapter extends TypeAdapter<HiveDevicesD> {
   @override
-  final typeId = 2;
+  final int typeId = 2;
 
   @override
   HiveDevicesD read(BinaryReader reader) {
-    final int numOfFields = reader.readByte();
-    final Map<int, dynamic> fields = <int, dynamic>{
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return HiveDevicesD()
-      ..smartDeviceList = (fields[0] as Map)?.map((dynamic k, dynamic v) =>
-          MapEntry(k as String, (v as List)?.cast<String>()))
-      ..databaseInformationList = (fields[1] as Map)?.cast<String, String>();
+      ..smartDeviceList = (fields[0] as Map).map((dynamic k, dynamic v) =>
+          MapEntry(k as String, (v as List).cast<String>()))
+      ..databaseInformationList = (fields[1] as Map).cast<String, String>();
   }
 
   @override
@@ -31,4 +31,14 @@ class HiveDevicesDAdapter extends TypeAdapter<HiveDevicesD> {
       ..writeByte(1)
       ..write(obj.databaseInformationList);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is HiveDevicesDAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

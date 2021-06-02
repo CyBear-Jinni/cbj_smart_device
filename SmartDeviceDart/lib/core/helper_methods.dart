@@ -1,7 +1,7 @@
 import 'dart:io';
 
 ///  Get Ip info
-Future<String> getIps() async {
+Future<String?> getIps() async {
   for (final NetworkInterface interface in await NetworkInterface.list()) {
 //      print('== Interface: ${interface.name} ==');
     for (final InternetAddress address in interface.addresses) {

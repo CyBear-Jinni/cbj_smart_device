@@ -6,7 +6,7 @@ class SetDevicesD {
     return systemCommandsManager.getUuidOfCurrentDevice();
   }
 
-  Future<String> getDeviceDefaultConfig() {
+  Future<String?> getDeviceDefaultConfig() {
     final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
     return systemCommandsManager.getDeviceConfiguration();
   }

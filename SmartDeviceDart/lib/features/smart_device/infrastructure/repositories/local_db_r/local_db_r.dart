@@ -13,39 +13,39 @@ class LocalDbR {
     _localDbD = LocalDbD();
   }
 
-  LocalDbD _localDbD;
+  LocalDbD? _localDbD;
 
-  Future<List<SmartDeviceBaseAbstract>> getListOfSmartDevices() async {
-    List<SmartDeviceBaseAbstract> smartDeviceBaseAbstractList =
+  Future<List<SmartDeviceBaseAbstract>?> getListOfSmartDevices() async {
+    List<SmartDeviceBaseAbstract>? smartDeviceBaseAbstractList =
         <SmartDeviceBaseAbstract>[];
     final String currentDeviceUuid = await MySingleton.getUuid();
 
-    final Map<String, List<String>> deviceListMap =
-        await _localDbD.getListOfSmartDevices();
+    final Map<String, List<String?>>? deviceListMap =
+        await _localDbD!.getListOfSmartDevices();
     if (deviceListMap == null) {
       return null;
     }
     for (final String deviceName in deviceListMap.keys) {
-      final List<String> values = deviceListMap[deviceName];
+      final List<String?> values = deviceListMap[deviceName]!;
       final DeviceTypes deviceType =
-          EnumHelper.stringToDeviceType(values.first);
+          EnumHelper.stringToDeviceType(values.first!)!;
 
       switch (deviceType) {
         case DeviceTypes.light:
-          final int onOffPinNumber =
-              values[1] == null ? null : int.parse(values[1]);
-          final int onOffButtonPinNumber =
-              values[2] == null ? null : int.parse(values[2]);
+          final int? onOffPinNumber =
+              values[1] == '' ? null : int.parse(values[1]!);
+          final int? onOffButtonPinNumber =
+              values[2] == '' ? null : int.parse(values[2]!);
           print('Adding from local db light object');
           smartDeviceBaseAbstractList.add(LightObject(
               currentDeviceUuid, deviceName, onOffPinNumber,
               onOffButtonPinNumber: onOffButtonPinNumber));
           break;
         case DeviceTypes.boiler:
-          final int boilerPinNumber =
-              values[1] == null ? null : int.parse(values[1]);
-          final int boilerButtonPinNumber =
-              values[2] == null ? null : int.parse(values[2]);
+          final int? boilerPinNumber =
+              values[1] == '' ? null : int.parse(values[1]!);
+          final int? boilerButtonPinNumber =
+              values[2] == '' ? null : int.parse(values[2]!);
           print('Adding from local db boiler object');
           smartDeviceBaseAbstractList.add(BoilerObject(
             currentDeviceUuid,
@@ -60,18 +60,18 @@ class LocalDbR {
             break;
           }
 
-          final int onOffPinNumber =
-              values[1] == null ? null : int.parse(values[1]);
-          final int onOffButtonPinNumber =
-              values[2] == null ? null : int.parse(values[2]);
-          final int blindsUpPin =
-              values[3] == null ? null : int.parse(values[3]);
-          final int upButtonPinNumber =
-              values[4] == null ? null : int.parse(values[4]);
-          final int blindsDownPin =
-              values[5] == null ? null : int.parse(values[5]);
-          final int downButtonPinNumber =
-              values[6] == null ? null : int.parse(values[6]);
+          final int? onOffPinNumber =
+              values[1] == '' ? null : int.parse(values[1]!);
+          final int? onOffButtonPinNumber =
+              values[2] == '' ? null : int.parse(values[2]!);
+          final int? blindsUpPin =
+              values[3] == '' ? null : int.parse(values[3]!);
+          final int? upButtonPinNumber =
+              values[4] == '' ? null : int.parse(values[4]!);
+          final int? blindsDownPin =
+              values[5] == '' ? null : int.parse(values[5]!);
+          final int? downButtonPinNumber =
+              values[6] == '' ? null : int.parse(values[6]!);
 
           smartDeviceBaseAbstractList.add(BlindsObject(
             currentDeviceUuid,
@@ -99,23 +99,23 @@ class LocalDbR {
     return smartDeviceBaseAbstractList;
   }
 
-  Future<FirebaseAccountsInformationD> getListOfDatabaseInformation() async {
-    final Map<String, String> firebaseAccountsInformationMap =
-        await _localDbD.getListOfDatabaseInformation();
+  Future<FirebaseAccountsInformationD?> getListOfDatabaseInformation() async {
+    final Map<String, String?>? firebaseAccountsInformationMap =
+        await _localDbD!.getListOfDatabaseInformation();
 
     if (firebaseAccountsInformationMap == null) return null;
 
     final String fireBaseProjectId =
-        firebaseAccountsInformationMap[AccountsInformationD.fireBaseProjectId];
+        firebaseAccountsInformationMap[AccountsInformationD.fireBaseProjectId]!;
     final String fireBaseApiKey =
-        firebaseAccountsInformationMap[AccountsInformationD.fireBaseApiKey];
+        firebaseAccountsInformationMap[AccountsInformationD.fireBaseApiKey]!;
     final String userEmail =
-        firebaseAccountsInformationMap[AccountsInformationD.userEmail];
+        firebaseAccountsInformationMap[AccountsInformationD.userEmail]!;
     final String userPassword =
-        firebaseAccountsInformationMap[AccountsInformationD.userPassword];
+        firebaseAccountsInformationMap[AccountsInformationD.userPassword]!;
 
     final String homeId =
-        firebaseAccountsInformationMap[AccountsInformationD.homeId];
+        firebaseAccountsInformationMap[AccountsInformationD.homeId]!;
 
     final FirebaseAccountsInformationD firebaseAccountsInformationD =
         FirebaseAccountsInformationD(
@@ -126,12 +126,12 @@ class LocalDbR {
 
   Future<void> saveAllDevices(
       List<SmartDeviceBaseAbstract> smartDevicesList) async {
-    await _localDbD.saveAllDevices(smartDevicesList);
+    await _localDbD!.saveAllDevices(smartDevicesList);
     return;
   }
 
   void saveListOfDatabaseInformation(
       FirebaseAccountsInformationD firebaseAccountsInformationD) {
-    _localDbD.saveListOfDatabaseInformation(firebaseAccountsInformationD);
+    _localDbD!.saveListOfDatabaseInformation(firebaseAccountsInformationD);
   }
 }

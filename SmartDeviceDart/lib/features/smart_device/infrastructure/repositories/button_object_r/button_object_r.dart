@@ -6,9 +6,9 @@ class ButtonObjectR {
     _buttonObjectDataSource = ButtonObjectD();
   }
 
-  ButtonObjectD _buttonObjectDataSource;
+  ButtonObjectD? _buttonObjectDataSource;
 
   Future<int> listenToButtonPress(PinInformation buttonPinNumber) {
-    return _buttonObjectDataSource.listenToButtonPress(buttonPinNumber);
+    return _buttonObjectDataSource!.listenToButtonPress(buttonPinNumber);
   }
 }

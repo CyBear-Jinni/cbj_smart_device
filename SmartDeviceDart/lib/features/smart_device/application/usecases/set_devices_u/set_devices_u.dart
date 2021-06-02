@@ -11,15 +11,15 @@ class SetDevicesU {
     _setDevicesE = SetDevicesE();
   }
 
-  SetDevicesE _setDevicesE;
+  SetDevicesE? _setDevicesE;
 
   ///  Setting all the devices from saved data
-  void setAllDevices({List<SmartDeviceBaseAbstract> deviceList}) async {
+  void setAllDevices({List<SmartDeviceBaseAbstract>? deviceList}) async {
     if (deviceList != null) {
       MySingleton.setSmartDevicesList(deviceList);
     } else {
-      final String deviceConfiguration =
-          await _setDevicesE.getDeviceDefaultConfig();
+      final String? deviceConfiguration =
+          await _setDevicesE!.getDeviceDefaultConfig();
       if (deviceConfiguration == null || deviceConfiguration.isEmpty) {
         print('\nDefault configuration file content is null or empty !!!.\n'
             'Please add configuration file with device type to it,'
@@ -28,7 +28,7 @@ class SetDevicesU {
         return;
       }
       final List<SmartDeviceBaseAbstract> listOfSmartDevices =
-          await _setDevicesE.convertToListOfDevices(deviceConfiguration);
+          await _setDevicesE!.convertToListOfDevices(deviceConfiguration);
       if (listOfSmartDevices.isNotEmpty) {
         MySingleton.setSmartDevicesList(listOfSmartDevices);
       }
@@ -38,7 +38,7 @@ class SetDevicesU {
   }
 
   Future<void> manualSetup() async {
-    final String uuid = await _setDevicesE.getCurrentDeviceUUid();
+    final String uuid = await _setDevicesE!.getCurrentDeviceUUid();
 
     MySingleton.setSmartDevicesList(<SmartDeviceBaseAbstract>[
       LightObject(uuid, 'Stairs', 8, onOffButtonPinNumber: 10),

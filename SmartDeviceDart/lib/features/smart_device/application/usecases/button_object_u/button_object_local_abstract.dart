@@ -9,7 +9,7 @@ abstract class ButtonObjectLocalAbstract {
     buttonObjectRepository = ButtonObjectR();
   }
 
-  ButtonObjectR buttonObjectRepository;
+  ButtonObjectR? buttonObjectRepository;
 
   void buttonPressed(SmartDeviceBaseAbstract smartDevice,
       PinInformation buttonPinNumber, PinInformation lightPin);

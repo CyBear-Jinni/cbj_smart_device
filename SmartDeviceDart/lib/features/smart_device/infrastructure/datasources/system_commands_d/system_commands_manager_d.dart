@@ -23,45 +23,45 @@ class SystemCommandsManager {
     }
   }
 
-  SystemCommandsBaseClassD systemCommandsBaseClassD;
+  SystemCommandsBaseClassD? systemCommandsBaseClassD;
 
   Future<String> getCurrentUserName() {
-    return systemCommandsBaseClassD.getCurrentUserName();
+    return systemCommandsBaseClassD!.getCurrentUserName();
   }
 
   Future<String> getDeviceHostName() {
-    return systemCommandsBaseClassD.getDeviceHostName();
+    return systemCommandsBaseClassD!.getDeviceHostName();
   }
 
   Future<String> getAllEtcReleaseFilesText() {
-    return systemCommandsBaseClassD.getAllEtcReleaseFilesText();
+    return systemCommandsBaseClassD!.getAllEtcReleaseFilesText();
   }
 
-  Future<String> getFileContent(fileFullPath) {
-    return systemCommandsBaseClassD.getFileContent(fileFullPath);
+  Future<String?> getFileContent(fileFullPath) {
+    return systemCommandsBaseClassD!.getFileContent(fileFullPath);
   }
 
   Future<String> getUuidOfCurrentDevice() {
-    return systemCommandsBaseClassD.getUuidOfCurrentDevice();
+    return systemCommandsBaseClassD!.getUuidOfCurrentDevice();
   }
 
-  Future<String> getDeviceConfiguration() {
-    return systemCommandsBaseClassD.getDeviceConfiguration();
+  Future<String?> getDeviceConfiguration() {
+    return systemCommandsBaseClassD!.getDeviceConfiguration();
   }
 
-  Future<String> getRaspberryPiDeviceVersion() {
+  Future<String?> getRaspberryPiDeviceVersion() {
     return BashCommandsForRaspberryPi.getRaspberryPiDeviceVersion();
   }
 
-  Future<String> getSnapLocationEnvironmentVariable() {
+  Future<String?> getSnapLocationEnvironmentVariable() {
     return Future.value(SharedVariables.getSnapLocationEnvironmentVariable());
   }
 
-  Future<String> getSnapCommonEnvironmentVariable() {
+  Future<String?> getSnapCommonEnvironmentVariable() {
     return Future.value(SharedVariables.getSnapCommonEnvironmentVariable());
   }
 
-  Future<String> getSnapUserCommonEnvironmentVariable() {
+  Future<String?> getSnapUserCommonEnvironmentVariable() {
     return Future.value(SharedVariables.getSnapUserCommonEnvironmentVariable());
   }
 }

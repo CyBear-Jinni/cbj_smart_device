@@ -8,8 +8,9 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 class BoilerObject extends SmartDeviceSimpleAbstract {
-  BoilerObject(String uuid, String smartInstanceName, int boilerPinNUmber,
-      int boilerButtonPinNumber, {int onOffPinNumber, int onOffButtonPinNumber})
+  BoilerObject(String? uuid, String? smartInstanceName, int? boilerPinNUmber,
+      int? boilerButtonPinNumber,
+      {int? onOffPinNumber, int? onOffButtonPinNumber})
       : super(uuid, smartInstanceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber) {
     print('New boiler object');
@@ -19,7 +20,7 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
     setDeviceType(DeviceTypes.boiler);
   }
 
-  PinInformation boilerPin, boilerButtonPin;
+  PinInformation? boilerPin, boilerButtonPin;
 
   @override
   List<String> getNeededPinTypesList() => <String>['gpio', 'gpio'];
@@ -35,7 +36,7 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
   Future<String> executeActionString(
       String wishString, DeviceStateGRPC deviceState) async {
     final DeviceActions deviceAction =
-        convertWishStringToWishesObject(wishString);
+        convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(deviceAction, deviceState);
   }
 
@@ -48,16 +49,16 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
   ///  All the wishes that are legit to execute from the blinds class
   Future<String> wishInBoilerClass(
       DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
-    String wishExecuteResult;
+    String? wishExecuteResult;
 
     if (deviceAction == null) {
       return 'Your wish does not exist in boiler class';
     }
     if (deviceAction == DeviceActions.on) {
-      wishExecuteResult = OnWishU.setOn(deviceInformation, boilerPin);
+      wishExecuteResult = OnWishU.setOn(deviceInformation!, boilerPin);
     }
     if (deviceAction == DeviceActions.off) {
-      wishExecuteResult = OffWishU.setOff(deviceInformation, boilerPin);
+      wishExecuteResult = OffWishU.setOff(deviceInformation!, boilerPin);
     }
 
     if (wishExecuteResult != null) {
@@ -77,7 +78,7 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
   void listenButtonsPress() {
     if (boilerPin != null && boilerButtonPin != null) {
       ButtonObjectLocalU()
-          .buttonPressedForBoiler(this, boilerButtonPin, boilerPin);
+          .buttonPressedForBoiler(this, boilerButtonPin!, boilerPin!);
     } else {
       print('Cannot listen to boiler, one of the variables is null');
     }

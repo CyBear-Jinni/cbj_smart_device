@@ -15,29 +15,29 @@ class CloudValueChangeE {
     _cloudManager = CloudManagerR(firebaseAccountsInformationD);
   }
 
-  static CloudManagerR _cloudManager;
+  static CloudManagerR? _cloudManager;
 
-  Stream<Document> listenToDocumentDataBase() async* {
-    yield* _cloudManager.listenToDocumentInDataBase();
+  Stream<Document?> listenToDocumentDataBase() async* {
+    yield* _cloudManager!.listenToDocumentInDataBase();
   }
 
   Stream<List<Document>> listenToCollectionDataBase() async* {
-    yield* _cloudManager.listenToCollectionInDataBase();
+    yield* _cloudManager!.listenToCollectionInDataBase();
   }
 
   Future<String> updateDocument(String fieldToUpdate, String valueToUpdate) {
-    return _cloudManager.updateDocument(fieldToUpdate, valueToUpdate);
+    return _cloudManager!.updateDocument(fieldToUpdate, valueToUpdate);
   }
 
   Future<String> updateDeviceDocument(
       String deviceId, String fieldToUpdate, String valueToUpdate) {
-    return _cloudManager.updateDeviceDocument(
-        deviceId, fieldToUpdate, valueToUpdate);
+    return _cloudManager!
+        .updateDeviceDocument(deviceId, fieldToUpdate, valueToUpdate);
   }
 
   Future<String> updateDeviceDocumentWithMap(
       String deviceId, Map<String, String> mapToUpdate) {
-    return _cloudManager.updateDeviceDocumentWithMap(deviceId, mapToUpdate);
+    return _cloudManager!.updateDeviceDocumentWithMap(deviceId, mapToUpdate);
   }
 
   static bool doesFirebaseAccountLogit(

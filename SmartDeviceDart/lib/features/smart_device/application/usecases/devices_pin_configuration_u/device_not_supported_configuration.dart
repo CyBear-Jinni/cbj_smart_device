@@ -11,6 +11,6 @@ class DeviceNotSupportedConfiguration extends DeviceConfigurationBaseClass {
   static final List<PinInformation> _pinListNanoPiNEOAir = <PinInformation>[];
 
   @override
-  PinInformation getNextFreeGpioPin({List<PinInformation> ignorePinsList}) =>
-      getNextFreeGpioPinHelper(pinList);
+  PinInformation? getNextFreeGpioPin({List<PinInformation?>? ignorePinsList}) =>
+      getNextFreeGpioPinHelper(pinList!)!;
 }

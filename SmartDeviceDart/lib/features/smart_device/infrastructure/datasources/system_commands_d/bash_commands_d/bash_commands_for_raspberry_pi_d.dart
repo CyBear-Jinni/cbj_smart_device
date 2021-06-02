@@ -1,7 +1,7 @@
 import 'dart:io';
 
 class BashCommandsForRaspberryPi {
-  static Future<String> getRaspberryPiDeviceVersion() async {
+  static Future<String?> getRaspberryPiDeviceVersion() async {
     String piVersion = await Process.run('cat', <String>['/proc/cpuinfo'])
         .then((ProcessResult result) {
       return result.stdout.toString();

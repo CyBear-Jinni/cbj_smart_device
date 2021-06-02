@@ -7,15 +7,15 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/wish_classes_r/turn_pin_on_off_local_abstract.dart';
 
 class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
-  WishClassesD _wishClassesD;
-
   TurnPinOnOffLocal() {
     _wishClassesD = WishClassesD();
   }
 
+  WishClassesD? _wishClassesD;
+
   ///  Function to start c script to interact with pins
   @override
-  Future<String> pinOn(PinInformation pinNumber) async {
+  Future<String> pinOn(PinInformation? pinNumber) async {
     if (pinNumber?.pinAndPhysicalPinConfiguration == null) {
       print('Error PinInformation.pinAndPhysicalPinConfiguration was not set');
       return 'Error PinInformation.pinAndPhysicalPinConfiguration was not set';
@@ -27,8 +27,8 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
 
     try {
       print(
-          'This is the pin number on ${pinNumber.pinAndPhysicalPinConfiguration}');
-      return await _wishClassesD
+          'This is the pin number on ${pinNumber!.pinAndPhysicalPinConfiguration}');
+      return await _wishClassesD!
           .turnOnLocalPhysicalPin(PinSetupMethodEnum.wiringPiSetupPhys,
               pinNumber.pinAndPhysicalPinConfiguration.toString())
           .then((ProcessResult results) {
@@ -43,13 +43,18 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
   }
 
   @override
-  Future<String> pinOff(PinInformation pinNumber) async {
+  Future<String> pinOff(PinInformation? pinNumber) async {
+    if (pinNumber?.pinAndPhysicalPinConfiguration == null) {
+      print('Error PinInformation.pinAndPhysicalPinConfiguration was not set');
+      return 'Error PinInformation.pinAndPhysicalPinConfiguration was not set';
+    }
+
     try {
       print(
-          'This is the pin number off:  ${pinNumber.pinAndPhysicalPinConfiguration}');
-      return _wishClassesD
+          'This is the pin number off: ${pinNumber?.pinAndPhysicalPinConfiguration}');
+      return _wishClassesD!
           .turnOffLocalPhysicalPin(PinSetupMethodEnum.wiringPiSetupPhys,
-              pinNumber.pinAndPhysicalPinConfiguration.toString())
+              pinNumber!.pinAndPhysicalPinConfiguration.toString())
           .then((ProcessResult results) {
         print(results.stdout);
         return results.stdout.toString();

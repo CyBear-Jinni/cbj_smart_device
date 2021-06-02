@@ -13,13 +13,13 @@ class MySingleton {
   }
 
   static final MySingleton _singleton = MySingleton._internal();
-  static List<SmartDeviceBaseAbstract> smartDevicesList;
-  static Future<String> _deviceUid;
-  static Future<String> _currentUserName;
+  static List<SmartDeviceBaseAbstract>? smartDevicesList;
+  static Future<String>? _deviceUid;
+  static Future<String>? _currentUserName;
 
   static Future<String> getUuid() => _deviceUid ??= MySingletonHelper.getUuid();
 
-  static Future<String> getCurrentUserName() =>
+  static Future<String?> getCurrentUserName() =>
       _currentUserName ??= MySingletonHelper.getCurrentUserName();
 
   static void setSmartDevicesList(
@@ -28,11 +28,11 @@ class MySingleton {
   }
 
   static void addToSmartDevicesList(SmartDeviceBaseAbstract smartDeviceVal) {
-    smartDevicesList.add(smartDeviceVal);
+    smartDevicesList!.add(smartDeviceVal);
   }
 
   static List<SmartDeviceBaseAbstract> getSmartDevicesList() =>
-      smartDevicesList;
+      smartDevicesList!;
 }
 
 class FirebaseAccountInformationFlutter {

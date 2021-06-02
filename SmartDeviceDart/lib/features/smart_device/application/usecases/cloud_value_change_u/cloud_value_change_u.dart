@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firedart/firedart.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:smart_device_dart/core/my_singleton.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/core_u/actions_to_preform_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
@@ -17,33 +17,34 @@ class CloudValueChangeU {
     _cloudValueChangeEntity = CloudValueChangeE(firebaseAccountsInformationD);
   }
 
-  static CloudValueChangeU _cloudValueChangeU;
-  CloudValueChangeE _cloudValueChangeEntity;
+  static CloudValueChangeU? _cloudValueChangeU;
+  CloudValueChangeE? _cloudValueChangeEntity;
 
   void setNewFirebaseAccounInfo(
       FirebaseAccountsInformationD firebaseAccountsInformationD) {
-    _cloudValueChangeEntity
+    _cloudValueChangeEntity!
         .setNewFirebaseAccounInfo(firebaseAccountsInformationD);
   }
 
-  static CloudValueChangeU getCloudValueChangeU() {
+  static CloudValueChangeU? getCloudValueChangeU() {
     return _cloudValueChangeU;
   }
 
   Future<String> updateDocument(String fieldToUpdate, String valueToUpdate) {
-    return _cloudValueChangeEntity.updateDocument(fieldToUpdate, valueToUpdate);
+    return _cloudValueChangeEntity!
+        .updateDocument(fieldToUpdate, valueToUpdate);
   }
 
   Future<String> updateDeviceDocument(
       String deviceId, String fieldToUpdate, String valueToUpdate) {
-    return _cloudValueChangeEntity.updateDeviceDocument(
-        deviceId, fieldToUpdate, valueToUpdate);
+    return _cloudValueChangeEntity!
+        .updateDeviceDocument(deviceId, fieldToUpdate, valueToUpdate);
   }
 
   Future<String> updateDeviceDocumentWithMap(
       String deviceId, Map<String, String> mapToUpdate) {
-    return _cloudValueChangeEntity.updateDeviceDocumentWithMap(
-        deviceId, mapToUpdate);
+    return _cloudValueChangeEntity!
+        .updateDeviceDocumentWithMap(deviceId, mapToUpdate);
   }
 
   ///  Listen to changes in the database for this device
@@ -58,10 +59,10 @@ class CloudValueChangeU {
       ),
     ]);
 
-    DataConnectionChecker().addresses = defaultAddresses;
+    InternetConnectionChecker().addresses = defaultAddresses;
 
     while (true) {
-      final bool result = await DataConnectionChecker().hasConnection;
+      final bool result = await InternetConnectionChecker().hasConnection;
       if (result == true) {
         print('Have internet');
         break;
@@ -74,7 +75,7 @@ class CloudValueChangeU {
   }
 
   Future<void> listenToCollectionChange() async {
-    _cloudValueChangeEntity
+    _cloudValueChangeEntity!
         .listenToCollectionDataBase()
         .listen((List<Document> documentList) {
       print('Change detected in Firestore');
@@ -106,7 +107,7 @@ class CloudValueChangeU {
         } else if (value == DeviceActions.off.toString()) {
           deviceAction = DeviceActions.off;
         } else {
-          deviceAction = EnumHelper.stringToDeviceActions(value);
+          deviceAction = EnumHelper.stringToDeviceActions(value)!;
         }
 
         ActionsToPreformU.executeDeviceAction(smartDeviceBaseAbstract,
@@ -116,10 +117,10 @@ class CloudValueChangeU {
   }
 
   Future<void> listenToDocumentChange() async {
-    _cloudValueChangeEntity
+    _cloudValueChangeEntity!
         .listenToDocumentDataBase()
-        .listen((Document document) {
-      final Document firestoreDocument = document;
+        .listen((Document? document) {
+      final Document firestoreDocument = document!;
       print('Change detected to Document Firestore');
 
       final Map<SmartDeviceBaseAbstract, String> devicesNamesThatValueChanged =
@@ -146,7 +147,7 @@ class CloudValueChangeU {
         } else if (value == DeviceActions.off.toString()) {
           deviceAction = DeviceActions.off;
         } else {
-          deviceAction = EnumHelper.stringToDeviceActions(value);
+          deviceAction = EnumHelper.stringToDeviceActions(value)!;
         }
 
         ActionsToPreformU.executeDeviceAction(smartDeviceBaseAbstract,

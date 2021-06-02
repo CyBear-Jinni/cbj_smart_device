@@ -18,21 +18,31 @@ class CloudFireStoreD {
     }
   }
 
-  String _fireBaseProjectId;
-  String _fireBaseApiKey;
-  String _userEmail;
-  String _userPassword;
-  String _homeId;
+  String? _fireBaseProjectId;
+  String? _fireBaseApiKey;
+  String? _userEmail;
+  String? _userPassword;
+  String? _homeId;
 
-  FirebaseAuth auth;
+  static FirebaseAuth? auth;
+  static bool firestoreInitialize = false;
 
   Future<void> initializeFirebaseAuthWithHivePersistingTokens() async {
     try {
       HiveD();
-      Firestore.initialize(
-          _fireBaseProjectId); // Firestore reuses the auth client
-      FirebaseAuth.initialize(_fireBaseApiKey, await HiveStore.create());
-      await FirebaseAuth.instance.signIn(_userEmail, _userPassword);
+      if (auth != null) {
+        return;
+      }
+      if (!firestoreInitialize) {
+        firestoreInitialize = true;
+        Firestore.initialize(
+            _fireBaseProjectId!); // Firestore reuses the auth client
+
+        auth =
+            FirebaseAuth.initialize(_fireBaseApiKey!, await HiveStore.create());
+        await FirebaseAuth.instance.signIn(_userEmail!, _userPassword!);
+      }
+
 //      var user = await FirebaseAuth.instance.getUser();
 
     } catch (exception) {
@@ -64,7 +74,7 @@ class CloudFireStoreD {
   }
 
   ///  Listen to changes of the data in path and return the value that change each time there is change
-  Stream<Document> listenToChangeOfDocumentDataInPath(String dataPath) async* {
+  Stream<Document?> listenToChangeOfDocumentDataInPath(String dataPath) async* {
     //  Sign in with user credentials
     try {
       //  Instantiate a reference to a document - this happens offline

@@ -306,6 +306,6 @@ class RaspberryPi3ModelBRev1_2Configuration
   ];
 
   @override
-  PinInformation getNextFreeGpioPin({List<PinInformation> ignorePinsList}) =>
-      getNextFreeGpioPinHelper(pinList, ignorePinsList: ignorePinsList);
+  PinInformation getNextFreeGpioPin({List<PinInformation?>? ignorePinsList}) =>
+      getNextFreeGpioPinHelper(pinList!, ignorePinsList: ignorePinsList)!;
 }

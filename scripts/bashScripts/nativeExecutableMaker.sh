@@ -14,5 +14,6 @@ cd ..
 
 #chmod -R +rx dart-sdk/
 dart-sdk/bin/dart2native SmartDeviceDart/bin/main.dart -o CyBear-Jinni_Smart-Device
+#sudo dart-sdk/bin/dart SmartDeviceDart/bin/main.dart .
 
 rm -r dart-sdk/

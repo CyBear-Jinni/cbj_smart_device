@@ -14,10 +14,10 @@ class BlindsObject extends SmartDeviceStaticAbstract {
       smartInstanceName,
       onOffPinNumber,
       onOffButtonPinNumber,
-      int blindsUpPin,
-      int upButtonPinNumber,
-      int blindsDownPin,
-      int downButtonPinNumber)
+      int? blindsUpPin,
+      int? upButtonPinNumber,
+      int? blindsDownPin,
+      int? downButtonPinNumber)
       : super(uuid, smartInstanceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber) {
     buttonPinUp = DevicePinListManager().getGpioPin(upButtonPinNumber);
@@ -31,7 +31,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     print('New blinds object');
   }
 
-  PinInformation buttonPinUp, blindsUpPin, buttonPinDown, blindsDownPin;
+  PinInformation? buttonPinUp, blindsUpPin, buttonPinDown, blindsDownPin;
 
   @override
   List<String> getNeededPinTypesList() =>
@@ -47,7 +47,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
   Future<String> executeActionString(
       String wishString, DeviceStateGRPC deviceState) async {
     final DeviceActions deviceAction =
-        convertWishStringToWishesObject(wishString);
+        convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(deviceAction, deviceState);
   }
 
@@ -60,7 +60,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
   ///  All the wishes that are legit to execute from the blinds class
   Future<String> deviceActionInBlindsClass(
       DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
-    String wishExecuteResult;
+    String? wishExecuteResult;
 
     if (deviceAction == null) return 'Your wish does not exist in blinds class';
     if (deviceAction == DeviceActions.moveUP) {
@@ -96,7 +96,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
         blindsDownPin != null) {
       ButtonObjectLocalU()
           .listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
-              this, buttonPinUp, blindsUpPin, buttonPinDown, blindsDownPin);
+              this, buttonPinUp!, blindsUpPin!, buttonPinDown!, blindsDownPin!);
     } else {
       print('Cannot listen to blinds, one of the variables is null');
       print('ButtonPinUp: $buttonPinUp, ButtonPinDown: $buttonPinDown, '

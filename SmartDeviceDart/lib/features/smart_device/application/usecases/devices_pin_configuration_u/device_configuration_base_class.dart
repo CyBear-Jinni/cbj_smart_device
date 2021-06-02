@@ -6,16 +6,20 @@ import 'pin_information.dart';
 ///  and what in use, getting pin number should be through here
 abstract class DeviceConfigurationBaseClass {
   ///  Pins types lists
-  List<PinInformation> pinList; //  List of all the pins on the device
+  List<PinInformation>? pinList; //  List of all the pins on the device
 
   //  Getters
 
-  List<PinInformation> getGPIOList() => pinList;
+  List<PinInformation>? getGPIOList() => pinList;
 
   ///  Get the gpio pin if not in used and set it to used, else return null
-  PinInformation getGpioPin(int pinNumber) {
-    final PinInformation pinInformation =
+  PinInformation? getGpioPin(int pinNumber) {
+    final PinInformation? pinInformation =
         getPinInformationByPinNumber(pinNumber);
+
+    if (pinInformation == null) {
+      return null;
+    }
 
     final int isTheGpioPinFree = isGpioPinFree(pinNumber);
     print('Pin is ${pinInformation.pinAndPhysicalPinConfiguration}');
@@ -30,8 +34,8 @@ abstract class DeviceConfigurationBaseClass {
 
   /// Get PinInformation object that have pin number,
   /// if does not exist return null
-  PinInformation getPinInformationByPinNumber(int pinNumber) {
-    for (final PinInformation pinInformation in pinList) {
+  PinInformation? getPinInformationByPinNumber(int? pinNumber) {
+    for (final PinInformation pinInformation in pinList!) {
       if (pinInformation.pinAndPhysicalPinConfiguration == pinNumber) {
         return pinInformation;
       }
@@ -46,17 +50,19 @@ abstract class DeviceConfigurationBaseClass {
   bool isPinSpecificCategory(
       PinInformation pinInformation, String pinCategory) {
     final String pinCategoryLowerCase = pinCategory.toLowerCase();
-    return pinInformation.category.toLowerCase().contains(pinCategoryLowerCase);
+    return pinInformation.category!
+        .toLowerCase()
+        .contains(pinCategoryLowerCase);
   }
 
   bool isPinSpecificType(PinInformation pinInformation, String pinType) =>
-      pinInformation.name.toLowerCase().contains(pinType.toLowerCase());
+      pinInformation.name!.toLowerCase().contains(pinType.toLowerCase());
 
   ///  Get gpio pin number, if pin is gpio and free return the pin number,
   ///  if pin does not exist return -1, if pin is not gpio pin return -2,
   ///  if pin is in use as gpio return -3
-  int isGpioPinFree(int pinNumber) {
-    final PinInformation pinInformation =
+  int isGpioPinFree(int? pinNumber) {
+    final PinInformation? pinInformation =
         getPinInformationByPinNumber(pinNumber);
 
     //  If pin does not exist return -1
@@ -70,7 +76,7 @@ abstract class DeviceConfigurationBaseClass {
     }
 
     //  If pin is already in use return -3
-    if (pinInformation.isInUse) {
+    if (pinInformation.isInUse!) {
       return -3;
     }
 
@@ -78,15 +84,15 @@ abstract class DeviceConfigurationBaseClass {
   }
 
   /// Get the next free gpio from the device configuration method.
-  PinInformation getNextFreeGpioPin({List<PinInformation> ignorePinsList});
+  PinInformation? getNextFreeGpioPin({List<PinInformation?>? ignorePinsList});
 
   /// Will return the next gpio in the created order without the override part
   /// that the device configuration have.
-  PinInformation getNextFreeGpioPinHelper(
+  PinInformation? getNextFreeGpioPinHelper(
       List<PinInformation> pinInformationList,
-      {List<PinInformation> ignorePinsList}) {
+      {List<PinInformation?>? ignorePinsList}) {
     for (final PinInformation pinInformation in pinInformationList) {
-      if (isGpioPinFree(pinInformation.pinAndPhysicalPinConfiguration) >= 0 &&
+      if (isGpioPinFree(pinInformation.pinAndPhysicalPinConfiguration!) >= 0 &&
           doesPinExistInPinList(pinInformation, ignorePinsList) == null) {
         return pinInformation;
       }
@@ -97,11 +103,11 @@ abstract class DeviceConfigurationBaseClass {
 
   /// Return if pinInformation pinAndPhysicalPinConfiguration value exist in
   /// pinsList PinInformation List
-  PinInformation doesPinExistInPinList(
-      PinInformation pinInformation, List<PinInformation> pinsList) {
+  PinInformation? doesPinExistInPinList(
+      PinInformation pinInformation, List<PinInformation?>? pinsList) {
     if (pinInformation != null && pinsList != null && pinsList.isNotEmpty) {
-      for (final PinInformation pinToIgnore in pinsList) {
-        if (pinToIgnore.pinAndPhysicalPinConfiguration ==
+      for (final PinInformation? pinToIgnore in pinsList) {
+        if (pinToIgnore!.pinAndPhysicalPinConfiguration ==
             pinInformation.pinAndPhysicalPinConfiguration) {
           return pinToIgnore;
         }

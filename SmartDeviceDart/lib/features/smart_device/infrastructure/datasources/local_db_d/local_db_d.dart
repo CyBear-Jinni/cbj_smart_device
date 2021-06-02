@@ -11,73 +11,73 @@ class LocalDbD {
     _hiveD = HiveD();
   }
 
-  HiveD _hiveD;
+  HiveD? _hiveD;
 
-  Future<Map<String, List<String>>> getListOfSmartDevices() {
-    return _hiveD.getListOfSmartDevices();
+  Future<Map<String, List<String?>>?> getListOfSmartDevices() {
+    return _hiveD!.getListOfSmartDevices();
   }
 
-  Future<Map<String, String>> getListOfDatabaseInformation() {
-    return _hiveD.getListOfDatabaseInformation();
+  Future<Map<String, String?>?> getListOfDatabaseInformation() {
+    return _hiveD!.getListOfDatabaseInformation();
   }
 
   Future<void> saveAllDevices(
       List<SmartDeviceBaseAbstract> smartDevicesList) async {
-    final Map<String, List<String>> smartDevicesMapList =
-        <String, List<String>>{};
+    final Map<String, List<String?>> smartDevicesMapList =
+        <String, List<String?>>{};
 
     for (final SmartDeviceBaseAbstract smartDeviceBaseAbstract
         in smartDevicesList) {
-      final String deviceName = smartDeviceBaseAbstract.id;
+      final String deviceName = smartDeviceBaseAbstract.id!;
       final String deviceTypeAsString = EnumHelper.deviceTypeToString(
-          smartDeviceBaseAbstract.getDeviceType());
-      String onOffPin;
-      String onOffButtonPinNumber;
+          smartDeviceBaseAbstract.getDeviceType()!);
+      String? onOffPin;
+      String? onOffButtonPinNumber;
       if (smartDeviceBaseAbstract.onOffPin != null &&
-          smartDeviceBaseAbstract.onOffPin.pinAndPhysicalPinConfiguration !=
+          smartDeviceBaseAbstract.onOffPin!.pinAndPhysicalPinConfiguration !=
               null) {
         onOffPin = smartDeviceBaseAbstract
-            .onOffPin.pinAndPhysicalPinConfiguration
+            .onOffPin!.pinAndPhysicalPinConfiguration
             .toString();
       }
       if (smartDeviceBaseAbstract.onOffButtonPin != null &&
           smartDeviceBaseAbstract
-                  .onOffButtonPin.pinAndPhysicalPinConfiguration !=
+                  .onOffButtonPin!.pinAndPhysicalPinConfiguration !=
               null) {
         onOffButtonPinNumber = smartDeviceBaseAbstract
-            .onOffButtonPin.pinAndPhysicalPinConfiguration
+            .onOffButtonPin!.pinAndPhysicalPinConfiguration
             .toString();
       }
       if (smartDeviceBaseAbstract.getDeviceType() == DeviceTypes.blinds) {
         final BlindsObject blindsObjectTemp =
             smartDeviceBaseAbstract as BlindsObject;
 
-        String blindsUpPin = null,
+        String? blindsUpPin = null,
             buttonPinUp = null,
             blindsDownPin = null,
             buttonPinDown = null;
 
         if (blindsObjectTemp.blindsUpPin != null) {
           blindsUpPin = blindsObjectTemp
-              .blindsUpPin.pinAndPhysicalPinConfiguration
+              .blindsUpPin!.pinAndPhysicalPinConfiguration
               .toString();
         }
 
         if (blindsObjectTemp.blindsUpPin != null) {
           buttonPinUp = blindsObjectTemp
-              .buttonPinUp.pinAndPhysicalPinConfiguration
+              .buttonPinUp!.pinAndPhysicalPinConfiguration
               .toString();
         }
 
         if (blindsObjectTemp.blindsDownPin != null) {
           blindsDownPin = blindsObjectTemp
-              .blindsDownPin.pinAndPhysicalPinConfiguration
+              .blindsDownPin!.pinAndPhysicalPinConfiguration
               .toString();
         }
 
         if (blindsObjectTemp.buttonPinDown != null) {
           buttonPinDown = blindsObjectTemp
-              .buttonPinDown.pinAndPhysicalPinConfiguration
+              .buttonPinDown!.pinAndPhysicalPinConfiguration
               .toString();
         }
 
@@ -101,18 +101,19 @@ class LocalDbD {
         final BoilerObject boilerObjectTemp =
             smartDeviceBaseAbstract as BoilerObject;
 
-        String boilerPin = null, boilerButtonPin = null;
+        String? boilerPin = null, boilerButtonPin = null;
 
         if (boilerObjectTemp.boilerPin != null &&
-            boilerObjectTemp.boilerPin.pinAndPhysicalPinConfiguration != null) {
-          boilerPin = boilerObjectTemp.boilerPin.pinAndPhysicalPinConfiguration
+            boilerObjectTemp.boilerPin!.pinAndPhysicalPinConfiguration !=
+                null) {
+          boilerPin = boilerObjectTemp.boilerPin!.pinAndPhysicalPinConfiguration
               .toString();
         }
         if (boilerObjectTemp.boilerButtonPin != null &&
-            boilerObjectTemp.boilerButtonPin.pinAndPhysicalPinConfiguration !=
+            boilerObjectTemp.boilerButtonPin!.pinAndPhysicalPinConfiguration !=
                 null) {
           boilerButtonPin = boilerObjectTemp
-              .boilerButtonPin.pinAndPhysicalPinConfiguration
+              .boilerButtonPin!.pinAndPhysicalPinConfiguration
               .toString();
         }
 
@@ -129,7 +130,7 @@ class LocalDbD {
       }
     }
 
-    await _hiveD.saveAllDevices(smartDevicesMapList);
+    await _hiveD?.saveAllDevices(smartDevicesMapList);
     return;
   }
 
@@ -149,6 +150,6 @@ class LocalDbD {
     firebaseAccountsInformationMap[AccountsInformationD.homeId] =
         firebaseAccountsInformationD.homeId;
 
-    _hiveD.saveListOfDatabaseInformation(firebaseAccountsInformationMap);
+    _hiveD?.saveListOfDatabaseInformation(firebaseAccountsInformationMap);
   }
 }

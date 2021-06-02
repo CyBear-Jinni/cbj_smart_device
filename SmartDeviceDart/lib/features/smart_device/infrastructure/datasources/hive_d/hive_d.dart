@@ -15,27 +15,31 @@ class HiveD {
 
   static final HiveD _instance = HiveD._privateConstructor();
 
-  String hiveFolderPath;
-  static bool finishedInitializing;
+  String? hiveFolderPath;
+  static bool? finishedInitializing;
   static const String smartDeviceBoxName = 'SmartDevices';
   static const String cellDeviceListInSmartDeviceBox = 'deviceList';
   static const String cellDatabaseInformationInSmartDeviceBox =
       'databaseInformation';
 
-  Future<bool> contractorAsync() async {
+  Future<bool?> contractorAsync() async {
     try {
       if (finishedInitializing == null) {
-        final String snapCommonEnvironmentVariablePath =
+        final String? snapCommonEnvironmentVariablePath =
             await SystemCommandsManager().getSnapCommonEnvironmentVariable();
         if (snapCommonEnvironmentVariablePath == null) {
-          final String currentUserName = await MySingleton.getCurrentUserName();
+          final String? currentUserName =
+              await MySingleton.getCurrentUserName();
           hiveFolderPath = '/home/$currentUserName/Documents/hive';
         } else {
           // /var/snap/cybear-jinni/common/hive
           hiveFolderPath = '$snapCommonEnvironmentVariablePath/hive';
         }
         print('Path of hive: $hiveFolderPath');
-        Hive.init(hiveFolderPath);
+        if (!HiveStore.hiveInitStarted) {
+          Hive.init(hiveFolderPath!);
+          HiveStore.hiveInitStarted = true;
+        }
         //
         // Hive.openBox(
         //     smartDeviceBoxName); // TODO: check if need await, it creates error: HiveError: Cannot read, unknown typeId: 34
@@ -50,14 +54,14 @@ class HiveD {
     return finishedInitializing;
   }
 
-  Future<Map<String, List<String>>> getListOfSmartDevices() async {
+  Future<Map<String, List<String?>>?> getListOfSmartDevices() async {
     try {
       await contractorAsync();
 
       final box = await Hive.openBox(smartDeviceBoxName);
 
-      final HiveDevicesD hiveDeviceD =
-          box.get(cellDeviceListInSmartDeviceBox) as HiveDevicesD;
+      final HiveDevicesD? hiveDeviceD =
+          box.get(cellDeviceListInSmartDeviceBox) as HiveDevicesD?;
 
       return hiveDeviceD?.smartDeviceList;
     } catch (error) {
@@ -66,14 +70,14 @@ class HiveD {
     return null;
   }
 
-  Future<Map<String, String>> getListOfDatabaseInformation() async {
+  Future<Map<String, String?>?> getListOfDatabaseInformation() async {
     try {
       await contractorAsync();
 
       final box = await Hive.openBox(smartDeviceBoxName);
 
-      final HiveDevicesD firebaseAccountsInformationMap =
-          box.get(cellDatabaseInformationInSmartDeviceBox) as HiveDevicesD;
+      final HiveDevicesD? firebaseAccountsInformationMap =
+          box.get(cellDatabaseInformationInSmartDeviceBox) as HiveDevicesD?;
 
       return firebaseAccountsInformationMap?.databaseInformationList;
     } catch (error) {
@@ -83,14 +87,20 @@ class HiveD {
   }
 
   Future<void> saveAllDevices(
-      Map<String, List<String>> smartDevicesMapList) async {
+      Map<String, List<String?>> smartDevicesMapList) async {
     try {
+      final Map<String, List<String>> smartDevicesMapListWithoutNull =
+          smartDevicesMapList.map((key, value) {
+        final List<String> valueList = value.map((e) => e ?? '').toList();
+        return MapEntry(key, valueList);
+      });
+
       await contractorAsync();
 
       final Box box = await Hive.openBox(smartDeviceBoxName);
 
       final HiveDevicesD hiveDevicesD = HiveDevicesD()
-        ..smartDeviceList = smartDevicesMapList;
+        ..smartDeviceList = smartDevicesMapListWithoutNull;
 
       await box
           .put(cellDeviceListInSmartDeviceBox, hiveDevicesD)

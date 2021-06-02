@@ -6,8 +6,8 @@ import 'smart_device_base_abstract.dart';
 abstract class SmartDeviceStaticAbstract extends SmartDeviceBaseAbstract {
   SmartDeviceStaticAbstract(uuid, smartInstanceName, onOffPinNumber,
       {onOffButtonPinNumber})
-      : super(smartInstanceName as String, onOffPinNumber as int,
-            onOffButtonPinNumber: onOffButtonPinNumber as int);
+      : super(smartInstanceName as String?, onOffPinNumber as int?,
+            onOffButtonPinNumber: onOffButtonPinNumber as int?);
 
   //  TODO: set how much to move
   String _HowMuchToMove() {
