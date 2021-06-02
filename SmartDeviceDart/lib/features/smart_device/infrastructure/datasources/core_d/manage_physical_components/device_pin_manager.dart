@@ -23,33 +23,33 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 
 abstract class DevicePinListManagerAbstract {
   ///  Will save the type of the current physical device
-  static PhysicalDeviceType physicalDeviceType;
+  static PhysicalDeviceType? physicalDeviceType;
 
   ///  Will save the current physical device pin configuration
-  static DeviceConfigurationBaseClass physicalDevice;
+  static DeviceConfigurationBaseClass? physicalDevice;
 
   /// Set recognize and set the physical device type in the singleton
   Future setPhysicalDeviceType();
 
   /// Return a list of free pins that are not taken, the list will consist of
   /// the different pins types depending on the smart device type needed pins
-  List<PinInformation> getFreePinsForSmartDeviceType(DeviceTypes deviceType);
+  List<PinInformation?>? getFreePinsForSmartDeviceType(DeviceTypes deviceType);
 
   /// Return a list of free gpio pins that are not taken
-  PinInformation getFreeGpioPins({List<PinInformation> ignorePinsList});
+  PinInformation? getFreeGpioPins({List<PinInformation> ignorePinsList});
 
-  PinInformation getGpioPin(int pinNumber);
+  PinInformation? getGpioPin(int pinNumber);
 
-  PhysicalDeviceType convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
+  PhysicalDeviceType? convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
       String physicalDeviceType);
 }
 
 class DevicePinListManager extends DevicePinListManagerAbstract {
   ///  Will save the type of the current physical device
-  static PhysicalDeviceType physicalDeviceType;
+  static PhysicalDeviceType? physicalDeviceType;
 
   ///  Will save the current physical device pin configuration
-  static DeviceConfigurationBaseClass physicalDevice;
+  static DeviceConfigurationBaseClass? physicalDevice;
 
   @override
   Future setPhysicalDeviceType() async {
@@ -71,7 +71,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
           convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
               deviceHostName);
 
-      final String raspberryPiVersion =
+      final String? raspberryPiVersion =
           await systemCommandsManager.getRaspberryPiDeviceVersion();
 
       if (physicalDeviceType == null &&
@@ -109,7 +109,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
         case PhysicalDeviceType.RaspberryPi:
           {
             final RaspberryPiType raspberryPiType =
-                EnumHelper.stringToRaspberryPiType(raspberryPiVersion);
+                EnumHelper.stringToRaspberryPiType(raspberryPiVersion!)!;
 
             switch (raspberryPiType) {
               case RaspberryPiType.Raspberry_Pi_3_Model_B_Rev_1_2:
@@ -143,7 +143,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
           }
       }
     } catch (e) {
-      print('Bord type does not exist');
+      print('Board type does not exist');
     }
     print('This device is of type:'
         ' ${EnumHelper.physicalDeviceTypeToString(physicalDeviceType)}');
@@ -152,20 +152,20 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
   ///  Ask for gpio pin, if free return the pin number,
   ///  else return error number (negative numbers)
   @override
-  PinInformation getGpioPin(int pinNumber) {
+  PinInformation? getGpioPin(int? pinNumber) {
     if (physicalDevice == null) {
       print('Error physical device is null');
       return null;
     }
     try {
-      final int isGpioFree = physicalDevice.isGpioPinFree(pinNumber);
+      final int isGpioFree = physicalDevice!.isGpioPinFree(pinNumber);
       if (isGpioFree != 0) {
         print('Gpio $pinNumber is not free, exist with error code $isGpioFree');
         return null;
       }
 
-      final PinInformation pinInformation =
-          physicalDevice.getGpioPin(pinNumber);
+      final PinInformation? pinInformation =
+          physicalDevice?.getGpioPin(pinNumber!);
 
       return pinInformation;
     } catch (e) {
@@ -177,7 +177,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
   ///  Return physicalDeviceType object if
   ///  string physicalDeviceType exist (in general) else return null
   @override
-  PhysicalDeviceType convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
+  PhysicalDeviceType? convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
       String physicalDeviceType) {
     //  Loop through all the physical devices types
     for (final PhysicalDeviceType physicalDeviceTypeTemp
@@ -193,15 +193,15 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
   }
 
   @override
-  List<PinInformation> getFreePinsForSmartDeviceType(DeviceTypes deviceType) {
+  List<PinInformation?>? getFreePinsForSmartDeviceType(DeviceTypes deviceType) {
     final dynamic smartDeviceBaseAbstract =
         EnumHelper.deviceTypeToSmartDeviceBaseAbstractObject(deviceType);
 
     final List<String> neededPinTypesList =
         (smartDeviceBaseAbstract as SmartDeviceBaseAbstract)
-            .getNeededPinTypesList();
+            .getNeededPinTypesList()!;
 
-    final List<PinInformation> pinInformationList = <PinInformation>[];
+    final List<PinInformation?> pinInformationList = <PinInformation?>[];
 
     for (final String pinType in neededPinTypesList) {
       if (pinType.toLowerCase() == 'gpio') {
@@ -216,20 +216,20 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
   }
 
   @override
-  PinInformation getFreeGpioPins({List<PinInformation> ignorePinsList}) {
+  PinInformation? getFreeGpioPins({List<PinInformation?>? ignorePinsList}) {
     return physicalDevice?.getNextFreeGpioPin(ignorePinsList: ignorePinsList);
   }
 }
 
 class DevicePinListManagerPC extends DevicePinListManagerAbstract {
   ///  Will save the type of the current physical device
-  static PhysicalDeviceType physicalDeviceType;
+  static PhysicalDeviceType? physicalDeviceType;
 
   ///  Will save the current physical device pin configuration
-  static DeviceConfigurationBaseClass physicalDevice;
+  static DeviceConfigurationBaseClass? physicalDevice;
 
   @override
-  PhysicalDeviceType convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
+  PhysicalDeviceType? convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
       String physicalDeviceType) {
     //  Loop through all the physical devices types
     for (final PhysicalDeviceType physicalDeviceTypeTemp
@@ -256,7 +256,7 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
   }
 
   @override
-  PinInformation getFreeGpioPins({List<PinInformation> ignorePinsList}) {
+  PinInformation getFreeGpioPins({List<PinInformation>? ignorePinsList}) {
     print('Computer does not give free gpio pins, only smart device');
     throw UnimplementedError();
   }

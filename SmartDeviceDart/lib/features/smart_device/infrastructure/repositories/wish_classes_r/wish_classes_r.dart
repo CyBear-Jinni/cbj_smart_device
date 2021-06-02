@@ -2,7 +2,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/dev
 import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/wish_classes_r/turn_pin_on_off_local.dart';
 
 class WishClassesR {
-  Future<String> pinOff(PinInformation pinNumber) {
+  Future<String> pinOff(PinInformation? pinNumber) {
     return TurnPinOnOffLocal().pinOff(pinNumber);
   }
 }

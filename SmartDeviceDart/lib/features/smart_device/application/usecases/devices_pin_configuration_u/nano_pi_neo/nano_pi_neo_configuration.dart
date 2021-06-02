@@ -9,6 +9,6 @@ class NanoPiNeoConfiguration extends DeviceConfigurationBaseClass {
   static final List<PinInformation> _pinListNanoPiNeo = <PinInformation>[];
 
   @override
-  PinInformation getNextFreeGpioPin({List<PinInformation> ignorePinsList}) =>
-      getNextFreeGpioPinHelper(pinList, ignorePinsList: ignorePinsList);
+  PinInformation getNextFreeGpioPin({List<PinInformation?>? ignorePinsList}) =>
+      getNextFreeGpioPinHelper(pinList!, ignorePinsList: ignorePinsList)!;
 }

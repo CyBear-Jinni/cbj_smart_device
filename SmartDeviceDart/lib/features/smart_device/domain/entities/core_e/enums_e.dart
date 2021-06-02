@@ -76,7 +76,7 @@ class EnumHelper {
     return deviceType.toString().replaceAll('DeviceTypes.', '');
   }
 
-  static DeviceTypes stringToDeviceType(String deviceTypeString) {
+  static DeviceTypes? stringToDeviceType(String deviceTypeString) {
     for (final DeviceTypes deviceType in DeviceTypes.values) {
       if (deviceTypeToString(deviceType) == deviceTypeString) {
         return deviceType;
@@ -90,7 +90,8 @@ class EnumHelper {
     return raspberryPiType.toString().replaceAll('RaspberryPiType.', '');
   }
 
-  static RaspberryPiType stringToRaspberryPiType(String raspberryPiTypeString) {
+  static RaspberryPiType? stringToRaspberryPiType(
+      String raspberryPiTypeString) {
     for (final RaspberryPiType raspberryPiType in RaspberryPiType.values) {
       if (RaspberryPiTypeToString(raspberryPiType) == raspberryPiTypeString) {
         return raspberryPiType;
@@ -105,7 +106,7 @@ class EnumHelper {
   }
 
   ///  Convert string to deviceAction
-  static DeviceActions stringToDeviceActions(String deviceActionString) {
+  static DeviceActions? stringToDeviceActions(String deviceActionString) {
     for (final DeviceActions deviceAction in DeviceActions.values) {
       if (deviceActionToString(deviceAction) == deviceActionString) {
         return deviceAction;
@@ -115,7 +116,7 @@ class EnumHelper {
   }
 
   ///  Convert physicalDeviceType to string
-  static String physicalDeviceTypeToString(PhysicalDeviceType deviceType) {
+  static String physicalDeviceTypeToString(PhysicalDeviceType? deviceType) {
     return deviceType.toString().replaceAll('PhysicalDeviceType.', '');
   }
 

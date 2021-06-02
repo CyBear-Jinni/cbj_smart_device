@@ -20,47 +20,47 @@ class PinInformation {
   }
 
   ///  Save the state of the pin, used or free to be taken
-  bool isInUse = false;
+  bool? isInUse = false;
 
   ///  Category/spec of the pins, Examples: Power, GPIO, USB/Audio/IR, Audio, Debug Port（UART0）
-  String category;
+  String? category;
 
   ///  Name from the site, Examples: VDD_5V, SYS_3.3V, GND, SCL, SDA, CS, GPIOL11/IR-RX, DEBUG_RX(UART_RXD0)/GPIOA5/PWM0
-  String name;
+  String? name;
 
   /// The gpio value, Examples: 5V, 3V3, GND, IRRX, RXD, TXD
-  String gpioValue;
+  String? gpioValue;
 
   ///  Examples: IN, OUT, OFF, ALT5
-  String mode;
+  String? mode;
 
   ///  Examples: RTL8188CUS/8188EU 802.11n WLAN Adapter, RT2070 Wireless Adapter, mi Wi-Fi mt7601
-  String model;
+  String? model;
 
   ///  Examples: 5V Power Out, USB1 DP Signal, GPIOL11 or IR Receive, I2S/PCM Serial Data Input
-  String description;
+  String? description;
 
   ///  Gpio column, Examples: 1, 2
-  int gpioColumn;
+  int? gpioColumn;
 
   ///  Examples: 1, 2, 3, 4
-  int index;
+  int? index;
 
   ///  Can be 0 or 1
-  int v;
+  int? v;
 
   ///  Examples: 25, 26
-  int ph;
+  int? ph;
 
   ///  Examples: 12, 11, 203
-  int bcmOrLinuxGpio;
+  int? bcmOrLinuxGpio;
 
   ///  Pin configuration in the library WiringNP, Examples: 8, 9, 7
-  int wPi;
+  int? wPi;
 
   ///  Examples: 3, 5, 7
-  int pinAndPhysicalPinConfiguration;
+  int? pinAndPhysicalPinConfiguration;
 
   ///  Value of -1 is on forever
-  double onDuration;
+  double? onDuration;
 }

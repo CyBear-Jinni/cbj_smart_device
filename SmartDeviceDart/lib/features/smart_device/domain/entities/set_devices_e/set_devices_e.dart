@@ -14,14 +14,14 @@ class SetDevicesE {
     _setDevicesR = SetDevicesR();
   }
 
-  SetDevicesR _setDevicesR;
+  SetDevicesR? _setDevicesR;
 
   Future<String> getCurrentDeviceUUid() {
-    return _setDevicesR.getCurrentDeviceUUid();
+    return _setDevicesR!.getCurrentDeviceUUid();
   }
 
-  Future<String> getDeviceDefaultConfig() {
-    return _setDevicesR.getDeviceDefaultConfig();
+  Future<String?> getDeviceDefaultConfig() {
+    return _setDevicesR!.getDeviceDefaultConfig();
   }
 
   Future<List<SmartDeviceBaseAbstract>> convertToListOfDevices(
@@ -38,7 +38,7 @@ class SetDevicesE {
     final List<DeviceTypes> deviceTypeList = [];
 
     for (final String deviceAsString in devicesSeparated) {
-      deviceTypeList.add(EnumHelper.stringToDeviceType(deviceAsString));
+      deviceTypeList.add(EnumHelper.stringToDeviceType(deviceAsString)!);
     }
 
     if (deviceTypeList.isEmpty) {
@@ -48,7 +48,7 @@ class SetDevicesE {
     final List<SmartDeviceBaseAbstract> smartDeviceList =
         <SmartDeviceBaseAbstract>[];
 
-    String uuid;
+    String? uuid;
 
     try {
       uuid = await getCurrentDeviceUUid();
@@ -62,15 +62,16 @@ class SetDevicesE {
 
       /// Setting up for Light
       if (deviceType == DeviceTypes.light) {
-        final List<PinInformation> lightPins = DevicePinListManager()
+        final List<PinInformation?>? lightPins = DevicePinListManager()
             .getFreePinsForSmartDeviceType(DeviceTypes.light);
 
-        final int lightPinNumber = lightPins[0]?.pinAndPhysicalPinConfiguration;
+        final int? lightPinNumber =
+            lightPins?[0]?.pinAndPhysicalPinConfiguration!;
 
-        final int buttonPinNumber =
-            lightPins[1]?.pinAndPhysicalPinConfiguration;
+        final int? buttonPinNumber =
+            lightPins?[1]?.pinAndPhysicalPinConfiguration!;
 
-        final int deviceTypeCounter =
+        final int? deviceTypeCounter =
             numberOfThatTypeThatExist(smartDeviceList, DeviceTypes.light);
         smartDeviceList.add(LightObject(
             uuid, 'Light$deviceTypeCounter', lightPinNumber,
@@ -80,14 +81,14 @@ class SetDevicesE {
 
       /// Setting up for Boiler
       else if (deviceType == DeviceTypes.boiler) {
-        final List<PinInformation> boilerPins = DevicePinListManager()
+        final List<PinInformation?>? boilerPins = DevicePinListManager()
             .getFreePinsForSmartDeviceType(DeviceTypes.boiler);
 
-        final int boilerPinNumber =
-            boilerPins[0]?.pinAndPhysicalPinConfiguration;
+        final int? boilerPinNumber =
+            boilerPins?[0]?.pinAndPhysicalPinConfiguration;
 
-        final int buttonPinNumber =
-            boilerPins[1]?.pinAndPhysicalPinConfiguration;
+        final int? buttonPinNumber =
+            boilerPins?[1]?.pinAndPhysicalPinConfiguration;
 
         print('boilerPinNumber: $boilerPinNumber');
         print('buttonPinNumber: $buttonPinNumber');
@@ -101,20 +102,21 @@ class SetDevicesE {
 
       /// Setting up for Blinds
       else if (deviceType == DeviceTypes.blinds) {
-        final List<PinInformation> lightPinAndButtonPin = DevicePinListManager()
-            .getFreePinsForSmartDeviceType(DeviceTypes.blinds);
+        final List<PinInformation?>? lightPinAndButtonPin =
+            DevicePinListManager()
+                .getFreePinsForSmartDeviceType(DeviceTypes.blinds);
 
-        final int blindUpPinNumber =
-            lightPinAndButtonPin[0]?.pinAndPhysicalPinConfiguration;
+        final int? blindUpPinNumber =
+            lightPinAndButtonPin?[0]?.pinAndPhysicalPinConfiguration;
 
-        final int buttonUpPinNumber =
-            lightPinAndButtonPin[1]?.pinAndPhysicalPinConfiguration;
+        final int? buttonUpPinNumber =
+            lightPinAndButtonPin?[1]?.pinAndPhysicalPinConfiguration;
 
-        final int blindDownPinNumber =
-            lightPinAndButtonPin[2]?.pinAndPhysicalPinConfiguration;
+        final int? blindDownPinNumber =
+            lightPinAndButtonPin?[2]?.pinAndPhysicalPinConfiguration;
 
-        final int buttonDownPinNumber =
-            lightPinAndButtonPin[3]?.pinAndPhysicalPinConfiguration;
+        final int? buttonDownPinNumber =
+            lightPinAndButtonPin?[3]?.pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter =
             numberOfThatTypeThatExist(smartDeviceList, DeviceTypes.blinds);

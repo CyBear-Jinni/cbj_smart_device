@@ -17,22 +17,22 @@ class SmartDeviceManagerU {
     SmartDeviceMainAsync();
   }
 
-  SetDevicesU _setDevicesUseCase;
-  SmartServerU _smartServerUseCase;
-  LocalDbU _localDbU;
+  SetDevicesU? _setDevicesUseCase;
+  SmartServerU? _smartServerUseCase;
+  LocalDbU? _localDbU;
 
   Future SmartDeviceMainAsync() async {
-    List<SmartDeviceBaseAbstract> smartDeviceFromDb =
-        await _localDbU.getListOfSmartDevices();
-    FirebaseAccountsInformationD firebaseAccountsInformationD =
-        await _localDbU.getListOfDatabaseInformation();
+    final List<SmartDeviceBaseAbstract>? smartDeviceFromDb =
+        await _localDbU!.getListOfSmartDevices();
+    final FirebaseAccountsInformationD? firebaseAccountsInformationD =
+        await _localDbU!.getListOfDatabaseInformation();
 
     ///  Setting up all the device from the memory
-    _setDevicesUseCase.setAllDevices(deviceList: smartDeviceFromDb);
+    _setDevicesUseCase!.setAllDevices(deviceList: smartDeviceFromDb);
 
     print('Device local IP: ${await getIps()}');
 
     ///  Start listen for in incoming connections from the local internet (LAN/Wifi)
-    _smartServerUseCase.waitForConnection(firebaseAccountsInformationD);
+    _smartServerUseCase!.waitForConnection(firebaseAccountsInformationD);
   }
 }

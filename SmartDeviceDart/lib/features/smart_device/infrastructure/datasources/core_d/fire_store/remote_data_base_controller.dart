@@ -10,27 +10,27 @@ class RemoteDataBaseController {
     _cloudFireStoreNewD = CloudFireStoreD(firebaseAccountsInformationD);
   }
 
-  CloudFireStoreD _cloudFireStoreNewD;
+  CloudFireStoreD? _cloudFireStoreNewD;
 
   ///  This method get data of field in the dataPath
   Future<String> getAllFieldsInPath(String dataPath) async {
-    return _cloudFireStoreNewD.getData(dataPath);
+    return _cloudFireStoreNewD!.getData(dataPath);
   }
 
   ///  This method get data of field in the dataPath
   Future<String> getFieldInPath(String dataPath, String fieldName) async {
-    return _cloudFireStoreNewD.getFieldInPath(dataPath, fieldName);
+    return _cloudFireStoreNewD!.getFieldInPath(dataPath, fieldName);
   }
 
   ///  For each data change in database document that was passed
   ///  it will return value
-  Stream<Document> listenToChangeOfDocumentInPath(String dataPath) async* {
-    yield* _cloudFireStoreNewD.listenToChangeOfDocumentDataInPath(dataPath);
+  Stream<Document?> listenToChangeOfDocumentInPath(String dataPath) async* {
+    yield* _cloudFireStoreNewD!.listenToChangeOfDocumentDataInPath(dataPath);
   }
 
   Stream<List<Document>> listenToChangeOfCollectionInPath(
       String dataPath) async* {
-    yield* _cloudFireStoreNewD.listenToChangeOfCollectionDataInPath(dataPath);
+    yield* _cloudFireStoreNewD!.listenToChangeOfCollectionDataInPath(dataPath);
   }
 
   String getValueOfLamp(Document document, String keyName) {
@@ -38,18 +38,18 @@ class RemoteDataBaseController {
   }
 
   //  TODO: Write the code
-  Future<String> setData(String dataPath, Object objectToInsert) async {
+  Future<String?> setData(String dataPath, Object objectToInsert) async {
     return null;
   }
 
   Future<String> updateDocument(
       String dataPath, String fieldToUpdate, String valueToUpdate) {
-    return _cloudFireStoreNewD.updateDataInBoolField(
-        dataPath, fieldToUpdate, valueToUpdate);
+    return _cloudFireStoreNewD!
+        .updateDataInBoolField(dataPath, fieldToUpdate, valueToUpdate);
   }
 
   Future<String> updateDocumentWithMap(
       String dataPath, Map<String, String> mapToUpdate) {
-    return _cloudFireStoreNewD.updateDocumentWithMap(dataPath, mapToUpdate);
+    return _cloudFireStoreNewD!.updateDocumentWithMap(dataPath, mapToUpdate);
   }
 }

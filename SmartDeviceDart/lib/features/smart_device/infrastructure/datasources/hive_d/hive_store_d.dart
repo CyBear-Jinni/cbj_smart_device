@@ -8,21 +8,27 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 class HiveStore extends TokenStore {
   HiveStore._internal(this._box);
 
+  static bool hiveInitStarted = false;
   static const String keyToken = 'auth_token';
 
   static Future<HiveStore> create() async {
     String hiveFolderPath;
-    final String snapCommonEnvironmentVariablePath =
+    final String? snapCommonEnvironmentVariablePath =
         await SystemCommandsManager().getSnapCommonEnvironmentVariable();
     if (snapCommonEnvironmentVariablePath == null) {
-      final String currentUserName = await MySingleton.getCurrentUserName();
+      final String? currentUserName = await MySingleton.getCurrentUserName();
       hiveFolderPath = '/home/$currentUserName/Documents/hive';
     } else {
       hiveFolderPath = '$snapCommonEnvironmentVariablePath/hive';
     }
 //    print('Path of hive: ' + hiveFolderPath);
-    Hive.init(hiveFolderPath);
-//     Hive.registerAdapter(TokenAdapter());
+
+    if (!hiveInitStarted) {
+      Hive.init(hiveFolderPath);
+      Hive.registerAdapter(TokenAdapter());
+      hiveInitStarted = true;
+    }
+
     final Box box = await Hive.openBox('auth_store',
         compactionStrategy: (int entries, int deletedEntries) =>
             deletedEntries > 50);
@@ -32,10 +38,10 @@ class HiveStore extends TokenStore {
   final Box _box;
 
   @override
-  Token read() => _box.get(keyToken) as Token;
+  Token? read() => _box.get(keyToken) as Token?;
 
   @override
-  void write(Token token) => _box.put(keyToken, token);
+  void write(Token? token) => _box.put(keyToken, token);
 
   @override
   void delete() => _box.delete(keyToken);

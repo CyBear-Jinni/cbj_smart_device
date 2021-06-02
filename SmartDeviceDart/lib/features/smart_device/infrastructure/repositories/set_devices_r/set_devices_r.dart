@@ -5,13 +5,13 @@ class SetDevicesR {
     _setDevicesD = SetDevicesD();
   }
 
-  SetDevicesD _setDevicesD;
+  SetDevicesD? _setDevicesD;
 
   Future<String> getCurrentDeviceUUid() {
-    return _setDevicesD.getCurrentDeviceUUid();
+    return _setDevicesD!.getCurrentDeviceUUid();
   }
 
-  Future<String> getDeviceDefaultConfig() {
-    return _setDevicesD.getDeviceDefaultConfig();
+  Future<String?> getDeviceDefaultConfig() {
+    return _setDevicesD!.getDeviceDefaultConfig();
   }
 }

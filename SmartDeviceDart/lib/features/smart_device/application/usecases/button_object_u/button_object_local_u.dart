@@ -14,7 +14,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
     try {
       while (true) {
         final int returnValue =
-            await buttonObjectRepository.listenToButtonPress(buttonPinNumber);
+            await buttonObjectRepository!.listenToButtonPress(buttonPinNumber);
 
         if (returnValue < 0) {
           errorCounter++;
@@ -49,7 +49,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
     try {
       while (true) {
         final int returnValue =
-            await buttonObjectRepository.listenToButtonPress(buttonPinNumber);
+            await buttonObjectRepository!.listenToButtonPress(buttonPinNumber);
         print('Boiler button number $buttonPinNumber was pressed');
 
         if (returnValue < 0) {
@@ -100,7 +100,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
       PinInformation secondLightPin,
       int buttonNumber) async {
     while (true) {
-      await buttonObjectRepository
+      await buttonObjectRepository!
           .listenToButtonPress(buttonPinNumber)
           .then((int exitCode) async {
         print('Blind button number $buttonNumber was pressed');

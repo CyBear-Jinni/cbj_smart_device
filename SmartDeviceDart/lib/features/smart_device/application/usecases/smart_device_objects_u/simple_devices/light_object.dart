@@ -2,8 +2,8 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/sma
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 class LightObject extends SmartDeviceSimpleAbstract {
-  LightObject(String uuid, String smartInstanceName, int onOffPinNumber,
-      {int onOffButtonPinNumber})
+  LightObject(String? uuid, String? smartInstanceName, int? onOffPinNumber,
+      {int? onOffButtonPinNumber})
       : super(uuid, smartInstanceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber) {
     setDeviceType(DeviceTypes.light);
@@ -24,7 +24,7 @@ class LightObject extends SmartDeviceSimpleAbstract {
   Future<String> executeActionString(
       String wishString, DeviceStateGRPC deviceState) async {
     final DeviceActions deviceAction =
-        convertWishStringToWishesObject(wishString);
+        convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(deviceAction, deviceState);
   }
 

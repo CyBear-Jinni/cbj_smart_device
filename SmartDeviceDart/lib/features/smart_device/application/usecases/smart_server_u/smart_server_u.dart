@@ -17,7 +17,7 @@ class SmartServerU extends SmartServerServiceBase {
 
   ///  Listening to port and deciding what to do with the response
   void waitForConnection(
-      FirebaseAccountsInformationD firebaseAccountsInformationD) {
+      FirebaseAccountsInformationD? firebaseAccountsInformationD) {
     print('Wait for connection');
 
     final SmartServerU smartServer = SmartServerU();
@@ -28,13 +28,13 @@ class SmartServerU extends SmartServerServiceBase {
 
   ///  Listening in the background to incoming connections
   Future startListen(
-      FirebaseAccountsInformationD firebaseAccountsInformationD) async {
+      FirebaseAccountsInformationD? firebaseAccountsInformationD) async {
     startListenToDb(firebaseAccountsInformationD);
     await startLocalServer();
   }
 
   void startListenToDb(
-      FirebaseAccountsInformationD firebaseAccountInformationD) {
+      FirebaseAccountsInformationD? firebaseAccountInformationD) {
     if (firebaseAccountInformationD == null) {
       print('Database var databaseInformationFromDb is null');
       return;
@@ -56,7 +56,7 @@ class SmartServerU extends SmartServerServiceBase {
 
   @override
   Future<CompInfo> getCompInfo(ServiceCall call, CommendStatus request) async {
-    final String compId = Uuid().v1();
+    final String compId = const Uuid().v1();
     final String compUuid = await MySingletonHelper.getUuid();
     final List<SmartDeviceBaseAbstract> devicesList =
         MySingleton.getSmartDevicesList();
@@ -94,7 +94,7 @@ class SmartServerU extends SmartServerServiceBase {
         senderId: compId,
         deviceTypesActions: deviceTypesActions,
         compSpecs: compSpecs,
-        defaultName: element.deviceInformation.getName(),
+        defaultName: element.deviceInformation!.getName(),
       );
       smartDeviceInfoList.add(smartDeviceInfo);
     });
@@ -123,7 +123,7 @@ class SmartServerU extends SmartServerServiceBase {
     print(
         'Updating device name:${request.smartDevice.id} into: ${request.newName}');
     final SmartDeviceBaseAbstract smartDevice =
-        getSmartDeviceBaseAbstract(request.smartDevice);
+        getSmartDeviceBaseAbstract(request.smartDevice)!;
     smartDevice.id = request.newName;
     final CommendStatus commendStatus = CommendStatus();
     commendStatus.success = true;
@@ -171,14 +171,14 @@ class SmartServerU extends SmartServerServiceBase {
     return executeDeviceActionServer(request, DeviceActions.stop, _deviceState);
   }
 
-  SmartDeviceBaseAbstract getSmartDeviceBaseAbstract(SmartDeviceInfo request) {
+  SmartDeviceBaseAbstract? getSmartDeviceBaseAbstract(SmartDeviceInfo request) {
     try {
       return MySingleton.getSmartDevicesList().firstWhere(
           (smartDeviceBaseAbstractO) =>
               smartDeviceBaseAbstractO.id == request.id);
     } catch (exception) {
       print('Exception, device name ${request.id} could not be found:'
-          ' ${exception.message}');
+          ' ${exception.toString()}');
       return null;
     }
   }
@@ -186,7 +186,7 @@ class SmartServerU extends SmartServerServiceBase {
   CommendStatus executeDeviceActionServer(SmartDeviceInfo request,
       DeviceActions deviceAction, DeviceStateGRPC _deviceState) {
     final SmartDeviceBaseAbstract smartDevice =
-        getSmartDeviceBaseAbstract(request);
+        getSmartDeviceBaseAbstract(request)!;
     if (smartDevice == null) {
       return CommendStatus()..success = false;
     }
@@ -198,7 +198,7 @@ class SmartServerU extends SmartServerServiceBase {
   Future<String> executeDeviceActionString(SmartDeviceInfo request,
       DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
     final SmartDeviceBaseAbstract smartDevice =
-        getSmartDeviceBaseAbstract(request);
+        getSmartDeviceBaseAbstract(request)!;
     if (smartDevice == null) {
       return 'SmartDevice is null in execute DeviceActions String';
     }
@@ -235,7 +235,9 @@ class SmartServerU extends SmartServerServiceBase {
       if (commendStatusSetComp.success && commendStatusSetFirebase.success) {
         return CommendStatus()..success = true;
       }
-    } catch (e) {}
+    } catch (e) {
+      print('Error first setup');
+    }
 
     return CommendStatus()..success = false;
   }
@@ -249,7 +251,7 @@ class SmartServerU extends SmartServerServiceBase {
         for (final SmartDeviceInfo smartDeviceInfo
             in compInfo.smartDevicesInComp) {
           if (smartDevice.id == smartDeviceInfo.id) {
-            smartDevice.deviceInformation.setName(smartDeviceInfo.defaultName);
+            smartDevice.deviceInformation!.setName(smartDeviceInfo.defaultName);
             break;
           }
         }
@@ -288,7 +290,7 @@ class SmartServerU extends SmartServerServiceBase {
           };
 
           final String createDeviceInHomeSuccess = await cloudValueChangeU
-              .updateDeviceDocumentWithMap(device.id, dataToChange);
+              .updateDeviceDocumentWithMap(device.id!, dataToChange);
           if (createDeviceInHomeSuccess.toLowerCase().contains('error')) {
             return CommendStatus()..success = false;
           }

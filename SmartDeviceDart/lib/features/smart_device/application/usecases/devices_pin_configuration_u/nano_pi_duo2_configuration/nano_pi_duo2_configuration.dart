@@ -351,21 +351,21 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
   List<int> freeGpioPinsToUseFirst = <int>[8, 10, 12, 14];
 
   @override
-  PinInformation getNextFreeGpioPin({List<PinInformation> ignorePinsList}) {
+  PinInformation getNextFreeGpioPin({List<PinInformation?>? ignorePinsList}) {
     for (final int pinNumber in freeGpioPinsToUseFirst) {
       final PinInformation tempPinInformation =
           PinInformation(pinAndPhysicalPinConfiguration: pinNumber);
 
       final PinInformation pinInformationExistInList =
-          doesPinExistInPinList(tempPinInformation, pinList);
+          doesPinExistInPinList(tempPinInformation, pinList!)!;
 
       if (pinInformationExistInList != null &&
           isGpioPinFree(pinNumber) >= 0 &&
-          doesPinExistInPinList(pinInformationExistInList, ignorePinsList) ==
+          doesPinExistInPinList(pinInformationExistInList, ignorePinsList!) ==
               null) {
         return pinInformationExistInList;
       }
     }
-    return getNextFreeGpioPinHelper(pinList, ignorePinsList: ignorePinsList);
+    return getNextFreeGpioPinHelper(pinList!, ignorePinsList: ignorePinsList!)!;
   }
 }

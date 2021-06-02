@@ -7,9 +7,9 @@ abstract class SystemCommandsBaseClassD {
 
   Future<String> getAllEtcReleaseFilesText();
 
-  Future<String> getFileContent(fileFullPath);
+  Future<String?> getFileContent(fileFullPath);
 
-  Future<String> getDeviceConfiguration();
+  Future<String?> getDeviceConfiguration();
 
 // TODO: Need to find a way in dart to get os environment variable
 // /// Get Snap location environment variable "SNAP"

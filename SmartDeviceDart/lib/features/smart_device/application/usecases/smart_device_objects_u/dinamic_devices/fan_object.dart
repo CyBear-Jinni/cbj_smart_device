@@ -2,7 +2,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/sma
 
 class FanObject extends SmartDeviceDynamicAbstract {
   FanObject(String uuid, String smartInstanceName, int onOffPinNumber,
-      {int onOffButtonPinNumber})
+      {int? onOffButtonPinNumber})
       : super(uuid, smartInstanceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber);
 }

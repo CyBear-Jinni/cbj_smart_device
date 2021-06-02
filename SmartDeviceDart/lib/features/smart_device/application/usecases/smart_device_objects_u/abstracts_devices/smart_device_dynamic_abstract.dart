@@ -7,18 +7,18 @@ import 'smart_device_simple_abstract.dart';
 abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
   SmartDeviceDynamicAbstract(
       String uuid, String smartInstanceName, int onOffPinNumber,
-      {int onOffButtonPinNumber})
+      {int? onOffButtonPinNumber})
       : super(uuid, smartInstanceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber);
 
   ///  Save how much power to do for action
-  double dynamicValue;
+  double? dynamicValue;
 
   @override
   Future<String> executeActionString(
       String wishString, DeviceStateGRPC deviceState) async {
     final DeviceActions deviceAction =
-        convertWishStringToWishesObject(wishString);
+        convertWishStringToWishesObject(wishString)!;
     if (deviceAction == null) return 'Your deviceAction does not exist on ';
     return executeDeviceAction(deviceAction, deviceState);
   }
@@ -34,7 +34,7 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
     if (deviceInformation == null) {
       return 'Device information is missing, cant set dynamic value';
     }
-    return DynamicWishU.setDynamic(deviceInformation);
+    return DynamicWishU.setDynamic(deviceInformation!);
   }
 
   ///  Change dynamic value with open connection
@@ -42,7 +42,7 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
     if (deviceInformation == null) {
       return 'Device information is missing, cant create open connection with dynamic';
     }
-    DynamicWishU.openDynamic(deviceInformation);
+    DynamicWishU.openDynamic(deviceInformation!);
     onOff = false;
     return 'Turn on successfully';
   }

@@ -6,9 +6,9 @@ class WishClassesE {
     _wishClassesR = WishClassesR();
   }
 
-  WishClassesR _wishClassesR;
+  WishClassesR? _wishClassesR;
 
-  Future<String> pinOff(PinInformation pinNumber) {
-    return _wishClassesR.pinOff(pinNumber);
+  Future<String> pinOff(PinInformation? pinNumber) {
+    return _wishClassesR!.pinOff(pinNumber);
   }
 }

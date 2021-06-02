@@ -14,8 +14,8 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/repositor
 ///  The super base class of all the smart device class and
 ///  smart device abstract classes
 abstract class SmartDeviceBaseAbstract {
-  SmartDeviceBaseAbstract(this.id, int onOffPinNumber,
-      {int onOffButtonPinNumber}) {
+  SmartDeviceBaseAbstract(this.id, int? onOffPinNumber,
+      {int? onOffButtonPinNumber}) {
     onOffPin =
         onOffPinNumber == null ? null : addPinToGpioPinList(onOffPinNumber);
 
@@ -31,64 +31,64 @@ abstract class SmartDeviceBaseAbstract {
   }
 
   ///  Save data about the device, remote or local IP or pin number
-  DeviceInformation deviceInformation =
+  DeviceInformation? deviceInformation =
       LocalDevice('This is the mac Address', '');
 
   ///  Unique id of the device
-  String id;
+  String? id;
 
   ///  Mac addresses of the physical device
-  String uuid;
+  String? uuid;
 
   ///  Permissions of all the users to this device
-  Map<String, PermissionsManager> devicePermissions;
+  Map<String, PermissionsManager>? devicePermissions;
 
   ///  Power consumption of the device
-  double watts;
+  double? watts;
 
   ///  How much time the computer is on since last boot
-  DateTime computerActiveTime;
+  DateTime? computerActiveTime;
 
   ///  How much time the smart device was active (Doing action) total
-  DateTime activeTimeTotal;
+  DateTime? activeTimeTotal;
 
   ///  Log of all the actions the device was and will do
-  Map<DateTime, Function> activitiesLog;
+  Map<DateTime, Function>? activitiesLog;
 
   ///  Save the device state on = true, off = false of onOffPin
   bool onOff = false;
 
   ///  Number of on or off pin
-  PinInformation onOffPin;
+  PinInformation? onOffPin;
 
   ///  Pin for the button that control the onOffPin
-  PinInformation onOffButtonPin;
+  PinInformation? onOffButtonPin;
 
   ///  Save all the gpio pins that this instance is using
   final List<PinInformation> _gpioPinList = <PinInformation>[];
 
   /// Instance to interact with the cloud
-  CloudValueChangeU cloudValueChangeU;
+  CloudValueChangeU? cloudValueChangeU;
 
   ///  The type of the smart device Light blinds etc
-  DeviceTypes smartDeviceType;
+  DeviceTypes? smartDeviceType;
 
   /// Get a list of the pins Types that this device need
-  List<String> getNeededPinTypesList() => null;
+  List<String>? getNeededPinTypesList() => null;
 
   //  Getters
 
   ///  Get smart device type
-  DeviceTypes getDeviceType() => smartDeviceType;
+  DeviceTypes? getDeviceType() => smartDeviceType;
 
   /// Returning the non abstract of this object
   Type getTheNonAbstractObjectOfThisInstance() {
     return EnumHelper.getTheNonAbstractObjectOfSmartDeviceBaseAbstract(
-        this, getDeviceType());
+        this, getDeviceType()!);
   }
 
   /// Getting the saved IP of this object
-  Future<String> getIp() async {
+  Future<String?> getIp() async {
     return getIps();
   }
 
@@ -106,21 +106,21 @@ abstract class SmartDeviceBaseAbstract {
   //  Setters
 
   ///  Turn on the device basic action
-  String _SetOn(PinInformation pinNumber) {
+  String _SetOn(PinInformation? pinNumber) {
 //    if (deviceInformation == null) {
 //      return 'Device information is missing, can't turn on';
 //    }
-    OnWishU.setOn(deviceInformation, pinNumber);
+    OnWishU.setOn(deviceInformation!, pinNumber);
     onOff = true;
     return 'Turn on successfully';
   }
 
   ///  Turn off the device basic action
-  String _SetOff(PinInformation pinNumber) {
+  String _SetOff(PinInformation? pinNumber) {
 //    if (deviceInformation == null) {
 //      return 'Device information is missing, can't turn off';
 //    }
-    OffWishU.setOff(deviceInformation, pinNumber);
+    OffWishU.setOff(deviceInformation!, pinNumber);
     onOff = false;
     return 'Turn off successfully';
   }
@@ -128,17 +128,18 @@ abstract class SmartDeviceBaseAbstract {
   void setDeviceType(DeviceTypes deviceType) => smartDeviceType = deviceType;
 
   ///  Turn device pin to the opposite state
-  String _SetChangeOppositeToState(PinInformation pinNumber) {
+  String _SetChangeOppositeToState(PinInformation? pinNumber) {
     return onOff ? _SetOff(onOffPin) : _SetOn(onOffPin);
   }
 
   //  More functions
 
   ///  Add gpio pin for this device
-  PinInformation addPinToGpioPinList(int pinNumber) {
+  PinInformation? addPinToGpioPinList(int pinNumber) {
     //  Check if pin is free to be taken,
     //  if not return negative number with error number
-    final PinInformation gpioPin = DevicePinListManager().getGpioPin(pinNumber);
+    final PinInformation gpioPin =
+        DevicePinListManager().getGpioPin(pinNumber)!;
     if (gpioPin == null) {
       return null;
     }
@@ -148,7 +149,7 @@ abstract class SmartDeviceBaseAbstract {
 
   ///  Return PossibleWishes object if
   ///  string wish exist (in general) else return null
-  DeviceActions convertWishStringToWishesObject(String wish) {
+  DeviceActions? convertWishStringToWishesObject(String wish) {
     for (final DeviceActions possibleAction in DeviceActions.values) {
       print('Wish value ${EnumHelper.deviceActionToString(possibleAction)}');
       if (EnumHelper.deviceActionToString(possibleAction) == wish) {
@@ -162,7 +163,7 @@ abstract class SmartDeviceBaseAbstract {
   ///  this wish and if true than execute it
   Future<String> executeActionString(
       String wishString, DeviceStateGRPC deviceState) async {
-    final DeviceActions action = convertWishStringToWishesObject(wishString);
+    final DeviceActions action = convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(action, deviceState);
   }
 
@@ -215,21 +216,21 @@ abstract class SmartDeviceBaseAbstract {
             'action': DeviceActions.on.toString(),
             'state': DeviceStateGRPC.ack.toString()
           };
-          updateDeviceDocumentWithMap(id, mapToUpdate);
+          updateDeviceDocumentWithMap(id!, mapToUpdate);
         } else if (action == DeviceActions.off) {
           final Map<String, String> mapToUpdate = {
             'action': DeviceActions.off.toString(),
             'state': DeviceStateGRPC.ack.toString()
           };
-          updateDeviceDocumentWithMap(id, mapToUpdate);
+          updateDeviceDocumentWithMap(id!, mapToUpdate);
         }
       } else if (deviceState == DeviceStateGRPC.ack) {
       } else {
         updateDeviceDocumentCloudValue(
-            id, 'state', DeviceStateGRPC.ack.toString());
+            id!, 'state', DeviceStateGRPC.ack.toString());
       }
     } else {
-      updateDeviceDocumentCloudValue(id, 'stateMassage', executionMassage);
+      updateDeviceDocumentCloudValue(id!, 'stateMassage', executionMassage);
     }
 
     return executionMassage;
@@ -239,8 +240,8 @@ abstract class SmartDeviceBaseAbstract {
       String deviceId, String fieldToUpdate, String valueToUpdate) {
     cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
     if (cloudValueChangeU != null) {
-      cloudValueChangeU.updateDeviceDocument(
-          deviceId, fieldToUpdate, valueToUpdate);
+      cloudValueChangeU!
+          .updateDeviceDocument(deviceId, fieldToUpdate, valueToUpdate);
     }
   }
 
@@ -248,7 +249,7 @@ abstract class SmartDeviceBaseAbstract {
       String deviceId, Map<String, String> mapToUpdate) {
     cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
     if (cloudValueChangeU != null) {
-      cloudValueChangeU.updateDeviceDocumentWithMap(deviceId, mapToUpdate);
+      cloudValueChangeU!.updateDeviceDocumentWithMap(deviceId, mapToUpdate);
     }
   }
 
@@ -256,12 +257,13 @@ abstract class SmartDeviceBaseAbstract {
       String fieldToUpdate, String valueToUpdate) {
     cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
     if (cloudValueChangeU != null) {
-      cloudValueChangeU.updateDeviceDocument(id, fieldToUpdate, valueToUpdate);
+      cloudValueChangeU!
+          .updateDeviceDocument(id!, fieldToUpdate, valueToUpdate);
     }
   }
 
   ///  Listen to button press
   Future<void> listenToButtonPressed() async {
-    ButtonObjectLocalU().buttonPressed(this, onOffButtonPin, onOffPin);
+    ButtonObjectLocalU().buttonPressed(this, onOffButtonPin!, onOffPin!);
   }
 }
