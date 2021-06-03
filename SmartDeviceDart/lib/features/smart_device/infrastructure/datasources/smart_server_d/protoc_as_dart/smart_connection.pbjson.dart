@@ -16,11 +16,12 @@ const DeviceTypes$json = const {
     const {'1': 'light', '2': 1},
     const {'1': 'blinds', '2': 2},
     const {'1': 'boiler', '2': 3},
+    const {'1': 'button', '2': 4},
   ],
 };
 
 /// Descriptor for `DeviceTypes`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List deviceTypesDescriptor = $convert.base64Decode('CgtEZXZpY2VUeXBlcxIUChB0eXBlTm90U3VwcG9ydGVkEAASCQoFbGlnaHQQARIKCgZibGluZHMQAhIKCgZib2lsZXIQAw==');
+final $typed_data.Uint8List deviceTypesDescriptor = $convert.base64Decode('CgtEZXZpY2VUeXBlcxIUChB0eXBlTm90U3VwcG9ydGVkEAASCQoFbGlnaHQQARIKCgZibGluZHMQAhIKCgZib2lsZXIQAxIKCgZidXR0b24QBA==');
 @$core.Deprecated('Use deviceActionsDescriptor instead')
 const DeviceActions$json = const {
   '1': 'DeviceActions',
@@ -28,14 +29,17 @@ const DeviceActions$json = const {
     const {'1': 'actionNotSupported', '2': 0},
     const {'1': 'on', '2': 1},
     const {'1': 'off', '2': 2},
-    const {'1': 'moveUP', '2': 3},
+    const {'1': 'moveUp', '2': 3},
     const {'1': 'stop', '2': 4},
     const {'1': 'moveDown', '2': 5},
+    const {'1': 'pressed', '2': 6},
+    const {'1': 'longPress', '2': 7},
+    const {'1': 'doubleTap', '2': 8},
   ],
 };
 
 /// Descriptor for `DeviceActions`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List deviceActionsDescriptor = $convert.base64Decode('Cg1EZXZpY2VBY3Rpb25zEhYKEmFjdGlvbk5vdFN1cHBvcnRlZBAAEgYKAm9uEAESBwoDb2ZmEAISCgoGbW92ZVVQEAMSCAoEc3RvcBAEEgwKCG1vdmVEb3duEAU=');
+final $typed_data.Uint8List deviceActionsDescriptor = $convert.base64Decode('Cg1EZXZpY2VBY3Rpb25zEhYKEmFjdGlvbk5vdFN1cHBvcnRlZBAAEgYKAm9uEAESBwoDb2ZmEAISCgoGbW92ZVVwEAMSCAoEc3RvcBAEEgwKCG1vdmVEb3duEAUSCwoHcHJlc3NlZBAGEg0KCWxvbmdQcmVzcxAHEg0KCWRvdWJsZVRhcBAI');
 @$core.Deprecated('Use deviceStateGRPCDescriptor instead')
 const DeviceStateGRPC$json = const {
   '1': 'DeviceStateGRPC',
