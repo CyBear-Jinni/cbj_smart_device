@@ -63,7 +63,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     String? wishExecuteResult;
 
     if (deviceAction == null) return 'Your wish does not exist in blinds class';
-    if (deviceAction == DeviceActions.moveUP) {
+    if (deviceAction == DeviceActions.moveUp) {
       wishExecuteResult = await BlindsWishU.BlindsUp(this);
     }
     if (deviceAction == DeviceActions.moveDown) {

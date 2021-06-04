@@ -25,7 +25,7 @@ abstract class ButtonObjectLocalAbstract {
       PinInformation secondButtonPinNumber,
       PinInformation secondLightPin);
 
-  void listenToButtonPressAndCangeBlindStateAccordingly(
+  void listenToButtonPressAndChangeBlindStateAccordingly(
       BlindsObject blindsObject,
       PinInformation buttonPinNumber,
       PinInformation firstLightPin,

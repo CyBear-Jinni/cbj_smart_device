@@ -48,17 +48,17 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
 
   ///  All the wishes that are legit to execute from the blinds class
   Future<String> wishInBoilerClass(
-      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
+      DeviceActions? deviceAction, DeviceStateGRPC deviceState) async {
     String? wishExecuteResult;
 
     if (deviceAction == null) {
       return 'Your wish does not exist in boiler class';
     }
     if (deviceAction == DeviceActions.on) {
-      wishExecuteResult = OnWishU.setOn(deviceInformation!, boilerPin);
+      wishExecuteResult = OnWishU.setOn(deviceInformation, boilerPin);
     }
     if (deviceAction == DeviceActions.off) {
-      wishExecuteResult = OffWishU.setOff(deviceInformation!, boilerPin);
+      wishExecuteResult = OffWishU.setOff(deviceInformation, boilerPin);
     }
 
     if (wishExecuteResult != null) {

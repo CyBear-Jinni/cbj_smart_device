@@ -31,7 +31,7 @@ abstract class SmartDeviceBaseAbstract {
   }
 
   ///  Save data about the device, remote or local IP or pin number
-  DeviceInformation? deviceInformation =
+  DeviceInformation deviceInformation =
       LocalDevice('This is the mac Address', '');
 
   ///  Unique id of the device
@@ -110,7 +110,7 @@ abstract class SmartDeviceBaseAbstract {
 //    if (deviceInformation == null) {
 //      return 'Device information is missing, can't turn on';
 //    }
-    OnWishU.setOn(deviceInformation!, pinNumber);
+    OnWishU.setOn(deviceInformation, pinNumber);
     onOff = true;
     return 'Turn on successfully';
   }
@@ -120,7 +120,7 @@ abstract class SmartDeviceBaseAbstract {
 //    if (deviceInformation == null) {
 //      return 'Device information is missing, can't turn off';
 //    }
-    OffWishU.setOff(deviceInformation!, pinNumber);
+    OffWishU.setOff(deviceInformation, pinNumber);
     onOff = false;
     return 'Turn off successfully';
   }

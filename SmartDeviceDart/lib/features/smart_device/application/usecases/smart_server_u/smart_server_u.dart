@@ -151,7 +151,7 @@ class SmartServerU extends SmartServerServiceBase {
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn blinds ${request.id} up');
     return executeDeviceActionServer(
-        request, DeviceActions.moveUP, _deviceState);
+        request, DeviceActions.moveUp, _deviceState);
   }
 
   @override
@@ -197,8 +197,8 @@ class SmartServerU extends SmartServerServiceBase {
 
   Future<String> executeDeviceActionString(SmartDeviceInfo request,
       DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
-    final SmartDeviceBaseAbstract smartDevice =
-        getSmartDeviceBaseAbstract(request)!;
+    final SmartDeviceBaseAbstract? smartDevice =
+        getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
       return 'SmartDevice is null in execute DeviceActions String';
     }
