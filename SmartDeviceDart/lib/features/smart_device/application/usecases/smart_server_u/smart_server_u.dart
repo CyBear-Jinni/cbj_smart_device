@@ -94,7 +94,7 @@ class SmartServerU extends SmartServerServiceBase {
         senderId: compId,
         deviceTypesActions: deviceTypesActions,
         compSpecs: compSpecs,
-        defaultName: element.deviceInformation!.getName(),
+        defaultName: element.deviceInformation.getName(),
       );
       smartDeviceInfoList.add(smartDeviceInfo);
     });
@@ -251,7 +251,7 @@ class SmartServerU extends SmartServerServiceBase {
         for (final SmartDeviceInfo smartDeviceInfo
             in compInfo.smartDevicesInComp) {
           if (smartDevice.id == smartDeviceInfo.id) {
-            smartDevice.deviceInformation!.setName(smartDeviceInfo.defaultName);
+            smartDevice.deviceInformation.setName(smartDeviceInfo.defaultName);
             break;
           }
         }
