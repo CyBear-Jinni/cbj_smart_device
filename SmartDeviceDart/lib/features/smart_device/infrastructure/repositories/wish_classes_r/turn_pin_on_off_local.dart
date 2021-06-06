@@ -37,7 +37,7 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
       });
     } catch (error) {
       print('Path/argument 1 is not specified');
-      print('error: ' + error.toString());
+      print('error: $error');
       return 'Path/argument 1 is not specified';
     }
   }

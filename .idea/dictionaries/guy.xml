@@ -1,9 +1,11 @@
 <component name="ProjectDictionaryState">
   <dictionary name="guy">
     <words>
+      <w>datasources</w>
       <w>gpio</w>
       <w>grpc</w>
       <w>jinni</w>
+      <w>usecases</w>
     </words>
   </dictionary>
 </component>

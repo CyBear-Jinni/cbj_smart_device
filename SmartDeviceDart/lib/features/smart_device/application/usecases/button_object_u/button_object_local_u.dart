@@ -85,15 +85,15 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
       PinInformation firstBlindsPin,
       PinInformation secondButtonPinNumber,
       PinInformation secondBlindsPin) async {
-    listenToButtonPressAndCangeBlindStateAccordingly(
+    listenToButtonPressAndChangeBlindStateAccordingly(
         smartDevice, firstButtonPinNumber, firstBlindsPin, secondBlindsPin, 1);
 
-    listenToButtonPressAndCangeBlindStateAccordingly(
+    listenToButtonPressAndChangeBlindStateAccordingly(
         smartDevice, secondButtonPinNumber, firstBlindsPin, secondBlindsPin, 2);
   }
 
   @override
-  void listenToButtonPressAndCangeBlindStateAccordingly(
+  void listenToButtonPressAndChangeBlindStateAccordingly(
       BlindsObject blindsObject,
       PinInformation buttonPinNumber,
       PinInformation firstLightPin,
@@ -123,7 +123,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
           DeviceActions.stop, DeviceStateGRPC.waitingInComp);
     } else if (buttonPressNumber == 1) {
       await blindsObject.executeDeviceAction(
-          DeviceActions.moveUP, DeviceStateGRPC.waitingInComp);
+          DeviceActions.moveUp, DeviceStateGRPC.waitingInComp);
     } else if (buttonPressNumber == 2) {
       await blindsObject.executeDeviceAction(
           DeviceActions.moveDown, DeviceStateGRPC.waitingInComp);
