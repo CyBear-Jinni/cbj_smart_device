@@ -99,11 +99,11 @@ class SetDevicesE {
 
         final int deviceTypeCounter =
             numberOfThatTypeThatExist(deviceList, DeviceTypes.boiler);
-        deviceList.add(BoilerObject(
+
+        smartDeviceBaseAbstractList.add(BoilerObject(
             uuid, 'Boiler$deviceTypeCounter', boilerPinNumber, buttonPinNumber)
           ..id = id);
-        smartDeviceBaseAbstractList
-            .add(deviceList.last as SmartDeviceBaseAbstract);
+        deviceList.add(smartDeviceBaseAbstractList.last);
       }
 
       /// Setting up for Blinds
@@ -126,7 +126,8 @@ class SetDevicesE {
 
         final int deviceTypeCounter =
             numberOfThatTypeThatExist(deviceList, DeviceTypes.blinds);
-        deviceList.add(
+
+        smartDeviceBaseAbstractList.add(
           BlindsObject(
               uuid,
               'Blinds$deviceTypeCounter',
@@ -144,6 +145,7 @@ class SetDevicesE {
               )
             ..id = id,
         );
+        deviceList.add(smartDeviceBaseAbstractList.last);
       }
 
       /// Setting up Button With Light
@@ -179,10 +181,10 @@ class SetDevicesE {
               ' support this type');
         }
 
-        deviceList.add(ButtonWithLightObject(buttonPin, buttonLightPin,
+        buttonsList.add(ButtonWithLightObject(buttonPin, buttonLightPin,
             buttonStatesAction: buttonStatesAction));
 
-        buttonsList.add(deviceList.last);
+        deviceList.add(buttonsList.last);
       }
     }
     if (deviceList.isEmpty) {
