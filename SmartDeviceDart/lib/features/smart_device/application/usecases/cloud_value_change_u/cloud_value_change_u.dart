@@ -74,7 +74,7 @@ class CloudValueChangeU {
 
     listenToCollectionChange();
 
-    Timer.periodic(const Duration(minutes: 1), (Timer t) {
+    Timer.periodic(const Duration(hours: 4), (Timer t) {
       listenToCollectionChange();
     });
   }
