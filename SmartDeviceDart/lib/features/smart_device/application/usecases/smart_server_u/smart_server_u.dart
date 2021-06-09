@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:grpc/grpc.dart';
 import 'package:smart_device_dart/core/my_singleton.dart';
@@ -301,10 +302,17 @@ class SmartServerU extends SmartServerServiceBase {
       localDbE.saveListOfDatabaseInformation(firebaseAccountsInformationD);
 
       startListenToDb(firebaseAccountsInformationD);
-
+      exitTheApp();
       return CommendStatus()..success = true;
     } catch (e) {
       return CommendStatus()..success = false;
     }
+  }
+
+  Future<void> exitTheApp() async {
+    const int secondsToExistTheProgram = 15;
+    print('$secondsToExistTheProgram seconds to exit the program');
+    await Future.delayed(const Duration(seconds: secondsToExistTheProgram));
+    exit(0);
   }
 }
