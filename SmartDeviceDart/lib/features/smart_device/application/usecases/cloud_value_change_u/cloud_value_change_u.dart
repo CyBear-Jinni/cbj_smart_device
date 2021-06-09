@@ -19,6 +19,7 @@ class CloudValueChangeU {
 
   static CloudValueChangeU? _cloudValueChangeU;
   CloudValueChangeE? _cloudValueChangeEntity;
+  StreamSubscription<dynamic>? collectionsStream;
 
   void setNewFirebaseAccounInfo(
       FirebaseAccountsInformationD firebaseAccountsInformationD) {
@@ -72,10 +73,16 @@ class CloudValueChangeU {
     }
 
     listenToCollectionChange();
+
+    Timer.periodic(const Duration(minutes: 1), (Timer t) {
+      listenToCollectionChange();
+    });
   }
 
   Future<void> listenToCollectionChange() async {
-    _cloudValueChangeEntity!
+    await collectionsStream?.cancel();
+
+    collectionsStream = _cloudValueChangeEntity!
         .listenToCollectionDataBase()
         .listen((List<Document> documentList) {
       print('Change detected in Firestore');
@@ -94,46 +101,6 @@ class CloudValueChangeU {
             }
           }
         });
-      });
-
-      devicesNamesThatValueChanged.forEach(
-          (SmartDeviceBaseAbstract smartDeviceBaseAbstract, String value) {
-        print('FireBase "${smartDeviceBaseAbstract.id}" have different value,'
-            ' will now change to $value');
-        DeviceActions deviceAction;
-
-        if (value == DeviceActions.on.toString()) {
-          deviceAction = DeviceActions.on;
-        } else if (value == DeviceActions.off.toString()) {
-          deviceAction = DeviceActions.off;
-        } else {
-          deviceAction = EnumHelper.stringToDeviceActions(value)!;
-        }
-
-        ActionsToPreformU.executeDeviceAction(smartDeviceBaseAbstract,
-            deviceAction, DeviceStateGRPC.waitingInFirebase);
-      });
-    });
-  }
-
-  Future<void> listenToDocumentChange() async {
-    _cloudValueChangeEntity!
-        .listenToDocumentDataBase()
-        .listen((Document? document) {
-      final Document firestoreDocument = document!;
-      print('Change detected to Document Firestore');
-
-      final Map<SmartDeviceBaseAbstract, String> devicesNamesThatValueChanged =
-          <SmartDeviceBaseAbstract, String>{};
-
-      MySingleton.getSmartDevicesList()
-          .forEach((SmartDeviceBaseAbstract element) {
-        if (firestoreDocument.map.containsKey(element.id)) {
-          if (element.getDeviceState() != firestoreDocument.map[element.id]) {
-            devicesNamesThatValueChanged[element] =
-                firestoreDocument.map[element.id].toString();
-          }
-        }
       });
 
       devicesNamesThatValueChanged.forEach(
