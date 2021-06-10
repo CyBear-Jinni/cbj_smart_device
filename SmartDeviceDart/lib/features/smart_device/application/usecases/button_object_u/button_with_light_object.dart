@@ -1,4 +1,3 @@
-import 'package:smart_device_dart/core/device_information.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
@@ -12,8 +11,10 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/repositor
 class ButtonWithLightObject extends ButtonObject {
   ButtonWithLightObject(
       String? id, String? deviceName, int? buttonPinInt, int? buttonLightInt,
-      {this.buttonStatesAction})
-      : super(id, deviceName, buttonPinInt) {
+      {Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+          buttonStatesAction})
+      : super(id, deviceName, buttonPinInt,
+            buttonStatesAction: buttonStatesAction) {
     buttonLight = DevicePinListManager().getGpioPin(buttonLightInt);
 
     buttonObjectRepository = ButtonObjectR();
@@ -25,30 +26,11 @@ class ButtonWithLightObject extends ButtonObject {
   @override
   DeviceTypes? smartDeviceType = DeviceTypes.buttonWithLight;
 
-  /// The button will save list of states like on, off, long press, double tap.
-  /// For each button press state we save the smart object and the actions that
-  /// we want to preform on it.
-  Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
-      buttonStatesAction;
-
   /// The light pin around the button.
   PinInformation? buttonLight;
 
-  /// First press of the button or the second one
-  int pressStateCounter = 0;
-
-  /// Save current state of button press
-  WhenToExecute currentButtonPressState = WhenToExecute.undefined;
-
-  /// Class to interact with simple button.
-  ButtonObjectR? buttonObjectRepository;
-
   /// Will determine when to light the button light
   WhenToExecute whenToLightButtonLight = WhenToExecute.onOddNumberPress;
-
-  ///  Save data about the device, remote or local IP or pin number
-  DeviceInformation deviceInformation =
-      LocalDevice('This is the mac Address', '');
 
   /// Number of pins and the types needed
   @override
@@ -57,6 +39,7 @@ class ButtonWithLightObject extends ButtonObject {
   static List<String> neededPinTypesList() => <String>['gpio', 'gpio'];
 
   /// Listen to the button press and execute actions from buttonStateActions
+  @override
   Future<void> listenToButtonPress() async {
     if (buttonPin == null) {
       return;

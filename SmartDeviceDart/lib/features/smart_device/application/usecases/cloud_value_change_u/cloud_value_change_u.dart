@@ -93,10 +93,9 @@ class CloudValueChangeU {
       documentList.forEach((Document document) {
         MySingleton.getSmartDevicesList()
             .forEach((SmartDeviceBaseAbstract element) {
-          if (element.runtimeType != SmartDeviceBase) {
+          if (element is! SmartDeviceBase) {
             return;
           }
-          element = element as SmartDeviceBase;
           if (document.id == element.id) {
             if (document.map['state'].toString() !=
                 DeviceStateGRPC.ack.toString()) {

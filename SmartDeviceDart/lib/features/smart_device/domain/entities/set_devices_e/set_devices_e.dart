@@ -154,27 +154,9 @@ class SetDevicesE {
         final int deviceTypeCounter = numberOfThatTypeThatExist(
             smartDeviceBaseAbstractList, DeviceTypes.button);
 
-        Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
-            buttonStatesAction;
-
-        if (smartDeviceBaseAbstractList.last.smartDeviceType ==
-            DeviceTypes.light) {
-          if (smartDeviceBaseAbstractList.last is SmartDeviceBase) {
-            final SmartDeviceBase smartDeviceBaseTemp =
-                smartDeviceBaseAbstractList.last as SmartDeviceBase;
-            buttonStatesAction = {
-              WhenToExecute.onOddNumberPress: {
-                smartDeviceBaseTemp: [DeviceActions.on]
-              },
-              WhenToExecute.evenNumberPress: {
-                smartDeviceBaseTemp: [DeviceActions.off]
-              },
-            };
-          }
-        } else {
-          print('Button with light will not work, last object does not'
-              ' support this type');
-        }
+        final Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+            buttonStatesAction =
+            ButtonObject.buttonDefaultStateAction(smartDeviceBaseAbstractList);
 
         smartDeviceBaseAbstractList.add(ButtonObject(
             uuid, 'Button $deviceTypeCounter', buttonPin,
@@ -196,27 +178,9 @@ class SetDevicesE {
         final int deviceTypeCounter = numberOfThatTypeThatExist(
             smartDeviceBaseAbstractList, DeviceTypes.buttonWithLight);
 
-        Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
-            buttonStatesAction;
-
-        if (smartDeviceBaseAbstractList.last.smartDeviceType ==
-            DeviceTypes.light) {
-          if (smartDeviceBaseAbstractList.last is SmartDeviceBase) {
-            final SmartDeviceBase smartDeviceBaseTemp =
-                smartDeviceBaseAbstractList.last as SmartDeviceBase;
-            buttonStatesAction = {
-              WhenToExecute.onOddNumberPress: {
-                smartDeviceBaseTemp: [DeviceActions.on]
-              },
-              WhenToExecute.evenNumberPress: {
-                smartDeviceBaseTemp: [DeviceActions.off]
-              },
-            };
-          }
-        } else {
-          print('Button with light will not work, last object does not'
-              ' support this type');
-        }
+        final Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+            buttonStatesAction =
+            ButtonObject.buttonDefaultStateAction(smartDeviceBaseAbstractList);
 
         smartDeviceBaseAbstractList.add(ButtonWithLightObject(uuid,
             'Button With Light $deviceTypeCounter', buttonPin, buttonLightPin,

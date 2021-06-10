@@ -1,4 +1,7 @@
 import 'package:smart_device_dart/core/my_singleton.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/button_with_light_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/simple_button_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
@@ -25,8 +28,8 @@ class LocalDbR {
     if (deviceListMap == null) {
       return null;
     }
-    for (final String deviceName in deviceListMap.keys) {
-      final List<String?> values = deviceListMap[deviceName]!;
+    for (final String deviceUuid in deviceListMap.keys) {
+      final List<String?> values = deviceListMap[deviceUuid]!;
       final DeviceTypes deviceType =
           EnumHelper.stringToDeviceType(values.first!)!;
 
@@ -36,8 +39,8 @@ class LocalDbR {
               values[1] == '' ? null : int.parse(values[1]!);
           print('Adding from local db light object');
           smartDeviceBaseAbstractList.add(LightObject(
-            currentDeviceUuid,
-            deviceName,
+            deviceUuid,
+            'Light name missing',
             onOffPinNumber,
           ));
           break;
@@ -48,8 +51,8 @@ class LocalDbR {
               values[2] == '' ? null : int.parse(values[2]!);
           print('Adding from local db boiler object');
           smartDeviceBaseAbstractList.add(BoilerObject(
-            currentDeviceUuid,
-            deviceName,
+            deviceUuid,
+            'Boiler name missing',
             boilerPinNumber,
             boilerButtonPinNumber,
           ));
@@ -74,8 +77,8 @@ class LocalDbR {
               values[6] == '' ? null : int.parse(values[6]!);
 
           smartDeviceBaseAbstractList.add(BlindsObject(
-            currentDeviceUuid,
-            deviceName,
+            deviceUuid,
+            'Blinds name is missing',
             onOffPinNumber,
             onOffButtonPinNumber,
             //  onOffButtonPinNumber
@@ -86,7 +89,42 @@ class LocalDbR {
             blindsDownPin,
             //  blindsDownPin
             downButtonPinNumber, // downButtonPinNumber
-          )); // NanoPi Duo2
+          ));
+          break;
+        case DeviceTypes.button:
+          final int? buttonPinNumber =
+              values[1] == '' ? null : int.parse(values[1]!);
+          print('Adding from local db button object');
+
+          final Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+              buttonStatesAction = ButtonObject.buttonDefaultStateAction(
+                  smartDeviceBaseAbstractList);
+
+          smartDeviceBaseAbstractList.add(ButtonObject(
+            deviceUuid,
+            'Button name is missing',
+            buttonPinNumber,
+            buttonStatesAction: buttonStatesAction,
+          ));
+          break;
+        case DeviceTypes.buttonWithLight:
+          final int? buttonPinNumber =
+              values[1] == '' ? null : int.parse(values[1]!);
+          final int? buttonLightPinNumber =
+              values[2] == '' ? null : int.parse(values[2]!);
+          print('Adding from local db button object');
+
+          final Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+              buttonStatesAction = ButtonObject.buttonDefaultStateAction(
+                  smartDeviceBaseAbstractList);
+
+          smartDeviceBaseAbstractList.add(ButtonWithLightObject(
+            deviceUuid,
+            'Button with light name is missing',
+            buttonPinNumber,
+            buttonLightPinNumber,
+            buttonStatesAction: buttonStatesAction,
+          ));
           break;
         default:
           print('Cannot add from local db, device type is not supported');

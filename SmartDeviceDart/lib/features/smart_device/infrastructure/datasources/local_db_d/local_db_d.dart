@@ -25,6 +25,9 @@ class LocalDbD {
 
   Future<void> saveAllDevices(
       List<SmartDeviceBaseAbstract> smartDevicesList) async {
+    // TODO: We need to find better saving method since devices will save
+    // a lot of rules in the future, like when to turn on by clock time and
+    // what devices the button should change when press and more.
     final Map<String, List<String?>> smartDevicesMapList =
         <String, List<String?>>{};
 

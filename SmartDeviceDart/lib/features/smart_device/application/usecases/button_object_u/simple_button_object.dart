@@ -1,4 +1,4 @@
-import 'package:smart_device_dart/core/device_information.dart';
+import 'package:smart_device_dart/core/my_singleton.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
@@ -39,10 +39,6 @@ class ButtonObject extends SmartDeviceBaseAbstract {
 
   /// Class to interact with simple button.
   ButtonObjectR? buttonObjectRepository;
-
-  ///  Save data about the device, remote or local IP or pin number
-  DeviceInformation deviceInformation =
-      LocalDevice('This is the mac Address', '');
 
   /// Number of pins and the types needed
   @override
@@ -89,8 +85,8 @@ class ButtonObject extends SmartDeviceBaseAbstract {
             whenToExecute == WhenToExecute.evenNumberPress) {
           smartDeviceAndActionsMap.forEach((smartDevice, actionsToExecute) {
             actionsToExecute.forEach((DeviceActions action) async {
-              print(
-                  '${smartDevice.deviceName} is now going to execute "${action.value.toString()}" action');
+              print('${smartDevice.deviceName} is now going to execute '
+                  '"${actionsToExecute.toString()}" action');
               await smartDevice.executeDeviceAction(
                   action, DeviceStateGRPC.waitingInComp);
             });
@@ -100,5 +96,39 @@ class ButtonObject extends SmartDeviceBaseAbstract {
     });
 
     return '';
+  }
+
+  static Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+      buttonDefaultStateAction(
+          List<SmartDeviceBaseAbstract>? smartDeviceBaseAbstractList) {
+    Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+        buttonStatesAction;
+
+    List<SmartDeviceBaseAbstract> smartDeviceBaseAbstractListTemp;
+
+    if (smartDeviceBaseAbstractList != null) {
+      smartDeviceBaseAbstractListTemp = smartDeviceBaseAbstractList;
+    } else {
+      smartDeviceBaseAbstractListTemp = MySingleton.getSmartDevicesList();
+    }
+    if (smartDeviceBaseAbstractListTemp.last.smartDeviceType ==
+        DeviceTypes.light) {
+      if (smartDeviceBaseAbstractListTemp.last is SmartDeviceBase) {
+        final SmartDeviceBase smartDeviceBaseTemp =
+            smartDeviceBaseAbstractListTemp.last as SmartDeviceBase;
+        buttonStatesAction = {
+          WhenToExecute.onOddNumberPress: {
+            smartDeviceBaseTemp: [DeviceActions.on]
+          },
+          WhenToExecute.evenNumberPress: {
+            smartDeviceBaseTemp: [DeviceActions.off]
+          },
+        };
+      }
+    } else {
+      print('Button with light will not work, last object does not'
+          ' support this type');
+    }
+    return buttonStatesAction;
   }
 }
