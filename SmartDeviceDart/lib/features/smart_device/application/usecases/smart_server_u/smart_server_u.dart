@@ -5,6 +5,7 @@ import 'package:grpc/grpc.dart';
 import 'package:smart_device_dart/core/my_singleton.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/cloud_value_change_u/cloud_value_change_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/core_u/actions_to_preform_u.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:smart_device_dart/features/smart_device/domain/entities/local_db_e/local_db_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
@@ -83,10 +84,19 @@ class SmartServerU extends SmartServerServiceBase {
         default:
           deviceTypes = DeviceTypes.typeNotSupported;
       }
+
+      DeviceActions? dAction;
+      if (element is SmartDeviceBase) {
+        element = element as SmartDeviceBase;
+        dAction =
+            element.getDeviceState() ? DeviceActions.on : DeviceActions.off;
+      } else {
+        dAction = DeviceActions.off;
+      }
+
       final DeviceTypesActions deviceTypesActions = DeviceTypesActions(
         deviceType: deviceTypes,
-        deviceAction:
-            element.getDeviceState() ? DeviceActions.on : DeviceActions.off,
+        deviceAction: dAction,
         deviceStateGRPC: DeviceStateGRPC.waitingInComp,
       );
 
@@ -191,9 +201,13 @@ class SmartServerU extends SmartServerServiceBase {
     if (smartDevice == null) {
       return CommendStatus()..success = false;
     }
-    ActionsToPreformU.executeDeviceAction(
-        smartDevice, deviceAction, _deviceState);
-    return CommendStatus()..success = smartDevice.onOff;
+
+    if (smartDevice is SmartDeviceBase) {
+      ActionsToPreformU.executeDeviceAction(
+          smartDevice, deviceAction, _deviceState);
+      return CommendStatus()..success = smartDevice.onOff;
+    }
+    return CommendStatus()..success = false;
   }
 
   Future<String> executeDeviceActionString(SmartDeviceInfo request,
@@ -203,8 +217,12 @@ class SmartServerU extends SmartServerServiceBase {
     if (smartDevice == null) {
       return 'SmartDevice is null in execute DeviceActions String';
     }
-    return ActionsToPreformU.executeDeviceAction(
-        smartDevice, deviceAction, deviceState);
+
+    if (smartDevice is SmartDeviceBase) {
+      return ActionsToPreformU.executeDeviceAction(
+          smartDevice, deviceAction, deviceState);
+    }
+    return 'Error executing device action string';
   }
 
   @override

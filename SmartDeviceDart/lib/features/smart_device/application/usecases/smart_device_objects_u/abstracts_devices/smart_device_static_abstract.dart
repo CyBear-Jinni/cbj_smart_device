@@ -1,12 +1,12 @@
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
-import 'smart_device_base_abstract.dart';
-
-///  Abstract class for devices with property of how much to move and without how much time the device is doing action without stopping
-abstract class SmartDeviceStaticAbstract extends SmartDeviceBaseAbstract {
-  SmartDeviceStaticAbstract(uuid, smartInstanceName, onOffPinNumber,
+///  Abstract class for devices with property of how much to move and without
+///  how much time the device is doing action without stopping
+abstract class SmartDeviceStaticAbstract extends SmartDeviceBase {
+  SmartDeviceStaticAbstract(String? uuid, smartInstanceName, onOffPinNumber,
       {onOffButtonPinNumber})
-      : super(smartInstanceName as String?, onOffPinNumber as int?,
+      : super(uuid, smartInstanceName as String?, onOffPinNumber as int?,
             onOffButtonPinNumber: onOffButtonPinNumber as int?);
 
   //  TODO: set how much to move

@@ -206,9 +206,9 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
       neededPinTypesList = (smartDeviceBaseAbstract as SmartDeviceBaseAbstract)
           .getNeededPinTypesList();
     } else if (deviceType == DeviceTypes.button) {
-      neededPinTypesList = ButtonObject.getNeededPinTypesList();
+      neededPinTypesList = ButtonObject.neededPinTypesList();
     } else if (deviceType == DeviceTypes.buttonWithLight) {
-      neededPinTypesList = ButtonWithLightObject.getNeededPinTypesList();
+      neededPinTypesList = ButtonWithLightObject.neededPinTypesList();
     } else {
       print('Getting device $deviceType pins requirement is not supported');
       return null;
@@ -216,7 +216,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
 
     final List<PinInformation?> pinInformationList = <PinInformation?>[];
 
-    for (final String pinType in neededPinTypesList!) {
+    for (final String pinType in neededPinTypesList) {
       if (pinType.toLowerCase() == 'gpio') {
         pinInformationList
             .add(getFreeGpioPins(ignorePinsList: pinInformationList));
