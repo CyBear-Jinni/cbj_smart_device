@@ -12,7 +12,7 @@ class ButtonObject {
 
     buttonObjectRepository = ButtonObjectR();
     listenToButtonPress();
-    print('Button with light object has been created');
+    print('Button object has been created');
   }
 
   ///  The type of the smart device, Light, blinds, button etc
@@ -81,6 +81,7 @@ class ButtonObject {
           }
         });
       });
+      await Future.delayed(const Duration(milliseconds: 500));
     }
   }
 }

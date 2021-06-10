@@ -100,6 +100,7 @@ class ButtonWithLightObject {
       } else {
         wishExecuteResult = OffWishU.setOff(deviceInformation, buttonLight);
       }
+      await Future.delayed(const Duration(milliseconds: 500));
     }
   }
 }
