@@ -1,13 +1,13 @@
 import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/button_object_local_abstract.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
-import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   @override
-  void buttonPressed(SmartDeviceBaseAbstract smartDevice,
+  void buttonPressed(SmartDeviceBase smartDevice,
       PinInformation buttonPinNumber, PinInformation lightPin) async {
     int errorCounter = 0;
 
@@ -129,6 +129,6 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
           DeviceActions.moveDown, DeviceStateGRPC.waitingInComp);
     }
 
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
   }
 }

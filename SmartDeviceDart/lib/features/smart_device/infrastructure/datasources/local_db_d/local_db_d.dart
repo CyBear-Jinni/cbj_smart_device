@@ -1,3 +1,5 @@
+import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/button_with_light_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
@@ -23,6 +25,9 @@ class LocalDbD {
 
   Future<void> saveAllDevices(
       List<SmartDeviceBaseAbstract> smartDevicesList) async {
+    // TODO: We need to find better saving method since devices will save
+    // a lot of rules in the future, like when to turn on by clock time and
+    // what devices the button should change when press and more.
     final Map<String, List<String?>> smartDevicesMapList =
         <String, List<String?>>{};
 
@@ -31,26 +36,30 @@ class LocalDbD {
       final String deviceName = smartDeviceBaseAbstract.id!;
       final String deviceTypeAsString = EnumHelper.deviceTypeToString(
           smartDeviceBaseAbstract.getDeviceType()!);
-      String? onOffPin;
-      String? onOffButtonPinNumber;
-      if (smartDeviceBaseAbstract.onOffPin != null &&
-          smartDeviceBaseAbstract.onOffPin!.pinAndPhysicalPinConfiguration !=
-              null) {
-        onOffPin = smartDeviceBaseAbstract
-            .onOffPin!.pinAndPhysicalPinConfiguration
-            .toString();
-      }
-      if (smartDeviceBaseAbstract.onOffButtonPin != null &&
-          smartDeviceBaseAbstract
-                  .onOffButtonPin!.pinAndPhysicalPinConfiguration !=
-              null) {
-        onOffButtonPinNumber = smartDeviceBaseAbstract
-            .onOffButtonPin!.pinAndPhysicalPinConfiguration
-            .toString();
-      }
+
       if (smartDeviceBaseAbstract.getDeviceType() == DeviceTypes.blinds) {
+        String? onOffPin;
+        if (smartDeviceBaseAbstract.onOffPin != null &&
+            smartDeviceBaseAbstract.onOffPin!.pinAndPhysicalPinConfiguration !=
+                null) {
+          onOffPin = smartDeviceBaseAbstract
+              .onOffPin!.pinAndPhysicalPinConfiguration
+              .toString();
+        }
+
         final BlindsObject blindsObjectTemp =
             smartDeviceBaseAbstract as BlindsObject;
+
+        String? onOffButtonPinNumber;
+
+        if (smartDeviceBaseAbstract.onOffButtonPin != null &&
+            smartDeviceBaseAbstract
+                    .onOffButtonPin!.pinAndPhysicalPinConfiguration !=
+                null) {
+          onOffButtonPinNumber = smartDeviceBaseAbstract
+              .onOffButtonPin!.pinAndPhysicalPinConfiguration
+              .toString();
+        }
 
         String? blindsUpPin = null,
             buttonPinUp = null,
@@ -91,15 +100,40 @@ class LocalDbD {
           buttonPinDown
         ];
       } else if (smartDeviceBaseAbstract.getDeviceType() == DeviceTypes.light) {
-        smartDevicesMapList[deviceName] = [
-          deviceTypeAsString,
-          onOffPin,
-          onOffButtonPinNumber
-        ];
+        String? onOffPin;
+        if (smartDeviceBaseAbstract.onOffPin != null &&
+            smartDeviceBaseAbstract.onOffPin!.pinAndPhysicalPinConfiguration !=
+                null) {
+          onOffPin = smartDeviceBaseAbstract
+              .onOffPin!.pinAndPhysicalPinConfiguration
+              .toString();
+        }
+
+        smartDevicesMapList[deviceName] = [deviceTypeAsString, onOffPin];
       } else if (smartDeviceBaseAbstract.getDeviceType() ==
           DeviceTypes.boiler) {
+        String? onOffPin;
+        if (smartDeviceBaseAbstract.onOffPin != null &&
+            smartDeviceBaseAbstract.onOffPin!.pinAndPhysicalPinConfiguration !=
+                null) {
+          onOffPin = smartDeviceBaseAbstract
+              .onOffPin!.pinAndPhysicalPinConfiguration
+              .toString();
+        }
+
         final BoilerObject boilerObjectTemp =
             smartDeviceBaseAbstract as BoilerObject;
+
+        String? onOffButtonPinNumber;
+
+        if (smartDeviceBaseAbstract.onOffButtonPin != null &&
+            smartDeviceBaseAbstract
+                    .onOffButtonPin!.pinAndPhysicalPinConfiguration !=
+                null) {
+          onOffButtonPinNumber = smartDeviceBaseAbstract
+              .onOffButtonPin!.pinAndPhysicalPinConfiguration
+              .toString();
+        }
 
         String? boilerPin = null, boilerButtonPin = null;
 
@@ -123,6 +157,44 @@ class LocalDbD {
           boilerButtonPin,
           onOffPin,
           onOffButtonPinNumber
+        ];
+      } else if (smartDeviceBaseAbstract.getDeviceType() ==
+          DeviceTypes.button) {
+        final ButtonObject tempButtonO =
+            smartDeviceBaseAbstract as ButtonObject;
+        String? buttonPressPin;
+        if (tempButtonO.buttonPin != null &&
+            tempButtonO.buttonPin!.pinAndPhysicalPinConfiguration != null) {
+          buttonPressPin =
+              tempButtonO.buttonPin!.pinAndPhysicalPinConfiguration.toString();
+        }
+
+        smartDevicesMapList[deviceName] = [
+          deviceTypeAsString,
+          buttonPressPin,
+        ];
+      } else if (smartDeviceBaseAbstract.getDeviceType() ==
+          DeviceTypes.buttonWithLight) {
+        final ButtonWithLightObject tempButtonO =
+            smartDeviceBaseAbstract as ButtonWithLightObject;
+        String? buttonPressPin;
+        if (tempButtonO.buttonPin != null &&
+            tempButtonO.buttonPin!.pinAndPhysicalPinConfiguration != null) {
+          buttonPressPin =
+              tempButtonO.buttonPin!.pinAndPhysicalPinConfiguration.toString();
+        }
+        String? buttonLightPin;
+        if (tempButtonO.buttonLight != null &&
+            tempButtonO.buttonLight!.pinAndPhysicalPinConfiguration != null) {
+          buttonLightPin = tempButtonO
+              .buttonLight!.pinAndPhysicalPinConfiguration
+              .toString();
+        }
+
+        smartDevicesMapList[deviceName] = [
+          deviceTypeAsString,
+          buttonPressPin,
+          buttonLightPin,
         ];
       } else {
         print("Can't save device, type "

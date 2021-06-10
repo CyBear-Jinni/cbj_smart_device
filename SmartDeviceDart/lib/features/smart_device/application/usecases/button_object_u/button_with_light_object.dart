@@ -1,6 +1,6 @@
-import 'package:smart_device_dart/core/device_information.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
-import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
@@ -8,49 +8,38 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/button_object_r/button_object_r.dart';
 
 /// Button that contains light inside of it with one color and no opacity.
-class ButtonWithLightObject {
-  ButtonWithLightObject(int? buttonPinInt, int? intbuttonLightInt,
-      {this.buttonStatesAction}) {
-    buttonPin = DevicePinListManager().getGpioPin(buttonPinInt);
-    buttonLight = DevicePinListManager().getGpioPin(intbuttonLightInt);
+class ButtonWithLightObject extends ButtonObject {
+  ButtonWithLightObject(
+      String? id, String? deviceName, int? buttonPinInt, int? buttonLightInt,
+      {Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+          buttonStatesAction})
+      : super(id, deviceName, buttonPinInt,
+            buttonStatesAction: buttonStatesAction) {
+    buttonLight = DevicePinListManager().getGpioPin(buttonLightInt);
 
     buttonObjectRepository = ButtonObjectR();
     listenToButtonPress();
     print('Button with light object has been created');
   }
 
-  /// The button will save list of states like on, off, long press, double tap.
-  /// For each button press state we save the smart object and the actions that
-  /// we want to preform on it.
-  Map<WhenToExecute, Map<SmartDeviceBaseAbstract, List<DeviceActions>>>?
-      buttonStatesAction;
-
-  /// Button pin information to listen to.
-  PinInformation? buttonPin;
+  ///  The type of the smart device, Light, blinds, button etc
+  @override
+  DeviceTypes? smartDeviceType = DeviceTypes.buttonWithLight;
 
   /// The light pin around the button.
   PinInformation? buttonLight;
 
-  /// First press of the button or the second one
-  int pressStateCounter = 0;
-
-  /// Save current state of button press
-  WhenToExecute currentButtonPressState = WhenToExecute.undefined;
-
-  /// Class to interact with simple button.
-  ButtonObjectR? buttonObjectRepository;
-
   /// Will determine when to light the button light
   WhenToExecute whenToLightButtonLight = WhenToExecute.onOddNumberPress;
 
-  ///  Save data about the device, remote or local IP or pin number
-  DeviceInformation deviceInformation =
-      LocalDevice('This is the mac Address', '');
-
   /// Number of pins and the types needed
-  static List<String> getNeededPinTypesList() => <String>['gpio', 'gpio'];
+  @override
+  List<String> getNeededPinTypesList() => <String>['gpio', 'gpio'];
+
+  static List<String> neededPinTypesList() => <String>['gpio', 'gpio'];
 
   /// Listen to the button press and execute actions from buttonStateActions
+  @override
   Future<void> listenToButtonPress() async {
     if (buttonPin == null) {
       return;
@@ -62,31 +51,7 @@ class ButtonWithLightObject {
       await buttonObjectRepository!
           .listenToButtonPress(buttonPin!)
           .then((int exitCode) async {
-        print('Light button number $buttonPin was pressed');
-        pressStateCounter++;
-        if (pressStateCounter > 2) {
-          pressStateCounter = 1;
-        }
-
-        if (pressStateCounter % 2 != 0) {
-          currentButtonPressState = WhenToExecute.onOddNumberPress;
-        } else {
-          currentButtonPressState = WhenToExecute.evenNumberPress;
-        }
-
-        buttonStatesAction?.forEach((whenToExecute, smartDeviceAndActionsMap) {
-          if (whenToExecute == currentButtonPressState) {
-            if (whenToExecute == WhenToExecute.onOddNumberPress ||
-                whenToExecute == WhenToExecute.evenNumberPress) {
-              smartDeviceAndActionsMap.forEach((smartDevice, actionsToExecute) {
-                actionsToExecute.forEach((element) async {
-                  await smartDevice.executeDeviceAction(
-                      element, DeviceStateGRPC.waitingInComp);
-                });
-              });
-            }
-          }
-        });
+        await executeOnButtonPress();
       });
 
       if (whenToLightButtonLight == WhenToExecute.onOddNumberPress &&
@@ -97,6 +62,7 @@ class ButtonWithLightObject {
       } else {
         wishExecuteResult = OffWishU.setOff(deviceInformation, buttonLight);
       }
+      await Future.delayed(const Duration(milliseconds: 500));
     }
   }
 }

@@ -26,6 +26,9 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
   List<String> getNeededPinTypesList() => <String>['gpio', 'gpio'];
 
   @override
+  static List<String> neededPinTypesList() => <String>['gpio', 'gpio'];
+
+  @override
   void setDeviceType(DeviceTypes deviceType) => super.setDeviceType(deviceType);
 
   ///  Return smart device type

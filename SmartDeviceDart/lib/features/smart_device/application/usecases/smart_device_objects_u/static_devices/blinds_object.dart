@@ -10,8 +10,8 @@ import 'package:smart_device_dart/features/smart_device/infrastructure/datasourc
 class BlindsObject extends SmartDeviceStaticAbstract {
   /// Setting up pins for up down, buttons for up down but not at the same time.
   BlindsObject(
-      uuid,
-      smartInstanceName,
+      String? uuid,
+      String? smartInstanceName,
       onOffPinNumber,
       onOffButtonPinNumber,
       int? blindsUpPin,
@@ -35,6 +35,10 @@ class BlindsObject extends SmartDeviceStaticAbstract {
 
   @override
   List<String> getNeededPinTypesList() =>
+      <String>['gpio', 'gpio', 'gpio', 'gpio'];
+
+  @override
+  static List<String> neededPinTypesList() =>
       <String>['gpio', 'gpio', 'gpio', 'gpio'];
 
   @override
