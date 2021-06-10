@@ -34,12 +34,12 @@ class LocalDbR {
         case DeviceTypes.light:
           final int? onOffPinNumber =
               values[1] == '' ? null : int.parse(values[1]!);
-          final int? onOffButtonPinNumber =
-              values[2] == '' ? null : int.parse(values[2]!);
           print('Adding from local db light object');
           smartDeviceBaseAbstractList.add(LightObject(
-              currentDeviceUuid, deviceName, onOffPinNumber,
-              onOffButtonPinNumber: onOffButtonPinNumber));
+            currentDeviceUuid,
+            deviceName,
+            onOffPinNumber,
+          ));
           break;
         case DeviceTypes.boiler:
           final int? boilerPinNumber =

@@ -204,7 +204,7 @@ abstract class SmartDeviceBaseAbstract {
         executionMassage = 'Your wish does not exist for this class';
     }
 
-    print('Device state is $deviceStatus');
+    print('Execution massage: $executionMassage');
 
     if (resultOfTheWish == 'Turn on successfully' ||
         resultOfTheWish == 'Turn off successfully' ||

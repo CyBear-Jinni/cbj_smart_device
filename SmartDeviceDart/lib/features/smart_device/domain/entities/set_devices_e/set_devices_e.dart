@@ -1,4 +1,5 @@
 import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/button_with_light_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
@@ -70,15 +71,13 @@ class SetDevicesE {
         final int? lightPinNumber =
             lightPins?[0]?.pinAndPhysicalPinConfiguration;
 
-        final int? buttonPinNumber =
-            lightPins?[1]?.pinAndPhysicalPinConfiguration;
-
         final int deviceTypeCounter =
             numberOfThatTypeThatExist(deviceList, DeviceTypes.light);
         deviceList.add(LightObject(
-            uuid, 'Light$deviceTypeCounter', lightPinNumber,
-            onOffButtonPinNumber: buttonPinNumber)
-          ..id = id);
+          uuid,
+          'Light$deviceTypeCounter',
+          lightPinNumber,
+        )..id = id);
         smartDeviceBaseAbstractList
             .add(deviceList.last as SmartDeviceBaseAbstract);
       }
@@ -148,6 +147,41 @@ class SetDevicesE {
         deviceList.add(smartDeviceBaseAbstractList.last);
       }
 
+      /// Setting up simple Button
+      else if (deviceType == DeviceTypes.button) {
+        final List<PinInformation?>? buttonPinList = DevicePinListManager()
+            .getFreePinsForSmartDeviceType(DeviceTypes.button);
+
+        final int? buttonPin =
+            buttonPinList?[0]?.pinAndPhysicalPinConfiguration;
+
+        final int deviceTypeCounter =
+            numberOfThatTypeThatExist(deviceList, DeviceTypes.button);
+
+        Map<WhenToExecute, Map<SmartDeviceBaseAbstract, List<DeviceActions>>>?
+            buttonStatesAction;
+
+        if (smartDeviceBaseAbstractList.last.smartDeviceType ==
+            DeviceTypes.light) {
+          buttonStatesAction = {
+            WhenToExecute.onOddNumberPress: {
+              smartDeviceBaseAbstractList.last: [DeviceActions.on]
+            },
+            WhenToExecute.evenNumberPress: {
+              smartDeviceBaseAbstractList.last: [DeviceActions.off]
+            },
+          };
+        } else {
+          print('Button with light will not work, last object does not'
+              ' support this type');
+        }
+
+        buttonsList.add(
+            ButtonObject(buttonPin, buttonStatesAction: buttonStatesAction));
+
+        deviceList.add(buttonsList.last);
+      }
+
       /// Setting up Button With Light
       else if (deviceType == DeviceTypes.buttonWithLight) {
         final List<PinInformation?>? lightPinAndButtonPin =
@@ -161,7 +195,7 @@ class SetDevicesE {
             lightPinAndButtonPin?[1]?.pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter =
-            numberOfThatTypeThatExist(deviceList, DeviceTypes.blinds);
+            numberOfThatTypeThatExist(deviceList, DeviceTypes.button);
 
         Map<WhenToExecute, Map<SmartDeviceBaseAbstract, List<DeviceActions>>>?
             buttonStatesAction;
