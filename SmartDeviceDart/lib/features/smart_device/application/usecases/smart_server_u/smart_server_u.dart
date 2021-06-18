@@ -15,7 +15,7 @@ import 'package:uuid/uuid.dart';
 
 /// This class get what to execute straight from the grpc request,
 class SmartServerU extends SmartServerServiceBase {
-  static const DeviceStateGRPC _deviceState = DeviceStateGRPC.waitingInFirebase;
+  static const DeviceStateGRPC _deviceState = DeviceStateGRPC.waitingInComp;
 
   ///  Listening to port and deciding what to do with the response
   void waitForConnection(
@@ -86,7 +86,7 @@ class SmartServerU extends SmartServerServiceBase {
       }
 
       DeviceActions? dAction;
-      if (element is SmartDeviceBase) {
+      if (element.runtimeType is SmartDeviceBase) {
         element = element as SmartDeviceBase;
         dAction =
             element.getDeviceState() ? DeviceActions.on : DeviceActions.off;

@@ -67,7 +67,9 @@ class ButtonObject extends SmartDeviceBaseAbstract {
 
   /// Execute on button press
   Future<String> executeOnButtonPress() async {
-    print('Light button number $buttonPin was pressed');
+    print(
+        'Button number ${buttonPin?.pinAndPhysicalPinConfiguration.toString()}'
+        ' was pressed');
     pressStateCounter++;
     if (pressStateCounter > 2) {
       pressStateCounter = 1;

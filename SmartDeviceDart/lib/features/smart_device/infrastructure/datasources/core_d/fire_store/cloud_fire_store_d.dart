@@ -93,7 +93,7 @@ class CloudFireStoreD {
     }
   }
 
-  ///  Listen to changes of the data in path and return the value that change each time there is change
+  ///  Listen to changes of the data in path and return stream of changes
   Stream<List<Document>> listenToChangeOfCollectionDataInPath(
       String dataPath) async* {
     //  Sign in with user credentials
