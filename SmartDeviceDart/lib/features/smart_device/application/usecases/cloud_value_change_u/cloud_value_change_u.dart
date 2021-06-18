@@ -80,49 +80,64 @@ class CloudValueChangeU {
     });
   }
 
+  /// Listen to changes in the devices collection
   Future<void> listenToCollectionChange() async {
-    await collectionsStream?.cancel();
+    while (true) {
+      await collectionsStream?.cancel();
 
-    collectionsStream = _cloudValueChangeEntity!
-        .listenToCollectionDataBase()
-        .listen((List<Document> documentList) {
-      print('Change detected in Firestore');
+      print('listen To Stream');
+      try {
+        collectionsStream = _cloudValueChangeEntity!
+            .listenToCollectionDataBase()
+            .listen((List<Document> documentList) {
+          print('Change detected in Firestore');
 
-      final Map<SmartDeviceBase, String> devicesNamesThatValueChanged = {};
+          final Map<SmartDeviceBase, String> devicesNamesThatValueChanged = {};
 
-      documentList.forEach((Document document) {
-        MySingleton.getSmartDevicesList()
-            .forEach((SmartDeviceBaseAbstract element) {
-          if (element is! SmartDeviceBase) {
-            return;
-          }
-          if (document.id == element.id) {
-            if (document.map['state'].toString() !=
-                DeviceStateGRPC.ack.toString()) {
-              devicesNamesThatValueChanged[element] =
-                  document.map['action'].toString();
+          documentList.forEach((Document document) {
+            MySingleton.getSmartDevicesList()
+                .forEach((SmartDeviceBaseAbstract element) {
+              if (element is! SmartDeviceBase) {
+                return;
+              }
+              if (document.id == element.id) {
+                if (document.map['state'].toString() !=
+                    DeviceStateGRPC.ack.toString()) {
+                  devicesNamesThatValueChanged[element] =
+                      document.map['action'].toString();
+                }
+              }
+            });
+          });
+
+          devicesNamesThatValueChanged
+              .forEach((SmartDeviceBase smartDeviceBaseAbstract, String value) {
+            print(
+                'FireBase "${smartDeviceBaseAbstract.id}" have different value,'
+                ' will now change to $value');
+            DeviceActions deviceAction;
+
+            if (value == DeviceActions.on.toString()) {
+              deviceAction = DeviceActions.on;
+            } else if (value == DeviceActions.off.toString()) {
+              deviceAction = DeviceActions.off;
+            } else {
+              deviceAction = EnumHelper.stringToDeviceActions(value)!;
             }
-          }
+
+            ActionsToPreformU.executeDeviceAction(smartDeviceBaseAbstract,
+                deviceAction, DeviceStateGRPC.waitingInFirebase);
+          });
         });
-      });
 
-      devicesNamesThatValueChanged
-          .forEach((SmartDeviceBase smartDeviceBaseAbstract, String value) {
-        print('FireBase "${smartDeviceBaseAbstract.id}" have different value,'
-            ' will now change to $value');
-        DeviceActions deviceAction;
-
-        if (value == DeviceActions.on.toString()) {
-          deviceAction = DeviceActions.on;
-        } else if (value == DeviceActions.off.toString()) {
-          deviceAction = DeviceActions.off;
-        } else {
-          deviceAction = EnumHelper.stringToDeviceActions(value)!;
-        }
-
-        ActionsToPreformU.executeDeviceAction(smartDeviceBaseAbstract,
-            deviceAction, DeviceStateGRPC.waitingInFirebase);
-      });
-    });
+        await collectionsStream?.asFuture(
+          (e) {},
+        );
+        print('Try ended successfully');
+      } catch (e) {
+        print('Crash $e');
+      }
+      print('End of the while statement, will now start again');
+    }
   }
 }
