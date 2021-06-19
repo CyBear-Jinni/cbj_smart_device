@@ -10,6 +10,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/wis
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pb.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/smart_server_helper.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/smart_device_objects_r/smart_device_objects_r.dart';
 
 ///  Abstract class for smart devices that can get actions from commands.
@@ -216,21 +217,27 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
       if (deviceState == DeviceStateGRPC.waitingInComp) {
         if (action == DeviceActions.on) {
           final Map<String, String> mapToUpdate = {
-            'action': DeviceActions.on.toString(),
-            'state': DeviceStateGRPC.ack.toString()
+            GrpcClientTypes.deviceActionsTypeString:
+                DeviceActions.on.toString(),
+            GrpcClientTypes.deviceStateGRPCTypeString:
+                DeviceStateGRPC.ack.toString()
           };
           updateDeviceDocumentWithMap(id!, mapToUpdate);
         } else if (action == DeviceActions.off) {
           final Map<String, String> mapToUpdate = {
-            'action': DeviceActions.off.toString(),
-            'state': DeviceStateGRPC.ack.toString()
+            GrpcClientTypes.deviceActionsTypeString:
+                DeviceActions.off.toString(),
+            GrpcClientTypes.deviceStateGRPCTypeString:
+                DeviceStateGRPC.ack.toString()
           };
           updateDeviceDocumentWithMap(id!, mapToUpdate);
         }
       } else if (deviceState == DeviceStateGRPC.ack) {
       } else {
         updateDeviceDocumentCloudValue(
-            id!, 'state', DeviceStateGRPC.ack.toString());
+            id!,
+            GrpcClientTypes.deviceStateGRPCTypeString,
+            DeviceStateGRPC.ack.toString());
       }
     } else {
       updateDeviceDocumentCloudValue(id!, 'stateMassage', executionMassage);

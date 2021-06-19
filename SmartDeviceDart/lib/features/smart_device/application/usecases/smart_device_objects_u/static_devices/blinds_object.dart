@@ -5,6 +5,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/wis
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/smart_server_helper.dart';
 
 /// Object to control blinds
 class BlindsObject extends SmartDeviceStaticAbstract {
@@ -81,9 +82,11 @@ class BlindsObject extends SmartDeviceStaticAbstract {
       if (deviceState != DeviceStateGRPC.ack) {
         final String deviceActionString =
             EnumHelper.deviceActionToString(deviceAction);
-        super.updateThisDeviceDocumentCloudValue('action', deviceActionString);
         super.updateThisDeviceDocumentCloudValue(
-            'state', DeviceStateGRPC.ack.toString());
+            GrpcClientTypes.deviceActionsTypeString, deviceActionString);
+        super.updateThisDeviceDocumentCloudValue(
+            GrpcClientTypes.deviceStateGRPCTypeString,
+            DeviceStateGRPC.ack.toString());
       }
       return wishExecuteResult;
     }

@@ -5,6 +5,7 @@
       <w>gpio</w>
       <w>grpc</w>
       <w>jinni</w>
+      <w>pbgrpc</w>
       <w>usecases</w>
     </words>
   </dictionary>
