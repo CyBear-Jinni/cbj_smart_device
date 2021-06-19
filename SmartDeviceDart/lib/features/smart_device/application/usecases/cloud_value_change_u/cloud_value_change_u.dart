@@ -11,6 +11,7 @@ import 'package:smart_device_dart/features/smart_device/domain/entities/cloud_va
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/smart_server_helper.dart';
 
 class CloudValueChangeU {
   CloudValueChangeU(FirebaseAccountsInformationD firebaseAccountsInformationD) {
@@ -101,10 +102,12 @@ class CloudValueChangeU {
                 return;
               }
               if (document.id == element.id) {
-                if (document.map['state'].toString() !=
+                if (document.map[GrpcClientTypes.deviceStateGRPCTypeString]
+                        .toString() !=
                     DeviceStateGRPC.ack.toString()) {
-                  devicesNamesThatValueChanged[element] =
-                      document.map['action'].toString();
+                  devicesNamesThatValueChanged[element] = document
+                      .map[GrpcClientTypes.deviceActionsTypeString]
+                      .toString();
                 }
               }
             });

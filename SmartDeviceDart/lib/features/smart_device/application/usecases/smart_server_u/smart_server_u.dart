@@ -10,6 +10,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/sma
 import 'package:smart_device_dart/features/smart_device/domain/entities/local_db_e/local_db_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/smart_server_helper.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
 import 'package:uuid/uuid.dart';
 
@@ -305,7 +306,8 @@ class SmartServerU extends SmartServerServiceBase {
           in MySingleton.getSmartDevicesList()) {
         if (device.getDeviceType() == DeviceTypes.light) {
           final Map<String, String> dataToChange = {
-            'state': DeviceStateGRPC.ack.toString(),
+            GrpcClientTypes.deviceStateGRPCTypeString:
+                DeviceStateGRPC.ack.toString(),
           };
 
           final String createDeviceInHomeSuccess = await cloudValueChangeU
