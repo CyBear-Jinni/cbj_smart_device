@@ -1,13 +1,12 @@
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
-import 'smart_device_base_abstract.dart';
-
 ///  Abstract class for smart devices with on time property
-abstract class SmartDeviceSimpleAbstract extends SmartDeviceBaseAbstract {
+abstract class SmartDeviceSimpleAbstract extends SmartDeviceBase {
   SmartDeviceSimpleAbstract(
-      String? uuid, String? smartInstanceName, int? onOffPinNumber,
+      String? uuid, String? deviceName, int? onOffPinNumber,
       {int? onOffButtonPinNumber})
-      : super(smartInstanceName, onOffPinNumber,
+      : super(uuid, deviceName, onOffPinNumber,
             onOffButtonPinNumber: onOffButtonPinNumber);
 
   ///  How much time the smart device was active (Doing action) continuously
@@ -15,6 +14,9 @@ abstract class SmartDeviceSimpleAbstract extends SmartDeviceBaseAbstract {
 
   @override
   void setDeviceType(DeviceTypes deviceType) => super.setDeviceType(deviceType);
+
+  @override
+  static List<String> neededPinTypesList() => [];
 
   @override
   Future<String> executeActionString(

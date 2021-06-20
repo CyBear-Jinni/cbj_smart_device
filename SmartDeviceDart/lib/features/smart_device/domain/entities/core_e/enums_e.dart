@@ -1,3 +1,5 @@
+import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/button_with_light_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
@@ -130,6 +132,10 @@ class EnumHelper {
         return BlindsObject(null, null, null, null, null, null, null, null);
       case DeviceTypes.boiler:
         return BoilerObject(null, null, null, null);
+      case DeviceTypes.button:
+        return ButtonObject(null, null, null);
+      case DeviceTypes.buttonWithLight:
+        return ButtonWithLightObject(null, null, null, null);
       default:
         print('Type $deviceType is not supported');
     }

@@ -10,7 +10,7 @@ final getIt = GetIt.instance;
 
 abstract class Env {
   static const String test = 'test';
-  static const String dev_pc = 'dev_pc';
-  static const String dev_pi = 'dev_pi';
+  static const String devPc = 'dev_pc';
+  static const String devPi = 'dev_pi';
   static const String prod = 'prod';
 }

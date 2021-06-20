@@ -41,8 +41,10 @@ class SetDevicesU {
     final String uuid = await _setDevicesE!.getCurrentDeviceUUid();
 
     MySingleton.setSmartDevicesList(<SmartDeviceBaseAbstract>[
-      LightObject(uuid, 'Stairs', 8, onOffButtonPinNumber: 10),
-      LightObject(uuid, 'Storage', 12, onOffButtonPinNumber: 14)
+      LightObject(uuid, 'Stairs', 8),
+      // ButtonObject(10),
+      LightObject(uuid, 'Storage', 12)
+      // ButtonObject(14),
 
 //        LightObject('30:23:a2:G3:34', 'Guy ceiling light', 11,
 //            onOffButtonPinNumber:

@@ -6,6 +6,7 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/wis
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/smart_server_helper.dart';
 
 class BoilerObject extends SmartDeviceSimpleAbstract {
   BoilerObject(String? uuid, String? smartInstanceName, int? boilerPinNUmber,
@@ -24,6 +25,9 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
 
   @override
   List<String> getNeededPinTypesList() => <String>['gpio', 'gpio'];
+
+  @override
+  static List<String> neededPinTypesList() => <String>['gpio', 'gpio'];
 
   @override
   void setDeviceType(DeviceTypes deviceType) => super.setDeviceType(deviceType);
@@ -48,26 +52,28 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
 
   ///  All the wishes that are legit to execute from the blinds class
   Future<String> wishInBoilerClass(
-      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
+      DeviceActions? deviceAction, DeviceStateGRPC deviceState) async {
     String? wishExecuteResult;
 
     if (deviceAction == null) {
       return 'Your wish does not exist in boiler class';
     }
     if (deviceAction == DeviceActions.on) {
-      wishExecuteResult = OnWishU.setOn(deviceInformation!, boilerPin);
+      wishExecuteResult = OnWishU.setOn(deviceInformation, boilerPin);
     }
     if (deviceAction == DeviceActions.off) {
-      wishExecuteResult = OffWishU.setOff(deviceInformation!, boilerPin);
+      wishExecuteResult = OffWishU.setOff(deviceInformation, boilerPin);
     }
 
     if (wishExecuteResult != null) {
       if (deviceState != DeviceStateGRPC.ack) {
         final String deviceActionString =
             EnumHelper.deviceActionToString(deviceAction);
-        super.updateThisDeviceDocumentCloudValue('action', deviceActionString);
         super.updateThisDeviceDocumentCloudValue(
-            'state', DeviceStateGRPC.ack.toString());
+            GrpcClientTypes.deviceActionsTypeString, deviceActionString);
+        super.updateThisDeviceDocumentCloudValue(
+            GrpcClientTypes.deviceStateGRPCTypeString,
+            DeviceStateGRPC.ack.toString());
       }
       return wishExecuteResult;
     }

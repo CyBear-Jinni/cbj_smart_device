@@ -5,13 +5,14 @@ import 'package:smart_device_dart/features/smart_device/application/usecases/wis
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/smart_server_helper.dart';
 
 /// Object to control blinds
 class BlindsObject extends SmartDeviceStaticAbstract {
   /// Setting up pins for up down, buttons for up down but not at the same time.
   BlindsObject(
-      uuid,
-      smartInstanceName,
+      String? uuid,
+      String? smartInstanceName,
       onOffPinNumber,
       onOffButtonPinNumber,
       int? blindsUpPin,
@@ -35,6 +36,10 @@ class BlindsObject extends SmartDeviceStaticAbstract {
 
   @override
   List<String> getNeededPinTypesList() =>
+      <String>['gpio', 'gpio', 'gpio', 'gpio'];
+
+  @override
+  static List<String> neededPinTypesList() =>
       <String>['gpio', 'gpio', 'gpio', 'gpio'];
 
   @override
@@ -63,7 +68,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     String? wishExecuteResult;
 
     if (deviceAction == null) return 'Your wish does not exist in blinds class';
-    if (deviceAction == DeviceActions.moveUP) {
+    if (deviceAction == DeviceActions.moveUp) {
       wishExecuteResult = await BlindsWishU.BlindsUp(this);
     }
     if (deviceAction == DeviceActions.moveDown) {
@@ -77,9 +82,11 @@ class BlindsObject extends SmartDeviceStaticAbstract {
       if (deviceState != DeviceStateGRPC.ack) {
         final String deviceActionString =
             EnumHelper.deviceActionToString(deviceAction);
-        super.updateThisDeviceDocumentCloudValue('action', deviceActionString);
         super.updateThisDeviceDocumentCloudValue(
-            'state', DeviceStateGRPC.ack.toString());
+            GrpcClientTypes.deviceActionsTypeString, deviceActionString);
+        super.updateThisDeviceDocumentCloudValue(
+            GrpcClientTypes.deviceStateGRPCTypeString,
+            DeviceStateGRPC.ack.toString());
       }
       return wishExecuteResult;
     }

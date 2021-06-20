@@ -1,3 +1,5 @@
+import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/button_with_light_object.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/device_configuration_base_class.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_duo2_configuration/nano_pi_duo2_configuration.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/nano_pi_neo/nano_pi_neo_configuration.dart';
@@ -194,12 +196,23 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
 
   @override
   List<PinInformation?>? getFreePinsForSmartDeviceType(DeviceTypes deviceType) {
-    final dynamic smartDeviceBaseAbstract =
-        EnumHelper.deviceTypeToSmartDeviceBaseAbstractObject(deviceType);
+    List<String>? neededPinTypesList;
 
-    final List<String> neededPinTypesList =
-        (smartDeviceBaseAbstract as SmartDeviceBaseAbstract)
-            .getNeededPinTypesList()!;
+    if (deviceType == DeviceTypes.light ||
+        deviceType == DeviceTypes.blinds ||
+        deviceType == DeviceTypes.boiler) {
+      final dynamic smartDeviceBaseAbstract =
+          EnumHelper.deviceTypeToSmartDeviceBaseAbstractObject(deviceType);
+      neededPinTypesList = (smartDeviceBaseAbstract as SmartDeviceBaseAbstract)
+          .getNeededPinTypesList();
+    } else if (deviceType == DeviceTypes.button) {
+      neededPinTypesList = ButtonObject.neededPinTypesList();
+    } else if (deviceType == DeviceTypes.buttonWithLight) {
+      neededPinTypesList = ButtonWithLightObject.neededPinTypesList();
+    } else {
+      print('Getting device $deviceType pins requirement is not supported');
+      return null;
+    }
 
     final List<PinInformation?> pinInformationList = <PinInformation?>[];
 

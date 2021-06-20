@@ -1,19 +1,22 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:grpc/grpc.dart';
 import 'package:smart_device_dart/core/my_singleton.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/cloud_value_change_u/cloud_value_change_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/core_u/actions_to_preform_u.dart';
+import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:smart_device_dart/features/smart_device/domain/entities/local_db_e/local_db_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/smart_server_helper.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
 import 'package:uuid/uuid.dart';
 
 /// This class get what to execute straight from the grpc request,
 class SmartServerU extends SmartServerServiceBase {
-  static const DeviceStateGRPC _deviceState = DeviceStateGRPC.waitingInFirebase;
+  static const DeviceStateGRPC _deviceState = DeviceStateGRPC.waitingInComp;
 
   ///  Listening to port and deciding what to do with the response
   void waitForConnection(
@@ -82,10 +85,19 @@ class SmartServerU extends SmartServerServiceBase {
         default:
           deviceTypes = DeviceTypes.typeNotSupported;
       }
+
+      DeviceActions? dAction;
+      if (element.runtimeType is SmartDeviceBase) {
+        element = element as SmartDeviceBase;
+        dAction =
+            element.getDeviceState() ? DeviceActions.on : DeviceActions.off;
+      } else {
+        dAction = DeviceActions.off;
+      }
+
       final DeviceTypesActions deviceTypesActions = DeviceTypesActions(
         deviceType: deviceTypes,
-        deviceAction:
-            element.getDeviceState() ? DeviceActions.on : DeviceActions.off,
+        deviceAction: dAction,
         deviceStateGRPC: DeviceStateGRPC.waitingInComp,
       );
 
@@ -94,7 +106,7 @@ class SmartServerU extends SmartServerServiceBase {
         senderId: compId,
         deviceTypesActions: deviceTypesActions,
         compSpecs: compSpecs,
-        defaultName: element.deviceInformation!.getName(),
+        defaultName: element.deviceInformation.getName(),
       );
       smartDeviceInfoList.add(smartDeviceInfo);
     });
@@ -151,7 +163,7 @@ class SmartServerU extends SmartServerServiceBase {
       ServiceCall call, SmartDeviceInfo request) async {
     print('Turn blinds ${request.id} up');
     return executeDeviceActionServer(
-        request, DeviceActions.moveUP, _deviceState);
+        request, DeviceActions.moveUp, _deviceState);
   }
 
   @override
@@ -190,20 +202,28 @@ class SmartServerU extends SmartServerServiceBase {
     if (smartDevice == null) {
       return CommendStatus()..success = false;
     }
-    ActionsToPreformU.executeDeviceAction(
-        smartDevice, deviceAction, _deviceState);
-    return CommendStatus()..success = smartDevice.onOff;
+
+    if (smartDevice is SmartDeviceBase) {
+      ActionsToPreformU.executeDeviceAction(
+          smartDevice, deviceAction, _deviceState);
+      return CommendStatus()..success = smartDevice.onOff;
+    }
+    return CommendStatus()..success = false;
   }
 
   Future<String> executeDeviceActionString(SmartDeviceInfo request,
       DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
-    final SmartDeviceBaseAbstract smartDevice =
-        getSmartDeviceBaseAbstract(request)!;
+    final SmartDeviceBaseAbstract? smartDevice =
+        getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
       return 'SmartDevice is null in execute DeviceActions String';
     }
-    return ActionsToPreformU.executeDeviceAction(
-        smartDevice, deviceAction, deviceState);
+
+    if (smartDevice is SmartDeviceBase) {
+      return ActionsToPreformU.executeDeviceAction(
+          smartDevice, deviceAction, deviceState);
+    }
+    return 'Error executing device action string';
   }
 
   @override
@@ -251,7 +271,7 @@ class SmartServerU extends SmartServerServiceBase {
         for (final SmartDeviceInfo smartDeviceInfo
             in compInfo.smartDevicesInComp) {
           if (smartDevice.id == smartDeviceInfo.id) {
-            smartDevice.deviceInformation!.setName(smartDeviceInfo.defaultName);
+            smartDevice.deviceInformation.setName(smartDeviceInfo.defaultName);
             break;
           }
         }
@@ -286,7 +306,8 @@ class SmartServerU extends SmartServerServiceBase {
           in MySingleton.getSmartDevicesList()) {
         if (device.getDeviceType() == DeviceTypes.light) {
           final Map<String, String> dataToChange = {
-            'state': DeviceStateGRPC.ack.toString(),
+            GrpcClientTypes.deviceStateGRPCTypeString:
+                DeviceStateGRPC.ack.toString(),
           };
 
           final String createDeviceInHomeSuccess = await cloudValueChangeU
@@ -301,10 +322,17 @@ class SmartServerU extends SmartServerServiceBase {
       localDbE.saveListOfDatabaseInformation(firebaseAccountsInformationD);
 
       startListenToDb(firebaseAccountsInformationD);
-
+      exitTheApp();
       return CommendStatus()..success = true;
     } catch (e) {
       return CommendStatus()..success = false;
     }
+  }
+
+  Future<void> exitTheApp() async {
+    const int secondsToExistTheProgram = 15;
+    print('$secondsToExistTheProgram seconds to exit the program');
+    await Future.delayed(const Duration(seconds: secondsToExistTheProgram));
+    exit(0);
   }
 }

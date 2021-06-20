@@ -16,18 +16,18 @@ class BlindsWishU {
 
     blindsInformation.blindsDownPin?.onDuration = 0;
     status = OffWishU.setOff(
-        blindsInformation.deviceInformation!, blindsInformation.blindsDownPin!);
+        blindsInformation.deviceInformation, blindsInformation.blindsDownPin);
 
     await Future<void>.delayed(const Duration(seconds: 1));
 
     blindsInformation.blindsUpPin?.onDuration = -1;
 
     status +=
-        ' ${OnWishU.setOn(blindsInformation.deviceInformation!, blindsInformation.blindsUpPin!)}';
+        ' ${OnWishU.setOn(blindsInformation.deviceInformation, blindsInformation.blindsUpPin)}';
 
     blindsInformation.blindsDownPin?.onDuration = 0;
     OffWishU.setOff(
-        blindsInformation.deviceInformation!, blindsInformation.blindsDownPin!);
+        blindsInformation.deviceInformation, blindsInformation.blindsDownPin);
 
     return status;
   }
@@ -45,17 +45,17 @@ class BlindsWishU {
 
     blindsInformation.blindsUpPin?.onDuration = 0;
     status = OffWishU.setOff(
-        blindsInformation.deviceInformation!, blindsInformation.blindsUpPin!);
+        blindsInformation.deviceInformation, blindsInformation.blindsUpPin);
 
     await Future<void>.delayed(const Duration(seconds: 1));
 
     blindsInformation.blindsDownPin?.onDuration = -1;
     status +=
-        ' ${OnWishU.setOn(blindsInformation.deviceInformation!, blindsInformation.blindsDownPin!)}';
+        ' ${OnWishU.setOn(blindsInformation.deviceInformation, blindsInformation.blindsDownPin)}';
 
     blindsInformation.blindsUpPin?.onDuration = 0;
     OffWishU.setOff(
-        blindsInformation.deviceInformation!, blindsInformation.blindsUpPin!);
+        blindsInformation.deviceInformation, blindsInformation.blindsUpPin);
 
     return status;
   }
@@ -73,11 +73,11 @@ class BlindsWishU {
 
     blindsInformation.blindsUpPin?.onDuration = 0;
     status = OffWishU.setOff(
-        blindsInformation.deviceInformation!, blindsInformation.blindsUpPin!);
+        blindsInformation.deviceInformation, blindsInformation.blindsUpPin);
 
     blindsInformation.blindsDownPin?.onDuration = 0;
     status +=
-        ' ${OffWishU.setOff(blindsInformation.deviceInformation!, blindsInformation.blindsDownPin!)}';
+        ' ${OffWishU.setOff(blindsInformation.deviceInformation, blindsInformation.blindsDownPin)}';
 
     return Future<String>.value(status);
   }
