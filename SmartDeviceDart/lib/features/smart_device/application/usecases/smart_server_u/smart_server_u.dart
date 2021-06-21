@@ -344,9 +344,8 @@ class SmartServerU extends SmartServerServiceBase {
   }
 
   @override
-  Stream<RequestsAndStatusFromClient> registerHub(
-      ServiceCall call, Stream<HubStatusAndRequests> request) async* {
-    print('object registerHub now');
-    yield RequestsAndStatusFromClient();
+  Stream<ClientStatusRequests> registerHub(
+      ServiceCall call, Stream<RequestsAndStatusFromHub> request) async* {
+    yield ClientStatusRequests();
   }
 }
