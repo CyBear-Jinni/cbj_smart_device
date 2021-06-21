@@ -335,4 +335,18 @@ class SmartServerU extends SmartServerServiceBase {
     await Future.delayed(const Duration(seconds: secondsToExistTheProgram));
     exit(0);
   }
+
+  @override
+  Stream<RequestsAndStatusFromHub> registerClient(
+      ServiceCall call, Stream<ClientStatusRequests> request) async* {
+    print('object registerClient now');
+    yield RequestsAndStatusFromHub();
+  }
+
+  @override
+  Stream<RequestsAndStatusFromClient> registerHub(
+      ServiceCall call, Stream<HubStatusAndRequests> request) async* {
+    print('object registerHub now');
+    yield RequestsAndStatusFromClient();
+  }
 }
