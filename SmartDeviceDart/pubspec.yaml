@@ -20,6 +20,8 @@ dependencies:
   firedart: ^0.9.0+1
   # For the injection, allow accessing an object from anywhere in an App
   get_it: ^7.1.3
+  # A high performance, open source, general RPC framework that puts mobile and HTTP/2 first.
+  grpc: ^3.0.0
   # Key-value database
   hive: ^2.0.4
   # Checks for an internet connection by opening a socket
