@@ -2,7 +2,6 @@ import 'package:smart_device_dart/core/device_information.dart';
 import 'package:smart_device_dart/core/helper_methods.dart';
 import 'package:smart_device_dart/core/permissions/permissions_manager.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/button_object_u/button_object_local_u.dart';
-import 'package:smart_device_dart/features/smart_device/application/usecases/cloud_value_change_u/cloud_value_change_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
@@ -30,7 +29,6 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
         listenToButtonPressed();
       }
     }
-    cloudValueChangeU = CloudValueChangeU.getCloudValueChangeU();
   }
 
   ///  Save data about the device, remote or local IP or pin number
@@ -66,9 +64,6 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
 
   ///  Save all the gpio pins that this instance is using
   final List<PinInformation> _gpioPinList = <PinInformation>[];
-
-  /// Instance to interact with the cloud
-  CloudValueChangeU? cloudValueChangeU;
 
   ///  The type of the smart device Light blinds etc
   DeviceTypes? smartDeviceType;
@@ -222,7 +217,6 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
             GrpcClientTypes.deviceStateGRPCTypeString:
                 DeviceStateGRPC.ack.toString()
           };
-          updateDeviceDocumentWithMap(id!, mapToUpdate);
         } else if (action == DeviceActions.off) {
           final Map<String, String> mapToUpdate = {
             GrpcClientTypes.deviceActionsTypeString:
@@ -230,46 +224,12 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
             GrpcClientTypes.deviceStateGRPCTypeString:
                 DeviceStateGRPC.ack.toString()
           };
-          updateDeviceDocumentWithMap(id!, mapToUpdate);
         }
       } else if (deviceState == DeviceStateGRPC.ack) {
-      } else {
-        updateDeviceDocumentCloudValue(
-            id!,
-            GrpcClientTypes.deviceStateGRPCTypeString,
-            DeviceStateGRPC.ack.toString());
-      }
-    } else {
-      updateDeviceDocumentCloudValue(id!, 'stateMassage', executionMassage);
-    }
+      } else {}
+    } else {}
 
     return executionMassage;
-  }
-
-  void updateDeviceDocumentCloudValue(
-      String deviceId, String fieldToUpdate, String valueToUpdate) {
-    cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
-    if (cloudValueChangeU != null) {
-      cloudValueChangeU!
-          .updateDeviceDocument(deviceId, fieldToUpdate, valueToUpdate);
-    }
-  }
-
-  void updateDeviceDocumentWithMap(
-      String deviceId, Map<String, String> mapToUpdate) {
-    cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
-    if (cloudValueChangeU != null) {
-      cloudValueChangeU!.updateDeviceDocumentWithMap(deviceId, mapToUpdate);
-    }
-  }
-
-  void updateThisDeviceDocumentCloudValue(
-      String fieldToUpdate, String valueToUpdate) {
-    cloudValueChangeU ??= CloudValueChangeU.getCloudValueChangeU();
-    if (cloudValueChangeU != null) {
-      cloudValueChangeU!
-          .updateDeviceDocument(id!, fieldToUpdate, valueToUpdate);
-    }
   }
 
   ///  Listen to button press

@@ -16,8 +16,6 @@ dependencies:
   #  injectable: ^0.4.0+1 # Does not work on my armhf32, can be lack of ram https://TypeAdaptergithub.com/dart-lang/pub/issues/2347
   # Allow returning more than one type of object
   equatable: ^2.0.2
-  # Firebase Auth and Firestore SDKs.
-  firedart: ^0.9.0+1
   # For the injection, allow accessing an object from anywhere in an App
   get_it: ^7.1.3
   # A high performance, open source, general RPC framework that puts mobile and HTTP/2 first.
