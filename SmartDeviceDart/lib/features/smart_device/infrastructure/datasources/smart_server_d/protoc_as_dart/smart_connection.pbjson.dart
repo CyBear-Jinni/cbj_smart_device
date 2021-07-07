@@ -74,13 +74,12 @@ const DeviceStateGRPC$json = const {
     const {'1': 'cancelStateInProcess', '2': 1},
     const {'1': 'ack', '2': 2},
     const {'1': 'newStateFailed', '2': 3},
-    const {'1': 'waitingInFirebase', '2': 4},
-    const {'1': 'waitingInComp', '2': 5},
+    const {'1': 'waitingInComp', '2': 4},
   ],
 };
 
 /// Descriptor for `DeviceStateGRPC`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List deviceStateGRPCDescriptor = $convert.base64Decode('Cg9EZXZpY2VTdGF0ZUdSUEMSFQoRc3RhdGVOb3RTdXBwb3J0ZWQQABIYChRjYW5jZWxTdGF0ZUluUHJvY2VzcxABEgcKA2FjaxACEhIKDm5ld1N0YXRlRmFpbGVkEAMSFQoRd2FpdGluZ0luRmlyZWJhc2UQBBIRCg13YWl0aW5nSW5Db21wEAU=');
+final $typed_data.Uint8List deviceStateGRPCDescriptor = $convert.base64Decode('Cg9EZXZpY2VTdGF0ZUdSUEMSFQoRc3RhdGVOb3RTdXBwb3J0ZWQQABIYChRjYW5jZWxTdGF0ZUluUHJvY2VzcxABEgcKA2FjaxACEhIKDm5ld1N0YXRlRmFpbGVkEAMSEQoNd2FpdGluZ0luQ29tcBAE');
 @$core.Deprecated('Use clientStatusRequestsDescriptor instead')
 const ClientStatusRequests$json = const {
   '1': 'ClientStatusRequests',
