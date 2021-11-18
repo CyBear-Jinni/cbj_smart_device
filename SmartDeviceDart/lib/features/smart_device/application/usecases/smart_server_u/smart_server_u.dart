@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:grpc/grpc.dart';
 import 'package:smart_device_dart/core/my_singleton.dart';
-import 'package:smart_device_dart/features/smart_device/application/usecases/cloud_value_change_u/cloud_value_change_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/core_u/actions_to_preform_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
@@ -44,9 +43,6 @@ class SmartServerU extends SmartServerServiceBase {
     }
 
     if (firebaseAccountInformationD.areAllValuesNotNull()) {
-      final CloudValueChangeU cloudValueChangeUseCases =
-          CloudValueChangeU(firebaseAccountInformationD);
-      cloudValueChangeUseCases.listenToDataBase(); //  Listen to changes in the
       // database for this device
     }
   }
@@ -297,11 +293,6 @@ class SmartServerU extends SmartServerServiceBase {
               request.userPassword,
               request.homeId);
 
-      final CloudValueChangeU cloudValueChangeU =
-          CloudValueChangeU(firebaseAccountsInformationD);
-
-      cloudValueChangeU.setNewFirebaseAccounInfo(firebaseAccountsInformationD);
-
       for (final SmartDeviceBaseAbstract device
           in MySingleton.getSmartDevicesList()) {
         if (device.getDeviceType() == DeviceTypes.light) {
@@ -309,12 +300,6 @@ class SmartServerU extends SmartServerServiceBase {
             GrpcClientTypes.deviceStateGRPCTypeString:
                 DeviceStateGRPC.ack.toString(),
           };
-
-          final String createDeviceInHomeSuccess = await cloudValueChangeU
-              .updateDeviceDocumentWithMap(device.id!, dataToChange);
-          if (createDeviceInHomeSuccess.toLowerCase().contains('error')) {
-            return CommendStatus()..success = false;
-          }
         }
       }
 
@@ -334,5 +319,18 @@ class SmartServerU extends SmartServerServiceBase {
     print('$secondsToExistTheProgram seconds to exit the program');
     await Future.delayed(const Duration(seconds: secondsToExistTheProgram));
     exit(0);
+  }
+
+  @override
+  Stream<RequestsAndStatusFromHub> registerClient(
+      ServiceCall call, Stream<ClientStatusRequests> request) async* {
+    print('object registerClient now');
+    yield RequestsAndStatusFromHub();
+  }
+
+  @override
+  Stream<ClientStatusRequests> registerHub(
+      ServiceCall call, Stream<RequestsAndStatusFromHub> request) async* {
+    yield ClientStatusRequests();
   }
 }
