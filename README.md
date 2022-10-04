@@ -1,3 +1,15 @@
+
+
+<h1 align="center">Important Message</h1>
+
+If you arrived here you probably are searching for the [cbj hub](https://github.com/CyBear-Jinni/cbj_hub).
+
+This repo is for creating your own smart device and <b>Currently not mainted</b>.
+
+</br>
+
+
+
 <h1 align="center">CyBear Jinni Smart Device</h1>
 
 <div align="center">
