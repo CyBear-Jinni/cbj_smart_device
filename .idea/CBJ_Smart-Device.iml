@@ -6,9 +6,9 @@
       <excludeFolder url="file://$MODULE_DIR$/SmartDevice/SmartDeviceDart/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/SmartDevice/SmartDeviceDart/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/SmartDevice/SmartDeviceDart/build" />
-      <excludeFolder url="file://$MODULE_DIR$/SmartDeviceDart/.dart_tool" />
-      <excludeFolder url="file://$MODULE_DIR$/SmartDeviceDart/.pub" />
-      <excludeFolder url="file://$MODULE_DIR$/SmartDeviceDart/build" />
+      <excludeFolder url="file://$MODULE_DIR$/cbj_smart-device/build" />
+      <excludeFolder url="file://$MODULE_DIR$/cbj_smart-device/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/cbj_smart-device/.pub" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
