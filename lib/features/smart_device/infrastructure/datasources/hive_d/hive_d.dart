@@ -84,7 +84,8 @@ class HiveD {
   }
 
   Future<void> saveAllDevices(
-      Map<String, List<String?>> smartDevicesMapList) async {
+    Map<String, List<String?>> smartDevicesMapList,
+  ) async {
     try {
       final Map<String, List<String>> smartDevicesMapListWithoutNull =
           smartDevicesMapList.map((key, value) {
@@ -111,7 +112,8 @@ class HiveD {
   }
 
   Future<void> saveListOfDatabaseInformation(
-      Map<String, String> firebaseAccountsInformationMap) async {
+    Map<String, String> firebaseAccountsInformationMap,
+  ) async {
     try {
       await contractorAsync();
 
