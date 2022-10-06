@@ -8,11 +8,19 @@ import 'package:cbj_smart_device/features/smart_device/infrastructure/datasource
 import 'package:cbj_smart_device/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 
 class BoilerObject extends SmartDeviceSimpleAbstract {
-  BoilerObject(String? uuid, String? smartInstanceName, int? boilerPinNUmber,
-      int? boilerButtonPinNumber,
-      {int? onOffPinNumber, int? onOffButtonPinNumber})
-      : super(uuid, smartInstanceName, onOffPinNumber,
-            onOffButtonPinNumber: onOffButtonPinNumber) {
+  BoilerObject(
+    String? uuid,
+    String? smartInstanceName,
+    int? boilerPinNUmber,
+    int? boilerButtonPinNumber, {
+    int? onOffPinNumber,
+    int? onOffButtonPinNumber,
+  }) : super(
+          uuid,
+          smartInstanceName,
+          onOffPinNumber,
+          onOffButtonPinNumber: onOffButtonPinNumber,
+        ) {
     print('New boiler object');
     boilerPin = DevicePinListManager().getGpioPin(boilerPinNUmber);
     boilerButtonPin = DevicePinListManager().getGpioPin(boilerButtonPinNumber);
@@ -28,16 +36,15 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
   @override
   static List<String> neededPinTypesList() => <String>['gpio', 'gpio'];
 
-  @override
-  void setDeviceType(DeviceTypes deviceType) => super.setDeviceType(deviceType);
-
   ///  Return smart device type
   @override
   DeviceTypes getDeviceType() => DeviceTypes.boiler;
 
   @override
   Future<String> executeActionString(
-      String wishString, DeviceStateGRPC deviceState) async {
+    String wishString,
+    DeviceStateGRPC deviceState,
+  ) async {
     final DeviceActions deviceAction =
         convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(deviceAction, deviceState);
@@ -45,13 +52,17 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
 
   @override
   Future<String> executeDeviceAction(
-      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
+    DeviceActions deviceAction,
+    DeviceStateGRPC deviceState,
+  ) async {
     return wishInBoilerClass(deviceAction, deviceState);
   }
 
   ///  All the wishes that are legit to execute from the blinds class
   Future<String> wishInBoilerClass(
-      DeviceActions? deviceAction, DeviceStateGRPC deviceState) async {
+    DeviceActions? deviceAction,
+    DeviceStateGRPC deviceState,
+  ) async {
     String? wishExecuteResult;
 
     if (deviceAction == null) {

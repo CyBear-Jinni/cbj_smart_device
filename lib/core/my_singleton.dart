@@ -23,7 +23,8 @@ class MySingleton {
       _currentUserName ??= MySingletonHelper.getCurrentUserName();
 
   static void setSmartDevicesList(
-      List<SmartDeviceBaseAbstract> smartDeviceListVal) {
+    List<SmartDeviceBaseAbstract> smartDeviceListVal,
+  ) {
     smartDevicesList = smartDeviceListVal;
   }
 
@@ -36,8 +37,12 @@ class MySingleton {
 }
 
 class FirebaseAccountInformationFlutter {
-  FirebaseAccountInformationFlutter(this.fireBaseProjectId, this.fireBaseApiKey,
-      this.userEmail, this.userPassword);
+  FirebaseAccountInformationFlutter(
+    this.fireBaseProjectId,
+    this.fireBaseApiKey,
+    this.userEmail,
+    this.userPassword,
+  );
 
   String fireBaseProjectId;
   String fireBaseApiKey;
@@ -45,9 +50,6 @@ class FirebaseAccountInformationFlutter {
   String userPassword;
 
   bool areAllValuesNotNull() {
-    return fireBaseProjectId != null &&
-        fireBaseApiKey != null &&
-        userEmail != null &&
-        userPassword != null;
+    return fireBaseApiKey != null;
   }
 }

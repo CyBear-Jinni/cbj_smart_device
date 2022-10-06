@@ -24,7 +24,8 @@ class LocalDbD {
   }
 
   Future<void> saveAllDevices(
-      List<SmartDeviceBaseAbstract> smartDevicesList) async {
+    List<SmartDeviceBaseAbstract> smartDevicesList,
+  ) async {
     // TODO: We need to find better saving method since devices will save
     // a lot of rules in the future, like when to turn on by clock time and
     // what devices the button should change when press and more.
@@ -35,7 +36,8 @@ class LocalDbD {
         in smartDevicesList) {
       final String deviceName = smartDeviceBaseAbstract.id!;
       final String deviceTypeAsString = EnumHelper.deviceTypeToString(
-          smartDeviceBaseAbstract.getDeviceType()!);
+        smartDeviceBaseAbstract.getDeviceType()!,
+      );
 
       if (smartDeviceBaseAbstract.getDeviceType() == DeviceTypes.blinds) {
         String? onOffPin;
@@ -61,10 +63,7 @@ class LocalDbD {
               .toString();
         }
 
-        String? blindsUpPin = null,
-            buttonPinUp = null,
-            blindsDownPin = null,
-            buttonPinDown = null;
+        String? blindsUpPin, buttonPinUp, blindsDownPin, buttonPinDown;
 
         if (blindsObjectTemp.blindsUpPin != null) {
           blindsUpPin = blindsObjectTemp
@@ -135,7 +134,7 @@ class LocalDbD {
               .toString();
         }
 
-        String? boilerPin = null, boilerButtonPin = null;
+        String? boilerPin, boilerButtonPin;
 
         if (boilerObjectTemp.boilerPin != null &&
             boilerObjectTemp.boilerPin!.pinAndPhysicalPinConfiguration !=
@@ -207,7 +206,8 @@ class LocalDbD {
   }
 
   void saveListOfDatabaseInformation(
-      FirebaseAccountsInformationD firebaseAccountsInformationD) {
+    FirebaseAccountsInformationD firebaseAccountsInformationD,
+  ) {
     final Map<String, String> firebaseAccountsInformationMap =
         <String, String>{};
 

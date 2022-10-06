@@ -12,7 +12,9 @@ import 'package:cbj_smart_device/features/smart_device/infrastructure/datasource
 
 class WishClassesD {
   Future<ProcessResult> turnOnLocalPhysicalPin(
-      PinSetupMethodEnum pinSetupMethodEnum, String pinNumber) async {
+    PinSetupMethodEnum pinSetupMethodEnum,
+    String pinNumber,
+  ) async {
     switch (pinSetupMethodEnum) {
       case PinSetupMethodEnum.wiringPiSetup:
         {
@@ -38,7 +40,9 @@ class WishClassesD {
   }
 
   Future<ProcessResult> turnOffLocalPhysicalPin(
-      PinSetupMethodEnum pinSetupMethodEnum, String pinNumber) async {
+    PinSetupMethodEnum pinSetupMethodEnum,
+    String pinNumber,
+  ) async {
     switch (pinSetupMethodEnum) {
       case PinSetupMethodEnum.wiringPiSetup:
         {

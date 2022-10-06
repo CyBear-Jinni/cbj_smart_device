@@ -1,4 +1,4 @@
-import 'permissions.dart';
+import 'package:cbj_smart_device/core/permissions/permissions.dart';
 
 ///  These class manage the permissions of user, both user permissions and
 ///  user ability to give permissions
