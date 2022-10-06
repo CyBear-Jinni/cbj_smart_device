@@ -13,7 +13,9 @@ class PythonSpeechToText {
     await Future.delayed(const Duration(milliseconds: 3000));
 
     return await Process.run(
-        '${projectPath!}venv/bin/python3', ['${projectPath!}main.py'],);
+      '${projectPath!}venv/bin/python3',
+      ['${projectPath!}main.py'],
+    );
 //        .then((ProcessResult results) { print(results.stdout.toString());});
   }
 }

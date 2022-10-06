@@ -68,7 +68,9 @@ abstract class SmartDeviceBaseAbstract {
   /// Returning the non abstract of this object
   Type getTheNonAbstractObjectOfThisInstance() {
     return EnumHelper.getTheNonAbstractObjectOfSmartDeviceBaseAbstract(
-        this, getDeviceType()!,);
+      this,
+      getDeviceType()!,
+    );
   }
 
   /// Getting the saved IP of this object

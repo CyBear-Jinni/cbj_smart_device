@@ -6,8 +6,12 @@ class LightObject extends SmartDeviceSimpleAbstract {
     String? uuid,
     String? smartInstanceName,
     int? onOffPinNumber,
-  ) : super(uuid, smartInstanceName, onOffPinNumber,
-            onOffButtonPinNumber: null,) {
+  ) : super(
+          uuid,
+          smartInstanceName,
+          onOffPinNumber,
+          onOffButtonPinNumber: null,
+        ) {
     setDeviceType(DeviceTypes.light);
     print('New light object');
   }
@@ -18,14 +22,15 @@ class LightObject extends SmartDeviceSimpleAbstract {
   @override
   static List<String> neededPinTypesList() => <String>['gpio'];
 
-
   ///  Return smart device type
   @override
   DeviceTypes getDeviceType() => DeviceTypes.light;
 
   @override
   Future<String> executeActionString(
-      String wishString, DeviceStateGRPC deviceState,) async {
+    String wishString,
+    DeviceStateGRPC deviceState,
+  ) async {
     final DeviceActions deviceAction =
         convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(deviceAction, deviceState);
@@ -33,7 +38,9 @@ class LightObject extends SmartDeviceSimpleAbstract {
 
   @override
   Future<String> executeDeviceAction(
-      DeviceActions deviceAction, DeviceStateGRPC deviceState,) async {
+    DeviceActions deviceAction,
+    DeviceStateGRPC deviceState,
+  ) async {
     return wishInSimpleClass(deviceAction, deviceState);
   }
 }

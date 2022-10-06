@@ -9,8 +9,13 @@ class AccountsInformationD {
 
 /// firebase Account information
 class FirebaseAccountsInformationD {
-  FirebaseAccountsInformationD(this.fireBaseProjectId, this.fireBaseApiKey,
-      this.userEmail, this.userPassword, this.homeId,);
+  FirebaseAccountsInformationD(
+    this.fireBaseProjectId,
+    this.fireBaseApiKey,
+    this.userEmail,
+    this.userPassword,
+    this.homeId,
+  );
 
   String fireBaseProjectId;
   String fireBaseApiKey;

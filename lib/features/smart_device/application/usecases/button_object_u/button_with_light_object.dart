@@ -10,11 +10,18 @@ import 'package:cbj_smart_device/features/smart_device/infrastructure/repositori
 /// Button that contains light inside of it with one color and no opacity.
 class ButtonWithLightObject extends ButtonObject {
   ButtonWithLightObject(
-      String? id, String? deviceName, int? buttonPinInt, int? buttonLightInt,
-      {Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
-          buttonStatesAction,})
-      : super(id, deviceName, buttonPinInt,
-            buttonStatesAction: buttonStatesAction,) {
+    String? id,
+    String? deviceName,
+    int? buttonPinInt,
+    int? buttonLightInt, {
+    Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+        buttonStatesAction,
+  }) : super(
+          id,
+          deviceName,
+          buttonPinInt,
+          buttonStatesAction: buttonStatesAction,
+        ) {
     buttonLight = DevicePinListManager().getGpioPin(buttonLightInt);
 
     buttonObjectRepository = ButtonObjectR();

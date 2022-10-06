@@ -22,13 +22,15 @@ class LocalDbE {
   }
 
   Future<void> saveAllDevices(
-      List<SmartDeviceBaseAbstract> smartDevicesList,) async {
+    List<SmartDeviceBaseAbstract> smartDevicesList,
+  ) async {
     await _localDbR!.saveAllDevices(smartDevicesList);
     return;
   }
 
   void saveListOfDatabaseInformation(
-      FirebaseAccountsInformationD firebaseAccountsInformationD,) {
+    FirebaseAccountsInformationD firebaseAccountsInformationD,
+  ) {
     _localDbR!.saveListOfDatabaseInformation(firebaseAccountsInformationD);
   }
 }

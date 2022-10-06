@@ -11,31 +11,40 @@ abstract class ButtonObjectLocalAbstract {
 
   ButtonObjectR? buttonObjectRepository;
 
-  void buttonPressed(SmartDeviceBase smartDevice,
-      PinInformation buttonPinNumber, PinInformation lightPin,);
+  void buttonPressed(
+    SmartDeviceBase smartDevice,
+    PinInformation buttonPinNumber,
+    PinInformation lightPin,
+  );
 
-  void buttonPressedForBoiler(BoilerObject smartDevice,
-      PinInformation buttonPinNumber, PinInformation lightPin,);
+  void buttonPressedForBoiler(
+    BoilerObject smartDevice,
+    PinInformation buttonPinNumber,
+    PinInformation lightPin,
+  );
 
   ///  Listen to two buttons but work only if one is pressed.
   void listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
-      BlindsObject blindsObject,
-      PinInformation firstButtonPinNumber,
-      PinInformation firstLightPin,
-      PinInformation secondButtonPinNumber,
-      PinInformation secondLightPin,);
+    BlindsObject blindsObject,
+    PinInformation firstButtonPinNumber,
+    PinInformation firstLightPin,
+    PinInformation secondButtonPinNumber,
+    PinInformation secondLightPin,
+  );
 
   void listenToButtonPressAndChangeBlindStateAccordingly(
-      BlindsObject blindsObject,
-      PinInformation buttonPinNumber,
-      PinInformation firstLightPin,
-      PinInformation secondLightPin,
-      int buttonNumber,);
+    BlindsObject blindsObject,
+    PinInformation buttonPinNumber,
+    PinInformation firstLightPin,
+    PinInformation secondLightPin,
+    int buttonNumber,
+  );
 
   ///  Logic of two buttons
   Future<void> changeBlindsPinsOutput(
-      BlindsObject blindsObject,
-      PinInformation firstLightPin,
-      PinInformation secondLightPin,
-      int buttonPressNumber,);
+    BlindsObject blindsObject,
+    PinInformation firstLightPin,
+    PinInformation secondLightPin,
+    int buttonPressNumber,
+  );
 }

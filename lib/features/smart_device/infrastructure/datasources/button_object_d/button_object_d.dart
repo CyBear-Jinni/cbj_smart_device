@@ -10,6 +10,7 @@ class ButtonObjectD {
 
   Future<int> listenToButtonPress(PinInformation buttonPinNumber) {
     return _listenToButtonClick!.listenToButtonPress(
-        buttonPinNumber.pinAndPhysicalPinConfiguration.toString(),);
+      buttonPinNumber.pinAndPhysicalPinConfiguration.toString(),
+    );
   }
 }

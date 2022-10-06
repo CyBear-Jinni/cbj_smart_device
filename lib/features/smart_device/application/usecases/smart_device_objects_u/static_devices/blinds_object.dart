@@ -10,16 +10,20 @@ import 'package:cbj_smart_device/features/smart_device/infrastructure/datasource
 class BlindsObject extends SmartDeviceStaticAbstract {
   /// Setting up pins for up down, buttons for up down but not at the same time.
   BlindsObject(
-      String? uuid,
-      String? smartInstanceName,
-      onOffPinNumber,
-      onOffButtonPinNumber,
-      int? blindsUpPin,
-      int? upButtonPinNumber,
-      int? blindsDownPin,
-      int? downButtonPinNumber,)
-      : super(uuid, smartInstanceName, onOffPinNumber,
-            onOffButtonPinNumber: onOffButtonPinNumber,) {
+    String? uuid,
+    String? smartInstanceName,
+    onOffPinNumber,
+    onOffButtonPinNumber,
+    int? blindsUpPin,
+    int? upButtonPinNumber,
+    int? blindsDownPin,
+    int? downButtonPinNumber,
+  ) : super(
+          uuid,
+          smartInstanceName,
+          onOffPinNumber,
+          onOffButtonPinNumber: onOffButtonPinNumber,
+        ) {
     buttonPinUp = DevicePinListManager().getGpioPin(upButtonPinNumber);
     buttonPinDown = DevicePinListManager().getGpioPin(downButtonPinNumber);
 
@@ -41,13 +45,14 @@ class BlindsObject extends SmartDeviceStaticAbstract {
   static List<String> neededPinTypesList() =>
       <String>['gpio', 'gpio', 'gpio', 'gpio'];
 
-
   @override
   DeviceTypes getDeviceType() => DeviceTypes.blinds;
 
   @override
   Future<String> executeActionString(
-      String wishString, DeviceStateGRPC deviceState,) async {
+    String wishString,
+    DeviceStateGRPC deviceState,
+  ) async {
     final DeviceActions deviceAction =
         convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(deviceAction, deviceState);
@@ -55,13 +60,17 @@ class BlindsObject extends SmartDeviceStaticAbstract {
 
   @override
   Future<String> executeDeviceAction(
-      DeviceActions deviceAction, DeviceStateGRPC deviceState,) async {
+    DeviceActions deviceAction,
+    DeviceStateGRPC deviceState,
+  ) async {
     return deviceActionInBlindsClass(deviceAction, deviceState);
   }
 
   ///  All the wishes that are legit to execute from the blinds class
   Future<String> deviceActionInBlindsClass(
-      DeviceActions deviceAction, DeviceStateGRPC deviceState,) async {
+    DeviceActions deviceAction,
+    DeviceStateGRPC deviceState,
+  ) async {
     String? wishExecuteResult;
 
     if (deviceAction == null) return 'Your wish does not exist in blinds class';
@@ -95,7 +104,12 @@ class BlindsObject extends SmartDeviceStaticAbstract {
         blindsDownPin != null) {
       ButtonObjectLocalU()
           .listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
-              this, buttonPinUp!, blindsUpPin!, buttonPinDown!, blindsDownPin!,);
+        this,
+        buttonPinUp!,
+        blindsUpPin!,
+        buttonPinDown!,
+        blindsDownPin!,
+      );
     } else {
       print('Cannot listen to blinds, one of the variables is null');
       print('ButtonPinUp: $buttonPinUp, ButtonPinDown: $buttonPinDown, '

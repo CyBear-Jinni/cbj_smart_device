@@ -15,9 +15,12 @@ import 'package:cbj_smart_device/features/smart_device/infrastructure/repositori
 ///  Abstract class for smart devices that can get actions from commands.
 ///  Excluding buttons since they are the one that sending the commands.
 abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
-  SmartDeviceBase(String? id, String? deviceName, int? onOffPinNumber,
-      {int? onOffButtonPinNumber,})
-      : super(id, deviceName) {
+  SmartDeviceBase(
+    String? id,
+    String? deviceName,
+    int? onOffPinNumber, {
+    int? onOffButtonPinNumber,
+  }) : super(id, deviceName) {
     onOffPin =
         onOffPinNumber == null ? null : addPinToGpioPinList(onOffPinNumber);
 
@@ -96,7 +99,9 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   @override
   Type getTheNonAbstractObjectOfThisInstance() {
     return EnumHelper.getTheNonAbstractObjectOfSmartDeviceBaseAbstract(
-        this, getDeviceType()!,);
+      this,
+      getDeviceType()!,
+    );
   }
 
   /// Getting the saved IP of this object
@@ -178,13 +183,17 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   ///  Check if wish exist at all if true than check if base abstract have
   ///  this wish and if true than execute it
   Future<String> executeActionString(
-      String wishString, DeviceStateGRPC deviceState,) async {
+    String wishString,
+    DeviceStateGRPC deviceState,
+  ) async {
     final DeviceActions action = convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(action, deviceState);
   }
 
   Future<String> executeDeviceAction(
-      DeviceActions action, DeviceStateGRPC deviceState,) async {
+    DeviceActions action,
+    DeviceStateGRPC deviceState,
+  ) async {
     return wishInBaseClass(action, deviceState);
   }
 
