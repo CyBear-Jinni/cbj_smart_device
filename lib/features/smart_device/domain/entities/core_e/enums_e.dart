@@ -93,7 +93,7 @@ class EnumHelper {
   }
 
   static RaspberryPiType? stringToRaspberryPiType(
-      String raspberryPiTypeString) {
+      String raspberryPiTypeString,) {
     for (final RaspberryPiType raspberryPiType in RaspberryPiType.values) {
       if (RaspberryPiTypeToString(raspberryPiType) == raspberryPiTypeString) {
         return raspberryPiType;
@@ -124,7 +124,7 @@ class EnumHelper {
 
   /// Return the corresponding SmartDeviceBaseAbstract Object of the deviceType
   static dynamic deviceTypeToSmartDeviceBaseAbstractObject(
-      DeviceTypes deviceType) {
+      DeviceTypes deviceType,) {
     switch (deviceType) {
       case DeviceTypes.light:
         return LightObject(null, null, null);
@@ -144,7 +144,7 @@ class EnumHelper {
 
   /// Returning the non abstract of this SmartDeviceBaseAbstract
   static Type getTheNonAbstractObjectOfSmartDeviceBaseAbstract(
-      SmartDeviceBaseAbstract smartDeviceBaseAbstract, DeviceTypes deviceType) {
+      SmartDeviceBaseAbstract smartDeviceBaseAbstract, DeviceTypes deviceType,) {
     switch (deviceType) {
       case DeviceTypes.light:
         return LightObject;

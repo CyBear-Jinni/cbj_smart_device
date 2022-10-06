@@ -6,6 +6,6 @@ class TurnPinOffWiringPiSetupSys {
   Future<ProcessResult> TurnThePinOff(String physicalPinNumber) async {
     return Process.run(
         '${SharedVariables.getProjectRootDirectoryPath()}/scripts/cScripts/phisicalComponents/sendingSignals/offSignal/turnOffWiringPiSetupSys',
-        [physicalPinNumber]);
+        [physicalPinNumber],);
   }
 }

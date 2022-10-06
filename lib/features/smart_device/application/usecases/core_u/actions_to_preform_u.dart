@@ -3,7 +3,7 @@ import 'package:cbj_smart_device/features/smart_device/infrastructure/datasource
 
 class ActionsToPreformU {
   static Future<String> executeDeviceAction(SmartDeviceBase smartDevice,
-      DeviceActions deviceAction, DeviceStateGRPC deviceStateSource) async {
+      DeviceActions deviceAction, DeviceStateGRPC deviceStateSource,) async {
     final deviceStatus =
         await smartDevice.executeDeviceAction(deviceAction, deviceStateSource);
     return deviceStatus;

@@ -8,9 +8,12 @@ import 'package:cbj_smart_device/features/smart_device/infrastructure/repositori
 
 /// Simple button, without light inside.
 class ButtonObject extends SmartDeviceBaseAbstract {
-  ButtonObject(String? id, String? deviceName, int? buttonPinInt,
-      {this.buttonStatesAction})
-      : super(id, deviceName) {
+  ButtonObject(
+    String? id,
+    String? deviceName,
+    int? buttonPinInt, {
+    this.buttonStatesAction,
+  }) : super(id, deviceName) {
     buttonPin = DevicePinListManager().getGpioPin(buttonPinInt);
 
     buttonObjectRepository = ButtonObjectR();
@@ -85,13 +88,16 @@ class ButtonObject extends SmartDeviceBaseAbstract {
       if (whenToExecute == currentButtonPressState) {
         if (whenToExecute == WhenToExecute.onOddNumberPress ||
             whenToExecute == WhenToExecute.evenNumberPress) {
-          smartDeviceAndActionsMap.forEach((smartDevice, actionsToExecute) {
-            actionsToExecute.forEach((DeviceActions action) async {
+          smartDeviceAndActionsMap
+              .forEach((smartDevice, actionsToExecute) async {
+            for (final action in actionsToExecute) {
               print('${smartDevice.deviceName} is now going to execute '
                   '"${actionsToExecute.toString()}" action');
               await smartDevice.executeDeviceAction(
-                  action, DeviceStateGRPC.waitingInComp);
-            });
+                action,
+                DeviceStateGRPC.waitingInComp,
+              );
+            }
           });
         }
       }
@@ -102,7 +108,8 @@ class ButtonObject extends SmartDeviceBaseAbstract {
 
   static Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
       buttonDefaultStateAction(
-          List<SmartDeviceBaseAbstract>? smartDeviceBaseAbstractList) {
+    List<SmartDeviceBaseAbstract>? smartDeviceBaseAbstractList,
+  ) {
     Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
         buttonStatesAction;
 

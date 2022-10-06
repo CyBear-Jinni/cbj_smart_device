@@ -43,7 +43,7 @@ abstract class DevicePinListManagerAbstract {
   PinInformation? getGpioPin(int pinNumber);
 
   PhysicalDeviceType? convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
-      String physicalDeviceType);
+      String physicalDeviceType,);
 }
 
 class DevicePinListManager extends DevicePinListManagerAbstract {
@@ -62,7 +62,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
     final List<String> etcReleaseFilesAsList = etcReleaseOutput.split('\n');
     try {
       String deviceHostName = etcReleaseFilesAsList.firstWhere(
-          (etcReleaseSingleLine) => etcReleaseSingleLine.contains('BOARD'));
+          (etcReleaseSingleLine) => etcReleaseSingleLine.contains('BOARD'),);
       deviceHostName =
           deviceHostName.substring(deviceHostName.indexOf('=') + 1);
       print('Now');
@@ -71,7 +71,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
 
       physicalDeviceType =
           convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
-              deviceHostName);
+              deviceHostName,);
 
       final String? raspberryPiVersion =
           await systemCommandsManager.getRaspberryPiDeviceVersion();
@@ -180,7 +180,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
   ///  string physicalDeviceType exist (in general) else return null
   @override
   PhysicalDeviceType? convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
-      String physicalDeviceType) {
+      String physicalDeviceType,) {
     //  Loop through all the physical devices types
     for (final PhysicalDeviceType physicalDeviceTypeTemp
         in PhysicalDeviceType.values) {
@@ -243,7 +243,7 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
 
   @override
   PhysicalDeviceType? convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
-      String physicalDeviceType) {
+      String physicalDeviceType,) {
     //  Loop through all the physical devices types
     for (final PhysicalDeviceType physicalDeviceTypeTemp
         in PhysicalDeviceType.values) {

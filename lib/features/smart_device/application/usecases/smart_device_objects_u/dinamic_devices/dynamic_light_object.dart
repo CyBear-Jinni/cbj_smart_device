@@ -2,7 +2,7 @@ import 'package:cbj_smart_device/features/smart_device/application/usecases/smar
 
 class DynamicLightObject extends SmartDeviceDynamicAbstract {
   DynamicLightObject(String uuid, String smartInstanceName, int onOffPinNumber,
-      {int? onOffButtonPinNumber})
+      {int? onOffButtonPinNumber,})
       : super(uuid, smartInstanceName, onOffPinNumber,
-            onOffButtonPinNumber: onOffButtonPinNumber);
+            onOffButtonPinNumber: onOffButtonPinNumber,);
 }

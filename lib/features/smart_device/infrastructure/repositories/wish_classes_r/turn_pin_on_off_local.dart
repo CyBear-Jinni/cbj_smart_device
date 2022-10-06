@@ -27,10 +27,10 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
 
     try {
       print(
-          'This is the pin number on ${pinNumber!.pinAndPhysicalPinConfiguration}');
+          'This is the pin number on ${pinNumber!.pinAndPhysicalPinConfiguration}',);
       return await _wishClassesD!
           .turnOnLocalPhysicalPin(PinSetupMethodEnum.wiringPiSetupPhys,
-              pinNumber.pinAndPhysicalPinConfiguration.toString())
+              pinNumber.pinAndPhysicalPinConfiguration.toString(),)
           .then((ProcessResult results) {
         print(results.stdout);
         return results.stdout.toString();
@@ -51,10 +51,10 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
 
     try {
       print(
-          'This is the pin number off: ${pinNumber?.pinAndPhysicalPinConfiguration}');
+          'This is the pin number off: ${pinNumber?.pinAndPhysicalPinConfiguration}',);
       return _wishClassesD!
           .turnOffLocalPhysicalPin(PinSetupMethodEnum.wiringPiSetupPhys,
-              pinNumber!.pinAndPhysicalPinConfiguration.toString())
+              pinNumber!.pinAndPhysicalPinConfiguration.toString(),)
           .then((ProcessResult results) {
         print(results.stdout);
         return results.stdout.toString();

@@ -5,9 +5,9 @@ import 'package:cbj_smart_device/features/smart_device/infrastructure/datasource
 ///  how much time the device is doing action without stopping
 abstract class SmartDeviceStaticAbstract extends SmartDeviceBase {
   SmartDeviceStaticAbstract(String? uuid, smartInstanceName, onOffPinNumber,
-      {onOffButtonPinNumber})
+      {onOffButtonPinNumber,})
       : super(uuid, smartInstanceName as String?, onOffPinNumber as int?,
-            onOffButtonPinNumber: onOffButtonPinNumber as int?);
+            onOffButtonPinNumber: onOffButtonPinNumber as int?,);
 
   //  TODO: set how much to move
   String _HowMuchToMove() {
@@ -20,13 +20,11 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBase {
 //    return 'Turn on sucsessfuly';
   }
 
-  @override
-  void setDeviceType(DeviceTypes deviceType) => super.setDeviceType(deviceType);
 
   ///  All the wishes that are legit to execute from the static class
   @override
   Future<String> executeActionString(
-      String wishString, DeviceStateGRPC deviceState) async {
+      String wishString, DeviceStateGRPC deviceState,) async {
     final wish = convertWishStringToWishesObject(wishString);
     print(wishString);
     print(wish.toString());
@@ -36,12 +34,12 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBase {
 
   @override
   Future<String> executeDeviceAction(
-      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
+      DeviceActions deviceAction, DeviceStateGRPC deviceState,) async {
     return wishInStaticClass(deviceAction, deviceState);
   }
 
   String wishInStaticClass(
-      DeviceActions deviceAction, DeviceStateGRPC deviceState) {
+      DeviceActions deviceAction, DeviceStateGRPC deviceState,) {
     switch (deviceAction) {
       case DeviceActions.stop:
         return _HowMuchToMove();

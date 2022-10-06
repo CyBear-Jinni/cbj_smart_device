@@ -12,9 +12,9 @@ class ButtonWithLightObject extends ButtonObject {
   ButtonWithLightObject(
       String? id, String? deviceName, int? buttonPinInt, int? buttonLightInt,
       {Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
-          buttonStatesAction})
+          buttonStatesAction,})
       : super(id, deviceName, buttonPinInt,
-            buttonStatesAction: buttonStatesAction) {
+            buttonStatesAction: buttonStatesAction,) {
     buttonLight = DevicePinListManager().getGpioPin(buttonLightInt);
 
     buttonObjectRepository = ButtonObjectR();

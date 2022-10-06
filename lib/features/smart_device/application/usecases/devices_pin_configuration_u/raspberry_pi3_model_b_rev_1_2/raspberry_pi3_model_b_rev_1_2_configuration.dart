@@ -19,7 +19,7 @@ class RaspberryPi3ModelBRev1_2Configuration
         category: 'Power',
         pinAndPhysicalPinConfiguration: 2,
         gpioColumn: 2,
-        name: 'VDD_5V'),
+        name: 'VDD_5V',),
     PinInformation(
       category: 'GPIO',
       pinAndPhysicalPinConfiguration: 3,
@@ -32,7 +32,7 @@ class RaspberryPi3ModelBRev1_2Configuration
         category: 'Power',
         pinAndPhysicalPinConfiguration: 4,
         gpioColumn: 2,
-        name: 'VDD_5V'),
+        name: 'VDD_5V',),
     PinInformation(
       category: 'GPIO',
       pinAndPhysicalPinConfiguration: 5,

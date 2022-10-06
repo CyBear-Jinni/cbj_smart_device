@@ -28,7 +28,7 @@ class SetDevicesE {
   }
 
   Future<List<SmartDeviceBaseAbstract>> convertToListOfDevices(
-      String textOfSmartDevices) async {
+      String textOfSmartDevices,) async {
     final List<String> devicesSeparated = textOfSmartDevices
         .replaceAll(' ', '')
         .replaceFirst('\n', '')
@@ -71,13 +71,13 @@ class SetDevicesE {
             lightPins?[0]?.pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter = numberOfThatTypeThatExist(
-            smartDeviceBaseAbstractList, DeviceTypes.light);
+            smartDeviceBaseAbstractList, DeviceTypes.light,);
 
         smartDeviceBaseAbstractList.add(LightObject(
           uuid,
           'Light$deviceTypeCounter',
           lightPinNumber,
-        )..id = id);
+        )..id = id,);
       }
 
       /// Setting up for Boiler
@@ -95,11 +95,11 @@ class SetDevicesE {
         print('buttonPinNumber: $buttonPinNumber');
 
         final int deviceTypeCounter = numberOfThatTypeThatExist(
-            smartDeviceBaseAbstractList, DeviceTypes.boiler);
+            smartDeviceBaseAbstractList, DeviceTypes.boiler,);
 
         smartDeviceBaseAbstractList.add(BoilerObject(
-            uuid, 'Boiler$deviceTypeCounter', boilerPinNumber, buttonPinNumber)
-          ..id = id);
+            uuid, 'Boiler$deviceTypeCounter', boilerPinNumber, buttonPinNumber,)
+          ..id = id,);
       }
 
       /// Setting up for Blinds
@@ -121,7 +121,7 @@ class SetDevicesE {
             blindPinsAndButtonPins?[3]?.pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter = numberOfThatTypeThatExist(
-            smartDeviceBaseAbstractList, DeviceTypes.blinds);
+            smartDeviceBaseAbstractList, DeviceTypes.blinds,);
 
         smartDeviceBaseAbstractList.add(
           BlindsObject(
@@ -137,7 +137,7 @@ class SetDevicesE {
               //  upButtonPinNumber
               blindDownPinNumber,
               //  blindsDownPin
-              buttonDownPinNumber // downButtonPinNumber
+              buttonDownPinNumber, // downButtonPinNumber
               )
             ..id = id,
         );
@@ -152,7 +152,7 @@ class SetDevicesE {
             buttonPinList?[0]?.pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter = numberOfThatTypeThatExist(
-            smartDeviceBaseAbstractList, DeviceTypes.button);
+            smartDeviceBaseAbstractList, DeviceTypes.button,);
 
         final Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
             buttonStatesAction =
@@ -160,7 +160,7 @@ class SetDevicesE {
 
         smartDeviceBaseAbstractList.add(ButtonObject(
             uuid, 'Button $deviceTypeCounter', buttonPin,
-            buttonStatesAction: buttonStatesAction));
+            buttonStatesAction: buttonStatesAction,),);
       }
 
       /// Setting up Button With Light
@@ -176,7 +176,7 @@ class SetDevicesE {
             lightPinAndButtonPin?[1]?.pinAndPhysicalPinConfiguration;
 
         final int deviceTypeCounter = numberOfThatTypeThatExist(
-            smartDeviceBaseAbstractList, DeviceTypes.buttonWithLight);
+            smartDeviceBaseAbstractList, DeviceTypes.buttonWithLight,);
 
         final Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
             buttonStatesAction =
@@ -184,7 +184,7 @@ class SetDevicesE {
 
         smartDeviceBaseAbstractList.add(ButtonWithLightObject(uuid,
             'Button With Light $deviceTypeCounter', buttonPin, buttonLightPin,
-            buttonStatesAction: buttonStatesAction));
+            buttonStatesAction: buttonStatesAction,),);
       }
     }
     if (smartDeviceBaseAbstractList.isEmpty) {
@@ -195,7 +195,7 @@ class SetDevicesE {
 
   /// Return the number of times this device type was already exist
   int numberOfThatTypeThatExist(
-      List<dynamic> smartDeviceList, DeviceTypes deviceType) {
+      List<dynamic> smartDeviceList, DeviceTypes deviceType,) {
     int counterOfThisDeviceType = 0;
     for (final dynamic smartDevice in smartDeviceList) {
       if (smartDevice.getDeviceType() == deviceType) {

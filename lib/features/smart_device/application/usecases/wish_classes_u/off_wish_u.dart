@@ -4,7 +4,7 @@ import 'package:cbj_smart_device/features/smart_device/domain/entities/wish_clas
 
 class OffWishU {
   static String setOff(
-      DeviceInformation deviceInformation, PinInformation? pinNumber) {
+      DeviceInformation deviceInformation, PinInformation? pinNumber,) {
     pinNumber?.v = 0;
     switch (deviceInformation.runtimeType) {
       case LocalDevice:
@@ -17,14 +17,14 @@ class OffWishU {
 
   ///  Turn this device off
   static String setOffLocal(
-      LocalDevice deviceInformation, PinInformation? pinNumber) {
+      LocalDevice deviceInformation, PinInformation? pinNumber,) {
     WishClassesE().pinOff(pinNumber);
     return 'Response from this device off sucsessful';
   }
 
   ///  Change the remote device off
   static String setOffRemote(
-      RemoteDevice remoteDevice, PinInformation? pinNumber) {
+      RemoteDevice remoteDevice, PinInformation? pinNumber,) {
 //    try {
 //      HttpClient()
 //          .getUrl(Uri.parse('http://' +

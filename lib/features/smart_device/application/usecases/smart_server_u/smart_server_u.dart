@@ -19,24 +19,24 @@ class SmartServerU extends SmartServerServiceBase {
 
   ///  Listening to port and deciding what to do with the response
   void waitForConnection(
-      FirebaseAccountsInformationD? firebaseAccountsInformationD) {
+      FirebaseAccountsInformationD? firebaseAccountsInformationD,) {
     print('Wait for connection');
 
     final SmartServerU smartServer = SmartServerU();
     smartServer.startListen(
-        firebaseAccountsInformationD); // Will go throw the model with the
+        firebaseAccountsInformationD,); // Will go throw the model with the
     // grpc logic and converter to objects
   }
 
   ///  Listening in the background to incoming connections
   Future startListen(
-      FirebaseAccountsInformationD? firebaseAccountsInformationD) async {
+      FirebaseAccountsInformationD? firebaseAccountsInformationD,) async {
     startListenToDb(firebaseAccountsInformationD);
     await startLocalServer();
   }
 
   void startListenToDb(
-      FirebaseAccountsInformationD? firebaseAccountInformationD) {
+      FirebaseAccountsInformationD? firebaseAccountInformationD,) {
     if (firebaseAccountInformationD == null) {
       print('Database var databaseInformationFromDb is null');
       return;
@@ -66,7 +66,7 @@ class SmartServerU extends SmartServerServiceBase {
     );
 
     final List<SmartDeviceInfo> smartDeviceInfoList = [];
-    devicesList.forEach((element) {
+    for (var element in devicesList) {
       DeviceTypes deviceTypes;
       switch (element.getDeviceType()) {
         case DeviceTypes.light:
@@ -105,7 +105,7 @@ class SmartServerU extends SmartServerServiceBase {
         defaultName: element.deviceInformation.getName(),
       );
       smartDeviceInfoList.add(smartDeviceInfo);
-    });
+    }
 
     final CompInfo compInfo =
         CompInfo(compSpecs: compSpecs, smartDevicesInComp: smartDeviceInfoList);
@@ -116,20 +116,20 @@ class SmartServerU extends SmartServerServiceBase {
   //  Return the status of the specified device
   @override
   Future<SmartDeviceStatus> getStatus(
-      ServiceCall call, SmartDeviceInfo request) async {
+      ServiceCall call, SmartDeviceInfo request,) async {
     final String deviceStatus = await executeDeviceActionString(
-        request, DeviceActions.actionNotSupported, _deviceState);
+        request, DeviceActions.actionNotSupported, _deviceState,);
 
     print(
-        'Getting status of device $request and device status in bool $deviceStatus');
+        'Getting status of device $request and device status in bool $deviceStatus',);
     return SmartDeviceStatus()..onOffState = deviceStatus == 'true';
   }
 
   @override
   Future<CommendStatus> updateDeviceName(
-      ServiceCall call, SmartDeviceUpdateDetails request) async {
+      ServiceCall call, SmartDeviceUpdateDetails request,) async {
     print(
-        'Updating device name:${request.smartDevice.id} into: ${request.newName}');
+        'Updating device name:${request.smartDevice.id} into: ${request.newName}',);
     final SmartDeviceBaseAbstract smartDevice =
         getSmartDeviceBaseAbstract(request.smartDevice)!;
     smartDevice.id = request.newName;
@@ -142,38 +142,38 @@ class SmartServerU extends SmartServerServiceBase {
 
   @override
   Future<CommendStatus> setOffDevice(
-      ServiceCall call, SmartDeviceInfo request) async {
+      ServiceCall call, SmartDeviceInfo request,) async {
     print('Turn device ${request.id} off');
     return executeDeviceActionServer(request, DeviceActions.off, _deviceState);
   }
 
   @override
   Future<CommendStatus> setOnDevice(
-      ServiceCall call, SmartDeviceInfo request) async {
+      ServiceCall call, SmartDeviceInfo request,) async {
     print('Turn device ${request.id} on');
     return executeDeviceActionServer(request, DeviceActions.on, _deviceState);
   }
 
   @override
   Future<CommendStatus> setBlindsUp(
-      ServiceCall call, SmartDeviceInfo request) async {
+      ServiceCall call, SmartDeviceInfo request,) async {
     print('Turn blinds ${request.id} up');
     return executeDeviceActionServer(
-        request, DeviceActions.moveUp, _deviceState);
+        request, DeviceActions.moveUp, _deviceState,);
   }
 
   @override
   Future<CommendStatus> setBlindsDown(
-      ServiceCall call, SmartDeviceInfo request) async {
+      ServiceCall call, SmartDeviceInfo request,) async {
     print('Turn blinds ${request.id} down');
 
     return executeDeviceActionServer(
-        request, DeviceActions.moveDown, _deviceState);
+        request, DeviceActions.moveDown, _deviceState,);
   }
 
   @override
   Future<CommendStatus> setBlindsStop(
-      ServiceCall call, SmartDeviceInfo request) async {
+      ServiceCall call, SmartDeviceInfo request,) async {
     print('Turn blinds ${request.id} stop');
 
     return executeDeviceActionServer(request, DeviceActions.stop, _deviceState);
@@ -183,7 +183,7 @@ class SmartServerU extends SmartServerServiceBase {
     try {
       return MySingleton.getSmartDevicesList().firstWhere(
           (smartDeviceBaseAbstractO) =>
-              smartDeviceBaseAbstractO.id == request.id);
+              smartDeviceBaseAbstractO.id == request.id,);
     } catch (exception) {
       print('Exception, device name ${request.id} could not be found:'
           ' ${exception.toString()}');
@@ -192,7 +192,7 @@ class SmartServerU extends SmartServerServiceBase {
   }
 
   CommendStatus executeDeviceActionServer(SmartDeviceInfo request,
-      DeviceActions deviceAction, DeviceStateGRPC _deviceState) {
+      DeviceActions deviceAction, DeviceStateGRPC deviceState,) {
     final SmartDeviceBaseAbstract smartDevice =
         getSmartDeviceBaseAbstract(request)!;
     if (smartDevice == null) {
@@ -201,14 +201,14 @@ class SmartServerU extends SmartServerServiceBase {
 
     if (smartDevice is SmartDeviceBase) {
       ActionsToPreformU.executeDeviceAction(
-          smartDevice, deviceAction, _deviceState);
+          smartDevice, deviceAction, deviceState,);
       return CommendStatus()..success = smartDevice.onOff;
     }
     return CommendStatus()..success = false;
   }
 
   Future<String> executeDeviceActionString(SmartDeviceInfo request,
-      DeviceActions deviceAction, DeviceStateGRPC deviceState) async {
+      DeviceActions deviceAction, DeviceStateGRPC deviceState,) async {
     final SmartDeviceBaseAbstract? smartDevice =
         getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
@@ -217,14 +217,14 @@ class SmartServerU extends SmartServerServiceBase {
 
     if (smartDevice is SmartDeviceBase) {
       return ActionsToPreformU.executeDeviceAction(
-          smartDevice, deviceAction, deviceState);
+          smartDevice, deviceAction, deviceState,);
     }
     return 'Error executing device action string';
   }
 
   @override
   Future<CommendStatus> setFirebaseAccountInformation(
-      ServiceCall call, FirebaseAccountInformation request) async {
+      ServiceCall call, FirebaseAccountInformation request,) async {
     print('This is the function setFirebaseAccountInformation');
     final CommendStatus commendStatus =
         await setFirebaseAccountInformationHelper(request);
@@ -239,14 +239,14 @@ class SmartServerU extends SmartServerServiceBase {
 
   @override
   Future<CommendStatus> firstSetup(
-      ServiceCall call, FirstSetupMessage request) async {
+      ServiceCall call, FirstSetupMessage request,) async {
     try {
       final CompInfo compInfo = request.compInfo;
       final CommendStatus commendStatusSetComp = await SetCompHelper(compInfo);
 
       final CommendStatus commendStatusSetFirebase =
           await setFirebaseAccountInformationHelper(
-              request.firebaseAccountInformation);
+              request.firebaseAccountInformation,);
 
       if (commendStatusSetComp.success && commendStatusSetFirebase.success) {
         return CommendStatus()..success = true;
@@ -283,7 +283,7 @@ class SmartServerU extends SmartServerServiceBase {
   }
 
   Future<CommendStatus> setFirebaseAccountInformationHelper(
-      FirebaseAccountInformation request) async {
+      FirebaseAccountInformation request,) async {
     try {
       final FirebaseAccountsInformationD firebaseAccountsInformationD =
           FirebaseAccountsInformationD(
@@ -291,7 +291,7 @@ class SmartServerU extends SmartServerServiceBase {
               request.fireBaseApiKey,
               request.userEmail,
               request.userPassword,
-              request.homeId);
+              request.homeId,);
 
       for (final SmartDeviceBaseAbstract device
           in MySingleton.getSmartDevicesList()) {
@@ -323,14 +323,14 @@ class SmartServerU extends SmartServerServiceBase {
 
   @override
   Stream<RequestsAndStatusFromHub> registerClient(
-      ServiceCall call, Stream<ClientStatusRequests> request) async* {
+      ServiceCall call, Stream<ClientStatusRequests> request,) async* {
     print('object registerClient now');
     yield RequestsAndStatusFromHub();
   }
 
   @override
   Stream<ClientStatusRequests> registerHub(
-      ServiceCall call, Stream<RequestsAndStatusFromHub> request) async* {
+      ServiceCall call, Stream<RequestsAndStatusFromHub> request,) async* {
     yield ClientStatusRequests();
   }
 }

@@ -16,7 +16,7 @@ import 'package:cbj_smart_device/features/smart_device/infrastructure/repositori
 ///  Excluding buttons since they are the one that sending the commands.
 abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   SmartDeviceBase(String? id, String? deviceName, int? onOffPinNumber,
-      {int? onOffButtonPinNumber})
+      {int? onOffButtonPinNumber,})
       : super(id, deviceName) {
     onOffPin =
         onOffPinNumber == null ? null : addPinToGpioPinList(onOffPinNumber);
@@ -32,40 +32,51 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   }
 
   ///  Save data about the device, remote or local IP or pin number
+  @override
   DeviceInformation deviceInformation =
       LocalDevice('This is the mac Address', '');
 
   ///  Mac addresses of the physical device
+  @override
   String? uuid;
 
   ///  Permissions of all the users to this device
+  @override
   Map<String, PermissionsManager>? devicePermissions;
 
   ///  Power consumption of the device
+  @override
   double? watts;
 
   ///  How much time the computer is on since last boot
+  @override
   DateTime? computerActiveTime;
 
   ///  How much time the smart device was active (Doing action) total
+  @override
   DateTime? activeTimeTotal;
 
   ///  Log of all the actions the device was and will do
+  @override
   Map<DateTime, Function>? activitiesLog;
 
   ///  Save the device state on = true, off = false of onOffPin
+  @override
   bool onOff = false;
 
   ///  Number of on or off pin
+  @override
   PinInformation? onOffPin;
 
   ///  Pin for the button that control the onOffPin
+  @override
   PinInformation? onOffButtonPin;
 
   ///  Save all the gpio pins that this instance is using
   final List<PinInformation> _gpioPinList = <PinInformation>[];
 
   ///  The type of the smart device Light blinds etc
+  @override
   DeviceTypes? smartDeviceType;
 
   /// Get a list of the pins Types that this device need
@@ -78,24 +89,29 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   //  Getters
 
   ///  Get smart device type
+  @override
   DeviceTypes? getDeviceType() => smartDeviceType;
 
   /// Returning the non abstract of this object
+  @override
   Type getTheNonAbstractObjectOfThisInstance() {
     return EnumHelper.getTheNonAbstractObjectOfSmartDeviceBaseAbstract(
-        this, getDeviceType()!);
+        this, getDeviceType()!,);
   }
 
   /// Getting the saved IP of this object
+  @override
   Future<String?> getIp() async {
     return getIps();
   }
 
   ///  Get the list of gpio pin of the device
+  @override
   List<PinInformation> getGpioPinList() {
     return _gpioPinList;
   }
 
+  @override
   Future<String> getUuid() {
     return SmartDeviceObjectsR.getUuid();
   }
@@ -124,6 +140,7 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
     return 'Turn off successfully';
   }
 
+  @override
   void setDeviceType(DeviceTypes deviceType) => smartDeviceType = deviceType;
 
   ///  Turn device pin to the opposite state
@@ -161,13 +178,13 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   ///  Check if wish exist at all if true than check if base abstract have
   ///  this wish and if true than execute it
   Future<String> executeActionString(
-      String wishString, DeviceStateGRPC deviceState) async {
+      String wishString, DeviceStateGRPC deviceState,) async {
     final DeviceActions action = convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(action, deviceState);
   }
 
   Future<String> executeDeviceAction(
-      DeviceActions action, DeviceStateGRPC deviceState) async {
+      DeviceActions action, DeviceStateGRPC deviceState,) async {
     return wishInBaseClass(action, deviceState);
   }
 

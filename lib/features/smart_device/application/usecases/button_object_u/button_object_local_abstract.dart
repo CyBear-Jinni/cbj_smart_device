@@ -12,10 +12,10 @@ abstract class ButtonObjectLocalAbstract {
   ButtonObjectR? buttonObjectRepository;
 
   void buttonPressed(SmartDeviceBase smartDevice,
-      PinInformation buttonPinNumber, PinInformation lightPin);
+      PinInformation buttonPinNumber, PinInformation lightPin,);
 
   void buttonPressedForBoiler(BoilerObject smartDevice,
-      PinInformation buttonPinNumber, PinInformation lightPin);
+      PinInformation buttonPinNumber, PinInformation lightPin,);
 
   ///  Listen to two buttons but work only if one is pressed.
   void listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
@@ -23,19 +23,19 @@ abstract class ButtonObjectLocalAbstract {
       PinInformation firstButtonPinNumber,
       PinInformation firstLightPin,
       PinInformation secondButtonPinNumber,
-      PinInformation secondLightPin);
+      PinInformation secondLightPin,);
 
   void listenToButtonPressAndChangeBlindStateAccordingly(
       BlindsObject blindsObject,
       PinInformation buttonPinNumber,
       PinInformation firstLightPin,
       PinInformation secondLightPin,
-      int buttonNumber);
+      int buttonNumber,);
 
   ///  Logic of two buttons
   Future<void> changeBlindsPinsOutput(
       BlindsObject blindsObject,
       PinInformation firstLightPin,
       PinInformation secondLightPin,
-      int buttonPressNumber);
+      int buttonPressNumber,);
 }

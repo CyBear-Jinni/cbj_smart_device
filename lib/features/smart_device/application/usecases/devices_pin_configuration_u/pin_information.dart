@@ -14,7 +14,7 @@ class PinInformation {
       this.ph,
       this.bcmOrLinuxGpio,
       this.wPi,
-      this.pinAndPhysicalPinConfiguration}) {
+      this.pinAndPhysicalPinConfiguration,}) {
     isInUse = isInUse ?? false;
     onDuration = 0;
   }

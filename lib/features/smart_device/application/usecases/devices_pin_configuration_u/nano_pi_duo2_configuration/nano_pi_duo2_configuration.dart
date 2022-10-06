@@ -14,7 +14,7 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         pinAndPhysicalPinConfiguration: 1,
         gpioColumn: 1,
         gpioValue: '5V',
-        name: 'VDD_5V'),
+        name: 'VDD_5V',),
     PinInformation(
         category: 'DEBUG',
         pinAndPhysicalPinConfiguration: 2,
@@ -24,13 +24,13 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         v: 00,
         mode: 'IN',
         wPi: 15,
-        bcmOrLinuxGpio: 6),
+        bcmOrLinuxGpio: 6,),
     PinInformation(
         category: 'Power',
         pinAndPhysicalPinConfiguration: 3,
         gpioColumn: 1,
         gpioValue: '5V',
-        name: 'VDD_5V'),
+        name: 'VDD_5V',),
     PinInformation(
         category: 'DEBUG',
         pinAndPhysicalPinConfiguration: 4,
@@ -40,25 +40,25 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         v: 0,
         mode: 'ALT5',
         wPi: 14,
-        bcmOrLinuxGpio: 4),
+        bcmOrLinuxGpio: 4,),
     PinInformation(
         category: 'Power',
         pinAndPhysicalPinConfiguration: 5,
         gpioColumn: 1,
         gpioValue: '3V3',
-        name: 'SYS_3.3V'),
+        name: 'SYS_3.3V',),
     PinInformation(
         category: 'Power',
         pinAndPhysicalPinConfiguration: 6,
         gpioColumn: 2,
         gpioValue: 'GND',
-        name: 'GND'),
+        name: 'GND',),
     PinInformation(
         category: 'Power',
         pinAndPhysicalPinConfiguration: 7,
         gpioColumn: 1,
         gpioValue: 'GND',
-        name: 'GND'),
+        name: 'GND',),
     PinInformation(
         category: 'GPIO',
         pinAndPhysicalPinConfiguration: 8,
@@ -68,7 +68,7 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         v: 0,
         mode: 'ALT5',
         wPi: 13,
-        bcmOrLinuxGpio: 11),
+        bcmOrLinuxGpio: 11,),
     PinInformation(
         category: 'GPIO',
         pinAndPhysicalPinConfiguration: 9,
@@ -78,7 +78,7 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         v: 0,
         mode: 'IN',
         wPi: 18,
-        bcmOrLinuxGpio: 363),
+        bcmOrLinuxGpio: 363,),
     PinInformation(
         category: 'GPIO',
         pinAndPhysicalPinConfiguration: 10,
@@ -88,7 +88,7 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         v: 0,
         mode: 'ALT4',
         wPi: 3,
-        bcmOrLinuxGpio: 13),
+        bcmOrLinuxGpio: 13,),
     PinInformation(
         category: 'GPIO',
         pinAndPhysicalPinConfiguration: 11,
@@ -98,7 +98,7 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         v: 0,
         mode: 'OUT',
         wPi: 16,
-        bcmOrLinuxGpio: 203),
+        bcmOrLinuxGpio: 203,),
     PinInformation(
         category: 'GPIO',
         pinAndPhysicalPinConfiguration: 12,
@@ -108,13 +108,13 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         v: 0,
         mode: 'ALT4',
         wPi: 3,
-        bcmOrLinuxGpio: 13),
+        bcmOrLinuxGpio: 13,),
     PinInformation(
         category: 'USB',
         pinAndPhysicalPinConfiguration: 13,
         gpioColumn: 1,
         gpioValue: 'DM3',
-        name: 'USB-DM3'),
+        name: 'USB-DM3',),
     PinInformation(
         category: 'GPIO',
         pinAndPhysicalPinConfiguration: 14,
@@ -124,13 +124,13 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         v: 0,
         mode: 'ALT4',
         wPi: 2,
-        bcmOrLinuxGpio: 14),
+        bcmOrLinuxGpio: 14,),
     PinInformation(
         category: 'USB',
         pinAndPhysicalPinConfiguration: 15,
         gpioColumn: 1,
         gpioValue: 'DP3',
-        name: 'USB-DP3'),
+        name: 'USB-DP3',),
     PinInformation(
         category: 'GPIO',
         pinAndPhysicalPinConfiguration: 16,
@@ -140,13 +140,13 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         v: 0,
         mode: 'ALT4',
         wPi: 0,
-        bcmOrLinuxGpio: 16),
+        bcmOrLinuxGpio: 16,),
     PinInformation(
         category: 'USB',
         pinAndPhysicalPinConfiguration: 17,
         gpioColumn: 1,
         gpioValue: 'DM2',
-        name: 'USB-DM2'),
+        name: 'USB-DM2',),
     PinInformation(
         category: 'GPIO',
         pinAndPhysicalPinConfiguration: 18,
@@ -156,13 +156,13 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         v: 0,
         mode: 'ALT4',
         wPi: 7,
-        bcmOrLinuxGpio: 15),
+        bcmOrLinuxGpio: 15,),
     PinInformation(
         category: 'USB',
         pinAndPhysicalPinConfiguration: 19,
         gpioColumn: 1,
         gpioValue: 'DP2',
-        name: 'USB-DP2'),
+        name: 'USB-DP2',),
     PinInformation(
         category: 'GPIO',
         pinAndPhysicalPinConfiguration: 20,
@@ -171,13 +171,13 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         name: 'UART1_RX/GPIOG7',
         v: 0,
         wPi: 9,
-        bcmOrLinuxGpio: 199),
+        bcmOrLinuxGpio: 199,),
     PinInformation(
         category: 'EPHY',
         pinAndPhysicalPinConfiguration: 21,
         gpioColumn: 1,
         gpioValue: 'RD-',
-        name: 'EPHY-RXN'),
+        name: 'EPHY-RXN',),
     PinInformation(
         category: 'GPIO',
         pinAndPhysicalPinConfiguration: 22,
@@ -187,163 +187,163 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
         v: 0,
         mode: 'ALT5',
         wPi: 8,
-        bcmOrLinuxGpio: 198),
+        bcmOrLinuxGpio: 198,),
     PinInformation(
         category: 'EPHY',
         pinAndPhysicalPinConfiguration: 23,
         gpioColumn: 1,
         gpioValue: 'RD+',
-        name: 'EPHY-RXP'),
+        name: 'EPHY-RXP',),
     PinInformation(
         category: 'CVBS',
         pinAndPhysicalPinConfiguration: 24,
         gpioColumn: 2,
         gpioValue: 'CVBS',
-        name: 'CVBS'),
+        name: 'CVBS',),
     PinInformation(
         category: 'EPHY',
         pinAndPhysicalPinConfiguration: 25,
         gpioColumn: 1,
         gpioValue: 'TD-',
-        name: 'EPHY-TXN'),
+        name: 'EPHY-TXN',),
     PinInformation(
         category: 'LINEOUT',
         pinAndPhysicalPinConfiguration: 26,
         gpioColumn: 2,
         gpioValue: 'LL',
-        name: 'LINEOUT_L'),
+        name: 'LINEOUT_L',),
     PinInformation(
         category: 'EPHY',
         pinAndPhysicalPinConfiguration: 27,
         gpioColumn: 1,
         gpioValue: 'TD+',
-        name: 'EPHY-TXP'),
+        name: 'EPHY-TXP',),
     PinInformation(
         category: 'LINEOUT',
         pinAndPhysicalPinConfiguration: 28,
         gpioColumn: 2,
         gpioValue: 'LR',
-        name: 'LINEOUT_R'),
+        name: 'LINEOUT_R',),
     PinInformation(
         category: 'EPHY',
         pinAndPhysicalPinConfiguration: 29,
         gpioColumn: 1,
         gpioValue: 'LNK',
-        name: 'EPHY-LED-LINK'),
+        name: 'EPHY-LED-LINK',),
     PinInformation(
         category: 'MIC',
         pinAndPhysicalPinConfiguration: 30,
         gpioColumn: 2,
         gpioValue: 'MP',
-        name: 'MIC_P'),
+        name: 'MIC_P',),
     PinInformation(
         category: 'EPHY',
         pinAndPhysicalPinConfiguration: 31,
         gpioColumn: 1,
         gpioValue: 'SPD',
-        name: 'EPHY-LED-SPD'),
+        name: 'EPHY-LED-SPD',),
     PinInformation(
         category: 'MIC',
         pinAndPhysicalPinConfiguration: 32,
         gpioColumn: 2,
         gpioValue: 'MN',
-        name: 'MIC_N'),
+        name: 'MIC_N',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 1,
-        description: 'NC1'),
+        description: 'NC1',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 2,
-        description: 'AGND'),
+        description: 'AGND',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 3,
-        description: 'SIO-D'),
+        description: 'SIO-D',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 4,
-        description: 'AVDD'),
+        description: 'AVDD',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 5,
-        description: 'SIO-C'),
+        description: 'SIO-C',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 6,
-        description: 'RESER'),
+        description: 'RESER',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 7,
-        description: 'VSYNC'),
+        description: 'VSYNC',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 8,
-        description: 'PWDN'),
+        description: 'PWDN',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 9,
-        description: 'HREF'),
+        description: 'HREF',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 10,
-        description: 'DVDD'),
+        description: 'DVDD',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 11,
-        description: 'DOVDD'),
+        description: 'DOVDD',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 12,
-        description: 'Y9/MDP1'),
+        description: 'Y9/MDP1',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 13,
-        description: 'XCLK'),
+        description: 'XCLK',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 14,
-        description: 'Y8/MDN1'),
+        description: 'Y8/MDN1',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 15,
-        description: 'DGND'),
+        description: 'DGND',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 16,
-        description: 'Y7/MCP'),
+        description: 'Y7/MCP',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 17,
-        description: 'PCLK'),
+        description: 'PCLK',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 18,
-        description: 'Y6/MCN'),
+        description: 'Y6/MCN',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 19,
-        description: 'Y2'),
+        description: 'Y2',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 20,
-        description: 'Y5/MDP0'),
+        description: 'Y5/MDP0',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 21,
-        description: 'Y3'),
+        description: 'Y3',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 22,
-        description: 'Y4/MDN0'),
+        description: 'Y4/MDN0',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 23,
-        description: 'AF-VDD'),
+        description: 'AF-VDD',),
     PinInformation(
         category: 'Camera（OV5640',
         pinAndPhysicalPinConfiguration: 24,
-        description: 'NC2'),
+        description: 'NC2',),
   ];
 
   /// Gpio pins number (pinAndPhysicalPinConfiguration) to
@@ -359,8 +359,7 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
       final PinInformation pinInformationExistInList =
           doesPinExistInPinList(tempPinInformation, pinList!)!;
 
-      if (pinInformationExistInList != null &&
-          isGpioPinFree(pinNumber) >= 0 &&
+      if (isGpioPinFree(pinNumber) >= 0 &&
           doesPinExistInPinList(pinInformationExistInList, ignorePinsList!) ==
               null) {
         return pinInformationExistInList;

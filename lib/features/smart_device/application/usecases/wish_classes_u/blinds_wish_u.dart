@@ -16,7 +16,7 @@ class BlindsWishU {
 
     blindsInformation.blindsDownPin?.onDuration = 0;
     status = OffWishU.setOff(
-        blindsInformation.deviceInformation, blindsInformation.blindsDownPin);
+        blindsInformation.deviceInformation, blindsInformation.blindsDownPin,);
 
     await Future<void>.delayed(const Duration(seconds: 1));
 
@@ -27,7 +27,7 @@ class BlindsWishU {
 
     blindsInformation.blindsDownPin?.onDuration = 0;
     OffWishU.setOff(
-        blindsInformation.deviceInformation, blindsInformation.blindsDownPin);
+        blindsInformation.deviceInformation, blindsInformation.blindsDownPin,);
 
     return status;
   }
@@ -45,7 +45,7 @@ class BlindsWishU {
 
     blindsInformation.blindsUpPin?.onDuration = 0;
     status = OffWishU.setOff(
-        blindsInformation.deviceInformation, blindsInformation.blindsUpPin);
+        blindsInformation.deviceInformation, blindsInformation.blindsUpPin,);
 
     await Future<void>.delayed(const Duration(seconds: 1));
 
@@ -55,7 +55,7 @@ class BlindsWishU {
 
     blindsInformation.blindsUpPin?.onDuration = 0;
     OffWishU.setOff(
-        blindsInformation.deviceInformation, blindsInformation.blindsUpPin);
+        blindsInformation.deviceInformation, blindsInformation.blindsUpPin,);
 
     return status;
   }
@@ -73,7 +73,7 @@ class BlindsWishU {
 
     blindsInformation.blindsUpPin?.onDuration = 0;
     status = OffWishU.setOff(
-        blindsInformation.deviceInformation, blindsInformation.blindsUpPin);
+        blindsInformation.deviceInformation, blindsInformation.blindsUpPin,);
 
     blindsInformation.blindsDownPin?.onDuration = 0;
     status +=

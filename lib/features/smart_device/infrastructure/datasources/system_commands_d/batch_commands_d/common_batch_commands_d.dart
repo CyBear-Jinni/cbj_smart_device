@@ -50,7 +50,7 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
   @override
   Future<String> getFileContent(fileFullPath) async {
     final String fileText = await Process.run(
-            'cmd', <String>['/C', 'more', fileFullPath.toString()])
+            'cmd', <String>['/C', 'more', fileFullPath.toString()],)
         .then((ProcessResult result) {
       return result.stdout.toString();
     });
@@ -72,7 +72,7 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
     }
     if (fileContent.isEmpty) {
       print(
-          'Config file does not exist or empty, path searching: $fileFullPath');
+          'Config file does not exist or empty, path searching: $fileFullPath',);
       return '';
     }
     return fileContent.substring(0, fileContent.indexOf('\r'));

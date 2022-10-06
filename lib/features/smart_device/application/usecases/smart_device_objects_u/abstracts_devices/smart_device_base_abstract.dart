@@ -9,7 +9,7 @@ import 'package:cbj_smart_device/features/smart_device/infrastructure/repositori
 ///  The super base class of all the smart device class and
 ///  smart device abstract classes
 abstract class SmartDeviceBaseAbstract {
-  SmartDeviceBaseAbstract(this.id, this.deviceName) {}
+  SmartDeviceBaseAbstract(this.id, this.deviceName);
 
   ///  Save data about the device, remote or local IP or pin number
   DeviceInformation deviceInformation =
@@ -68,7 +68,7 @@ abstract class SmartDeviceBaseAbstract {
   /// Returning the non abstract of this object
   Type getTheNonAbstractObjectOfThisInstance() {
     return EnumHelper.getTheNonAbstractObjectOfSmartDeviceBaseAbstract(
-        this, getDeviceType()!);
+        this, getDeviceType()!,);
   }
 
   /// Getting the saved IP of this object

@@ -42,7 +42,7 @@ class LocalDbR {
             deviceUuid,
             'Light name missing',
             onOffPinNumber,
-          ));
+          ),);
           break;
         case DeviceTypes.boiler:
           final int? boilerPinNumber =
@@ -55,7 +55,7 @@ class LocalDbR {
             'Boiler name missing',
             boilerPinNumber,
             boilerButtonPinNumber,
-          ));
+          ),);
           break;
         case DeviceTypes.blinds:
           print('Adding from local db blind object');
@@ -89,7 +89,7 @@ class LocalDbR {
             blindsDownPin,
             //  blindsDownPin
             downButtonPinNumber, // downButtonPinNumber
-          ));
+          ),);
           break;
         case DeviceTypes.button:
           final int? buttonPinNumber =
@@ -98,14 +98,14 @@ class LocalDbR {
 
           final Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
               buttonStatesAction = ButtonObject.buttonDefaultStateAction(
-                  smartDeviceBaseAbstractList);
+                  smartDeviceBaseAbstractList,);
 
           smartDeviceBaseAbstractList.add(ButtonObject(
             deviceUuid,
             'Button name is missing',
             buttonPinNumber,
             buttonStatesAction: buttonStatesAction,
-          ));
+          ),);
           break;
         case DeviceTypes.buttonWithLight:
           final int? buttonPinNumber =
@@ -116,7 +116,7 @@ class LocalDbR {
 
           final Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
               buttonStatesAction = ButtonObject.buttonDefaultStateAction(
-                  smartDeviceBaseAbstractList);
+                  smartDeviceBaseAbstractList,);
 
           smartDeviceBaseAbstractList.add(ButtonWithLightObject(
             deviceUuid,
@@ -124,7 +124,7 @@ class LocalDbR {
             buttonPinNumber,
             buttonLightPinNumber,
             buttonStatesAction: buttonStatesAction,
-          ));
+          ),);
           break;
         default:
           print('Cannot add from local db, device type is not supported');
@@ -157,19 +157,19 @@ class LocalDbR {
 
     final FirebaseAccountsInformationD firebaseAccountsInformationD =
         FirebaseAccountsInformationD(
-            fireBaseProjectId, fireBaseApiKey, userEmail, userPassword, homeId);
+            fireBaseProjectId, fireBaseApiKey, userEmail, userPassword, homeId,);
 
     return firebaseAccountsInformationD;
   }
 
   Future<void> saveAllDevices(
-      List<SmartDeviceBaseAbstract> smartDevicesList) async {
+      List<SmartDeviceBaseAbstract> smartDevicesList,) async {
     await _localDbD!.saveAllDevices(smartDevicesList);
     return;
   }
 
   void saveListOfDatabaseInformation(
-      FirebaseAccountsInformationD firebaseAccountsInformationD) {
+      FirebaseAccountsInformationD firebaseAccountsInformationD,) {
     _localDbD!.saveListOfDatabaseInformation(firebaseAccountsInformationD);
   }
 }
