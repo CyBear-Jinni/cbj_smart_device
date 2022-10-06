@@ -1,7 +1,6 @@
 import 'package:smart_device_dart/core/device_information.dart';
 import 'package:smart_device_dart/core/helper_methods.dart';
 import 'package:smart_device_dart/core/permissions/permissions_manager.dart';
-import 'package:smart_device_dart/features/smart_device/application/usecases/cloud_value_change_u/cloud_value_change_u.dart';
 import 'package:smart_device_dart/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:smart_device_dart/features/smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pb.dart';
@@ -51,9 +50,6 @@ abstract class SmartDeviceBaseAbstract {
 
   ///  Save all the gpio pins that this instance is using
   final List<PinInformation> _gpioPinList = <PinInformation>[];
-
-  /// Instance to interact with the cloud
-  CloudValueChangeU? cloudValueChangeU;
 
   ///  The type of the smart device Light blinds etc
   DeviceTypes? smartDeviceType;

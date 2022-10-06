@@ -1,7 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:smart_device_dart/core/my_singleton.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/hive_d/hive_objects_d/hive_devices_d.dart';
-import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/hive_d/hive_store_d.dart';
 import 'package:smart_device_dart/features/smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 
 class HiveD {
@@ -36,14 +35,12 @@ class HiveD {
           hiveFolderPath = '$snapCommonEnvironmentVariablePath/hive';
         }
         print('Path of hive: $hiveFolderPath');
-        if (!HiveStore.hiveInitStarted) {
-          Hive.init(hiveFolderPath!);
-          HiveStore.hiveInitStarted = true;
-        }
+        Hive.init(hiveFolderPath!);
+
         //
         // Hive.openBox(
         //     smartDeviceBoxName); // TODO: check if need await, it creates error: HiveError: Cannot read, unknown typeId: 34
-        Hive.registerAdapter(TokenAdapter());
+        // Hive.registerAdapter(TokenAdapter());
         Hive.registerAdapter(HiveDevicesDAdapter());
 
         finishedInitializing = true;
