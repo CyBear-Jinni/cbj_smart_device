@@ -26,6 +26,8 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   # Collection of lint rules for Dart and Flutter projects
   lint: ^1.10.0
+  # Small, easy to use and extensible logger which prints beautiful logs.
+  logger: ^1.1.0
   # Process run helpers for Linux/Win/Mac.
   process_run: ^0.12.3+2
   # Provides parse, inspect, and manipulate stack traces

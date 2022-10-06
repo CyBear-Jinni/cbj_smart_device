@@ -34,7 +34,7 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
     if (deviceInformation == null) {
       return 'Device information is missing, cant set dynamic value';
     }
-    return DynamicWishU.setDynamic(deviceInformation!);
+    return DynamicWishU.setDynamic(deviceInformation);
   }
 
   ///  Change dynamic value with open connection
@@ -42,7 +42,7 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
     if (deviceInformation == null) {
       return 'Device information is missing, cant create open connection with dynamic';
     }
-    DynamicWishU.openDynamic(deviceInformation!);
+    DynamicWishU.openDynamic(deviceInformation);
     onOff = false;
     return 'Turn on successfully';
   }
