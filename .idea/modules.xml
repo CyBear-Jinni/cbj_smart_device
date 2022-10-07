@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/CBJ_Smart-Device.iml" filepath="$PROJECT_DIR$/.idea/CBJ_Smart-Device.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cbj_smart-device.iml" filepath="$PROJECT_DIR$/.idea/cbj_smart-device.iml" />
     </modules>
   </component>
 </project>
