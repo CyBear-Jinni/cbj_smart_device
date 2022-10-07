@@ -14,8 +14,9 @@ class SetDevicesU {
   SetDevicesE? _setDevicesE;
 
   ///  Setting all the devices from saved data
-  Future<void> setAllDevices(
-      {List<SmartDeviceBaseAbstract>? deviceList}) async {
+  Future<void> setAllDevices({
+    List<SmartDeviceBaseAbstract>? deviceList,
+  }) async {
     if (deviceList != null) {
       MySingleton.setSmartDevicesList(deviceList);
     } else {
