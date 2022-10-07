@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import 'pin_information.dart';
+import 'package:cbj_smart_device/features/smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 
 ///  This class is abstract, it manages all the pins list types both what exist
 ///  and what in use, getting pin number should be through here
@@ -48,7 +48,9 @@ abstract class DeviceConfigurationBaseClass {
       isPinSpecificType(pinInformation, 'gpio');
 
   bool isPinSpecificCategory(
-      PinInformation pinInformation, String pinCategory) {
+    PinInformation pinInformation,
+    String pinCategory,
+  ) {
     final String pinCategoryLowerCase = pinCategory.toLowerCase();
     return pinInformation.category!
         .toLowerCase()
@@ -89,8 +91,9 @@ abstract class DeviceConfigurationBaseClass {
   /// Will return the next gpio in the created order without the override part
   /// that the device configuration have.
   PinInformation? getNextFreeGpioPinHelper(
-      List<PinInformation> pinInformationList,
-      {List<PinInformation?>? ignorePinsList}) {
+    List<PinInformation> pinInformationList, {
+    List<PinInformation?>? ignorePinsList,
+  }) {
     for (final PinInformation pinInformation in pinInformationList) {
       if (isGpioPinFree(pinInformation.pinAndPhysicalPinConfiguration!) >= 0 &&
           doesPinExistInPinList(pinInformation, ignorePinsList) == null) {
@@ -104,8 +107,10 @@ abstract class DeviceConfigurationBaseClass {
   /// Return if pinInformation pinAndPhysicalPinConfiguration value exist in
   /// pinsList PinInformation List
   PinInformation? doesPinExistInPinList(
-      PinInformation pinInformation, List<PinInformation?>? pinsList) {
-    if (pinInformation != null && pinsList != null && pinsList.isNotEmpty) {
+    PinInformation pinInformation,
+    List<PinInformation?>? pinsList,
+  ) {
+    if (pinsList != null && pinsList.isNotEmpty) {
       for (final PinInformation? pinToIgnore in pinsList) {
         if (pinToIgnore!.pinAndPhysicalPinConfiguration ==
             pinInformation.pinAndPhysicalPinConfiguration) {

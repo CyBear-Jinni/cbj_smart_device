@@ -10,7 +10,7 @@ class SmartClient {
     channel = await createSmartServerClient(addressToHub);
     stub = SmartServerClient(channel!);
     ResponseStream<ClientStatusRequests> response;
-    Stream<RequestsAndStatusFromHub> streamClientStatusRequests =
+    final Stream<RequestsAndStatusFromHub> streamClientStatusRequests =
         Stream.value(RequestsAndStatusFromHub());
     try {
       response = stub!.registerHub(streamClientStatusRequests);
@@ -28,9 +28,10 @@ class SmartClient {
 
   static Future<ClientChannel> createSmartServerClient(String deviceIp) async {
     await channel?.shutdown();
-    return ClientChannel(deviceIp,
-        port: 50051,
-        options:
-            const ChannelOptions(credentials: ChannelCredentials.insecure()));
+    return ClientChannel(
+      deviceIp,
+      port: 50051,
+      options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+    );
   }
 }

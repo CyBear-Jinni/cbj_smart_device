@@ -7,8 +7,11 @@ import 'package:cbj_smart_device/features/smart_device/infrastructure/datasource
 
 class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   @override
-  void buttonPressed(SmartDeviceBase smartDevice,
-      PinInformation buttonPinNumber, PinInformation lightPin) async {
+  Future<void> buttonPressed(
+    SmartDeviceBase smartDevice,
+    PinInformation buttonPinNumber,
+    PinInformation lightPin,
+  ) async {
     int errorCounter = 0;
 
     try {
@@ -27,10 +30,14 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
         if (lightPin.v == 1) {
           await smartDevice.executeDeviceAction(
-              DeviceActions.off, DeviceStateGRPC.waitingInComp);
+            DeviceActions.off,
+            DeviceStateGRPC.waitingInComp,
+          );
         } else {
           await smartDevice.executeDeviceAction(
-              DeviceActions.on, DeviceStateGRPC.waitingInComp);
+            DeviceActions.on,
+            DeviceStateGRPC.waitingInComp,
+          );
         }
 
         await Future.delayed(const Duration(seconds: 1));
@@ -42,8 +49,11 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   }
 
   @override
-  void buttonPressedForBoiler(BoilerObject boilerObject,
-      PinInformation buttonPinNumber, PinInformation boiler) async {
+  Future<void> buttonPressedForBoiler(
+    BoilerObject boilerObject,
+    PinInformation buttonPinNumber,
+    PinInformation boiler,
+  ) async {
     int errorCounter = 0;
 
     try {
@@ -63,10 +73,14 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
         if (boiler.v == 1) {
           await boilerObject.executeDeviceAction(
-              DeviceActions.off, DeviceStateGRPC.waitingInComp);
+            DeviceActions.off,
+            DeviceStateGRPC.waitingInComp,
+          );
         } else {
           await boilerObject.executeDeviceAction(
-              DeviceActions.on, DeviceStateGRPC.waitingInComp);
+            DeviceActions.on,
+            DeviceStateGRPC.waitingInComp,
+          );
         }
 
         await Future.delayed(const Duration(seconds: 1));
@@ -80,32 +94,48 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   ///  Listen to two buttons but work only if one is pressed.
   @override
   Future<void> listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
-      BlindsObject smartDevice,
-      PinInformation firstButtonPinNumber,
-      PinInformation firstBlindsPin,
-      PinInformation secondButtonPinNumber,
-      PinInformation secondBlindsPin) async {
+    BlindsObject smartDevice,
+    PinInformation firstButtonPinNumber,
+    PinInformation firstBlindsPin,
+    PinInformation secondButtonPinNumber,
+    PinInformation secondBlindsPin,
+  ) async {
     listenToButtonPressAndChangeBlindStateAccordingly(
-        smartDevice, firstButtonPinNumber, firstBlindsPin, secondBlindsPin, 1);
+      smartDevice,
+      firstButtonPinNumber,
+      firstBlindsPin,
+      secondBlindsPin,
+      1,
+    );
 
     listenToButtonPressAndChangeBlindStateAccordingly(
-        smartDevice, secondButtonPinNumber, firstBlindsPin, secondBlindsPin, 2);
+      smartDevice,
+      secondButtonPinNumber,
+      firstBlindsPin,
+      secondBlindsPin,
+      2,
+    );
   }
 
   @override
-  void listenToButtonPressAndChangeBlindStateAccordingly(
-      BlindsObject blindsObject,
-      PinInformation buttonPinNumber,
-      PinInformation firstLightPin,
-      PinInformation secondLightPin,
-      int buttonNumber) async {
+  Future<void> listenToButtonPressAndChangeBlindStateAccordingly(
+    BlindsObject blindsObject,
+    PinInformation buttonPinNumber,
+    PinInformation firstLightPin,
+    PinInformation secondLightPin,
+    int buttonNumber,
+  ) async {
     while (true) {
       await buttonObjectRepository!
           .listenToButtonPress(buttonPinNumber)
           .then((int exitCode) async {
         print('Blind button number $buttonNumber was pressed');
         await changeBlindsPinsOutput(
-            blindsObject, firstLightPin, secondLightPin, buttonNumber);
+          blindsObject,
+          firstLightPin,
+          secondLightPin,
+          buttonNumber,
+        );
       });
     }
   }
@@ -113,20 +143,27 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   ///  Logic of two buttons that cannot be pressed together
   @override
   Future<void> changeBlindsPinsOutput(
-      BlindsObject blindsObject,
-      PinInformation firstBlindsPin,
-      PinInformation secondBlindsPin,
-      int buttonPressNumber) async {
+    BlindsObject blindsObject,
+    PinInformation firstBlindsPin,
+    PinInformation secondBlindsPin,
+    int buttonPressNumber,
+  ) async {
     if (firstBlindsPin.v == 1 || secondBlindsPin.v == 1) {
       firstBlindsPin.onDuration = 0;
       await blindsObject.executeDeviceAction(
-          DeviceActions.stop, DeviceStateGRPC.waitingInComp);
+        DeviceActions.stop,
+        DeviceStateGRPC.waitingInComp,
+      );
     } else if (buttonPressNumber == 1) {
       await blindsObject.executeDeviceAction(
-          DeviceActions.moveUp, DeviceStateGRPC.waitingInComp);
+        DeviceActions.moveUp,
+        DeviceStateGRPC.waitingInComp,
+      );
     } else if (buttonPressNumber == 2) {
       await blindsObject.executeDeviceAction(
-          DeviceActions.moveDown, DeviceStateGRPC.waitingInComp);
+        DeviceActions.moveDown,
+        DeviceStateGRPC.waitingInComp,
+      );
     }
 
     await Future.delayed(const Duration(milliseconds: 500));

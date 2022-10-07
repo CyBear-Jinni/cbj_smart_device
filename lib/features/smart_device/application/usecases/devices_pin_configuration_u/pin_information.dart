@@ -1,20 +1,21 @@
 ///  These class will save all the information that we have about pin
 class PinInformation {
-  PinInformation(
-      {this.isInUse,
-      this.category,
-      this.name,
-      this.gpioValue,
-      this.mode,
-      this.model,
-      this.description,
-      this.gpioColumn,
-      this.index,
-      this.v,
-      this.ph,
-      this.bcmOrLinuxGpio,
-      this.wPi,
-      this.pinAndPhysicalPinConfiguration}) {
+  PinInformation({
+    this.isInUse,
+    this.category,
+    this.name,
+    this.gpioValue,
+    this.mode,
+    this.model,
+    this.description,
+    this.gpioColumn,
+    this.index,
+    this.v,
+    this.ph,
+    this.bcmOrLinuxGpio,
+    this.wPi,
+    this.pinAndPhysicalPinConfiguration,
+  }) {
     isInUse = isInUse ?? false;
     onDuration = 0;
   }

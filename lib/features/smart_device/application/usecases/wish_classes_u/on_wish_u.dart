@@ -5,7 +5,9 @@ import 'package:cbj_smart_device/features/smart_device/infrastructure/repositori
 ///  Class to change wish on status to device
 class OnWishU {
   static String setOn(
-      DeviceInformation deviceInformation, PinInformation? pinNumber) {
+    DeviceInformation deviceInformation,
+    PinInformation? pinNumber,
+  ) {
     pinNumber?.v = 1;
 
     switch (deviceInformation.runtimeType) {
@@ -21,14 +23,18 @@ class OnWishU {
 
   ///  Turn this device on
   static String setOnLocal(
-      LocalDevice deviceInformation, PinInformation? pinNumber) {
+    LocalDevice deviceInformation,
+    PinInformation? pinNumber,
+  ) {
     TurnPinOnOffLocal().pinOn(pinNumber);
     return 'Response from this device on successful';
   }
 
   ///  Turn the remote device on
   static String setOnRemote(
-      RemoteDevice remoteDevice, PinInformation? pinNumber) {
+    RemoteDevice remoteDevice,
+    PinInformation? pinNumber,
+  ) {
 //    try {
 //      HttpClient()
 //          .getUrl(Uri.parse('http://' +

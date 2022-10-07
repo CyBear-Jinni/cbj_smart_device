@@ -16,10 +16,10 @@ class SystemCommandsManager {
       systemCommandsBaseClassD = CommonBatchCommandsD();
     } else if (Platform.isMacOS) {
       print('Mac os is currently not supported');
-      throw ('Mac os is currently not supported');
+      throw 'Mac os is currently not supported';
     } else {
       print('${Platform.operatingSystem} os is not supported');
-      throw ('${Platform.operatingSystem} os is not supported');
+      throw '${Platform.operatingSystem} os is not supported';
     }
   }
 

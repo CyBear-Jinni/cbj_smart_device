@@ -1,4 +1,12 @@
+import 'package:test/test.dart';
+
 void main() {
+  test('calculate', () {
+    expect(42, 42);
+  });
+}
+
+// void main() {
 //   test('ip list', () async {
 //     for (var interface in await NetworkInterface.list()) {
 // //      print('== Interface: ${interface.name} ==');
@@ -11,4 +19,4 @@ void main() {
 //
 //     expect(await getIps(), '10.0.0.10');
 //   });
-}
+// }
