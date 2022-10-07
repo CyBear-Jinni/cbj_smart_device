@@ -1,12 +1,17 @@
 ///
+//  Generated code. Do not modify.
+//  source: cbj_smart_device_server.proto
+//
+// @dart = 2.12
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
+
 import 'dart:async' as $async;
+
 import 'dart:core' as $core;
 
 import 'package:grpc/service_api.dart' as $grpc;
-
-import 'smart_connection.pb.dart' as $0;
-
-export 'smart_connection.pb.dart';
+import 'cbj_smart_device_server.pb.dart' as $0;
+export 'cbj_smart_device_server.pb.dart';
 
 class SmartServerClient extends $grpc.Client {
   static final _$firstSetup =
@@ -15,14 +20,15 @@ class SmartServerClient extends $grpc.Client {
           ($0.FirstSetupMessage value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.CommendStatus.fromBuffer(value));
   static final _$getCompInfo =
-      $grpc.ClientMethod<$0.CommendStatus, $0.CompInfo>(
+      $grpc.ClientMethod<$0.CommendStatus, $0.CompSmartDeviceInfo>(
           '/SmartConnection.SmartServer/GetCompInfo',
           ($0.CommendStatus value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $0.CompInfo.fromBuffer(value));
+          ($core.List<$core.int> value) =>
+              $0.CompSmartDeviceInfo.fromBuffer(value));
   static final _$setCompInfo =
-      $grpc.ClientMethod<$0.CompInfo, $0.CommendStatus>(
+      $grpc.ClientMethod<$0.CompSmartDeviceInfo, $0.CommendStatus>(
           '/SmartConnection.SmartServer/SetCompInfo',
-          ($0.CompInfo value) => value.writeToBuffer(),
+          ($0.CompSmartDeviceInfo value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.CommendStatus.fromBuffer(value));
   static final _$setFirebaseAccountInformation =
       $grpc.ClientMethod<$0.FirebaseAccountInformation, $0.CommendStatus>(
@@ -89,12 +95,14 @@ class SmartServerClient extends $grpc.Client {
     return $createUnaryCall(_$firstSetup, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.CompInfo> getCompInfo($0.CommendStatus request,
+  $grpc.ResponseFuture<$0.CompSmartDeviceInfo> getCompInfo(
+      $0.CommendStatus request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getCompInfo, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.CommendStatus> setCompInfo($0.CompInfo request,
+  $grpc.ResponseFuture<$0.CommendStatus> setCompInfo(
+      $0.CompSmartDeviceInfo request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$setCompInfo, request, options: options);
   }
@@ -170,19 +178,20 @@ abstract class SmartServerServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.FirstSetupMessage.fromBuffer(value),
         ($0.CommendStatus value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.CommendStatus, $0.CompInfo>(
+    $addMethod($grpc.ServiceMethod<$0.CommendStatus, $0.CompSmartDeviceInfo>(
         'GetCompInfo',
         getCompInfo_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.CommendStatus.fromBuffer(value),
-        ($0.CompInfo value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.CompInfo, $0.CommendStatus>(
+        ($0.CompSmartDeviceInfo value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.CompSmartDeviceInfo, $0.CommendStatus>(
         'SetCompInfo',
         setCompInfo_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.CompInfo.fromBuffer(value),
+        ($core.List<$core.int> value) =>
+            $0.CompSmartDeviceInfo.fromBuffer(value),
         ($0.CommendStatus value) => value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$0.FirebaseAccountInformation, $0.CommendStatus>(
@@ -269,13 +278,13 @@ abstract class SmartServerServiceBase extends $grpc.Service {
     return firstSetup(call, await request);
   }
 
-  $async.Future<$0.CompInfo> getCompInfo_Pre(
+  $async.Future<$0.CompSmartDeviceInfo> getCompInfo_Pre(
       $grpc.ServiceCall call, $async.Future<$0.CommendStatus> request) async {
     return getCompInfo(call, await request);
   }
 
-  $async.Future<$0.CommendStatus> setCompInfo_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.CompInfo> request) async {
+  $async.Future<$0.CommendStatus> setCompInfo_Pre($grpc.ServiceCall call,
+      $async.Future<$0.CompSmartDeviceInfo> request) async {
     return setCompInfo(call, await request);
   }
 
@@ -322,10 +331,10 @@ abstract class SmartServerServiceBase extends $grpc.Service {
 
   $async.Future<$0.CommendStatus> firstSetup(
       $grpc.ServiceCall call, $0.FirstSetupMessage request);
-  $async.Future<$0.CompInfo> getCompInfo(
+  $async.Future<$0.CompSmartDeviceInfo> getCompInfo(
       $grpc.ServiceCall call, $0.CommendStatus request);
   $async.Future<$0.CommendStatus> setCompInfo(
-      $grpc.ServiceCall call, $0.CompInfo request);
+      $grpc.ServiceCall call, $0.CompSmartDeviceInfo request);
   $async.Future<$0.CommendStatus> setFirebaseAccountInformation(
       $grpc.ServiceCall call, $0.FirebaseAccountInformation request);
   $async.Future<$0.SmartDeviceStatus> getStatus(
