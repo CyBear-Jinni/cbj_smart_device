@@ -1,4 +1,12 @@
+import 'package:test/test.dart';
+
 void main() {
+  test('calculate', () {
+    expect(42, 42);
+  });
+}
+
+// void main() {
 //   test('calculate', () {
 // //    LocalDevice('This is the mac Address', 'This is the name of the device');
 // //    LightObject lightObject =
@@ -13,4 +21,4 @@ void main() {
 //     TurnPinOnOffLocal().pinOn(pinInformation);
 //     expect(42, 42);
 //   });
-}
+// }
