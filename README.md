@@ -32,7 +32,7 @@ This part is using the snap store in order to have easy way to update all the de
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/cybear-jinni)
 
 Get it from the Google Play Store
-[<img src="https://en.logodownload.org/wp-content/uploads/2019/06/get-it-on-google-play-badge.png" height="80")](https://play.google.com/store/apps/details?id=com.cybear_jinni.smart_home)
+[<img src="https://en.logodownload.org/wp-content/uploads/2019/06/get-it-on-google-play-badge.png" height="80">](https://play.google.com/store/apps/details?id=com.cybear_jinni.smart_home)
 
 ## To get the project running
 
