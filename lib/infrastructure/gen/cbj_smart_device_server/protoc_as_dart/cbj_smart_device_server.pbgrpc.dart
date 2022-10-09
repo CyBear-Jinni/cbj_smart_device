@@ -83,6 +83,16 @@ class SmartServerClient extends $grpc.Client {
           ($0.RequestsAndStatusFromHub value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.ClientStatusRequests.fromBuffer(value));
+  static final _$suspendComputer =
+      $grpc.ClientMethod<$0.SmartDeviceInfo, $0.CommendStatus>(
+          '/SmartConnection.SmartServer/suspendComputer',
+          ($0.SmartDeviceInfo value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.CommendStatus.fromBuffer(value));
+  static final _$shutdownComputer =
+      $grpc.ClientMethod<$0.SmartDeviceInfo, $0.CommendStatus>(
+          '/SmartConnection.SmartServer/shutdownComputer',
+          ($0.SmartDeviceInfo value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.CommendStatus.fromBuffer(value));
 
   SmartServerClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -164,6 +174,18 @@ class SmartServerClient extends $grpc.Client {
       $async.Stream<$0.RequestsAndStatusFromHub> request,
       {$grpc.CallOptions? options}) {
     return $createStreamingCall(_$registerHub, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.CommendStatus> suspendComputer(
+      $0.SmartDeviceInfo request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$suspendComputer, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.CommendStatus> shutdownComputer(
+      $0.SmartDeviceInfo request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$shutdownComputer, request, options: options);
   }
 }
 
@@ -271,6 +293,20 @@ abstract class SmartServerServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.RequestsAndStatusFromHub.fromBuffer(value),
         ($0.ClientStatusRequests value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SmartDeviceInfo, $0.CommendStatus>(
+        'suspendComputer',
+        suspendComputer_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.SmartDeviceInfo.fromBuffer(value),
+        ($0.CommendStatus value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SmartDeviceInfo, $0.CommendStatus>(
+        'shutdownComputer',
+        shutdownComputer_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.SmartDeviceInfo.fromBuffer(value),
+        ($0.CommendStatus value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.CommendStatus> firstSetup_Pre($grpc.ServiceCall call,
@@ -329,6 +365,16 @@ abstract class SmartServerServiceBase extends $grpc.Service {
     return setBlindsStop(call, await request);
   }
 
+  $async.Future<$0.CommendStatus> suspendComputer_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SmartDeviceInfo> request) async {
+    return suspendComputer(call, await request);
+  }
+
+  $async.Future<$0.CommendStatus> shutdownComputer_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SmartDeviceInfo> request) async {
+    return shutdownComputer(call, await request);
+  }
+
   $async.Future<$0.CommendStatus> firstSetup(
       $grpc.ServiceCall call, $0.FirstSetupMessage request);
   $async.Future<$0.CompSmartDeviceInfo> getCompInfo(
@@ -355,4 +401,8 @@ abstract class SmartServerServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $async.Stream<$0.ClientStatusRequests> request);
   $async.Stream<$0.ClientStatusRequests> registerHub($grpc.ServiceCall call,
       $async.Stream<$0.RequestsAndStatusFromHub> request);
+  $async.Future<$0.CommendStatus> suspendComputer(
+      $grpc.ServiceCall call, $0.SmartDeviceInfo request);
+  $async.Future<$0.CommendStatus> shutdownComputer(
+      $grpc.ServiceCall call, $0.SmartDeviceInfo request);
 }

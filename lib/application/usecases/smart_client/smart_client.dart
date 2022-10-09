@@ -1,4 +1,4 @@
-import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
 class SmartClient {
@@ -30,7 +30,7 @@ class SmartClient {
     await channel?.shutdown();
     return ClientChannel(
       deviceIp,
-      port: 50051,
+      port: 50053,
       options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
     );
   }

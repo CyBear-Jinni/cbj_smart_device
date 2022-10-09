@@ -65,7 +65,11 @@ class SystemCommandsManager {
     return Future.value(SharedVariables.getSnapUserCommonEnvironmentVariable());
   }
 
-  Future<String?> goToSuspend() async {
-    return systemCommandsBaseClassD!.goToSuspend();
+  Future<String?> suspendComputer() async {
+    return systemCommandsBaseClassD!.suspendComputer();
+  }
+
+  Future<String?> shutdownComputer() async {
+    return systemCommandsBaseClassD!.shutdownComputer();
   }
 }

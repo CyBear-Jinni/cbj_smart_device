@@ -7,8 +7,8 @@ import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abs
 import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/domain/entities/local_db_e/local_db_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/smart_server_helper.dart';
+import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
 import 'package:cbj_smart_device/utils.dart';
 import 'package:grpc/grpc.dart';
@@ -17,6 +17,12 @@ import 'package:uuid/uuid.dart';
 /// This class get what to execute straight from the grpc request,
 class SmartServerU extends SmartServerServiceBase {
   static const DeviceStateGRPC _deviceState = DeviceStateGRPC.waitingInComp;
+
+  Future startLocalServer() async {
+    final server = Server([SmartServerU()]);
+    await server.serve(port: 50053);
+    logger.i('Server listening on port ${server.port}...');
+  }
 
   ///  Listening to port and deciding what to do with the response
   void waitForConnection(
@@ -52,14 +58,11 @@ class SmartServerU extends SmartServerServiceBase {
     }
   }
 
-  Future startLocalServer() async {
-    final server = Server([SmartServerU()]);
-    await server.serve(port: 50051);
-    logger.i('Server listening on port ${server.port}...');
-  }
-
   @override
-  Future<CompInfo> getCompInfo(ServiceCall call, CommendStatus request) async {
+  Future<CompSmartDeviceInfo> getCompInfo(
+    ServiceCall call,
+    CommendStatus request,
+  ) async {
     final String compId = const Uuid().v1();
     final String compUuid = await MySingletonHelper.getUuid();
     final List<SmartDeviceBaseAbstract> devicesList =
@@ -112,10 +115,12 @@ class SmartServerU extends SmartServerServiceBase {
       smartDeviceInfoList.add(smartDeviceInfo);
     }
 
-    final CompInfo compInfo =
-        CompInfo(compSpecs: compSpecs, smartDevicesInComp: smartDeviceInfoList);
+    final CompSmartDeviceInfo compInfo = CompSmartDeviceInfo(
+      compSpecs: compSpecs,
+      smartDevicesInComp: smartDeviceInfoList,
+    );
 
-    return Future<CompInfo>.value(compInfo);
+    return Future<CompSmartDeviceInfo>.value(compInfo);
   }
 
   //  Return the status of the specified device
@@ -159,7 +164,7 @@ class SmartServerU extends SmartServerServiceBase {
     ServiceCall call,
     SmartDeviceInfo request,
   ) async {
-    print('Turn device ${request.id} off');
+    logger.i('Turn device ${request.id} off');
     return executeDeviceActionServer(request, DeviceActions.off, _deviceState);
   }
 
@@ -168,7 +173,7 @@ class SmartServerU extends SmartServerServiceBase {
     ServiceCall call,
     SmartDeviceInfo request,
   ) async {
-    print('Turn device ${request.id} on');
+    logger.i('Turn device ${request.id} on');
     return executeDeviceActionServer(request, DeviceActions.on, _deviceState);
   }
 
@@ -177,7 +182,7 @@ class SmartServerU extends SmartServerServiceBase {
     ServiceCall call,
     SmartDeviceInfo request,
   ) async {
-    print('Turn blinds ${request.id} up');
+    logger.i('Turn blinds ${request.id} up');
     return executeDeviceActionServer(
       request,
       DeviceActions.moveUp,
@@ -190,7 +195,7 @@ class SmartServerU extends SmartServerServiceBase {
     ServiceCall call,
     SmartDeviceInfo request,
   ) async {
-    print('Turn blinds ${request.id} down');
+    logger.i('Turn blinds ${request.id} down');
 
     return executeDeviceActionServer(
       request,
@@ -204,7 +209,7 @@ class SmartServerU extends SmartServerServiceBase {
     ServiceCall call,
     SmartDeviceInfo request,
   ) async {
-    print('Turn blinds ${request.id} stop');
+    logger.i('Turn blinds ${request.id} stop');
 
     return executeDeviceActionServer(request, DeviceActions.stop, _deviceState);
   }
@@ -215,7 +220,7 @@ class SmartServerU extends SmartServerServiceBase {
         (smartDeviceBaseAbstractO) => smartDeviceBaseAbstractO.id == request.id,
       );
     } catch (exception) {
-      print('Exception, device name ${request.id} could not be found:'
+      logger.e('Exception, device name ${request.id} could not be found:'
           ' ${exception.toString()}');
       return null;
     }
@@ -277,7 +282,10 @@ class SmartServerU extends SmartServerServiceBase {
   }
 
   @override
-  Future<CommendStatus> setCompInfo(ServiceCall call, CompInfo request) async {
+  Future<CommendStatus> setCompInfo(
+    ServiceCall call,
+    CompSmartDeviceInfo request,
+  ) async {
     return SetCompHelper(request);
   }
 
@@ -287,7 +295,7 @@ class SmartServerU extends SmartServerServiceBase {
     FirstSetupMessage request,
   ) async {
     try {
-      final CompInfo compInfo = request.compInfo;
+      final CompSmartDeviceInfo compInfo = request.compInfo;
       final CommendStatus commendStatusSetComp = await SetCompHelper(compInfo);
 
       final CommendStatus commendStatusSetFirebase =
@@ -305,7 +313,7 @@ class SmartServerU extends SmartServerServiceBase {
     return CommendStatus()..success = false;
   }
 
-  Future<CommendStatus> SetCompHelper(CompInfo compInfo) async {
+  Future<CommendStatus> SetCompHelper(CompSmartDeviceInfo compInfo) async {
     try {
       final List<SmartDeviceBaseAbstract> smartDeviceList =
           MySingleton.getSmartDevicesList();
@@ -385,5 +393,33 @@ class SmartServerU extends SmartServerServiceBase {
     Stream<RequestsAndStatusFromHub> request,
   ) async* {
     yield ClientStatusRequests();
+  }
+
+  @override
+  Future<CommendStatus> suspendComputer(
+    ServiceCall call,
+    SmartDeviceInfo request,
+  ) async {
+    logger.i('Suspend computer');
+
+    return executeDeviceActionServer(
+      request,
+      DeviceActions.suspend,
+      _deviceState,
+    );
+  }
+
+  @override
+  Future<CommendStatus> shutdownComputer(
+    ServiceCall call,
+    SmartDeviceInfo request,
+  ) async {
+    logger.i('Shutdown computer');
+
+    return executeDeviceActionServer(
+      request,
+      DeviceActions.shutdown,
+      _deviceState,
+    );
   }
 }

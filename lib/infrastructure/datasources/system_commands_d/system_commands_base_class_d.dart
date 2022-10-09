@@ -11,7 +11,9 @@ abstract class SystemCommandsBaseClassD {
 
   Future<String?> getDeviceConfiguration();
 
-  Future<String?> goToSuspend();
+  Future<String?> suspendComputer();
+
+  Future<String?> shutdownComputer();
 
 // TODO: Need to find a way in dart to get os environment variable
 // /// Get Snap location environment variable "SNAP"
