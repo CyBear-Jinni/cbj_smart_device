@@ -2,28 +2,29 @@ import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/prot
 
 /// Cleaner way to get grpc client types
 class GrpcClientTypes {
-  /// DeviceStateGRPC type
-  static final deviceStateGRPCType =
-      DeviceStateGRPC.stateNotSupported.runtimeType;
+  /// CbjDeviceStateGRPC type
+  static final CbjDeviceStateGRPCType =
+      CbjDeviceStateGRPC.stateNotSupported.runtimeType;
 
-  /// DeviceStateGRPC type as string
-  static final deviceStateGRPCTypeString =
-      deviceStateGRPCType.toString().substring(0, 1).toLowerCase() +
-          deviceStateGRPCType.toString().substring(1);
+  /// CbjDeviceStateGRPC type as string
+  static final CbjDeviceStateGRPCTypeString =
+      CbjDeviceStateGRPCType.toString().substring(0, 1).toLowerCase() +
+          CbjDeviceStateGRPCType.toString().substring(1);
 
-  /// DeviceActions type as string
-  static final deviceActionsType = DeviceActions.actionNotSupported.runtimeType;
+  /// CbjDeviceActions type as string
+  static final CbjDeviceActionsType =
+      CbjDeviceActions.actionNotSupported.runtimeType;
 
-  /// DeviceActions type as string
-  static final deviceActionsTypeString =
-      deviceActionsType.toString().substring(0, 1).toLowerCase() +
-          deviceActionsType.toString().substring(1);
+  /// CbjDeviceActions type as string
+  static final CbjDeviceActionsTypeString =
+      CbjDeviceActionsType.toString().substring(0, 1).toLowerCase() +
+          CbjDeviceActionsType.toString().substring(1);
 
-  /// DeviceActions type as string
-  static final deviceTypesType = DeviceTypes.typeNotSupported.runtimeType;
+  /// CbjDeviceActions type as string
+  static final CbjDeviceTypesType = CbjDeviceTypes.typeNotSupported.runtimeType;
 
-  /// DeviceActions type as string
-  static final deviceTypesTypeString =
-      deviceTypesType.toString().substring(0, 1).toLowerCase() +
-          deviceTypesType.toString().substring(1);
+  /// CbjDeviceActions type as string
+  static final CbjDeviceTypesTypeString =
+      CbjDeviceTypesType.toString().substring(0, 1).toLowerCase() +
+          CbjDeviceTypesType.toString().substring(1);
 }

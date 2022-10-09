@@ -31,7 +31,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     this.blindsDownPin = DevicePinListManager().getGpioPin(blindsDownPin);
     listenToTwoButtonsPress();
 
-    setDeviceType(DeviceTypes.blinds);
+    setDeviceType(CbjDeviceTypes.blinds);
     print('New blinds object');
   }
 
@@ -46,47 +46,47 @@ class BlindsObject extends SmartDeviceStaticAbstract {
       <String>['gpio', 'gpio', 'gpio', 'gpio'];
 
   @override
-  DeviceTypes getDeviceType() => DeviceTypes.blinds;
+  CbjDeviceTypes getDeviceType() => CbjDeviceTypes.blinds;
 
   @override
   Future<String> executeActionString(
     String wishString,
-    DeviceStateGRPC deviceState,
+    CbjDeviceStateGRPC deviceState,
   ) async {
-    final DeviceActions deviceAction =
+    final CbjDeviceActions deviceAction =
         convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(deviceAction, deviceState);
   }
 
   @override
   Future<String> executeDeviceAction(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     return deviceActionInBlindsClass(deviceAction, deviceState);
   }
 
   ///  All the wishes that are legit to execute from the blinds class
   Future<String> deviceActionInBlindsClass(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     String? wishExecuteResult;
 
     if (deviceAction == null) return 'Your wish does not exist in blinds class';
-    if (deviceAction == DeviceActions.moveUp) {
+    if (deviceAction == CbjDeviceActions.moveUp) {
       wishExecuteResult = await BlindsWishU.BlindsUp(this);
     }
-    if (deviceAction == DeviceActions.moveDown) {
+    if (deviceAction == CbjDeviceActions.moveDown) {
       wishExecuteResult = await BlindsWishU.blindsDown(this);
     }
-    if (deviceAction == DeviceActions.stop) {
+    if (deviceAction == CbjDeviceActions.stop) {
       wishExecuteResult = await BlindsWishU.blindsStop(this);
     }
 
     if (wishExecuteResult != null) {
-      if (deviceState != DeviceStateGRPC.ack) {
-        final String deviceActionString =
+      if (deviceState != CbjDeviceStateGRPC.ack) {
+        final String CbjDeviceActionstring =
             EnumHelper.deviceActionToString(deviceAction);
       }
       return wishExecuteResult;

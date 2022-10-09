@@ -5,20 +5,22 @@ import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/ba
 import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/bash_commands_d/common_bash_commands_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/batch_commands_d/common_batch_commands_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/system_commands_base_class_d.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 class SystemCommandsManager {
   SystemCommandsManager() {
     if (Platform.isLinux) {
-      print('Linux platform detected');
+      logger.v('Linux platform detected in SystemCommandsManager');
       systemCommandsBaseClassD = CommonBashCommandsD();
     } else if (Platform.isWindows) {
-      print('Windows platform detected');
+      logger.v('Windows platform detected in SystemCommandsManager');
       systemCommandsBaseClassD = CommonBatchCommandsD();
     } else if (Platform.isMacOS) {
-      print('Mac os is currently not supported');
+      logger.w('Mac os is currently not supported in SystemCommandsManager');
       throw 'Mac os is currently not supported';
     } else {
-      print('${Platform.operatingSystem} os is not supported');
+      logger.w(
+          '${Platform.operatingSystem} os is not supported in SystemCommandsManager');
       throw '${Platform.operatingSystem} os is not supported';
     }
   }

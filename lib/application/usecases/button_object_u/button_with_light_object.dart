@@ -14,7 +14,7 @@ class ButtonWithLightObject extends ButtonObject {
     String? deviceName,
     int? buttonPinInt,
     int? buttonLightInt, {
-    Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+    Map<CbjWhenToExecute, Map<SmartDeviceBase, List<CbjDeviceActions>>>?
         buttonStatesAction,
   }) : super(
           id,
@@ -31,13 +31,13 @@ class ButtonWithLightObject extends ButtonObject {
 
   ///  The type of the smart device, Light, blinds, button etc
   @override
-  DeviceTypes? smartDeviceType = DeviceTypes.buttonWithLight;
+  CbjDeviceTypes? smartDeviceType = CbjDeviceTypes.buttonWithLight;
 
   /// The light pin around the button.
   PinInformation? buttonLight;
 
   /// Will determine when to light the button light
-  WhenToExecute whenToLightButtonLight = WhenToExecute.onOddNumberPress;
+  CbjWhenToExecute whenToLightButtonLight = CbjWhenToExecute.onOddNumberPress;
 
   /// Number of pins and the types needed
   @override
@@ -61,9 +61,9 @@ class ButtonWithLightObject extends ButtonObject {
         await executeOnButtonPress();
       });
 
-      if (whenToLightButtonLight == WhenToExecute.onOddNumberPress &&
+      if (whenToLightButtonLight == CbjWhenToExecute.onOddNumberPress &&
           pressStateCounter % 2 != 0) {
-      } else if (whenToLightButtonLight == WhenToExecute.evenNumberPress &&
+      } else if (whenToLightButtonLight == CbjWhenToExecute.evenNumberPress &&
           pressStateCounter % 2 == 0) {
         wishExecuteResult = OnWishU.setOn(deviceInformation, buttonLight);
       } else {

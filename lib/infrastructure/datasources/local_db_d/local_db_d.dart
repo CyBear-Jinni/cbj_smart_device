@@ -39,7 +39,7 @@ class LocalDbD {
         smartDeviceBaseAbstract.getDeviceType()!,
       );
 
-      if (smartDeviceBaseAbstract.getDeviceType() == DeviceTypes.blinds) {
+      if (smartDeviceBaseAbstract.getDeviceType() == CbjDeviceTypes.blinds) {
         String? onOffPin;
         if (smartDeviceBaseAbstract.onOffPin != null &&
             smartDeviceBaseAbstract.onOffPin!.pinAndPhysicalPinConfiguration !=
@@ -98,7 +98,8 @@ class LocalDbD {
           blindsDownPin,
           buttonPinDown
         ];
-      } else if (smartDeviceBaseAbstract.getDeviceType() == DeviceTypes.light) {
+      } else if (smartDeviceBaseAbstract.getDeviceType() ==
+          CbjDeviceTypes.light) {
         String? onOffPin;
         if (smartDeviceBaseAbstract.onOffPin != null &&
             smartDeviceBaseAbstract.onOffPin!.pinAndPhysicalPinConfiguration !=
@@ -110,7 +111,7 @@ class LocalDbD {
 
         smartDevicesMapList[deviceName] = [deviceTypeAsString, onOffPin];
       } else if (smartDeviceBaseAbstract.getDeviceType() ==
-          DeviceTypes.boiler) {
+          CbjDeviceTypes.boiler) {
         String? onOffPin;
         if (smartDeviceBaseAbstract.onOffPin != null &&
             smartDeviceBaseAbstract.onOffPin!.pinAndPhysicalPinConfiguration !=
@@ -158,7 +159,7 @@ class LocalDbD {
           onOffButtonPinNumber
         ];
       } else if (smartDeviceBaseAbstract.getDeviceType() ==
-          DeviceTypes.button) {
+          CbjDeviceTypes.button) {
         final ButtonObject tempButtonO =
             smartDeviceBaseAbstract as ButtonObject;
         String? buttonPressPin;
@@ -173,7 +174,7 @@ class LocalDbD {
           buttonPressPin,
         ];
       } else if (smartDeviceBaseAbstract.getDeviceType() ==
-          DeviceTypes.buttonWithLight) {
+          CbjDeviceTypes.buttonWithLight) {
         final ButtonWithLightObject tempButtonO =
             smartDeviceBaseAbstract as ButtonWithLightObject;
         String? buttonPressPin;

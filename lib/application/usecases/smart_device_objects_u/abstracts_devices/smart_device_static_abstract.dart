@@ -31,7 +31,7 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBase {
   @override
   Future<String> executeActionString(
     String wishString,
-    DeviceStateGRPC deviceState,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     final wish = convertWishStringToWishesObject(wishString);
     print(wishString);
@@ -42,18 +42,18 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBase {
 
   @override
   Future<String> executeDeviceAction(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     return wishInStaticClass(deviceAction, deviceState);
   }
 
   String wishInStaticClass(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) {
     switch (deviceAction) {
-      case DeviceActions.stop:
+      case CbjDeviceActions.stop:
         return _HowMuchToMove();
       default:
         return wishInBaseClass(deviceAction, deviceState);

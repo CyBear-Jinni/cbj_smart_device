@@ -9,20 +9,20 @@
 import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-class DeviceTypes extends $pb.ProtobufEnum {
-  static const DeviceTypes typeNotSupported = DeviceTypes._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'typeNotSupported');
-  static const DeviceTypes light = DeviceTypes._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'light');
-  static const DeviceTypes blinds = DeviceTypes._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'blinds');
-  static const DeviceTypes boiler = DeviceTypes._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'boiler');
-  static const DeviceTypes button = DeviceTypes._(4, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'button');
-  static const DeviceTypes buttonWithLight = DeviceTypes._(5, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'buttonWithLight');
-  static const DeviceTypes hub = DeviceTypes._(7, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'hub');
-  static const DeviceTypes phoneApp = DeviceTypes._(8, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'phoneApp');
-  static const DeviceTypes computerApp = DeviceTypes._(9, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'computerApp');
-  static const DeviceTypes browserApp = DeviceTypes._(10, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'browserApp');
-  static const DeviceTypes smartComputer = DeviceTypes._(11, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'smartComputer');
+class CbjDeviceTypes extends $pb.ProtobufEnum {
+  static const CbjDeviceTypes typeNotSupported = CbjDeviceTypes._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'typeNotSupported');
+  static const CbjDeviceTypes light = CbjDeviceTypes._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'light');
+  static const CbjDeviceTypes blinds = CbjDeviceTypes._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'blinds');
+  static const CbjDeviceTypes boiler = CbjDeviceTypes._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'boiler');
+  static const CbjDeviceTypes button = CbjDeviceTypes._(4, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'button');
+  static const CbjDeviceTypes buttonWithLight = CbjDeviceTypes._(5, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'buttonWithLight');
+  static const CbjDeviceTypes hub = CbjDeviceTypes._(7, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'hub');
+  static const CbjDeviceTypes phoneApp = CbjDeviceTypes._(8, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'phoneApp');
+  static const CbjDeviceTypes computerApp = CbjDeviceTypes._(9, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'computerApp');
+  static const CbjDeviceTypes browserApp = CbjDeviceTypes._(10, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'browserApp');
+  static const CbjDeviceTypes smartComputer = CbjDeviceTypes._(11, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'smartComputer');
 
-  static const $core.List<DeviceTypes> values = <DeviceTypes> [
+  static const $core.List<CbjDeviceTypes> values = <CbjDeviceTypes> [
     typeNotSupported,
     light,
     blinds,
@@ -36,29 +36,29 @@ class DeviceTypes extends $pb.ProtobufEnum {
     smartComputer,
   ];
 
-  static final $core.Map<$core.int, DeviceTypes> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static DeviceTypes? valueOf($core.int value) => _byValue[value];
+  static final $core.Map<$core.int, CbjDeviceTypes> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static CbjDeviceTypes? valueOf($core.int value) => _byValue[value];
 
-  const DeviceTypes._($core.int v, $core.String n) : super(v, n);
+  const CbjDeviceTypes._($core.int v, $core.String n) : super(v, n);
 }
 
-class DeviceActions extends $pb.ProtobufEnum {
-  static const DeviceActions actionNotSupported = DeviceActions._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'actionNotSupported');
-  static const DeviceActions on = DeviceActions._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'on');
-  static const DeviceActions off = DeviceActions._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'off');
-  static const DeviceActions moveUp = DeviceActions._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'moveUp');
-  static const DeviceActions stop = DeviceActions._(4, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'stop');
-  static const DeviceActions moveDown = DeviceActions._(5, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'moveDown');
-  static const DeviceActions pressed = DeviceActions._(6, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'pressed');
-  static const DeviceActions longPress = DeviceActions._(7, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'longPress');
-  static const DeviceActions doubleTap = DeviceActions._(8, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'doubleTap');
-  static const DeviceActions position = DeviceActions._(9, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'position');
-  static const DeviceActions suspend = DeviceActions._(10, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'suspend');
-  static const DeviceActions shutdown = DeviceActions._(11, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'shutdown');
-  static const DeviceActions itIsFalse = DeviceActions._(12, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'itIsFalse');
-  static const DeviceActions itIsTrue = DeviceActions._(13, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'itIsTrue');
+class CbjDeviceActions extends $pb.ProtobufEnum {
+  static const CbjDeviceActions actionNotSupported = CbjDeviceActions._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'actionNotSupported');
+  static const CbjDeviceActions on = CbjDeviceActions._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'on');
+  static const CbjDeviceActions off = CbjDeviceActions._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'off');
+  static const CbjDeviceActions moveUp = CbjDeviceActions._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'moveUp');
+  static const CbjDeviceActions stop = CbjDeviceActions._(4, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'stop');
+  static const CbjDeviceActions moveDown = CbjDeviceActions._(5, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'moveDown');
+  static const CbjDeviceActions pressed = CbjDeviceActions._(6, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'pressed');
+  static const CbjDeviceActions longPress = CbjDeviceActions._(7, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'longPress');
+  static const CbjDeviceActions doubleTap = CbjDeviceActions._(8, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'doubleTap');
+  static const CbjDeviceActions position = CbjDeviceActions._(9, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'position');
+  static const CbjDeviceActions suspend = CbjDeviceActions._(10, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'suspend');
+  static const CbjDeviceActions shutdown = CbjDeviceActions._(11, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'shutdown');
+  static const CbjDeviceActions itIsFalse = CbjDeviceActions._(12, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'itIsFalse');
+  static const CbjDeviceActions itIsTrue = CbjDeviceActions._(13, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'itIsTrue');
 
-  static const $core.List<DeviceActions> values = <DeviceActions> [
+  static const $core.List<CbjDeviceActions> values = <CbjDeviceActions> [
     actionNotSupported,
     on,
     off,
@@ -75,27 +75,27 @@ class DeviceActions extends $pb.ProtobufEnum {
     itIsTrue,
   ];
 
-  static final $core.Map<$core.int, DeviceActions> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static DeviceActions? valueOf($core.int value) => _byValue[value];
+  static final $core.Map<$core.int, CbjDeviceActions> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static CbjDeviceActions? valueOf($core.int value) => _byValue[value];
 
-  const DeviceActions._($core.int v, $core.String n) : super(v, n);
+  const CbjDeviceActions._($core.int v, $core.String n) : super(v, n);
 }
 
-class WhenToExecute extends $pb.ProtobufEnum {
-  static const WhenToExecute undefined = WhenToExecute._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'undefined');
-  static const WhenToExecute onOddNumberPress = WhenToExecute._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'onOddNumberPress');
-  static const WhenToExecute evenNumberPress = WhenToExecute._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'evenNumberPress');
-  static const WhenToExecute betweenSelectedTime = WhenToExecute._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'betweenSelectedTime');
-  static const WhenToExecute doNotBetweenSelectedTime = WhenToExecute._(4, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'doNotBetweenSelectedTime');
-  static const WhenToExecute allTheTime = WhenToExecute._(5, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'allTheTime');
-  static const WhenToExecute never = WhenToExecute._(6, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'never');
-  static const WhenToExecute onceNow = WhenToExecute._(7, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'onceNow');
-  static const WhenToExecute onceInSelectedTime = WhenToExecute._(8, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'onceInSelectedTime');
-  static const WhenToExecute onlyIfDeviceListIsAreInActionListState = WhenToExecute._(9, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'onlyIfDeviceListIsAreInActionListState');
-  static const WhenToExecute atHome = WhenToExecute._(10, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'atHome');
-  static const WhenToExecute outOfHome = WhenToExecute._(11, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'outOfHome');
+class CbjWhenToExecute extends $pb.ProtobufEnum {
+  static const CbjWhenToExecute undefined = CbjWhenToExecute._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'undefined');
+  static const CbjWhenToExecute onOddNumberPress = CbjWhenToExecute._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'onOddNumberPress');
+  static const CbjWhenToExecute evenNumberPress = CbjWhenToExecute._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'evenNumberPress');
+  static const CbjWhenToExecute betweenSelectedTime = CbjWhenToExecute._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'betweenSelectedTime');
+  static const CbjWhenToExecute doNotBetweenSelectedTime = CbjWhenToExecute._(4, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'doNotBetweenSelectedTime');
+  static const CbjWhenToExecute allTheTime = CbjWhenToExecute._(5, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'allTheTime');
+  static const CbjWhenToExecute never = CbjWhenToExecute._(6, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'never');
+  static const CbjWhenToExecute onceNow = CbjWhenToExecute._(7, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'onceNow');
+  static const CbjWhenToExecute onceInSelectedTime = CbjWhenToExecute._(8, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'onceInSelectedTime');
+  static const CbjWhenToExecute onlyIfDeviceListIsAreInActionListState = CbjWhenToExecute._(9, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'onlyIfDeviceListIsAreInActionListState');
+  static const CbjWhenToExecute atHome = CbjWhenToExecute._(10, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'atHome');
+  static const CbjWhenToExecute outOfHome = CbjWhenToExecute._(11, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'outOfHome');
 
-  static const $core.List<WhenToExecute> values = <WhenToExecute> [
+  static const $core.List<CbjWhenToExecute> values = <CbjWhenToExecute> [
     undefined,
     onOddNumberPress,
     evenNumberPress,
@@ -110,20 +110,20 @@ class WhenToExecute extends $pb.ProtobufEnum {
     outOfHome,
   ];
 
-  static final $core.Map<$core.int, WhenToExecute> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static WhenToExecute? valueOf($core.int value) => _byValue[value];
+  static final $core.Map<$core.int, CbjWhenToExecute> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static CbjWhenToExecute? valueOf($core.int value) => _byValue[value];
 
-  const WhenToExecute._($core.int v, $core.String n) : super(v, n);
+  const CbjWhenToExecute._($core.int v, $core.String n) : super(v, n);
 }
 
-class DeviceStateGRPC extends $pb.ProtobufEnum {
-  static const DeviceStateGRPC stateNotSupported = DeviceStateGRPC._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'stateNotSupported');
-  static const DeviceStateGRPC cancelStateInProcess = DeviceStateGRPC._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'cancelStateInProcess');
-  static const DeviceStateGRPC ack = DeviceStateGRPC._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ack');
-  static const DeviceStateGRPC newStateFailed = DeviceStateGRPC._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'newStateFailed');
-  static const DeviceStateGRPC waitingInComp = DeviceStateGRPC._(4, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'waitingInComp');
+class CbjDeviceStateGRPC extends $pb.ProtobufEnum {
+  static const CbjDeviceStateGRPC stateNotSupported = CbjDeviceStateGRPC._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'stateNotSupported');
+  static const CbjDeviceStateGRPC cancelStateInProcess = CbjDeviceStateGRPC._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'cancelStateInProcess');
+  static const CbjDeviceStateGRPC ack = CbjDeviceStateGRPC._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ack');
+  static const CbjDeviceStateGRPC newStateFailed = CbjDeviceStateGRPC._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'newStateFailed');
+  static const CbjDeviceStateGRPC waitingInComp = CbjDeviceStateGRPC._(4, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'waitingInComp');
 
-  static const $core.List<DeviceStateGRPC> values = <DeviceStateGRPC> [
+  static const $core.List<CbjDeviceStateGRPC> values = <CbjDeviceStateGRPC> [
     stateNotSupported,
     cancelStateInProcess,
     ack,
@@ -131,9 +131,9 @@ class DeviceStateGRPC extends $pb.ProtobufEnum {
     waitingInComp,
   ];
 
-  static final $core.Map<$core.int, DeviceStateGRPC> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static DeviceStateGRPC? valueOf($core.int value) => _byValue[value];
+  static final $core.Map<$core.int, CbjDeviceStateGRPC> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static CbjDeviceStateGRPC? valueOf($core.int value) => _byValue[value];
 
-  const DeviceStateGRPC._($core.int v, $core.String n) : super(v, n);
+  const CbjDeviceStateGRPC._($core.int v, $core.String n) : super(v, n);
 }
 

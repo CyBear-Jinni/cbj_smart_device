@@ -30,11 +30,11 @@ class LocalDbR {
     }
     for (final String deviceUuid in deviceListMap.keys) {
       final List<String?> values = deviceListMap[deviceUuid]!;
-      final DeviceTypes deviceType =
+      final CbjDeviceTypes deviceType =
           EnumHelper.stringToDeviceType(values.first!)!;
 
       switch (deviceType) {
-        case DeviceTypes.light:
+        case CbjDeviceTypes.light:
           final int? onOffPinNumber =
               values[1] == '' ? null : int.parse(values[1]!);
           print('Adding from local db light object');
@@ -46,7 +46,7 @@ class LocalDbR {
             ),
           );
           break;
-        case DeviceTypes.boiler:
+        case CbjDeviceTypes.boiler:
           final int? boilerPinNumber =
               values[1] == '' ? null : int.parse(values[1]!);
           final int? boilerButtonPinNumber =
@@ -61,7 +61,7 @@ class LocalDbR {
             ),
           );
           break;
-        case DeviceTypes.blinds:
+        case CbjDeviceTypes.blinds:
           print('Adding from local db blind object');
           if (values.length < 7) {
             break;
@@ -97,12 +97,13 @@ class LocalDbR {
             ),
           );
           break;
-        case DeviceTypes.button:
+        case CbjDeviceTypes.button:
           final int? buttonPinNumber =
               values[1] == '' ? null : int.parse(values[1]!);
           print('Adding from local db button object');
 
-          final Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+          final Map<CbjWhenToExecute,
+                  Map<SmartDeviceBase, List<CbjDeviceActions>>>?
               buttonStatesAction = ButtonObject.buttonDefaultStateAction(
             smartDeviceBaseAbstractList,
           );
@@ -116,14 +117,15 @@ class LocalDbR {
             ),
           );
           break;
-        case DeviceTypes.buttonWithLight:
+        case CbjDeviceTypes.buttonWithLight:
           final int? buttonPinNumber =
               values[1] == '' ? null : int.parse(values[1]!);
           final int? buttonLightPinNumber =
               values[2] == '' ? null : int.parse(values[2]!);
           print('Adding from local db button object');
 
-          final Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+          final Map<CbjWhenToExecute,
+                  Map<SmartDeviceBase, List<CbjDeviceActions>>>?
               buttonStatesAction = ButtonObject.buttonDefaultStateAction(
             smartDeviceBaseAbstractList,
           );

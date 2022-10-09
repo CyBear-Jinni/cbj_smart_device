@@ -52,7 +52,7 @@ abstract class SmartDeviceBaseAbstract {
   final List<PinInformation> _gpioPinList = <PinInformation>[];
 
   ///  The type of the smart device Light blinds etc
-  DeviceTypes? smartDeviceType;
+  CbjDeviceTypes? smartDeviceType;
 
   /// Get a list of the pins Types that this device need
   List<String> getNeededPinTypesList() => [];
@@ -63,7 +63,7 @@ abstract class SmartDeviceBaseAbstract {
   //  Getters
 
   ///  Get smart device type
-  DeviceTypes? getDeviceType() => smartDeviceType;
+  CbjDeviceTypes? getDeviceType() => smartDeviceType;
 
   /// Returning the non abstract of this object
   Type getTheNonAbstractObjectOfThisInstance() {
@@ -89,5 +89,5 @@ abstract class SmartDeviceBaseAbstract {
 
   //  Setters
 
-  void setDeviceType(DeviceTypes deviceType) => smartDeviceType = deviceType;
+  void setDeviceType(CbjDeviceTypes deviceType) => smartDeviceType = deviceType;
 }

@@ -23,12 +23,12 @@ class ButtonObject extends SmartDeviceBaseAbstract {
 
   ///  The type of the smart device, Light, blinds, button etc
   @override
-  DeviceTypes? smartDeviceType = DeviceTypes.button;
+  CbjDeviceTypes? smartDeviceType = CbjDeviceTypes.button;
 
   /// The button will save list of states like on, off, long press, double tap.
   /// For each button press state we save the smart object and the actions that
   /// we want to preform on it.
-  Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+  Map<CbjWhenToExecute, Map<SmartDeviceBase, List<CbjDeviceActions>>>?
       buttonStatesAction;
 
   /// Button pin information to listen to.
@@ -38,7 +38,7 @@ class ButtonObject extends SmartDeviceBaseAbstract {
   int pressStateCounter = 0;
 
   /// Save current state of button press
-  WhenToExecute currentButtonPressState = WhenToExecute.undefined;
+  CbjWhenToExecute currentButtonPressState = CbjWhenToExecute.undefined;
 
   /// Class to interact with simple button.
   ButtonObjectR? buttonObjectRepository;
@@ -79,15 +79,15 @@ class ButtonObject extends SmartDeviceBaseAbstract {
     }
 
     if (pressStateCounter % 2 != 0) {
-      currentButtonPressState = WhenToExecute.onOddNumberPress;
+      currentButtonPressState = CbjWhenToExecute.onOddNumberPress;
     } else {
-      currentButtonPressState = WhenToExecute.evenNumberPress;
+      currentButtonPressState = CbjWhenToExecute.evenNumberPress;
     }
 
-    buttonStatesAction?.forEach((whenToExecute, smartDeviceAndActionsMap) {
-      if (whenToExecute == currentButtonPressState) {
-        if (whenToExecute == WhenToExecute.onOddNumberPress ||
-            whenToExecute == WhenToExecute.evenNumberPress) {
+    buttonStatesAction?.forEach((cbjWhenToExecute, smartDeviceAndActionsMap) {
+      if (cbjWhenToExecute == currentButtonPressState) {
+        if (cbjWhenToExecute == CbjWhenToExecute.onOddNumberPress ||
+            cbjWhenToExecute == CbjWhenToExecute.evenNumberPress) {
           smartDeviceAndActionsMap
               .forEach((smartDevice, actionsToExecute) async {
             for (final action in actionsToExecute) {
@@ -95,7 +95,7 @@ class ButtonObject extends SmartDeviceBaseAbstract {
                   '"${actionsToExecute.toString()}" action');
               await smartDevice.executeDeviceAction(
                 action,
-                DeviceStateGRPC.waitingInComp,
+                CbjDeviceStateGRPC.waitingInComp,
               );
             }
           });
@@ -106,11 +106,11 @@ class ButtonObject extends SmartDeviceBaseAbstract {
     return '';
   }
 
-  static Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+  static Map<CbjWhenToExecute, Map<SmartDeviceBase, List<CbjDeviceActions>>>?
       buttonDefaultStateAction(
     List<SmartDeviceBaseAbstract>? smartDeviceBaseAbstractList,
   ) {
-    Map<WhenToExecute, Map<SmartDeviceBase, List<DeviceActions>>>?
+    Map<CbjWhenToExecute, Map<SmartDeviceBase, List<CbjDeviceActions>>>?
         buttonStatesAction;
 
     List<SmartDeviceBaseAbstract> smartDeviceBaseAbstractListTemp;
@@ -121,16 +121,16 @@ class ButtonObject extends SmartDeviceBaseAbstract {
       smartDeviceBaseAbstractListTemp = MySingleton.getSmartDevicesList();
     }
     if (smartDeviceBaseAbstractListTemp.last.smartDeviceType ==
-        DeviceTypes.light) {
+        CbjDeviceTypes.light) {
       if (smartDeviceBaseAbstractListTemp.last is SmartDeviceBase) {
         final SmartDeviceBase smartDeviceBaseTemp =
             smartDeviceBaseAbstractListTemp.last as SmartDeviceBase;
         buttonStatesAction = {
-          WhenToExecute.onOddNumberPress: {
-            smartDeviceBaseTemp: [DeviceActions.on]
+          CbjWhenToExecute.onOddNumberPress: {
+            smartDeviceBaseTemp: [CbjDeviceActions.on]
           },
-          WhenToExecute.evenNumberPress: {
-            smartDeviceBaseTemp: [DeviceActions.off]
+          CbjWhenToExecute.evenNumberPress: {
+            smartDeviceBaseTemp: [CbjDeviceActions.off]
           },
         };
       }

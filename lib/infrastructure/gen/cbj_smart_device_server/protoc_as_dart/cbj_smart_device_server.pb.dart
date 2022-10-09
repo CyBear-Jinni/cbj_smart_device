@@ -13,15 +13,15 @@ import 'cbj_smart_device_server.pbenum.dart';
 
 export 'cbj_smart_device_server.pbenum.dart';
 
-class ClientStatusRequests extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ClientStatusRequests', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartConnection'), createEmptyInstance: create)
-    ..aOM<AllRemoteCommands>(41, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'allRemoteCommands', protoName: 'allRemoteCommands', subBuilder: AllRemoteCommands.create)
+class CbjClientStatusRequests extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjClientStatusRequests', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceConnections'), createEmptyInstance: create)
+    ..aOM<CbjAllRemoteCommands>(41, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'allRemoteCommands', protoName: 'allRemoteCommands', subBuilder: CbjAllRemoteCommands.create)
     ..hasRequiredFields = false
   ;
 
-  ClientStatusRequests._() : super();
-  factory ClientStatusRequests({
-    AllRemoteCommands? allRemoteCommands,
+  CbjClientStatusRequests._() : super();
+  factory CbjClientStatusRequests({
+    CbjAllRemoteCommands? allRemoteCommands,
   }) {
     final _result = create();
     if (allRemoteCommands != null) {
@@ -29,48 +29,48 @@ class ClientStatusRequests extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory ClientStatusRequests.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ClientStatusRequests.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory CbjClientStatusRequests.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CbjClientStatusRequests.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  ClientStatusRequests clone() => ClientStatusRequests()..mergeFromMessage(this);
+  CbjClientStatusRequests clone() => CbjClientStatusRequests()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  ClientStatusRequests copyWith(void Function(ClientStatusRequests) updates) => super.copyWith((message) => updates(message as ClientStatusRequests)) as ClientStatusRequests; // ignore: deprecated_member_use
+  CbjClientStatusRequests copyWith(void Function(CbjClientStatusRequests) updates) => super.copyWith((message) => updates(message as CbjClientStatusRequests)) as CbjClientStatusRequests; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static ClientStatusRequests create() => ClientStatusRequests._();
-  ClientStatusRequests createEmptyInstance() => create();
-  static $pb.PbList<ClientStatusRequests> createRepeated() => $pb.PbList<ClientStatusRequests>();
+  static CbjClientStatusRequests create() => CbjClientStatusRequests._();
+  CbjClientStatusRequests createEmptyInstance() => create();
+  static $pb.PbList<CbjClientStatusRequests> createRepeated() => $pb.PbList<CbjClientStatusRequests>();
   @$core.pragma('dart2js:noInline')
-  static ClientStatusRequests getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ClientStatusRequests>(create);
-  static ClientStatusRequests? _defaultInstance;
+  static CbjClientStatusRequests getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CbjClientStatusRequests>(create);
+  static CbjClientStatusRequests? _defaultInstance;
 
   @$pb.TagNumber(41)
-  AllRemoteCommands get allRemoteCommands => $_getN(0);
+  CbjAllRemoteCommands get allRemoteCommands => $_getN(0);
   @$pb.TagNumber(41)
-  set allRemoteCommands(AllRemoteCommands v) { setField(41, v); }
+  set allRemoteCommands(CbjAllRemoteCommands v) { setField(41, v); }
   @$pb.TagNumber(41)
   $core.bool hasAllRemoteCommands() => $_has(0);
   @$pb.TagNumber(41)
   void clearAllRemoteCommands() => clearField(41);
   @$pb.TagNumber(41)
-  AllRemoteCommands ensureAllRemoteCommands() => $_ensure(0);
+  CbjAllRemoteCommands ensureAllRemoteCommands() => $_ensure(0);
 }
 
-class RequestsAndStatusFromHub extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RequestsAndStatusFromHub', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartConnection'), createEmptyInstance: create)
-    ..aOM<AllRemoteCommands>(42, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'allRemoteCommands', protoName: 'allRemoteCommands', subBuilder: AllRemoteCommands.create)
+class CbjRequestsAndStatusFromHub extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjRequestsAndStatusFromHub', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceConnections'), createEmptyInstance: create)
+    ..aOM<CbjAllRemoteCommands>(42, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'allRemoteCommands', protoName: 'allRemoteCommands', subBuilder: CbjAllRemoteCommands.create)
     ..hasRequiredFields = false
   ;
 
-  RequestsAndStatusFromHub._() : super();
-  factory RequestsAndStatusFromHub({
-    AllRemoteCommands? allRemoteCommands,
+  CbjRequestsAndStatusFromHub._() : super();
+  factory CbjRequestsAndStatusFromHub({
+    CbjAllRemoteCommands? allRemoteCommands,
   }) {
     final _result = create();
     if (allRemoteCommands != null) {
@@ -78,48 +78,48 @@ class RequestsAndStatusFromHub extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory RequestsAndStatusFromHub.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory RequestsAndStatusFromHub.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory CbjRequestsAndStatusFromHub.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CbjRequestsAndStatusFromHub.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  RequestsAndStatusFromHub clone() => RequestsAndStatusFromHub()..mergeFromMessage(this);
+  CbjRequestsAndStatusFromHub clone() => CbjRequestsAndStatusFromHub()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  RequestsAndStatusFromHub copyWith(void Function(RequestsAndStatusFromHub) updates) => super.copyWith((message) => updates(message as RequestsAndStatusFromHub)) as RequestsAndStatusFromHub; // ignore: deprecated_member_use
+  CbjRequestsAndStatusFromHub copyWith(void Function(CbjRequestsAndStatusFromHub) updates) => super.copyWith((message) => updates(message as CbjRequestsAndStatusFromHub)) as CbjRequestsAndStatusFromHub; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static RequestsAndStatusFromHub create() => RequestsAndStatusFromHub._();
-  RequestsAndStatusFromHub createEmptyInstance() => create();
-  static $pb.PbList<RequestsAndStatusFromHub> createRepeated() => $pb.PbList<RequestsAndStatusFromHub>();
+  static CbjRequestsAndStatusFromHub create() => CbjRequestsAndStatusFromHub._();
+  CbjRequestsAndStatusFromHub createEmptyInstance() => create();
+  static $pb.PbList<CbjRequestsAndStatusFromHub> createRepeated() => $pb.PbList<CbjRequestsAndStatusFromHub>();
   @$core.pragma('dart2js:noInline')
-  static RequestsAndStatusFromHub getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RequestsAndStatusFromHub>(create);
-  static RequestsAndStatusFromHub? _defaultInstance;
+  static CbjRequestsAndStatusFromHub getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CbjRequestsAndStatusFromHub>(create);
+  static CbjRequestsAndStatusFromHub? _defaultInstance;
 
   @$pb.TagNumber(42)
-  AllRemoteCommands get allRemoteCommands => $_getN(0);
+  CbjAllRemoteCommands get allRemoteCommands => $_getN(0);
   @$pb.TagNumber(42)
-  set allRemoteCommands(AllRemoteCommands v) { setField(42, v); }
+  set allRemoteCommands(CbjAllRemoteCommands v) { setField(42, v); }
   @$pb.TagNumber(42)
   $core.bool hasAllRemoteCommands() => $_has(0);
   @$pb.TagNumber(42)
   void clearAllRemoteCommands() => clearField(42);
   @$pb.TagNumber(42)
-  AllRemoteCommands ensureAllRemoteCommands() => $_ensure(0);
+  CbjAllRemoteCommands ensureAllRemoteCommands() => $_ensure(0);
 }
 
-class AllRemoteCommands extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AllRemoteCommands', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartConnection'), createEmptyInstance: create)
-    ..aOM<SmartDeviceInfo>(40, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'smartDeviceInfo', protoName: 'smartDeviceInfo', subBuilder: SmartDeviceInfo.create)
+class CbjAllRemoteCommands extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjAllRemoteCommands', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceConnections'), createEmptyInstance: create)
+    ..aOM<CbjSmartDeviceInfo>(40, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'smartDeviceInfo', protoName: 'smartDeviceInfo', subBuilder: CbjSmartDeviceInfo.create)
     ..hasRequiredFields = false
   ;
 
-  AllRemoteCommands._() : super();
-  factory AllRemoteCommands({
-    SmartDeviceInfo? smartDeviceInfo,
+  CbjAllRemoteCommands._() : super();
+  factory CbjAllRemoteCommands({
+    CbjSmartDeviceInfo? smartDeviceInfo,
   }) {
     final _result = create();
     if (smartDeviceInfo != null) {
@@ -127,50 +127,50 @@ class AllRemoteCommands extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory AllRemoteCommands.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AllRemoteCommands.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory CbjAllRemoteCommands.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CbjAllRemoteCommands.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  AllRemoteCommands clone() => AllRemoteCommands()..mergeFromMessage(this);
+  CbjAllRemoteCommands clone() => CbjAllRemoteCommands()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  AllRemoteCommands copyWith(void Function(AllRemoteCommands) updates) => super.copyWith((message) => updates(message as AllRemoteCommands)) as AllRemoteCommands; // ignore: deprecated_member_use
+  CbjAllRemoteCommands copyWith(void Function(CbjAllRemoteCommands) updates) => super.copyWith((message) => updates(message as CbjAllRemoteCommands)) as CbjAllRemoteCommands; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static AllRemoteCommands create() => AllRemoteCommands._();
-  AllRemoteCommands createEmptyInstance() => create();
-  static $pb.PbList<AllRemoteCommands> createRepeated() => $pb.PbList<AllRemoteCommands>();
+  static CbjAllRemoteCommands create() => CbjAllRemoteCommands._();
+  CbjAllRemoteCommands createEmptyInstance() => create();
+  static $pb.PbList<CbjAllRemoteCommands> createRepeated() => $pb.PbList<CbjAllRemoteCommands>();
   @$core.pragma('dart2js:noInline')
-  static AllRemoteCommands getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AllRemoteCommands>(create);
-  static AllRemoteCommands? _defaultInstance;
+  static CbjAllRemoteCommands getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CbjAllRemoteCommands>(create);
+  static CbjAllRemoteCommands? _defaultInstance;
 
   @$pb.TagNumber(40)
-  SmartDeviceInfo get smartDeviceInfo => $_getN(0);
+  CbjSmartDeviceInfo get smartDeviceInfo => $_getN(0);
   @$pb.TagNumber(40)
-  set smartDeviceInfo(SmartDeviceInfo v) { setField(40, v); }
+  set smartDeviceInfo(CbjSmartDeviceInfo v) { setField(40, v); }
   @$pb.TagNumber(40)
   $core.bool hasSmartDeviceInfo() => $_has(0);
   @$pb.TagNumber(40)
   void clearSmartDeviceInfo() => clearField(40);
   @$pb.TagNumber(40)
-  SmartDeviceInfo ensureSmartDeviceInfo() => $_ensure(0);
+  CbjSmartDeviceInfo ensureSmartDeviceInfo() => $_ensure(0);
 }
 
-class FirstSetupMessage extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FirstSetupMessage', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartConnection'), createEmptyInstance: create)
-    ..aOM<CompSmartDeviceInfo>(38, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'compInfo', protoName: 'compInfo', subBuilder: CompSmartDeviceInfo.create)
-    ..aOM<FirebaseAccountInformation>(39, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'firebaseAccountInformation', protoName: 'firebaseAccountInformation', subBuilder: FirebaseAccountInformation.create)
+class CbjFirstSetupMessage extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjFirstSetupMessage', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceConnections'), createEmptyInstance: create)
+    ..aOM<CbjCompSmartDeviceInfo>(38, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'compInfo', protoName: 'compInfo', subBuilder: CbjCompSmartDeviceInfo.create)
+    ..aOM<CbjFirebaseAccountInformation>(39, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'firebaseAccountInformation', protoName: 'firebaseAccountInformation', subBuilder: CbjFirebaseAccountInformation.create)
     ..hasRequiredFields = false
   ;
 
-  FirstSetupMessage._() : super();
-  factory FirstSetupMessage({
-    CompSmartDeviceInfo? compInfo,
-    FirebaseAccountInformation? firebaseAccountInformation,
+  CbjFirstSetupMessage._() : super();
+  factory CbjFirstSetupMessage({
+    CbjCompSmartDeviceInfo? compInfo,
+    CbjFirebaseAccountInformation? firebaseAccountInformation,
   }) {
     final _result = create();
     if (compInfo != null) {
@@ -181,61 +181,61 @@ class FirstSetupMessage extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory FirstSetupMessage.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FirstSetupMessage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory CbjFirstSetupMessage.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CbjFirstSetupMessage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  FirstSetupMessage clone() => FirstSetupMessage()..mergeFromMessage(this);
+  CbjFirstSetupMessage clone() => CbjFirstSetupMessage()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  FirstSetupMessage copyWith(void Function(FirstSetupMessage) updates) => super.copyWith((message) => updates(message as FirstSetupMessage)) as FirstSetupMessage; // ignore: deprecated_member_use
+  CbjFirstSetupMessage copyWith(void Function(CbjFirstSetupMessage) updates) => super.copyWith((message) => updates(message as CbjFirstSetupMessage)) as CbjFirstSetupMessage; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static FirstSetupMessage create() => FirstSetupMessage._();
-  FirstSetupMessage createEmptyInstance() => create();
-  static $pb.PbList<FirstSetupMessage> createRepeated() => $pb.PbList<FirstSetupMessage>();
+  static CbjFirstSetupMessage create() => CbjFirstSetupMessage._();
+  CbjFirstSetupMessage createEmptyInstance() => create();
+  static $pb.PbList<CbjFirstSetupMessage> createRepeated() => $pb.PbList<CbjFirstSetupMessage>();
   @$core.pragma('dart2js:noInline')
-  static FirstSetupMessage getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FirstSetupMessage>(create);
-  static FirstSetupMessage? _defaultInstance;
+  static CbjFirstSetupMessage getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CbjFirstSetupMessage>(create);
+  static CbjFirstSetupMessage? _defaultInstance;
 
   @$pb.TagNumber(38)
-  CompSmartDeviceInfo get compInfo => $_getN(0);
+  CbjCompSmartDeviceInfo get compInfo => $_getN(0);
   @$pb.TagNumber(38)
-  set compInfo(CompSmartDeviceInfo v) { setField(38, v); }
+  set compInfo(CbjCompSmartDeviceInfo v) { setField(38, v); }
   @$pb.TagNumber(38)
   $core.bool hasCompInfo() => $_has(0);
   @$pb.TagNumber(38)
   void clearCompInfo() => clearField(38);
   @$pb.TagNumber(38)
-  CompSmartDeviceInfo ensureCompInfo() => $_ensure(0);
+  CbjCompSmartDeviceInfo ensureCompInfo() => $_ensure(0);
 
   @$pb.TagNumber(39)
-  FirebaseAccountInformation get firebaseAccountInformation => $_getN(1);
+  CbjFirebaseAccountInformation get firebaseAccountInformation => $_getN(1);
   @$pb.TagNumber(39)
-  set firebaseAccountInformation(FirebaseAccountInformation v) { setField(39, v); }
+  set firebaseAccountInformation(CbjFirebaseAccountInformation v) { setField(39, v); }
   @$pb.TagNumber(39)
   $core.bool hasFirebaseAccountInformation() => $_has(1);
   @$pb.TagNumber(39)
   void clearFirebaseAccountInformation() => clearField(39);
   @$pb.TagNumber(39)
-  FirebaseAccountInformation ensureFirebaseAccountInformation() => $_ensure(1);
+  CbjFirebaseAccountInformation ensureFirebaseAccountInformation() => $_ensure(1);
 }
 
-class CompSmartDeviceInfo extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CompSmartDeviceInfo', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartConnection'), createEmptyInstance: create)
-    ..aOM<CompSpecs>(21, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'compSpecs', protoName: 'compSpecs', subBuilder: CompSpecs.create)
-    ..pc<SmartDeviceInfo>(28, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'smartDevicesInComp', $pb.PbFieldType.PM, protoName: 'smartDevicesInComp', subBuilder: SmartDeviceInfo.create)
+class CbjCompSmartDeviceInfo extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjCompSmartDeviceInfo', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceConnections'), createEmptyInstance: create)
+    ..aOM<CbjCompSpecs>(21, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'compSpecs', protoName: 'compSpecs', subBuilder: CbjCompSpecs.create)
+    ..pc<CbjSmartDeviceInfo>(28, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'smartDevicesInComp', $pb.PbFieldType.PM, protoName: 'smartDevicesInComp', subBuilder: CbjSmartDeviceInfo.create)
     ..hasRequiredFields = false
   ;
 
-  CompSmartDeviceInfo._() : super();
-  factory CompSmartDeviceInfo({
-    CompSpecs? compSpecs,
-    $core.Iterable<SmartDeviceInfo>? smartDevicesInComp,
+  CbjCompSmartDeviceInfo._() : super();
+  factory CbjCompSmartDeviceInfo({
+    CbjCompSpecs? compSpecs,
+    $core.Iterable<CbjSmartDeviceInfo>? smartDevicesInComp,
   }) {
     final _result = create();
     if (compSpecs != null) {
@@ -246,44 +246,44 @@ class CompSmartDeviceInfo extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory CompSmartDeviceInfo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory CompSmartDeviceInfo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory CbjCompSmartDeviceInfo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CbjCompSmartDeviceInfo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  CompSmartDeviceInfo clone() => CompSmartDeviceInfo()..mergeFromMessage(this);
+  CbjCompSmartDeviceInfo clone() => CbjCompSmartDeviceInfo()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  CompSmartDeviceInfo copyWith(void Function(CompSmartDeviceInfo) updates) => super.copyWith((message) => updates(message as CompSmartDeviceInfo)) as CompSmartDeviceInfo; // ignore: deprecated_member_use
+  CbjCompSmartDeviceInfo copyWith(void Function(CbjCompSmartDeviceInfo) updates) => super.copyWith((message) => updates(message as CbjCompSmartDeviceInfo)) as CbjCompSmartDeviceInfo; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static CompSmartDeviceInfo create() => CompSmartDeviceInfo._();
-  CompSmartDeviceInfo createEmptyInstance() => create();
-  static $pb.PbList<CompSmartDeviceInfo> createRepeated() => $pb.PbList<CompSmartDeviceInfo>();
+  static CbjCompSmartDeviceInfo create() => CbjCompSmartDeviceInfo._();
+  CbjCompSmartDeviceInfo createEmptyInstance() => create();
+  static $pb.PbList<CbjCompSmartDeviceInfo> createRepeated() => $pb.PbList<CbjCompSmartDeviceInfo>();
   @$core.pragma('dart2js:noInline')
-  static CompSmartDeviceInfo getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CompSmartDeviceInfo>(create);
-  static CompSmartDeviceInfo? _defaultInstance;
+  static CbjCompSmartDeviceInfo getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CbjCompSmartDeviceInfo>(create);
+  static CbjCompSmartDeviceInfo? _defaultInstance;
 
   @$pb.TagNumber(21)
-  CompSpecs get compSpecs => $_getN(0);
+  CbjCompSpecs get compSpecs => $_getN(0);
   @$pb.TagNumber(21)
-  set compSpecs(CompSpecs v) { setField(21, v); }
+  set compSpecs(CbjCompSpecs v) { setField(21, v); }
   @$pb.TagNumber(21)
   $core.bool hasCompSpecs() => $_has(0);
   @$pb.TagNumber(21)
   void clearCompSpecs() => clearField(21);
   @$pb.TagNumber(21)
-  CompSpecs ensureCompSpecs() => $_ensure(0);
+  CbjCompSpecs ensureCompSpecs() => $_ensure(0);
 
   @$pb.TagNumber(28)
-  $core.List<SmartDeviceInfo> get smartDevicesInComp => $_getList(1);
+  $core.List<CbjSmartDeviceInfo> get smartDevicesInComp => $_getList(1);
 }
 
-class CompSpecs extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CompSpecs', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartConnection'), createEmptyInstance: create)
+class CbjCompSpecs extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjCompSpecs', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceConnections'), createEmptyInstance: create)
     ..aOS(22, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'compId', protoName: 'compId')
     ..aOS(23, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'compUuid', protoName: 'compUuid')
     ..aOS(24, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'compOs', protoName: 'compOs')
@@ -293,8 +293,8 @@ class CompSpecs extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  CompSpecs._() : super();
-  factory CompSpecs({
+  CbjCompSpecs._() : super();
+  factory CbjCompSpecs({
     $core.String? compId,
     $core.String? compUuid,
     $core.String? compOs,
@@ -323,26 +323,26 @@ class CompSpecs extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory CompSpecs.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory CompSpecs.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory CbjCompSpecs.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CbjCompSpecs.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  CompSpecs clone() => CompSpecs()..mergeFromMessage(this);
+  CbjCompSpecs clone() => CbjCompSpecs()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  CompSpecs copyWith(void Function(CompSpecs) updates) => super.copyWith((message) => updates(message as CompSpecs)) as CompSpecs; // ignore: deprecated_member_use
+  CbjCompSpecs copyWith(void Function(CbjCompSpecs) updates) => super.copyWith((message) => updates(message as CbjCompSpecs)) as CbjCompSpecs; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static CompSpecs create() => CompSpecs._();
-  CompSpecs createEmptyInstance() => create();
-  static $pb.PbList<CompSpecs> createRepeated() => $pb.PbList<CompSpecs>();
+  static CbjCompSpecs create() => CbjCompSpecs._();
+  CbjCompSpecs createEmptyInstance() => create();
+  static $pb.PbList<CbjCompSpecs> createRepeated() => $pb.PbList<CbjCompSpecs>();
   @$core.pragma('dart2js:noInline')
-  static CompSpecs getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CompSpecs>(create);
-  static CompSpecs? _defaultInstance;
+  static CbjCompSpecs getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CbjCompSpecs>(create);
+  static CbjCompSpecs? _defaultInstance;
 
   @$pb.TagNumber(22)
   $core.String get compId => $_getSZ(0);
@@ -399,16 +399,16 @@ class CompSpecs extends $pb.GeneratedMessage {
   void clearPubspecYamlVersion() => clearField(27);
 }
 
-class MicrocontrollerSpecs extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'MicrocontrollerSpecs', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartConnection'), createEmptyInstance: create)
+class CbjMicrocontrollerSpecs extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjMicrocontrollerSpecs', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceConnections'), createEmptyInstance: create)
     ..aOS(31, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'microcontrollerModel', protoName: 'microcontrollerModel')
     ..aOS(32, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'microcontrollerType', protoName: 'microcontrollerType')
     ..aOS(33, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'softwareVersion', protoName: 'softwareVersion')
     ..hasRequiredFields = false
   ;
 
-  MicrocontrollerSpecs._() : super();
-  factory MicrocontrollerSpecs({
+  CbjMicrocontrollerSpecs._() : super();
+  factory CbjMicrocontrollerSpecs({
     $core.String? microcontrollerModel,
     $core.String? microcontrollerType,
     $core.String? softwareVersion,
@@ -425,26 +425,26 @@ class MicrocontrollerSpecs extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory MicrocontrollerSpecs.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory MicrocontrollerSpecs.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory CbjMicrocontrollerSpecs.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CbjMicrocontrollerSpecs.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  MicrocontrollerSpecs clone() => MicrocontrollerSpecs()..mergeFromMessage(this);
+  CbjMicrocontrollerSpecs clone() => CbjMicrocontrollerSpecs()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  MicrocontrollerSpecs copyWith(void Function(MicrocontrollerSpecs) updates) => super.copyWith((message) => updates(message as MicrocontrollerSpecs)) as MicrocontrollerSpecs; // ignore: deprecated_member_use
+  CbjMicrocontrollerSpecs copyWith(void Function(CbjMicrocontrollerSpecs) updates) => super.copyWith((message) => updates(message as CbjMicrocontrollerSpecs)) as CbjMicrocontrollerSpecs; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static MicrocontrollerSpecs create() => MicrocontrollerSpecs._();
-  MicrocontrollerSpecs createEmptyInstance() => create();
-  static $pb.PbList<MicrocontrollerSpecs> createRepeated() => $pb.PbList<MicrocontrollerSpecs>();
+  static CbjMicrocontrollerSpecs create() => CbjMicrocontrollerSpecs._();
+  CbjMicrocontrollerSpecs createEmptyInstance() => create();
+  static $pb.PbList<CbjMicrocontrollerSpecs> createRepeated() => $pb.PbList<CbjMicrocontrollerSpecs>();
   @$core.pragma('dart2js:noInline')
-  static MicrocontrollerSpecs getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MicrocontrollerSpecs>(create);
-  static MicrocontrollerSpecs? _defaultInstance;
+  static CbjMicrocontrollerSpecs getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CbjMicrocontrollerSpecs>(create);
+  static CbjMicrocontrollerSpecs? _defaultInstance;
 
   @$pb.TagNumber(31)
   $core.String get microcontrollerModel => $_getSZ(0);
@@ -474,8 +474,8 @@ class MicrocontrollerSpecs extends $pb.GeneratedMessage {
   void clearSoftwareVersion() => clearField(33);
 }
 
-class SmartDeviceInfo extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartDeviceInfo', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartConnection'), createEmptyInstance: create)
+class CbjSmartDeviceInfo extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceInfo', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceConnections'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'state')
     ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'defaultName', protoName: 'defaultName')
@@ -486,14 +486,14 @@ class SmartDeviceInfo extends $pb.GeneratedMessage {
     ..aOS(19, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'serverTimeStamp', protoName: 'serverTimeStamp')
     ..aOS(20, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stateMassage', protoName: 'stateMassage')
     ..aOB(29, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isComputer', protoName: 'isComputer')
-    ..aOM<CompSpecs>(30, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'compSpecs', protoName: 'compSpecs', subBuilder: CompSpecs.create)
-    ..aOM<MicrocontrollerSpecs>(31, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'microcontrollerSpecsSpecs', protoName: 'microcontrollerSpecsSpecs', subBuilder: MicrocontrollerSpecs.create)
-    ..aOM<DeviceTypesActions>(34, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceTypesActions', protoName: 'deviceTypesActions', subBuilder: DeviceTypesActions.create)
+    ..aOM<CbjCompSpecs>(30, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'compSpecs', protoName: 'compSpecs', subBuilder: CbjCompSpecs.create)
+    ..aOM<CbjMicrocontrollerSpecs>(31, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'microcontrollerSpecsSpecs', protoName: 'microcontrollerSpecsSpecs', subBuilder: CbjMicrocontrollerSpecs.create)
+    ..aOM<CbjDeviceTypesActions>(34, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceTypesActions', protoName: 'deviceTypesActions', subBuilder: CbjDeviceTypesActions.create)
     ..hasRequiredFields = false
   ;
 
-  SmartDeviceInfo._() : super();
-  factory SmartDeviceInfo({
+  CbjSmartDeviceInfo._() : super();
+  factory CbjSmartDeviceInfo({
     $core.String? id,
     $core.String? state,
     $core.String? defaultName,
@@ -504,9 +504,9 @@ class SmartDeviceInfo extends $pb.GeneratedMessage {
     $core.String? serverTimeStamp,
     $core.String? stateMassage,
     $core.bool? isComputer,
-    CompSpecs? compSpecs,
-    MicrocontrollerSpecs? microcontrollerSpecsSpecs,
-    DeviceTypesActions? deviceTypesActions,
+    CbjCompSpecs? compSpecs,
+    CbjMicrocontrollerSpecs? microcontrollerSpecsSpecs,
+    CbjDeviceTypesActions? deviceTypesActions,
   }) {
     final _result = create();
     if (id != null) {
@@ -550,26 +550,26 @@ class SmartDeviceInfo extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory SmartDeviceInfo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory SmartDeviceInfo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory CbjSmartDeviceInfo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CbjSmartDeviceInfo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  SmartDeviceInfo clone() => SmartDeviceInfo()..mergeFromMessage(this);
+  CbjSmartDeviceInfo clone() => CbjSmartDeviceInfo()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  SmartDeviceInfo copyWith(void Function(SmartDeviceInfo) updates) => super.copyWith((message) => updates(message as SmartDeviceInfo)) as SmartDeviceInfo; // ignore: deprecated_member_use
+  CbjSmartDeviceInfo copyWith(void Function(CbjSmartDeviceInfo) updates) => super.copyWith((message) => updates(message as CbjSmartDeviceInfo)) as CbjSmartDeviceInfo; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static SmartDeviceInfo create() => SmartDeviceInfo._();
-  SmartDeviceInfo createEmptyInstance() => create();
-  static $pb.PbList<SmartDeviceInfo> createRepeated() => $pb.PbList<SmartDeviceInfo>();
+  static CbjSmartDeviceInfo create() => CbjSmartDeviceInfo._();
+  CbjSmartDeviceInfo createEmptyInstance() => create();
+  static $pb.PbList<CbjSmartDeviceInfo> createRepeated() => $pb.PbList<CbjSmartDeviceInfo>();
   @$core.pragma('dart2js:noInline')
-  static SmartDeviceInfo getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SmartDeviceInfo>(create);
-  static SmartDeviceInfo? _defaultInstance;
+  static CbjSmartDeviceInfo getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CbjSmartDeviceInfo>(create);
+  static CbjSmartDeviceInfo? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get id => $_getSZ(0);
@@ -662,47 +662,47 @@ class SmartDeviceInfo extends $pb.GeneratedMessage {
   void clearIsComputer() => clearField(29);
 
   @$pb.TagNumber(30)
-  CompSpecs get compSpecs => $_getN(10);
+  CbjCompSpecs get compSpecs => $_getN(10);
   @$pb.TagNumber(30)
-  set compSpecs(CompSpecs v) { setField(30, v); }
+  set compSpecs(CbjCompSpecs v) { setField(30, v); }
   @$pb.TagNumber(30)
   $core.bool hasCompSpecs() => $_has(10);
   @$pb.TagNumber(30)
   void clearCompSpecs() => clearField(30);
   @$pb.TagNumber(30)
-  CompSpecs ensureCompSpecs() => $_ensure(10);
+  CbjCompSpecs ensureCompSpecs() => $_ensure(10);
 
   @$pb.TagNumber(31)
-  MicrocontrollerSpecs get microcontrollerSpecsSpecs => $_getN(11);
+  CbjMicrocontrollerSpecs get microcontrollerSpecsSpecs => $_getN(11);
   @$pb.TagNumber(31)
-  set microcontrollerSpecsSpecs(MicrocontrollerSpecs v) { setField(31, v); }
+  set microcontrollerSpecsSpecs(CbjMicrocontrollerSpecs v) { setField(31, v); }
   @$pb.TagNumber(31)
   $core.bool hasMicrocontrollerSpecsSpecs() => $_has(11);
   @$pb.TagNumber(31)
   void clearMicrocontrollerSpecsSpecs() => clearField(31);
   @$pb.TagNumber(31)
-  MicrocontrollerSpecs ensureMicrocontrollerSpecsSpecs() => $_ensure(11);
+  CbjMicrocontrollerSpecs ensureMicrocontrollerSpecsSpecs() => $_ensure(11);
 
   @$pb.TagNumber(34)
-  DeviceTypesActions get deviceTypesActions => $_getN(12);
+  CbjDeviceTypesActions get deviceTypesActions => $_getN(12);
   @$pb.TagNumber(34)
-  set deviceTypesActions(DeviceTypesActions v) { setField(34, v); }
+  set deviceTypesActions(CbjDeviceTypesActions v) { setField(34, v); }
   @$pb.TagNumber(34)
   $core.bool hasDeviceTypesActions() => $_has(12);
   @$pb.TagNumber(34)
   void clearDeviceTypesActions() => clearField(34);
   @$pb.TagNumber(34)
-  DeviceTypesActions ensureDeviceTypesActions() => $_ensure(12);
+  CbjDeviceTypesActions ensureDeviceTypesActions() => $_ensure(12);
 }
 
-class SmartDeviceStatus extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartDeviceStatus', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartConnection'), createEmptyInstance: create)
+class CbjSmartDeviceStatus extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceStatus', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceConnections'), createEmptyInstance: create)
     ..aOB(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'onOffState', protoName: 'onOffState')
     ..hasRequiredFields = false
   ;
 
-  SmartDeviceStatus._() : super();
-  factory SmartDeviceStatus({
+  CbjSmartDeviceStatus._() : super();
+  factory CbjSmartDeviceStatus({
     $core.bool? onOffState,
   }) {
     final _result = create();
@@ -711,26 +711,26 @@ class SmartDeviceStatus extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory SmartDeviceStatus.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory SmartDeviceStatus.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory CbjSmartDeviceStatus.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CbjSmartDeviceStatus.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  SmartDeviceStatus clone() => SmartDeviceStatus()..mergeFromMessage(this);
+  CbjSmartDeviceStatus clone() => CbjSmartDeviceStatus()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  SmartDeviceStatus copyWith(void Function(SmartDeviceStatus) updates) => super.copyWith((message) => updates(message as SmartDeviceStatus)) as SmartDeviceStatus; // ignore: deprecated_member_use
+  CbjSmartDeviceStatus copyWith(void Function(CbjSmartDeviceStatus) updates) => super.copyWith((message) => updates(message as CbjSmartDeviceStatus)) as CbjSmartDeviceStatus; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static SmartDeviceStatus create() => SmartDeviceStatus._();
-  SmartDeviceStatus createEmptyInstance() => create();
-  static $pb.PbList<SmartDeviceStatus> createRepeated() => $pb.PbList<SmartDeviceStatus>();
+  static CbjSmartDeviceStatus create() => CbjSmartDeviceStatus._();
+  CbjSmartDeviceStatus createEmptyInstance() => create();
+  static $pb.PbList<CbjSmartDeviceStatus> createRepeated() => $pb.PbList<CbjSmartDeviceStatus>();
   @$core.pragma('dart2js:noInline')
-  static SmartDeviceStatus getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SmartDeviceStatus>(create);
-  static SmartDeviceStatus? _defaultInstance;
+  static CbjSmartDeviceStatus getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CbjSmartDeviceStatus>(create);
+  static CbjSmartDeviceStatus? _defaultInstance;
 
   @$pb.TagNumber(4)
   $core.bool get onOffState => $_getBF(0);
@@ -742,14 +742,14 @@ class SmartDeviceStatus extends $pb.GeneratedMessage {
   void clearOnOffState() => clearField(4);
 }
 
-class CommendStatus extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CommendStatus', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartConnection'), createEmptyInstance: create)
+class CbjCommendStatus extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjCommendStatus', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceConnections'), createEmptyInstance: create)
     ..aOB(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
     ..hasRequiredFields = false
   ;
 
-  CommendStatus._() : super();
-  factory CommendStatus({
+  CbjCommendStatus._() : super();
+  factory CbjCommendStatus({
     $core.bool? success,
   }) {
     final _result = create();
@@ -758,26 +758,26 @@ class CommendStatus extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory CommendStatus.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory CommendStatus.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory CbjCommendStatus.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CbjCommendStatus.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  CommendStatus clone() => CommendStatus()..mergeFromMessage(this);
+  CbjCommendStatus clone() => CbjCommendStatus()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  CommendStatus copyWith(void Function(CommendStatus) updates) => super.copyWith((message) => updates(message as CommendStatus)) as CommendStatus; // ignore: deprecated_member_use
+  CbjCommendStatus copyWith(void Function(CbjCommendStatus) updates) => super.copyWith((message) => updates(message as CbjCommendStatus)) as CbjCommendStatus; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static CommendStatus create() => CommendStatus._();
-  CommendStatus createEmptyInstance() => create();
-  static $pb.PbList<CommendStatus> createRepeated() => $pb.PbList<CommendStatus>();
+  static CbjCommendStatus create() => CbjCommendStatus._();
+  CbjCommendStatus createEmptyInstance() => create();
+  static $pb.PbList<CbjCommendStatus> createRepeated() => $pb.PbList<CbjCommendStatus>();
   @$core.pragma('dart2js:noInline')
-  static CommendStatus getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CommendStatus>(create);
-  static CommendStatus? _defaultInstance;
+  static CbjCommendStatus getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CbjCommendStatus>(create);
+  static CbjCommendStatus? _defaultInstance;
 
   @$pb.TagNumber(5)
   $core.bool get success => $_getBF(0);
@@ -789,16 +789,16 @@ class CommendStatus extends $pb.GeneratedMessage {
   void clearSuccess() => clearField(5);
 }
 
-class SmartDeviceUpdateDetails extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartDeviceUpdateDetails', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartConnection'), createEmptyInstance: create)
-    ..aOM<SmartDeviceInfo>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'smartDevice', protoName: 'smartDevice', subBuilder: SmartDeviceInfo.create)
+class CbjSmartDeviceUpdateDetails extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceUpdateDetails', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceConnections'), createEmptyInstance: create)
+    ..aOM<CbjSmartDeviceInfo>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'smartDevice', protoName: 'smartDevice', subBuilder: CbjSmartDeviceInfo.create)
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newName', protoName: 'newName')
     ..hasRequiredFields = false
   ;
 
-  SmartDeviceUpdateDetails._() : super();
-  factory SmartDeviceUpdateDetails({
-    SmartDeviceInfo? smartDevice,
+  CbjSmartDeviceUpdateDetails._() : super();
+  factory CbjSmartDeviceUpdateDetails({
+    CbjSmartDeviceInfo? smartDevice,
     $core.String? newName,
   }) {
     final _result = create();
@@ -810,37 +810,37 @@ class SmartDeviceUpdateDetails extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory SmartDeviceUpdateDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory SmartDeviceUpdateDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory CbjSmartDeviceUpdateDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CbjSmartDeviceUpdateDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  SmartDeviceUpdateDetails clone() => SmartDeviceUpdateDetails()..mergeFromMessage(this);
+  CbjSmartDeviceUpdateDetails clone() => CbjSmartDeviceUpdateDetails()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  SmartDeviceUpdateDetails copyWith(void Function(SmartDeviceUpdateDetails) updates) => super.copyWith((message) => updates(message as SmartDeviceUpdateDetails)) as SmartDeviceUpdateDetails; // ignore: deprecated_member_use
+  CbjSmartDeviceUpdateDetails copyWith(void Function(CbjSmartDeviceUpdateDetails) updates) => super.copyWith((message) => updates(message as CbjSmartDeviceUpdateDetails)) as CbjSmartDeviceUpdateDetails; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static SmartDeviceUpdateDetails create() => SmartDeviceUpdateDetails._();
-  SmartDeviceUpdateDetails createEmptyInstance() => create();
-  static $pb.PbList<SmartDeviceUpdateDetails> createRepeated() => $pb.PbList<SmartDeviceUpdateDetails>();
+  static CbjSmartDeviceUpdateDetails create() => CbjSmartDeviceUpdateDetails._();
+  CbjSmartDeviceUpdateDetails createEmptyInstance() => create();
+  static $pb.PbList<CbjSmartDeviceUpdateDetails> createRepeated() => $pb.PbList<CbjSmartDeviceUpdateDetails>();
   @$core.pragma('dart2js:noInline')
-  static SmartDeviceUpdateDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SmartDeviceUpdateDetails>(create);
-  static SmartDeviceUpdateDetails? _defaultInstance;
+  static CbjSmartDeviceUpdateDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CbjSmartDeviceUpdateDetails>(create);
+  static CbjSmartDeviceUpdateDetails? _defaultInstance;
 
   @$pb.TagNumber(6)
-  SmartDeviceInfo get smartDevice => $_getN(0);
+  CbjSmartDeviceInfo get smartDevice => $_getN(0);
   @$pb.TagNumber(6)
-  set smartDevice(SmartDeviceInfo v) { setField(6, v); }
+  set smartDevice(CbjSmartDeviceInfo v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasSmartDevice() => $_has(0);
   @$pb.TagNumber(6)
   void clearSmartDevice() => clearField(6);
   @$pb.TagNumber(6)
-  SmartDeviceInfo ensureSmartDevice() => $_ensure(0);
+  CbjSmartDeviceInfo ensureSmartDevice() => $_ensure(0);
 
   @$pb.TagNumber(7)
   $core.String get newName => $_getSZ(1);
@@ -852,8 +852,8 @@ class SmartDeviceUpdateDetails extends $pb.GeneratedMessage {
   void clearNewName() => clearField(7);
 }
 
-class FirebaseAccountInformation extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FirebaseAccountInformation', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartConnection'), createEmptyInstance: create)
+class CbjFirebaseAccountInformation extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjFirebaseAccountInformation', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceConnections'), createEmptyInstance: create)
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fireBaseProjectId', protoName: 'fireBaseProjectId')
     ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fireBaseApiKey', protoName: 'fireBaseApiKey')
     ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userEmail', protoName: 'userEmail')
@@ -862,8 +862,8 @@ class FirebaseAccountInformation extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  FirebaseAccountInformation._() : super();
-  factory FirebaseAccountInformation({
+  CbjFirebaseAccountInformation._() : super();
+  factory CbjFirebaseAccountInformation({
     $core.String? fireBaseProjectId,
     $core.String? fireBaseApiKey,
     $core.String? userEmail,
@@ -888,26 +888,26 @@ class FirebaseAccountInformation extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory FirebaseAccountInformation.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FirebaseAccountInformation.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory CbjFirebaseAccountInformation.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CbjFirebaseAccountInformation.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  FirebaseAccountInformation clone() => FirebaseAccountInformation()..mergeFromMessage(this);
+  CbjFirebaseAccountInformation clone() => CbjFirebaseAccountInformation()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  FirebaseAccountInformation copyWith(void Function(FirebaseAccountInformation) updates) => super.copyWith((message) => updates(message as FirebaseAccountInformation)) as FirebaseAccountInformation; // ignore: deprecated_member_use
+  CbjFirebaseAccountInformation copyWith(void Function(CbjFirebaseAccountInformation) updates) => super.copyWith((message) => updates(message as CbjFirebaseAccountInformation)) as CbjFirebaseAccountInformation; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static FirebaseAccountInformation create() => FirebaseAccountInformation._();
-  FirebaseAccountInformation createEmptyInstance() => create();
-  static $pb.PbList<FirebaseAccountInformation> createRepeated() => $pb.PbList<FirebaseAccountInformation>();
+  static CbjFirebaseAccountInformation create() => CbjFirebaseAccountInformation._();
+  CbjFirebaseAccountInformation createEmptyInstance() => create();
+  static $pb.PbList<CbjFirebaseAccountInformation> createRepeated() => $pb.PbList<CbjFirebaseAccountInformation>();
   @$core.pragma('dart2js:noInline')
-  static FirebaseAccountInformation getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FirebaseAccountInformation>(create);
-  static FirebaseAccountInformation? _defaultInstance;
+  static CbjFirebaseAccountInformation getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CbjFirebaseAccountInformation>(create);
+  static CbjFirebaseAccountInformation? _defaultInstance;
 
   @$pb.TagNumber(8)
   $core.String get fireBaseProjectId => $_getSZ(0);
@@ -955,19 +955,19 @@ class FirebaseAccountInformation extends $pb.GeneratedMessage {
   void clearHomeId() => clearField(12);
 }
 
-class DeviceTypesActions extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'DeviceTypesActions', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SmartConnection'), createEmptyInstance: create)
-    ..e<DeviceTypes>(35, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceType', $pb.PbFieldType.OE, protoName: 'deviceType', defaultOrMaker: DeviceTypes.typeNotSupported, valueOf: DeviceTypes.valueOf, enumValues: DeviceTypes.values)
-    ..e<DeviceActions>(36, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceAction', $pb.PbFieldType.OE, protoName: 'deviceAction', defaultOrMaker: DeviceActions.actionNotSupported, valueOf: DeviceActions.valueOf, enumValues: DeviceActions.values)
-    ..e<DeviceStateGRPC>(37, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceStateGRPC', $pb.PbFieldType.OE, protoName: 'deviceStateGRPC', defaultOrMaker: DeviceStateGRPC.stateNotSupported, valueOf: DeviceStateGRPC.valueOf, enumValues: DeviceStateGRPC.values)
+class CbjDeviceTypesActions extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjDeviceTypesActions', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CbjSmartDeviceConnections'), createEmptyInstance: create)
+    ..e<CbjDeviceTypes>(35, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceType', $pb.PbFieldType.OE, protoName: 'deviceType', defaultOrMaker: CbjDeviceTypes.typeNotSupported, valueOf: CbjDeviceTypes.valueOf, enumValues: CbjDeviceTypes.values)
+    ..e<CbjDeviceActions>(36, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceAction', $pb.PbFieldType.OE, protoName: 'deviceAction', defaultOrMaker: CbjDeviceActions.actionNotSupported, valueOf: CbjDeviceActions.valueOf, enumValues: CbjDeviceActions.values)
+    ..e<CbjDeviceStateGRPC>(37, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceStateGRPC', $pb.PbFieldType.OE, protoName: 'deviceStateGRPC', defaultOrMaker: CbjDeviceStateGRPC.stateNotSupported, valueOf: CbjDeviceStateGRPC.valueOf, enumValues: CbjDeviceStateGRPC.values)
     ..hasRequiredFields = false
   ;
 
-  DeviceTypesActions._() : super();
-  factory DeviceTypesActions({
-    DeviceTypes? deviceType,
-    DeviceActions? deviceAction,
-    DeviceStateGRPC? deviceStateGRPC,
+  CbjDeviceTypesActions._() : super();
+  factory CbjDeviceTypesActions({
+    CbjDeviceTypes? deviceType,
+    CbjDeviceActions? deviceAction,
+    CbjDeviceStateGRPC? deviceStateGRPC,
   }) {
     final _result = create();
     if (deviceType != null) {
@@ -981,49 +981,49 @@ class DeviceTypesActions extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory DeviceTypesActions.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory DeviceTypesActions.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory CbjDeviceTypesActions.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CbjDeviceTypesActions.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  DeviceTypesActions clone() => DeviceTypesActions()..mergeFromMessage(this);
+  CbjDeviceTypesActions clone() => CbjDeviceTypesActions()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  DeviceTypesActions copyWith(void Function(DeviceTypesActions) updates) => super.copyWith((message) => updates(message as DeviceTypesActions)) as DeviceTypesActions; // ignore: deprecated_member_use
+  CbjDeviceTypesActions copyWith(void Function(CbjDeviceTypesActions) updates) => super.copyWith((message) => updates(message as CbjDeviceTypesActions)) as CbjDeviceTypesActions; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static DeviceTypesActions create() => DeviceTypesActions._();
-  DeviceTypesActions createEmptyInstance() => create();
-  static $pb.PbList<DeviceTypesActions> createRepeated() => $pb.PbList<DeviceTypesActions>();
+  static CbjDeviceTypesActions create() => CbjDeviceTypesActions._();
+  CbjDeviceTypesActions createEmptyInstance() => create();
+  static $pb.PbList<CbjDeviceTypesActions> createRepeated() => $pb.PbList<CbjDeviceTypesActions>();
   @$core.pragma('dart2js:noInline')
-  static DeviceTypesActions getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeviceTypesActions>(create);
-  static DeviceTypesActions? _defaultInstance;
+  static CbjDeviceTypesActions getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CbjDeviceTypesActions>(create);
+  static CbjDeviceTypesActions? _defaultInstance;
 
   @$pb.TagNumber(35)
-  DeviceTypes get deviceType => $_getN(0);
+  CbjDeviceTypes get deviceType => $_getN(0);
   @$pb.TagNumber(35)
-  set deviceType(DeviceTypes v) { setField(35, v); }
+  set deviceType(CbjDeviceTypes v) { setField(35, v); }
   @$pb.TagNumber(35)
   $core.bool hasDeviceType() => $_has(0);
   @$pb.TagNumber(35)
   void clearDeviceType() => clearField(35);
 
   @$pb.TagNumber(36)
-  DeviceActions get deviceAction => $_getN(1);
+  CbjDeviceActions get deviceAction => $_getN(1);
   @$pb.TagNumber(36)
-  set deviceAction(DeviceActions v) { setField(36, v); }
+  set deviceAction(CbjDeviceActions v) { setField(36, v); }
   @$pb.TagNumber(36)
   $core.bool hasDeviceAction() => $_has(1);
   @$pb.TagNumber(36)
   void clearDeviceAction() => clearField(36);
 
   @$pb.TagNumber(37)
-  DeviceStateGRPC get deviceStateGRPC => $_getN(2);
+  CbjDeviceStateGRPC get deviceStateGRPC => $_getN(2);
   @$pb.TagNumber(37)
-  set deviceStateGRPC(DeviceStateGRPC v) { setField(37, v); }
+  set deviceStateGRPC(CbjDeviceStateGRPC v) { setField(37, v); }
   @$pb.TagNumber(37)
   $core.bool hasDeviceStateGRPC() => $_has(2);
   @$pb.TagNumber(37)

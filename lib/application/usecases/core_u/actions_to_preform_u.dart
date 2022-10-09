@@ -4,8 +4,8 @@ import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/prot
 class ActionsToPreformU {
   static Future<String> executeDeviceAction(
     SmartDeviceBase smartDevice,
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceStateSource,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceStateSource,
   ) async {
     final deviceStatus =
         await smartDevice.executeDeviceAction(deviceAction, deviceStateSource);

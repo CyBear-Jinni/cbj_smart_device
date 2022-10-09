@@ -3,17 +3,17 @@ import 'package:grpc/grpc.dart';
 
 class SmartClient {
   static ClientChannel? channel;
-  static SmartServerClient? stub;
+  static CbjSmartDeviceConnectionsClient? stub;
 
   ///  Turn smart device on
   static Future<void> createStreamWithClients(String addressToHub) async {
-    channel = await createSmartServerClient(addressToHub);
-    stub = SmartServerClient(channel!);
-    ResponseStream<ClientStatusRequests> response;
-    final Stream<RequestsAndStatusFromHub> streamClientStatusRequests =
-        Stream.value(RequestsAndStatusFromHub());
+    channel = await createCbjSmartDeviceServerClient(addressToHub);
+    stub = CbjSmartDeviceConnectionsClient(channel!);
+    ResponseStream<CbjClientStatusRequests> response;
+    final Stream<CbjRequestsAndStatusFromHub> streamCbjClientStatusRequests =
+        Stream.value(CbjRequestsAndStatusFromHub());
     try {
-      response = stub!.registerHub(streamClientStatusRequests);
+      response = stub!.registerHub(streamCbjClientStatusRequests);
       response.listen((value) {
         print('Greeter client received: $value');
       });
@@ -26,11 +26,13 @@ class SmartClient {
 // throw 'Error';
   }
 
-  static Future<ClientChannel> createSmartServerClient(String deviceIp) async {
+  static Future<ClientChannel> createCbjSmartDeviceServerClient(
+    String deviceIp,
+  ) async {
     await channel?.shutdown();
     return ClientChannel(
       deviceIp,
-      port: 50053,
+      port: 50054,
       options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
     );
   }

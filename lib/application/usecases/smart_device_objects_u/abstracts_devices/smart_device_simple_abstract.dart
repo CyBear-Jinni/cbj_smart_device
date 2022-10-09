@@ -23,26 +23,26 @@ abstract class SmartDeviceSimpleAbstract extends SmartDeviceBase {
 
   @override
   Future<String> executeActionString(
-    String deviceActionString,
-    DeviceStateGRPC deviceState,
+    String CbjDeviceActionstring,
+    CbjDeviceStateGRPC deviceState,
   ) async {
-    final DeviceActions? deviceAction =
-        convertWishStringToWishesObject(deviceActionString);
+    final CbjDeviceActions? deviceAction =
+        convertWishStringToWishesObject(CbjDeviceActionstring);
     return executeDeviceAction(deviceAction!, deviceState);
   }
 
   @override
   Future<String> executeDeviceAction(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     return wishInSimpleClass(deviceAction, deviceState);
   }
 
   ///  All the wishes that are legit to execute from the simple class
   String wishInSimpleClass(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) {
     if (deviceAction == null) return 'Your wish does not exist on simple class';
     return wishInBaseClass(deviceAction, deviceState);

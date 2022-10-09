@@ -11,7 +11,7 @@ class SmartComputerObject extends SmartDeviceSimpleAbstract {
           null,
           onOffButtonPinNumber: null,
         ) {
-    setDeviceType(DeviceTypes.smartComputer);
+    setDeviceType(CbjDeviceTypes.smartComputer);
     print('New smart computer object');
   }
 
@@ -23,22 +23,22 @@ class SmartComputerObject extends SmartDeviceSimpleAbstract {
 
   ///  Return smart device type
   @override
-  DeviceTypes getDeviceType() => DeviceTypes.smartComputer;
+  CbjDeviceTypes getDeviceType() => CbjDeviceTypes.smartComputer;
 
   @override
   Future<String> executeActionString(
     String wishString,
-    DeviceStateGRPC deviceState,
+    CbjDeviceStateGRPC deviceState,
   ) async {
-    final DeviceActions deviceAction =
+    final CbjDeviceActions deviceAction =
         convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(deviceAction, deviceState);
   }
 
   @override
   Future<String> executeDeviceAction(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     return wishInSimpleClass(deviceAction, deviceState);
   }

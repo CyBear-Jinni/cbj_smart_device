@@ -30,13 +30,13 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
         if (lightPin.v == 1) {
           await smartDevice.executeDeviceAction(
-            DeviceActions.off,
-            DeviceStateGRPC.waitingInComp,
+            CbjDeviceActions.off,
+            CbjDeviceStateGRPC.waitingInComp,
           );
         } else {
           await smartDevice.executeDeviceAction(
-            DeviceActions.on,
-            DeviceStateGRPC.waitingInComp,
+            CbjDeviceActions.on,
+            CbjDeviceStateGRPC.waitingInComp,
           );
         }
 
@@ -73,13 +73,13 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
         if (boiler.v == 1) {
           await boilerObject.executeDeviceAction(
-            DeviceActions.off,
-            DeviceStateGRPC.waitingInComp,
+            CbjDeviceActions.off,
+            CbjDeviceStateGRPC.waitingInComp,
           );
         } else {
           await boilerObject.executeDeviceAction(
-            DeviceActions.on,
-            DeviceStateGRPC.waitingInComp,
+            CbjDeviceActions.on,
+            CbjDeviceStateGRPC.waitingInComp,
           );
         }
 
@@ -151,18 +151,18 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
     if (firstBlindsPin.v == 1 || secondBlindsPin.v == 1) {
       firstBlindsPin.onDuration = 0;
       await blindsObject.executeDeviceAction(
-        DeviceActions.stop,
-        DeviceStateGRPC.waitingInComp,
+        CbjDeviceActions.stop,
+        CbjDeviceStateGRPC.waitingInComp,
       );
     } else if (buttonPressNumber == 1) {
       await blindsObject.executeDeviceAction(
-        DeviceActions.moveUp,
-        DeviceStateGRPC.waitingInComp,
+        CbjDeviceActions.moveUp,
+        CbjDeviceStateGRPC.waitingInComp,
       );
     } else if (buttonPressNumber == 2) {
       await blindsObject.executeDeviceAction(
-        DeviceActions.moveDown,
-        DeviceStateGRPC.waitingInComp,
+        CbjDeviceActions.moveDown,
+        CbjDeviceStateGRPC.waitingInComp,
       );
     }
 

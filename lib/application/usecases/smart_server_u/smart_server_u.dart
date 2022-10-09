@@ -15,12 +15,13 @@ import 'package:grpc/grpc.dart';
 import 'package:uuid/uuid.dart';
 
 /// This class get what to execute straight from the grpc request,
-class SmartServerU extends SmartServerServiceBase {
-  static const DeviceStateGRPC _deviceState = DeviceStateGRPC.waitingInComp;
+class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
+  static const CbjDeviceStateGRPC _deviceState =
+      CbjDeviceStateGRPC.waitingInComp;
 
   Future startLocalServer() async {
-    final server = Server([SmartServerU()]);
-    await server.serve(port: 50053);
+    final server = Server([CbjSmartDeviceServerU()]);
+    await server.serve(port: 50054);
     logger.i('Server listening on port ${server.port}...');
   }
 
@@ -30,7 +31,7 @@ class SmartServerU extends SmartServerServiceBase {
   ) {
     print('Wait for connection');
 
-    final SmartServerU smartServer = SmartServerU();
+    final CbjSmartDeviceServerU smartServer = CbjSmartDeviceServerU();
     smartServer.startListen(
       firebaseAccountsInformationD,
     ); // Will go throw the model with the
@@ -59,92 +60,96 @@ class SmartServerU extends SmartServerServiceBase {
   }
 
   @override
-  Future<CompSmartDeviceInfo> getCompInfo(
+  Future<CbjCompSmartDeviceInfo> getCompInfo(
     ServiceCall call,
-    CommendStatus request,
+    CbjCommendStatus request,
   ) async {
     final String compId = const Uuid().v1();
     final String compUuid = await MySingletonHelper.getUuid();
     final List<SmartDeviceBaseAbstract> devicesList =
         MySingleton.getSmartDevicesList();
 
-    final CompSpecs compSpecs = CompSpecs(
+    final CbjCompSpecs compSpecs = CbjCompSpecs(
       compId: compId,
       compUuid: compUuid,
     );
 
-    final List<SmartDeviceInfo> smartDeviceInfoList = [];
+    final List<CbjSmartDeviceInfo> smartDeviceInfoList = [];
     for (var element in devicesList) {
-      DeviceTypes deviceTypes;
+      CbjDeviceTypes cbjDeviceTypes;
       switch (element.getDeviceType()) {
-        case DeviceTypes.light:
-          deviceTypes = DeviceTypes.light;
+        case CbjDeviceTypes.light:
+          cbjDeviceTypes = CbjDeviceTypes.light;
           break;
-        case DeviceTypes.blinds:
-          deviceTypes = DeviceTypes.blinds;
+        case CbjDeviceTypes.blinds:
+          cbjDeviceTypes = CbjDeviceTypes.blinds;
           break;
-        case DeviceTypes.boiler:
-          deviceTypes = DeviceTypes.boiler;
+        case CbjDeviceTypes.boiler:
+          cbjDeviceTypes = CbjDeviceTypes.boiler;
+          break;
+        case CbjDeviceTypes.smartComputer:
+          cbjDeviceTypes = CbjDeviceTypes.smartComputer;
           break;
         default:
-          deviceTypes = DeviceTypes.typeNotSupported;
+          cbjDeviceTypes = CbjDeviceTypes.typeNotSupported;
       }
 
-      DeviceActions? dAction;
+      CbjDeviceActions? dAction;
       if (element.runtimeType is SmartDeviceBase) {
         element = element as SmartDeviceBase;
-        dAction =
-            element.getDeviceState() ? DeviceActions.on : DeviceActions.off;
+        dAction = element.getDeviceState()
+            ? CbjDeviceActions.on
+            : CbjDeviceActions.off;
       } else {
-        dAction = DeviceActions.off;
+        dAction = CbjDeviceActions.off;
       }
 
-      final DeviceTypesActions deviceTypesActions = DeviceTypesActions(
-        deviceType: deviceTypes,
+      final CbjDeviceTypesActions cbjDeviceTypesActions = CbjDeviceTypesActions(
+        deviceType: cbjDeviceTypes,
         deviceAction: dAction,
-        deviceStateGRPC: DeviceStateGRPC.waitingInComp,
+        deviceStateGRPC: CbjDeviceStateGRPC.waitingInComp,
       );
 
-      final SmartDeviceInfo smartDeviceInfo = SmartDeviceInfo(
+      final CbjSmartDeviceInfo smartDeviceInfo = CbjSmartDeviceInfo(
         id: element.id,
         senderId: compId,
-        deviceTypesActions: deviceTypesActions,
+        deviceTypesActions: cbjDeviceTypesActions,
         compSpecs: compSpecs,
         defaultName: element.deviceInformation.getName(),
       );
       smartDeviceInfoList.add(smartDeviceInfo);
     }
 
-    final CompSmartDeviceInfo compInfo = CompSmartDeviceInfo(
+    final CbjCompSmartDeviceInfo compInfo = CbjCompSmartDeviceInfo(
       compSpecs: compSpecs,
       smartDevicesInComp: smartDeviceInfoList,
     );
 
-    return Future<CompSmartDeviceInfo>.value(compInfo);
+    return Future<CbjCompSmartDeviceInfo>.value(compInfo);
   }
 
   //  Return the status of the specified device
   @override
-  Future<SmartDeviceStatus> getStatus(
+  Future<CbjSmartDeviceStatus> getStatus(
     ServiceCall call,
-    SmartDeviceInfo request,
+    CbjSmartDeviceInfo request,
   ) async {
-    final String deviceStatus = await executeDeviceActionString(
+    final String deviceStatus = await executeCbjDeviceActionstring(
       request,
-      DeviceActions.actionNotSupported,
+      CbjDeviceActions.actionNotSupported,
       _deviceState,
     );
 
     print(
       'Getting status of device $request and device status in bool $deviceStatus',
     );
-    return SmartDeviceStatus()..onOffState = deviceStatus == 'true';
+    return CbjSmartDeviceStatus()..onOffState = deviceStatus == 'true';
   }
 
   @override
-  Future<CommendStatus> updateDeviceName(
+  Future<CbjCommendStatus> updateDeviceName(
     ServiceCall call,
-    SmartDeviceUpdateDetails request,
+    CbjSmartDeviceUpdateDetails request,
   ) async {
     print(
       'Updating device name:${request.smartDevice.id} into: ${request.newName}',
@@ -152,69 +157,73 @@ class SmartServerU extends SmartServerServiceBase {
     final SmartDeviceBaseAbstract smartDevice =
         getSmartDeviceBaseAbstract(request.smartDevice)!;
     smartDevice.id = request.newName;
-    final CommendStatus commendStatus = CommendStatus();
-    commendStatus.success = true;
+    final CbjCommendStatus cbjCommendStatus = CbjCommendStatus();
+    cbjCommendStatus.success = true;
     final LocalDbE localDbE = LocalDbE();
     await localDbE.saveAllDevices(MySingleton.getSmartDevicesList());
-    return Future<CommendStatus>.value(commendStatus);
+    return Future<CbjCommendStatus>.value(cbjCommendStatus);
   }
 
   @override
-  Future<CommendStatus> setOffDevice(
+  Future<CbjCommendStatus> setOffDevice(
     ServiceCall call,
-    SmartDeviceInfo request,
+    CbjSmartDeviceInfo request,
   ) async {
     logger.i('Turn device ${request.id} off');
-    return executeDeviceActionServer(request, DeviceActions.off, _deviceState);
+    return executeCbjDeviceActionserver(
+        request, CbjDeviceActions.off, _deviceState);
   }
 
   @override
-  Future<CommendStatus> setOnDevice(
+  Future<CbjCommendStatus> setOnDevice(
     ServiceCall call,
-    SmartDeviceInfo request,
+    CbjSmartDeviceInfo request,
   ) async {
     logger.i('Turn device ${request.id} on');
-    return executeDeviceActionServer(request, DeviceActions.on, _deviceState);
+    return executeCbjDeviceActionserver(
+        request, CbjDeviceActions.on, _deviceState);
   }
 
   @override
-  Future<CommendStatus> setBlindsUp(
+  Future<CbjCommendStatus> setBlindsUp(
     ServiceCall call,
-    SmartDeviceInfo request,
+    CbjSmartDeviceInfo request,
   ) async {
     logger.i('Turn blinds ${request.id} up');
-    return executeDeviceActionServer(
+    return executeCbjDeviceActionserver(
       request,
-      DeviceActions.moveUp,
+      CbjDeviceActions.moveUp,
       _deviceState,
     );
   }
 
   @override
-  Future<CommendStatus> setBlindsDown(
+  Future<CbjCommendStatus> setBlindsDown(
     ServiceCall call,
-    SmartDeviceInfo request,
+    CbjSmartDeviceInfo request,
   ) async {
     logger.i('Turn blinds ${request.id} down');
 
-    return executeDeviceActionServer(
+    return executeCbjDeviceActionserver(
       request,
-      DeviceActions.moveDown,
+      CbjDeviceActions.moveDown,
       _deviceState,
     );
   }
 
   @override
-  Future<CommendStatus> setBlindsStop(
+  Future<CbjCommendStatus> setBlindsStop(
     ServiceCall call,
-    SmartDeviceInfo request,
+    CbjSmartDeviceInfo request,
   ) async {
     logger.i('Turn blinds ${request.id} stop');
 
-    return executeDeviceActionServer(request, DeviceActions.stop, _deviceState);
+    return executeCbjDeviceActionserver(
+        request, CbjDeviceActions.stop, _deviceState);
   }
 
-  SmartDeviceBaseAbstract? getSmartDeviceBaseAbstract(SmartDeviceInfo request) {
+  SmartDeviceBaseAbstract? getSmartDeviceBaseAbstract(
+      CbjSmartDeviceInfo request) {
     try {
       return MySingleton.getSmartDevicesList().firstWhere(
         (smartDeviceBaseAbstractO) => smartDeviceBaseAbstractO.id == request.id,
@@ -226,15 +235,15 @@ class SmartServerU extends SmartServerServiceBase {
     }
   }
 
-  CommendStatus executeDeviceActionServer(
-    SmartDeviceInfo request,
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+  CbjCommendStatus executeCbjDeviceActionserver(
+    CbjSmartDeviceInfo request,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) {
     final SmartDeviceBaseAbstract smartDevice =
         getSmartDeviceBaseAbstract(request)!;
     if (smartDevice == null) {
-      return CommendStatus()..success = false;
+      return CbjCommendStatus()..success = false;
     }
 
     if (smartDevice is SmartDeviceBase) {
@@ -243,20 +252,20 @@ class SmartServerU extends SmartServerServiceBase {
         deviceAction,
         deviceState,
       );
-      return CommendStatus()..success = smartDevice.onOff;
+      return CbjCommendStatus()..success = smartDevice.onOff;
     }
-    return CommendStatus()..success = false;
+    return CbjCommendStatus()..success = false;
   }
 
-  Future<String> executeDeviceActionString(
-    SmartDeviceInfo request,
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+  Future<String> executeCbjDeviceActionstring(
+    CbjSmartDeviceInfo request,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     final SmartDeviceBaseAbstract? smartDevice =
         getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
-      return 'SmartDevice is null in execute DeviceActions String';
+      return 'SmartDevice is null in execute CbjDeviceActions String';
     }
 
     if (smartDevice is SmartDeviceBase) {
@@ -270,56 +279,60 @@ class SmartServerU extends SmartServerServiceBase {
   }
 
   @override
-  Future<CommendStatus> setFirebaseAccountInformation(
+  Future<CbjCommendStatus> setFirebaseAccountInformation(
     ServiceCall call,
-    FirebaseAccountInformation request,
+    CbjFirebaseAccountInformation request,
   ) async {
-    print('This is the function setFirebaseAccountInformation');
-    final CommendStatus commendStatus =
-        await setFirebaseAccountInformationHelper(request);
+    print('This is the function setCbjFirebaseAccountInformation');
+    final CbjCommendStatus cbjCommendStatus =
+        await setCbjFirebaseAccountInformationHelper(request);
 
-    return Future<CommendStatus>.value(commendStatus);
+    return Future<CbjCommendStatus>.value(cbjCommendStatus);
   }
 
   @override
-  Future<CommendStatus> setCompInfo(
+  Future<CbjCommendStatus> setCompInfo(
     ServiceCall call,
-    CompSmartDeviceInfo request,
+    CbjCompSmartDeviceInfo request,
   ) async {
     return SetCompHelper(request);
   }
 
   @override
-  Future<CommendStatus> firstSetup(
+  Future<CbjCommendStatus> firstSetup(
     ServiceCall call,
-    FirstSetupMessage request,
+    CbjFirstSetupMessage request,
   ) async {
     try {
-      final CompSmartDeviceInfo compInfo = request.compInfo;
-      final CommendStatus commendStatusSetComp = await SetCompHelper(compInfo);
+      final CbjCompSmartDeviceInfo compInfo = request.compInfo;
+      final CbjCommendStatus cbjCommendStatusSetComp =
+          await SetCompHelper(compInfo);
 
-      final CommendStatus commendStatusSetFirebase =
-          await setFirebaseAccountInformationHelper(
+      final CbjCommendStatus cbjCommendStatusSetFirebase =
+          await setCbjFirebaseAccountInformationHelper(
         request.firebaseAccountInformation,
       );
 
-      if (commendStatusSetComp.success && commendStatusSetFirebase.success) {
-        return CommendStatus()..success = true;
+      if (cbjCommendStatusSetComp.success &&
+          cbjCommendStatusSetFirebase.success) {
+        return CbjCommendStatus()..success = true;
       }
     } catch (e) {
       print('Error first setup');
     }
 
-    return CommendStatus()..success = false;
+    return CbjCommendStatus()..success = false;
   }
 
-  Future<CommendStatus> SetCompHelper(CompSmartDeviceInfo compInfo) async {
+  Future<CbjCommendStatus> SetCompHelper(
+    CbjCompSmartDeviceInfo compInfo,
+  ) async {
     try {
       final List<SmartDeviceBaseAbstract> smartDeviceList =
           MySingleton.getSmartDevicesList();
 
       for (final SmartDeviceBaseAbstract smartDevice in smartDeviceList) {
-        for (final SmartDeviceInfo smartDeviceInfo
+        for (final CbjSmartDeviceInfo smartDeviceInfo
             in compInfo.smartDevicesInComp) {
           if (smartDevice.id == smartDeviceInfo.id) {
             smartDevice.deviceInformation.setName(smartDeviceInfo.defaultName);
@@ -331,14 +344,14 @@ class SmartServerU extends SmartServerServiceBase {
       final LocalDbE localDbE = LocalDbE();
       await localDbE.saveAllDevices(MySingleton.getSmartDevicesList());
 
-      return CommendStatus()..success = true;
+      return CbjCommendStatus()..success = true;
     } catch (e) {
-      return CommendStatus()..success = false;
+      return CbjCommendStatus()..success = false;
     }
   }
 
-  Future<CommendStatus> setFirebaseAccountInformationHelper(
-    FirebaseAccountInformation request,
+  Future<CbjCommendStatus> setCbjFirebaseAccountInformationHelper(
+    CbjFirebaseAccountInformation request,
   ) async {
     try {
       final FirebaseAccountsInformationD firebaseAccountsInformationD =
@@ -352,10 +365,10 @@ class SmartServerU extends SmartServerServiceBase {
 
       for (final SmartDeviceBaseAbstract device
           in MySingleton.getSmartDevicesList()) {
-        if (device.getDeviceType() == DeviceTypes.light) {
+        if (device.getDeviceType() == CbjDeviceTypes.light) {
           final Map<String, String> dataToChange = {
-            GrpcClientTypes.deviceStateGRPCTypeString:
-                DeviceStateGRPC.ack.toString(),
+            GrpcClientTypes.CbjDeviceStateGRPCTypeString:
+                CbjDeviceStateGRPC.ack.toString(),
           };
         }
       }
@@ -365,9 +378,9 @@ class SmartServerU extends SmartServerServiceBase {
 
       startListenToDb(firebaseAccountsInformationD);
       exitTheApp();
-      return CommendStatus()..success = true;
+      return CbjCommendStatus()..success = true;
     } catch (e) {
-      return CommendStatus()..success = false;
+      return CbjCommendStatus()..success = false;
     }
   }
 
@@ -379,46 +392,46 @@ class SmartServerU extends SmartServerServiceBase {
   }
 
   @override
-  Stream<RequestsAndStatusFromHub> registerClient(
+  Stream<CbjRequestsAndStatusFromHub> registerClient(
     ServiceCall call,
-    Stream<ClientStatusRequests> request,
+    Stream<CbjClientStatusRequests> request,
   ) async* {
     print('object registerClient now');
-    yield RequestsAndStatusFromHub();
+    yield CbjRequestsAndStatusFromHub();
   }
 
   @override
-  Stream<ClientStatusRequests> registerHub(
+  Stream<CbjClientStatusRequests> registerHub(
     ServiceCall call,
-    Stream<RequestsAndStatusFromHub> request,
+    Stream<CbjRequestsAndStatusFromHub> request,
   ) async* {
-    yield ClientStatusRequests();
+    yield CbjClientStatusRequests();
   }
 
   @override
-  Future<CommendStatus> suspendComputer(
+  Future<CbjCommendStatus> suspendComputer(
     ServiceCall call,
-    SmartDeviceInfo request,
+    CbjSmartDeviceInfo request,
   ) async {
     logger.i('Suspend computer');
 
-    return executeDeviceActionServer(
+    return executeCbjDeviceActionserver(
       request,
-      DeviceActions.suspend,
+      CbjDeviceActions.suspend,
       _deviceState,
     );
   }
 
   @override
-  Future<CommendStatus> shutdownComputer(
+  Future<CbjCommendStatus> shutdownComputer(
     ServiceCall call,
-    SmartDeviceInfo request,
+    CbjSmartDeviceInfo request,
   ) async {
     logger.i('Shutdown computer');
 
-    return executeDeviceActionServer(
+    return executeCbjDeviceActionserver(
       request,
-      DeviceActions.shutdown,
+      CbjDeviceActions.shutdown,
       _deviceState,
     );
   }

@@ -25,7 +25,7 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
     boilerPin = DevicePinListManager().getGpioPin(boilerPinNUmber);
     boilerButtonPin = DevicePinListManager().getGpioPin(boilerButtonPinNumber);
     listenButtonsPress();
-    setDeviceType(DeviceTypes.boiler);
+    setDeviceType(CbjDeviceTypes.boiler);
   }
 
   PinInformation? boilerPin, boilerButtonPin;
@@ -38,46 +38,46 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
 
   ///  Return smart device type
   @override
-  DeviceTypes getDeviceType() => DeviceTypes.boiler;
+  CbjDeviceTypes getDeviceType() => CbjDeviceTypes.boiler;
 
   @override
   Future<String> executeActionString(
     String wishString,
-    DeviceStateGRPC deviceState,
+    CbjDeviceStateGRPC deviceState,
   ) async {
-    final DeviceActions deviceAction =
+    final CbjDeviceActions deviceAction =
         convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(deviceAction, deviceState);
   }
 
   @override
   Future<String> executeDeviceAction(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     return wishInBoilerClass(deviceAction, deviceState);
   }
 
   ///  All the wishes that are legit to execute from the blinds class
   Future<String> wishInBoilerClass(
-    DeviceActions? deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions? deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     String? wishExecuteResult;
 
     if (deviceAction == null) {
       return 'Your wish does not exist in boiler class';
     }
-    if (deviceAction == DeviceActions.on) {
+    if (deviceAction == CbjDeviceActions.on) {
       wishExecuteResult = OnWishU.setOn(deviceInformation, boilerPin);
     }
-    if (deviceAction == DeviceActions.off) {
+    if (deviceAction == CbjDeviceActions.off) {
       wishExecuteResult = OffWishU.setOff(deviceInformation, boilerPin);
     }
 
     if (wishExecuteResult != null) {
-      if (deviceState != DeviceStateGRPC.ack) {
-        final String deviceActionString =
+      if (deviceState != CbjDeviceStateGRPC.ack) {
+        final String CbjDeviceActionstring =
             EnumHelper.deviceActionToString(deviceAction);
       }
       return wishExecuteResult;

@@ -81,7 +81,7 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
 
   ///  The type of the smart device Light blinds etc
   @override
-  DeviceTypes? smartDeviceType;
+  CbjDeviceTypes? smartDeviceType;
 
   /// Get a list of the pins Types that this device need
   @override
@@ -94,7 +94,7 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
 
   ///  Get smart device type
   @override
-  DeviceTypes? getDeviceType() => smartDeviceType;
+  CbjDeviceTypes? getDeviceType() => smartDeviceType;
 
   /// Returning the non abstract of this object
   @override
@@ -161,7 +161,7 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   }
 
   @override
-  void setDeviceType(DeviceTypes deviceType) => smartDeviceType = deviceType;
+  void setDeviceType(CbjDeviceTypes deviceType) => smartDeviceType = deviceType;
 
   ///  Turn device pin to the opposite state
   String _setChangeOppositeToState(PinInformation? pinNumber) {
@@ -185,8 +185,8 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
 
   ///  Return PossibleWishes object if
   ///  string wish exist (in general) else return null
-  DeviceActions? convertWishStringToWishesObject(String wish) {
-    for (final DeviceActions possibleAction in DeviceActions.values) {
+  CbjDeviceActions? convertWishStringToWishesObject(String wish) {
+    for (final CbjDeviceActions possibleAction in CbjDeviceActions.values) {
       print('Wish value ${EnumHelper.deviceActionToString(possibleAction)}');
       if (EnumHelper.deviceActionToString(possibleAction) == wish) {
         return possibleAction; //  If wish exist return the PossibleWish object
@@ -199,21 +199,23 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   ///  this wish and if true than execute it
   Future<String> executeActionString(
     String wishString,
-    DeviceStateGRPC deviceState,
+    CbjDeviceStateGRPC deviceState,
   ) async {
-    final DeviceActions action = convertWishStringToWishesObject(wishString)!;
+    final CbjDeviceActions action =
+        convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(action, deviceState);
   }
 
   Future<String> executeDeviceAction(
-    DeviceActions action,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions action,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     return wishInBaseClass(action, deviceState);
   }
 
   ///  All the wishes that are legit to execute from the base class
-  String wishInBaseClass(DeviceActions action, DeviceStateGRPC deviceState) {
+  String wishInBaseClass(
+      CbjDeviceActions action, CbjDeviceStateGRPC deviceState) {
     String executionMassage = ' ';
     if (action == null) executionMassage = 'Your wish does not exist';
 
@@ -221,25 +223,25 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
     String resultOfTheWish = '';
 
     switch (action) {
-      case DeviceActions.off:
+      case CbjDeviceActions.off:
         if (onOffPin == null) {
           executionMassage = 'Cant turn off this pin: $onOffPin Number';
         }
         resultOfTheWish = _setOff(onOffPin);
         break;
-      case DeviceActions.on:
+      case CbjDeviceActions.on:
         if (onOffPin == null) {
           executionMassage = 'Cant turn on this pin: $onOffPin Number';
         }
         resultOfTheWish = _setOn(onOffPin);
         break;
-      case DeviceActions.suspend:
+      case CbjDeviceActions.suspend:
         resultOfTheWish = _suspendComputer();
         break;
-      case DeviceActions.shutdown:
+      case CbjDeviceActions.shutdown:
         resultOfTheWish = _shutdownComputer();
         break;
-      case DeviceActions.actionNotSupported:
+      case CbjDeviceActions.actionNotSupported:
         if (onOffPin == null) {
           executionMassage =
               'Cant change pin to the opposite state: $onOffPin Number';
@@ -256,23 +258,23 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
         resultOfTheWish == 'Turn off successfully' ||
         executionMassage == 'Cant turn on this pin: null Number' ||
         executionMassage == 'Cant turn off this pin: null Number') {
-      if (deviceState == DeviceStateGRPC.waitingInComp) {
-        if (action == DeviceActions.on) {
+      if (deviceState == CbjDeviceStateGRPC.waitingInComp) {
+        if (action == CbjDeviceActions.on) {
           final Map<String, String> mapToUpdate = {
-            GrpcClientTypes.deviceActionsTypeString:
-                DeviceActions.on.toString(),
-            GrpcClientTypes.deviceStateGRPCTypeString:
-                DeviceStateGRPC.ack.toString()
+            GrpcClientTypes.CbjDeviceActionsTypeString:
+                CbjDeviceActions.on.toString(),
+            GrpcClientTypes.CbjDeviceStateGRPCTypeString:
+                CbjDeviceStateGRPC.ack.toString()
           };
-        } else if (action == DeviceActions.off) {
+        } else if (action == CbjDeviceActions.off) {
           final Map<String, String> mapToUpdate = {
-            GrpcClientTypes.deviceActionsTypeString:
-                DeviceActions.off.toString(),
-            GrpcClientTypes.deviceStateGRPCTypeString:
-                DeviceStateGRPC.ack.toString()
+            GrpcClientTypes.CbjDeviceActionsTypeString:
+                CbjDeviceActions.off.toString(),
+            GrpcClientTypes.CbjDeviceStateGRPCTypeString:
+                CbjDeviceStateGRPC.ack.toString()
           };
         }
-      } else if (deviceState == DeviceStateGRPC.ack) {
+      } else if (deviceState == CbjDeviceStateGRPC.ack) {
       } else {}
     } else {}
 

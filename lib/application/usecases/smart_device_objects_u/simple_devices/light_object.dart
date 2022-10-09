@@ -12,7 +12,7 @@ class LightObject extends SmartDeviceSimpleAbstract {
           onOffPinNumber,
           onOffButtonPinNumber: null,
         ) {
-    setDeviceType(DeviceTypes.light);
+    setDeviceType(CbjDeviceTypes.light);
     print('New light object');
   }
 
@@ -24,22 +24,22 @@ class LightObject extends SmartDeviceSimpleAbstract {
 
   ///  Return smart device type
   @override
-  DeviceTypes getDeviceType() => DeviceTypes.light;
+  CbjDeviceTypes getDeviceType() => CbjDeviceTypes.light;
 
   @override
   Future<String> executeActionString(
     String wishString,
-    DeviceStateGRPC deviceState,
+    CbjDeviceStateGRPC deviceState,
   ) async {
-    final DeviceActions deviceAction =
+    final CbjDeviceActions deviceAction =
         convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(deviceAction, deviceState);
   }
 
   @override
   Future<String> executeDeviceAction(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     return wishInSimpleClass(deviceAction, deviceState);
   }
