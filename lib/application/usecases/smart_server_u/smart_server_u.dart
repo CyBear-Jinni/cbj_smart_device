@@ -88,8 +88,12 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     );
 
     final List<CbjSmartDeviceInfo> smartDeviceInfoList = [];
+
     for (var element in devicesList) {
       CbjDeviceTypes cbjDeviceTypes;
+
+      String defaultName = element.deviceInformation.getName();
+
       switch (element.getDeviceType()) {
         case CbjDeviceTypes.light:
           cbjDeviceTypes = CbjDeviceTypes.light;
@@ -102,6 +106,8 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
           break;
         case CbjDeviceTypes.smartComputer:
           cbjDeviceTypes = CbjDeviceTypes.smartComputer;
+          defaultName =
+              defaultName.isNotEmpty ? defaultName : 'Personal Computer';
           break;
         default:
           cbjDeviceTypes = CbjDeviceTypes.typeNotSupported;
@@ -123,7 +129,6 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
         deviceStateGRPC: CbjDeviceStateGRPC.waitingInComp,
       );
 
-      String defaultName = element.deviceInformation.getName();
       defaultName = defaultName.isNotEmpty ? defaultName : 'Cbj Smart Device';
 
       final CbjSmartDeviceInfo smartDeviceInfo = CbjSmartDeviceInfo(
@@ -191,7 +196,10 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   ) async {
     logger.i('Turn device ${request.id} off');
     return executeCbjDeviceActionserver(
-        request, CbjDeviceActions.off, _deviceState);
+      request,
+      CbjDeviceActions.off,
+      _deviceState,
+    );
   }
 
   @override
@@ -201,7 +209,10 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   ) async {
     logger.i('Turn device ${request.id} on');
     return executeCbjDeviceActionserver(
-        request, CbjDeviceActions.on, _deviceState);
+      request,
+      CbjDeviceActions.on,
+      _deviceState,
+    );
   }
 
   @override
