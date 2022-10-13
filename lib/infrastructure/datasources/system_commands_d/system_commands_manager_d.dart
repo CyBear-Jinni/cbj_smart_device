@@ -67,6 +67,14 @@ class SystemCommandsManager {
     return Future.value(SharedVariables.getSnapUserCommonEnvironmentVariable());
   }
 
+  String getOs() {
+    return Platform.operatingSystem;
+  }
+
+  String getOsVersion() {
+    return Platform.operatingSystemVersion;
+  }
+
   Future<String?> suspendComputer() async {
     return systemCommandsBaseClassD!.suspendComputer();
   }

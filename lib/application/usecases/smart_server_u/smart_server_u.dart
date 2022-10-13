@@ -29,7 +29,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   void waitForConnection(
     FirebaseAccountsInformationD? firebaseAccountsInformationD,
   ) {
-    print('Wait for connection');
+    logger.i('Wait for connection');
 
     final CbjSmartDeviceServerU smartServer = CbjSmartDeviceServerU();
     smartServer.startListen(
@@ -42,6 +42,8 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   Future startListen(
     FirebaseAccountsInformationD? firebaseAccountsInformationD,
   ) async {
+    logger.i('Start listen');
+
     startListenToDb(firebaseAccountsInformationD);
     await startLocalServer();
   }
@@ -49,6 +51,8 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   void startListenToDb(
     FirebaseAccountsInformationD? firebaseAccountInformationD,
   ) {
+    logger.i('startListenToDb');
+
     if (firebaseAccountInformationD == null) {
       print('Database var databaseInformationFromDb is null');
       return;
@@ -64,14 +68,23 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     ServiceCall call,
     CbjCommendStatus request,
   ) async {
+    logger.i('Get comp info');
+
     final String compId = const Uuid().v1();
     final String compUuid = await MySingletonHelper.getUuid();
+    final String os = MySingletonHelper.getOs();
+    final String osVersion = MySingletonHelper.getOsVersion();
+
     final List<SmartDeviceBaseAbstract> devicesList =
         MySingleton.getSmartDevicesList();
 
     final CbjCompSpecs compSpecs = CbjCompSpecs(
       compId: compId,
       compUuid: compUuid,
+      compOs: os,
+      compModel: osVersion,
+      compType: 'Personal Computer',
+      pubspecYamlVersion: 'Missing',
     );
 
     final List<CbjSmartDeviceInfo> smartDeviceInfoList = [];
@@ -110,12 +123,17 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
         deviceStateGRPC: CbjDeviceStateGRPC.waitingInComp,
       );
 
+      String defaultName = element.deviceInformation.getName();
+      defaultName = defaultName.isNotEmpty ? defaultName : 'Cbj Smart Device';
+
       final CbjSmartDeviceInfo smartDeviceInfo = CbjSmartDeviceInfo(
         id: element.id,
         senderId: compId,
         deviceTypesActions: cbjDeviceTypesActions,
         compSpecs: compSpecs,
-        defaultName: element.deviceInformation.getName(),
+        defaultName: defaultName,
+        senderDeviceOs: os,
+        senderDeviceModel: osVersion,
       );
       smartDeviceInfoList.add(smartDeviceInfo);
     }
@@ -134,13 +152,15 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     ServiceCall call,
     CbjSmartDeviceInfo request,
   ) async {
+    logger.i('Get status');
+
     final String deviceStatus = await executeCbjDeviceActionstring(
       request,
       CbjDeviceActions.actionNotSupported,
       _deviceState,
     );
 
-    print(
+    logger.i(
       'Getting status of device $request and device status in bool $deviceStatus',
     );
     return CbjSmartDeviceStatus()..onOffState = deviceStatus == 'true';
@@ -151,7 +171,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     ServiceCall call,
     CbjSmartDeviceUpdateDetails request,
   ) async {
-    print(
+    logger.i(
       'Updating device name:${request.smartDevice.id} into: ${request.newName}',
     );
     final SmartDeviceBaseAbstract smartDevice =
@@ -223,7 +243,9 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   }
 
   SmartDeviceBaseAbstract? getSmartDeviceBaseAbstract(
-      CbjSmartDeviceInfo request) {
+    CbjSmartDeviceInfo request,
+  ) {
+    logger.i('getSmartDeviceBaseAbstract');
     try {
       return MySingleton.getSmartDevicesList().firstWhere(
         (smartDeviceBaseAbstractO) => smartDeviceBaseAbstractO.id == request.id,
@@ -283,7 +305,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     ServiceCall call,
     CbjFirebaseAccountInformation request,
   ) async {
-    print('This is the function setCbjFirebaseAccountInformation');
+    logger.i('This is the function setCbjFirebaseAccountInformation');
     final CbjCommendStatus cbjCommendStatus =
         await setCbjFirebaseAccountInformationHelper(request);
 
@@ -295,6 +317,8 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     ServiceCall call,
     CbjCompSmartDeviceInfo request,
   ) async {
+    logger.i('setCompInfo');
+
     return SetCompHelper(request);
   }
 
@@ -303,6 +327,8 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     ServiceCall call,
     CbjFirstSetupMessage request,
   ) async {
+    logger.i('firstSetup');
+
     try {
       final CbjCompSmartDeviceInfo compInfo = request.compInfo;
       final CbjCommendStatus cbjCommendStatusSetComp =
@@ -318,7 +344,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
         return CbjCommendStatus()..success = true;
       }
     } catch (e) {
-      print('Error first setup');
+      logger.e('Error first setup');
     }
 
     return CbjCommendStatus()..success = false;
@@ -328,6 +354,8 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     CbjCompSmartDeviceInfo compInfo,
   ) async {
     try {
+      logger.i('SetCompHelper');
+
       final List<SmartDeviceBaseAbstract> smartDeviceList =
           MySingleton.getSmartDevicesList();
 
@@ -353,6 +381,8 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   Future<CbjCommendStatus> setCbjFirebaseAccountInformationHelper(
     CbjFirebaseAccountInformation request,
   ) async {
+    logger.i('setCbjFirebaseAccountInformationHelper');
+
     try {
       final FirebaseAccountsInformationD firebaseAccountsInformationD =
           FirebaseAccountsInformationD(
@@ -396,7 +426,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     ServiceCall call,
     Stream<CbjClientStatusRequests> request,
   ) async* {
-    print('object registerClient now');
+    logger.i('object registerClient now');
     yield CbjRequestsAndStatusFromHub();
   }
 
@@ -405,6 +435,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     ServiceCall call,
     Stream<CbjRequestsAndStatusFromHub> request,
   ) async* {
+    logger.i('registerHub');
     yield CbjClientStatusRequests();
   }
 
