@@ -1,9 +1,9 @@
-import 'package:cbj_smart_device/core/helper_methods.dart';
-import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/application/usecases/local_db_u/local_db_u.dart';
 import 'package:cbj_smart_device/application/usecases/set_devices_u/set_devices_u.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:cbj_smart_device/application/usecases/smart_server_u/smart_server_u.dart';
+import 'package:cbj_smart_device/core/helper_methods.dart';
+import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 
 class SmartDeviceManagerU {
@@ -12,13 +12,13 @@ class SmartDeviceManagerU {
     _localDbU = LocalDbU();
     _setDevicesUseCase = SetDevicesU();
 
-    _smartServerUseCase = SmartServerU();
+    _smartServerUseCase = CbjSmartDeviceServerU();
 
     SmartDeviceMainAsync();
   }
 
   SetDevicesU? _setDevicesUseCase;
-  SmartServerU? _smartServerUseCase;
+  CbjSmartDeviceServerU? _smartServerUseCase;
   LocalDbU? _localDbU;
 
   Future SmartDeviceMainAsync() async {

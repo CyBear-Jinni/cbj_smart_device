@@ -4,7 +4,7 @@ import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abs
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 
 // enum DeviceType {
 //   Light, //  Light ON/OFF
@@ -74,13 +74,13 @@ enum RaspberryPiType {
 
 class EnumHelper {
   ///  Convert deviceType to string
-  static String deviceTypeToString(DeviceTypes deviceType) {
-    return deviceType.toString().replaceAll('DeviceTypes.', '');
+  static String deviceTypeToString(CbjDeviceTypes deviceType) {
+    return deviceType.toString().replaceAll('CbjDeviceTypes.', '');
   }
 
-  static DeviceTypes? stringToDeviceType(String deviceTypeString) {
-    for (final DeviceTypes deviceType in DeviceTypes.values) {
-      if (deviceTypeToString(deviceType) == deviceTypeString) {
+  static CbjDeviceTypes? stringToDeviceType(String CbjDeviceTypestring) {
+    for (final CbjDeviceTypes deviceType in CbjDeviceTypes.values) {
+      if (deviceTypeToString(deviceType) == CbjDeviceTypestring) {
         return deviceType;
       }
     }
@@ -104,14 +104,15 @@ class EnumHelper {
   }
 
   ///  Convert deviceAction to string
-  static String deviceActionToString(DeviceActions actionEnum) {
-    return actionEnum.toString().replaceAll('DeviceActions.', '');
+  static String deviceActionToString(CbjDeviceActions actionEnum) {
+    return actionEnum.toString().replaceAll('CbjDeviceActions.', '');
   }
 
   ///  Convert string to deviceAction
-  static DeviceActions? stringToDeviceActions(String deviceActionString) {
-    for (final DeviceActions deviceAction in DeviceActions.values) {
-      if (deviceActionToString(deviceAction) == deviceActionString) {
+  static CbjDeviceActions? stringToCbjDeviceActions(
+      String CbjDeviceActionstring) {
+    for (final CbjDeviceActions deviceAction in CbjDeviceActions.values) {
+      if (deviceActionToString(deviceAction) == CbjDeviceActionstring) {
         return deviceAction;
       }
     }
@@ -125,18 +126,18 @@ class EnumHelper {
 
   /// Return the corresponding SmartDeviceBaseAbstract Object of the deviceType
   static dynamic deviceTypeToSmartDeviceBaseAbstractObject(
-    DeviceTypes deviceType,
+    CbjDeviceTypes deviceType,
   ) {
     switch (deviceType) {
-      case DeviceTypes.light:
+      case CbjDeviceTypes.light:
         return LightObject(null, null, null);
-      case DeviceTypes.blinds:
+      case CbjDeviceTypes.blinds:
         return BlindsObject(null, null, null, null, null, null, null, null);
-      case DeviceTypes.boiler:
+      case CbjDeviceTypes.boiler:
         return BoilerObject(null, null, null, null);
-      case DeviceTypes.button:
+      case CbjDeviceTypes.button:
         return ButtonObject(null, null, null);
-      case DeviceTypes.buttonWithLight:
+      case CbjDeviceTypes.buttonWithLight:
         return ButtonWithLightObject(null, null, null, null);
       default:
         print('Type $deviceType is not supported');
@@ -147,14 +148,14 @@ class EnumHelper {
   /// Returning the non abstract of this SmartDeviceBaseAbstract
   static Type getTheNonAbstractObjectOfSmartDeviceBaseAbstract(
     SmartDeviceBaseAbstract smartDeviceBaseAbstract,
-    DeviceTypes deviceType,
+    CbjDeviceTypes deviceType,
   ) {
     switch (deviceType) {
-      case DeviceTypes.light:
+      case CbjDeviceTypes.light:
         return LightObject;
-      case DeviceTypes.blinds:
+      case CbjDeviceTypes.blinds:
         return BlindsObject;
-      case DeviceTypes.boiler:
+      case CbjDeviceTypes.boiler:
         return BoilerObject;
       default:
         throw Exception('$deviceType Conditioner was not implemented yet');

@@ -1,5 +1,5 @@
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 
 ///  Abstract class for smart devices with on time property
 abstract class SmartDeviceSimpleAbstract extends SmartDeviceBase {
@@ -23,26 +23,26 @@ abstract class SmartDeviceSimpleAbstract extends SmartDeviceBase {
 
   @override
   Future<String> executeActionString(
-    String deviceActionString,
-    DeviceStateGRPC deviceState,
+    String CbjDeviceActionstring,
+    CbjDeviceStateGRPC deviceState,
   ) async {
-    final DeviceActions? deviceAction =
-        convertWishStringToWishesObject(deviceActionString);
+    final CbjDeviceActions? deviceAction =
+        convertWishStringToWishesObject(CbjDeviceActionstring);
     return executeDeviceAction(deviceAction!, deviceState);
   }
 
   @override
   Future<String> executeDeviceAction(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     return wishInSimpleClass(deviceAction, deviceState);
   }
 
   ///  All the wishes that are legit to execute from the simple class
   String wishInSimpleClass(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) {
     if (deviceAction == null) return 'Your wish does not exist on simple class';
     return wishInBaseClass(deviceAction, deviceState);

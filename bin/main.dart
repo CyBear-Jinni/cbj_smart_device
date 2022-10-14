@@ -17,5 +17,4 @@ void main(List<String> arguments) async {
   await DevicePinListManager().setPhysicalDeviceType();
 
   SmartDeviceManagerU();
-  // MySingletonHelper.goToSuspend();
 }
