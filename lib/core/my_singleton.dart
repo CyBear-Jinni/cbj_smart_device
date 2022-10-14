@@ -1,5 +1,5 @@
-import 'package:cbj_smart_device/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
-import 'package:cbj_smart_device/features/smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
+import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import 'package:cbj_smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
 
 class MySingleton {
   factory MySingleton() {
@@ -36,8 +36,8 @@ class MySingleton {
       smartDevicesList!;
 }
 
-class FirebaseAccountInformationFlutter {
-  FirebaseAccountInformationFlutter(
+class CbjFirebaseAccountInformationFlutter {
+  CbjFirebaseAccountInformationFlutter(
     this.fireBaseProjectId,
     this.fireBaseApiKey,
     this.userEmail,

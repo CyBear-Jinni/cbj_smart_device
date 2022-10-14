@@ -1,5 +1,5 @@
 import 'package:cbj_smart_device/core/error/failures.dart';
-import 'package:cbj_smart_device/features/smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
+import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class UseCase<Type, Params> {
