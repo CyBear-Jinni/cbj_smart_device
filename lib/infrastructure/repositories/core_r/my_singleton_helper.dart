@@ -11,8 +11,23 @@ class MySingletonHelper {
     return systemCommandsManager.getCurrentUserName();
   }
 
-  static Future<String?> goToSuspend() {
+  static String getOs() {
     final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
-    return systemCommandsManager.goToSuspend();
+    return systemCommandsManager.getOs();
+  }
+
+  static String getOsVersion() {
+    final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    return systemCommandsManager.getOsVersion();
+  }
+
+  static Future<String?> suspendComputer() {
+    final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    return systemCommandsManager.suspendComputer();
+  }
+
+  static Future<String?> shutdownComputer() {
+    final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    return systemCommandsManager.shutdownComputer();
   }
 }

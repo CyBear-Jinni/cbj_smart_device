@@ -1,6 +1,6 @@
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_simple_abstract.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/dynamic_wish_u.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 
 //  Abstract class for smart devices class with dynamic property
 abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
@@ -22,9 +22,9 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
   @override
   Future<String> executeActionString(
     String wishString,
-    DeviceStateGRPC deviceState,
+    CbjDeviceStateGRPC deviceState,
   ) async {
-    final DeviceActions deviceAction =
+    final CbjDeviceActions deviceAction =
         convertWishStringToWishesObject(wishString)!;
     if (deviceAction == null) return 'Your deviceAction does not exist on ';
     return executeDeviceAction(deviceAction, deviceState);
@@ -32,8 +32,8 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
 
   @override
   Future<String> executeDeviceAction(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     return _WishInDynamicClass(deviceAction, deviceState);
   }
@@ -58,11 +58,11 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
 
   ///  All the wishes that are legit to execute from the dynamic class
   String _WishInDynamicClass(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) {
     switch (deviceAction) {
-      case DeviceActions.actionNotSupported:
+      case CbjDeviceActions.actionNotSupported:
         return _SetDynamicValue();
       default:
         return wishInSimpleClass(deviceAction, deviceState);

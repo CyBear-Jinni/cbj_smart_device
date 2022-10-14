@@ -9,8 +9,8 @@ import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/raspberry_pi3_model_b_rev_1_2/raspberry_pi3_model_b_rev_1_2_configuration.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
+import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 
 ///  This class save all the configuration of the pins per device,
 ///  every device have different pin for each task,
@@ -35,14 +35,16 @@ abstract class DevicePinListManagerAbstract {
 
   /// Return a list of free pins that are not taken, the list will consist of
   /// the different pins types depending on the smart device type needed pins
-  List<PinInformation?>? getFreePinsForSmartDeviceType(DeviceTypes deviceType);
+  List<PinInformation?>? getFreePinsForSmartDeviceType(
+      CbjDeviceTypes deviceType);
 
   /// Return a list of free gpio pins that are not taken
   PinInformation? getFreeGpioPins({List<PinInformation> ignorePinsList});
 
   PinInformation? getGpioPin(int pinNumber);
 
-  PhysicalDeviceType? convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
+  PhysicalDeviceType?
+      convertPhysicalCbjDeviceTypestringToPhysicalDeviceTypeObject(
     String physicalDeviceType,
   );
 }
@@ -72,7 +74,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
       deviceHostName = deviceHostName.replaceAll('-', '').replaceAll(' ', '');
 
       physicalDeviceType =
-          convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
+          convertPhysicalCbjDeviceTypestringToPhysicalDeviceTypeObject(
         deviceHostName,
       );
 
@@ -182,7 +184,8 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
   ///  Return physicalDeviceType object if
   ///  string physicalDeviceType exist (in general) else return null
   @override
-  PhysicalDeviceType? convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
+  PhysicalDeviceType?
+      convertPhysicalCbjDeviceTypestringToPhysicalDeviceTypeObject(
     String physicalDeviceType,
   ) {
     //  Loop through all the physical devices types
@@ -199,19 +202,20 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
   }
 
   @override
-  List<PinInformation?>? getFreePinsForSmartDeviceType(DeviceTypes deviceType) {
+  List<PinInformation?>? getFreePinsForSmartDeviceType(
+      CbjDeviceTypes deviceType) {
     List<String>? neededPinTypesList;
 
-    if (deviceType == DeviceTypes.light ||
-        deviceType == DeviceTypes.blinds ||
-        deviceType == DeviceTypes.boiler) {
+    if (deviceType == CbjDeviceTypes.light ||
+        deviceType == CbjDeviceTypes.blinds ||
+        deviceType == CbjDeviceTypes.boiler) {
       final dynamic smartDeviceBaseAbstract =
           EnumHelper.deviceTypeToSmartDeviceBaseAbstractObject(deviceType);
       neededPinTypesList = (smartDeviceBaseAbstract as SmartDeviceBaseAbstract)
           .getNeededPinTypesList();
-    } else if (deviceType == DeviceTypes.button) {
+    } else if (deviceType == CbjDeviceTypes.button) {
       neededPinTypesList = ButtonObject.neededPinTypesList();
-    } else if (deviceType == DeviceTypes.buttonWithLight) {
+    } else if (deviceType == CbjDeviceTypes.buttonWithLight) {
       neededPinTypesList = ButtonWithLightObject.neededPinTypesList();
     } else {
       print('Getting device $deviceType pins requirement is not supported');
@@ -246,7 +250,8 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
   static DeviceConfigurationBaseClass? physicalDevice;
 
   @override
-  PhysicalDeviceType? convertPhysicalDeviceTypeStringToPhysicalDeviceTypeObject(
+  PhysicalDeviceType?
+      convertPhysicalCbjDeviceTypestringToPhysicalDeviceTypeObject(
     String physicalDeviceType,
   ) {
     //  Loop through all the physical devices types
@@ -268,7 +273,8 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
   }
 
   @override
-  List<PinInformation> getFreePinsForSmartDeviceType(DeviceTypes deviceType) {
+  List<PinInformation> getFreePinsForSmartDeviceType(
+      CbjDeviceTypes deviceType) {
     print('Computer does not give free pins, only smart device');
     throw UnimplementedError();
   }

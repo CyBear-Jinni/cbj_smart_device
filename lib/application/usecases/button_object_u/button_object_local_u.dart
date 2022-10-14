@@ -3,7 +3,7 @@ import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 
 class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   @override
@@ -30,13 +30,13 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
         if (lightPin.v == 1) {
           await smartDevice.executeDeviceAction(
-            DeviceActions.off,
-            DeviceStateGRPC.waitingInComp,
+            CbjDeviceActions.off,
+            CbjDeviceStateGRPC.waitingInComp,
           );
         } else {
           await smartDevice.executeDeviceAction(
-            DeviceActions.on,
-            DeviceStateGRPC.waitingInComp,
+            CbjDeviceActions.on,
+            CbjDeviceStateGRPC.waitingInComp,
           );
         }
 
@@ -73,13 +73,13 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
         if (boiler.v == 1) {
           await boilerObject.executeDeviceAction(
-            DeviceActions.off,
-            DeviceStateGRPC.waitingInComp,
+            CbjDeviceActions.off,
+            CbjDeviceStateGRPC.waitingInComp,
           );
         } else {
           await boilerObject.executeDeviceAction(
-            DeviceActions.on,
-            DeviceStateGRPC.waitingInComp,
+            CbjDeviceActions.on,
+            CbjDeviceStateGRPC.waitingInComp,
           );
         }
 
@@ -151,18 +151,18 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
     if (firstBlindsPin.v == 1 || secondBlindsPin.v == 1) {
       firstBlindsPin.onDuration = 0;
       await blindsObject.executeDeviceAction(
-        DeviceActions.stop,
-        DeviceStateGRPC.waitingInComp,
+        CbjDeviceActions.stop,
+        CbjDeviceStateGRPC.waitingInComp,
       );
     } else if (buttonPressNumber == 1) {
       await blindsObject.executeDeviceAction(
-        DeviceActions.moveUp,
-        DeviceStateGRPC.waitingInComp,
+        CbjDeviceActions.moveUp,
+        CbjDeviceStateGRPC.waitingInComp,
       );
     } else if (buttonPressNumber == 2) {
       await blindsObject.executeDeviceAction(
-        DeviceActions.moveDown,
-        DeviceStateGRPC.waitingInComp,
+        CbjDeviceActions.moveDown,
+        CbjDeviceStateGRPC.waitingInComp,
       );
     }
 

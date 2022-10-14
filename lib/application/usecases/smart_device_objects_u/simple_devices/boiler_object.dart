@@ -5,7 +5,7 @@ import 'package:cbj_smart_device/application/usecases/wish_classes_u/off_wish_u.
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/protoc_as_dart/smart_connection.pbgrpc.dart';
+import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 
 class BoilerObject extends SmartDeviceSimpleAbstract {
   BoilerObject(
@@ -25,7 +25,7 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
     boilerPin = DevicePinListManager().getGpioPin(boilerPinNUmber);
     boilerButtonPin = DevicePinListManager().getGpioPin(boilerButtonPinNumber);
     listenButtonsPress();
-    setDeviceType(DeviceTypes.boiler);
+    setDeviceType(CbjDeviceTypes.boiler);
   }
 
   PinInformation? boilerPin, boilerButtonPin;
@@ -38,46 +38,46 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
 
   ///  Return smart device type
   @override
-  DeviceTypes getDeviceType() => DeviceTypes.boiler;
+  CbjDeviceTypes getDeviceType() => CbjDeviceTypes.boiler;
 
   @override
   Future<String> executeActionString(
     String wishString,
-    DeviceStateGRPC deviceState,
+    CbjDeviceStateGRPC deviceState,
   ) async {
-    final DeviceActions deviceAction =
+    final CbjDeviceActions deviceAction =
         convertWishStringToWishesObject(wishString)!;
     return executeDeviceAction(deviceAction, deviceState);
   }
 
   @override
   Future<String> executeDeviceAction(
-    DeviceActions deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     return wishInBoilerClass(deviceAction, deviceState);
   }
 
   ///  All the wishes that are legit to execute from the blinds class
   Future<String> wishInBoilerClass(
-    DeviceActions? deviceAction,
-    DeviceStateGRPC deviceState,
+    CbjDeviceActions? deviceAction,
+    CbjDeviceStateGRPC deviceState,
   ) async {
     String? wishExecuteResult;
 
     if (deviceAction == null) {
       return 'Your wish does not exist in boiler class';
     }
-    if (deviceAction == DeviceActions.on) {
+    if (deviceAction == CbjDeviceActions.on) {
       wishExecuteResult = OnWishU.setOn(deviceInformation, boilerPin);
     }
-    if (deviceAction == DeviceActions.off) {
+    if (deviceAction == CbjDeviceActions.off) {
       wishExecuteResult = OffWishU.setOff(deviceInformation, boilerPin);
     }
 
     if (wishExecuteResult != null) {
-      if (deviceState != DeviceStateGRPC.ack) {
-        final String deviceActionString =
+      if (deviceState != CbjDeviceStateGRPC.ack) {
+        final String CbjDeviceActionstring =
             EnumHelper.deviceActionToString(deviceAction);
       }
       return wishExecuteResult;

@@ -101,8 +101,14 @@ class CommonBatchCommandsD implements SystemCommandsBaseClassD {
   }
 
   @override
-  Future<String?> goToSuspend() {
+  Future<String?> suspendComputer() {
     // TODO: implement goToSleep
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> shutdownComputer() {
+    // TODO: implement shutdownComputer
     throw UnimplementedError();
   }
 }

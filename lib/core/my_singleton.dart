@@ -36,8 +36,8 @@ class MySingleton {
       smartDevicesList!;
 }
 
-class FirebaseAccountInformationFlutter {
-  FirebaseAccountInformationFlutter(
+class CbjFirebaseAccountInformationFlutter {
+  CbjFirebaseAccountInformationFlutter(
     this.fireBaseProjectId,
     this.fireBaseApiKey,
     this.userEmail,

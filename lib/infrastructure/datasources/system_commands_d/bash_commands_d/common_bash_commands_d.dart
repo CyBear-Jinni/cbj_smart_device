@@ -112,8 +112,22 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
   }
 
   @override
-  Future<String?> goToSuspend() async {
+  Future<String?> suspendComputer() async {
     final String commandResult = await Process.run('systemctl', ['suspend'])
+        .then((ProcessResult result) {
+      return result.stdout.toString();
+    });
+
+    if (commandResult == '') {
+      return null;
+    }
+    return commandResult;
+  }
+
+  @override
+  Future<String?> shutdownComputer() async {
+    final String commandResult = await Process.run('shutdown', [''])
+        // final String commandResult = await Process.run('sudo', ['shutdown'])
         .then((ProcessResult result) {
       return result.stdout.toString();
     });

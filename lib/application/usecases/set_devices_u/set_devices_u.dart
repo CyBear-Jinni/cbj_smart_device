@@ -1,8 +1,10 @@
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
+import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/simple_devices/smart_computer_object.dart';
 import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/domain/entities/set_devices_e/set_devices_e.dart';
 import 'package:cbj_smart_device/utils.dart';
+import 'package:uuid/uuid.dart';
 
 /// This class will load all saved smart devices objects from file at startup into the program
 class SetDevicesU {
@@ -25,7 +27,15 @@ class SetDevicesU {
           await _setDevicesE!.getDeviceDefaultConfig();
       if (deviceConfiguration == null || deviceConfiguration.isEmpty) {
         logger.i(
-            '\nDefault configuration file content is null or empty so it will act as if this computer is just a smart computer without pin output.\n');
+          '\nDefault configuration file content is null or empty so it will act as if this computer is just a smart computer without pin output.\n',
+        );
+
+        /// If can't find any device make it computer device
+        final String uId = const Uuid().v1();
+
+        final SmartComputerObject smartComputerObject =
+            SmartComputerObject(uId, 'Personal Computer');
+        MySingleton.setSmartDevicesList([smartComputerObject]);
 
         return;
       }
