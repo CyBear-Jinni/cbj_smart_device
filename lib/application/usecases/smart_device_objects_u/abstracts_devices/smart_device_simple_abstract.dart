@@ -40,10 +40,10 @@ abstract class SmartDeviceSimpleAbstract extends SmartDeviceBase {
   }
 
   ///  All the wishes that are legit to execute from the simple class
-  String wishInSimpleClass(
+  Future<String> wishInSimpleClass(
     CbjDeviceActions deviceAction,
     CbjDeviceStateGRPC deviceState,
-  ) {
+  ) async {
     if (deviceAction == null) return 'Your wish does not exist on simple class';
     return wishInBaseClass(deviceAction, deviceState);
   }
