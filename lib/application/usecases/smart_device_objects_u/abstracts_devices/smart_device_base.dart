@@ -155,10 +155,8 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   }
 
   ///  Shutdown computer basic action
-  String _shutdownComputer() {
-    SmartComputerWishU.shutdownComputer(deviceInformation);
-
-    return 'Suspend computer successfully';
+  Future<String?> _shutdownComputer() {
+    return SmartComputerWishU.shutdownComputer(deviceInformation);
   }
 
   @override
@@ -242,7 +240,7 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
         resultOfTheWish = await _suspendComputer();
         break;
       case CbjDeviceActions.shutdown:
-        resultOfTheWish = _shutdownComputer();
+        resultOfTheWish = await _shutdownComputer();
         break;
       case CbjDeviceActions.actionNotSupported:
         if (onOffPin == null) {
