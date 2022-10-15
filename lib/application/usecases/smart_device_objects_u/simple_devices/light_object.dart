@@ -3,13 +3,10 @@ import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/prot
 
 class LightObject extends SmartDeviceSimpleAbstract {
   LightObject(
-    String? uuid,
-    String? smartInstanceName,
-    int? onOffPinNumber,
+    super.uuid,
+    super.smartInstanceName,
+    super.onOffPinNumber,
   ) : super(
-          uuid,
-          smartInstanceName,
-          onOffPinNumber,
           onOffButtonPinNumber: null,
         ) {
     setDeviceType(CbjDeviceTypes.light);

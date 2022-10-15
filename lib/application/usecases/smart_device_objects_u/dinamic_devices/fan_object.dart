@@ -2,14 +2,9 @@ import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abs
 
 class FanObject extends SmartDeviceDynamicAbstract {
   FanObject(
-    String uuid,
-    String smartInstanceName,
-    int onOffPinNumber, {
-    int? onOffButtonPinNumber,
-  }) : super(
-          uuid,
-          smartInstanceName,
-          onOffPinNumber,
-          onOffButtonPinNumber: onOffButtonPinNumber,
-        );
+    super.uuid,
+    super.smartInstanceName,
+    super.onOffPinNumber, {
+    super.onOffButtonPinNumber,
+  });
 }

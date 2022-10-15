@@ -2,13 +2,13 @@ import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 
 /// Pin configuration of the Raspberry Pi 2/3/4 as they have the same configuration
-class RaspberryPi3ModelBRev1_2Configuration
+class RaspberryPi3ModelBRev1Underscore2Configuration
     extends DeviceConfigurationBaseClass {
-  RaspberryPi3ModelBRev1_2Configuration() {
-    pinList = _pinListRaspberry_pi;
+  RaspberryPi3ModelBRev1Underscore2Configuration() {
+    pinList = _pinListRaspberryPi;
   }
 
-  static final List<PinInformation> _pinListRaspberry_pi = <PinInformation>[
+  static final List<PinInformation> _pinListRaspberryPi = <PinInformation>[
     PinInformation(
       category: 'Power',
       pinAndPhysicalPinConfiguration: 1,

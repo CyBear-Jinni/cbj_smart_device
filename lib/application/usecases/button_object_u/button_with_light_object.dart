@@ -1,6 +1,5 @@
 import 'package:cbj_smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
-import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
@@ -10,18 +9,12 @@ import 'package:cbj_smart_device/infrastructure/repositories/button_object_r/but
 /// Button that contains light inside of it with one color and no opacity.
 class ButtonWithLightObject extends ButtonObject {
   ButtonWithLightObject(
-    String? id,
-    String? deviceName,
-    int? buttonPinInt,
+    super.id,
+    super.deviceName,
+    super.buttonPinInt,
     int? buttonLightInt, {
-    Map<CbjWhenToExecute, Map<SmartDeviceBase, List<CbjDeviceActions>>>?
-        buttonStatesAction,
-  }) : super(
-          id,
-          deviceName,
-          buttonPinInt,
-          buttonStatesAction: buttonStatesAction,
-        ) {
+    super.buttonStatesAction,
+  }) {
     buttonLight = DevicePinListManager().getGpioPin(buttonLightInt);
 
     buttonObjectRepository = ButtonObjectR();
