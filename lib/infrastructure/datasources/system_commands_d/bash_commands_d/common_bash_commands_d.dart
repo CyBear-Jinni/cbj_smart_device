@@ -115,7 +115,7 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
     final String commandResult = await Process.run('systemctl', ['suspend'])
         .then((ProcessResult result) {
       logger.i(
-        'Suspend exit code ${result.exitCode}\nstddout:${result.stdout}\nstderr${result.stderr}',
+        'Suspend exit code ${result.exitCode}\nstddout:${result.stdout}\nstderr:${result.stderr}',
       );
       return result.stdout.toString();
     });
@@ -128,9 +128,13 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String?> shutdownComputer() async {
-    final String commandResult = await Process.run('shutdown', [''])
-        // final String commandResult = await Process.run('sudo', ['shutdown'])
-        .then((ProcessResult result) {
+    final String commandResult =
+        await Process.run('shutdown', ['now']).then((ProcessResult result) {
+      // final String commandResult = await Process.run('sudo', ['shutdown'])
+
+      logger.i(
+        'Suspend exit code ${result.exitCode}\nstddout:${result.stdout}\nstderr:${result.stderr}',
+      );
       return result.stdout.toString();
     });
 

@@ -12,10 +12,9 @@ class SmartComputerWishU {
   }
 
   ///  Shut down the computer
-  static String shutdownComputer(
+  static Future<String?> shutdownComputer(
     DeviceInformation deviceInformation,
   ) {
-    MySingletonHelper.shutdownComputer();
-    return 'Response from this device shutdown successful';
+    return MySingletonHelper.shutdownComputer();
   }
 }
