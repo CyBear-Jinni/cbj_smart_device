@@ -18,11 +18,11 @@ import 'package:cbj_smart_device/utils.dart';
 ///  Excluding buttons since they are the one that sending the commands.
 abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   SmartDeviceBase(
-    String? id,
-    String? deviceName,
+    super.id,
+    super.deviceName,
     int? onOffPinNumber, {
     int? onOffButtonPinNumber,
-  }) : super(id, deviceName) {
+  }) {
     onOffPin =
         onOffPinNumber == null ? null : addPinToGpioPinList(onOffPinNumber);
 
@@ -266,16 +266,16 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
       if (deviceState == CbjDeviceStateGRPC.waitingInComp) {
         if (action == CbjDeviceActions.on) {
           final Map<String, String> mapToUpdate = {
-            GrpcClientTypes.CbjDeviceActionsTypeString:
+            GrpcClientTypes.cbjDeviceActionsTypeString:
                 CbjDeviceActions.on.toString(),
-            GrpcClientTypes.CbjDeviceStateGRPCTypeString:
+            GrpcClientTypes.cbjDeviceStateGRPCTypeString:
                 CbjDeviceStateGRPC.ack.toString()
           };
         } else if (action == CbjDeviceActions.off) {
           final Map<String, String> mapToUpdate = {
-            GrpcClientTypes.CbjDeviceActionsTypeString:
+            GrpcClientTypes.cbjDeviceActionsTypeString:
                 CbjDeviceActions.off.toString(),
-            GrpcClientTypes.CbjDeviceStateGRPCTypeString:
+            GrpcClientTypes.cbjDeviceStateGRPCTypeString:
                 CbjDeviceStateGRPC.ack.toString()
           };
         }

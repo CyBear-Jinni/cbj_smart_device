@@ -14,14 +14,14 @@ class SmartDeviceManagerU {
 
     _smartServerUseCase = CbjSmartDeviceServerU();
 
-    SmartDeviceMainAsync();
+    smartDeviceMainAsync();
   }
 
   SetDevicesU? _setDevicesUseCase;
   CbjSmartDeviceServerU? _smartServerUseCase;
   LocalDbU? _localDbU;
 
-  Future SmartDeviceMainAsync() async {
+  Future smartDeviceMainAsync() async {
     final List<SmartDeviceBaseAbstract>? smartDeviceFromDb =
         await _localDbU!.getListOfSmartDevices();
     final FirebaseAccountsInformationD? firebaseAccountsInformationD =

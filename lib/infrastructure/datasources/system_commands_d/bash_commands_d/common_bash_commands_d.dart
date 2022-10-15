@@ -45,10 +45,8 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
 
     blkid = blkid.substring(0, blkid.indexOf('\n'));
 
-    String uuid = blkid.substring(blkid.indexOf('UUID="') + 6);
-    uuid = uuid.substring(0, uuid.indexOf('"'));
-
-    return uuid;
+    final String uuid = blkid.substring(blkid.indexOf('UUID="') + 6);
+    return uuid.substring(0, uuid.indexOf('"'));
   }
 
   @override
@@ -75,7 +73,7 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
       final List<String> etcReleaseFilesNames = [];
       for (final FileSystemEntity f in allContents) {
         if (f.toString().contains('release')) {
-          etcReleaseFilesNames.add(f.path.toString());
+          etcReleaseFilesNames.add(f.path);
         }
       }
       for (final String releaseContent in etcReleaseFilesNames) {

@@ -5,16 +5,11 @@ import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/prot
 //  Abstract class for smart devices class with dynamic property
 abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
   SmartDeviceDynamicAbstract(
-    String uuid,
-    String smartInstanceName,
-    int onOffPinNumber, {
-    int? onOffButtonPinNumber,
-  }) : super(
-          uuid,
-          smartInstanceName,
-          onOffPinNumber,
-          onOffButtonPinNumber: onOffButtonPinNumber,
-        );
+    String super.uuid,
+    String super.smartInstanceName,
+    int super.onOffPinNumber, {
+    super.onOffButtonPinNumber,
+  });
 
   ///  Save how much power to do for action
   double? dynamicValue;
@@ -35,11 +30,11 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
     CbjDeviceActions deviceAction,
     CbjDeviceStateGRPC deviceState,
   ) async {
-    return _WishInDynamicClass(deviceAction, deviceState);
+    return _wishInDynamicClass(deviceAction, deviceState);
   }
 
   ///  Set dynamic value
-  String _SetDynamicValue() {
+  String _setDynamicValue() {
     if (deviceInformation == null) {
       return 'Device information is missing, cant set dynamic value';
     }
@@ -47,7 +42,7 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
   }
 
   ///  Change dynamic value with open connection
-  String _OpenDynamicValue() {
+  String _openDynamicValue() {
     if (deviceInformation == null) {
       return 'Device information is missing, cant create open connection with dynamic';
     }
@@ -57,13 +52,13 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
   }
 
   ///  All the wishes that are legit to execute from the dynamic class
-  String _WishInDynamicClass(
+  Future<String> _wishInDynamicClass(
     CbjDeviceActions deviceAction,
     CbjDeviceStateGRPC deviceState,
-  ) {
+  ) async {
     switch (deviceAction) {
       case CbjDeviceActions.actionNotSupported:
-        return _SetDynamicValue();
+        return _setDynamicValue();
       default:
         return wishInSimpleClass(deviceAction, deviceState);
     }

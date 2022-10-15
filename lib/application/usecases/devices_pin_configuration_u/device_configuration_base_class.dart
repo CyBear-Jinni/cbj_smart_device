@@ -95,7 +95,7 @@ abstract class DeviceConfigurationBaseClass {
     List<PinInformation?>? ignorePinsList,
   }) {
     for (final PinInformation pinInformation in pinInformationList) {
-      if (isGpioPinFree(pinInformation.pinAndPhysicalPinConfiguration!) >= 0 &&
+      if (isGpioPinFree(pinInformation.pinAndPhysicalPinConfiguration) >= 0 &&
           doesPinExistInPinList(pinInformation, ignorePinsList) == null) {
         return pinInformation;
       }

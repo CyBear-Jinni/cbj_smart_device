@@ -413,14 +413,14 @@ class NanoPiDuo2Configuration extends DeviceConfigurationBaseClass {
           PinInformation(pinAndPhysicalPinConfiguration: pinNumber);
 
       final PinInformation pinInformationExistInList =
-          doesPinExistInPinList(tempPinInformation, pinList!)!;
+          doesPinExistInPinList(tempPinInformation, pinList)!;
 
       if (isGpioPinFree(pinNumber) >= 0 &&
-          doesPinExistInPinList(pinInformationExistInList, ignorePinsList!) ==
+          doesPinExistInPinList(pinInformationExistInList, ignorePinsList) ==
               null) {
         return pinInformationExistInList;
       }
     }
-    return getNextFreeGpioPinHelper(pinList!, ignorePinsList: ignorePinsList!)!;
+    return getNextFreeGpioPinHelper(pinList!, ignorePinsList: ignorePinsList)!;
   }
 }
