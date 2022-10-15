@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/system_commands_base_class_d.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 class CommonBashCommandsD implements SystemCommandsBaseClassD {
   @override
@@ -115,6 +116,9 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
   Future<String?> suspendComputer() async {
     final String commandResult = await Process.run('systemctl', ['suspend'])
         .then((ProcessResult result) {
+      logger.i(
+        'Suspend exit code ${result.exitCode}\nstddout:${result.stdout}\nstderr${result.stderr}',
+      );
       return result.stdout.toString();
     });
 
