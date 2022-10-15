@@ -63,7 +63,10 @@ class LocalDbD {
               .toString();
         }
 
-        String? blindsUpPin, buttonPinUp, blindsDownPin, buttonPinDown;
+        String? blindsUpPin;
+        String? buttonPinUp;
+        String? blindsDownPin;
+        String? buttonPinDown;
 
         if (blindsObjectTemp.blindsUpPin != null) {
           blindsUpPin = blindsObjectTemp
@@ -135,7 +138,8 @@ class LocalDbD {
               .toString();
         }
 
-        String? boilerPin, boilerButtonPin;
+        String? boilerPin;
+        String? boilerButtonPin;
 
         if (boilerObjectTemp.boilerPin != null &&
             boilerObjectTemp.boilerPin!.pinAndPhysicalPinConfiguration !=

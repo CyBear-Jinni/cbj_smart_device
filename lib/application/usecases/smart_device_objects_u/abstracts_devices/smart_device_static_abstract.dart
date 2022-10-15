@@ -17,7 +17,7 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBase {
         );
 
   //  TODO: set how much to move
-  String _HowMuchToMove() {
+  String _howMuchToMove() {
     return 'How much to move not supported yet';
 //    if(deviceInformation == null) {
 //      return "Device information is missing, cant trun off";
@@ -54,7 +54,7 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBase {
   ) async {
     switch (deviceAction) {
       case CbjDeviceActions.stop:
-        return _HowMuchToMove();
+        return _howMuchToMove();
       default:
         return wishInBaseClass(deviceAction, deviceState);
     }

@@ -9,11 +9,11 @@ import 'package:cbj_smart_device/infrastructure/repositories/button_object_r/but
 /// Simple button, without light inside.
 class ButtonObject extends SmartDeviceBaseAbstract {
   ButtonObject(
-    String? id,
-    String? deviceName,
+    super.id,
+    super.deviceName,
     int? buttonPinInt, {
     this.buttonStatesAction,
-  }) : super(id, deviceName) {
+  }) {
     buttonPin = DevicePinListManager().getGpioPin(buttonPinInt);
 
     buttonObjectRepository = ButtonObjectR();

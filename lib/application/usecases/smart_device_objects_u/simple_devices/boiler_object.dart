@@ -28,7 +28,8 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
     setDeviceType(CbjDeviceTypes.boiler);
   }
 
-  PinInformation? boilerPin, boilerButtonPin;
+  PinInformation? boilerPin;
+  PinInformation? boilerButtonPin;
 
   @override
   List<String> getNeededPinTypesList() => <String>['gpio', 'gpio'];
@@ -77,7 +78,7 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
 
     if (wishExecuteResult != null) {
       if (deviceState != CbjDeviceStateGRPC.ack) {
-        final String CbjDeviceActionstring =
+        final String cbjDeviceActionstring =
             EnumHelper.deviceActionToString(deviceAction);
       }
       return wishExecuteResult;

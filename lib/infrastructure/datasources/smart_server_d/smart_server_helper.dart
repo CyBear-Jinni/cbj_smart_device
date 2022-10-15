@@ -3,28 +3,28 @@ import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/prot
 /// Cleaner way to get grpc client types
 class GrpcClientTypes {
   /// CbjDeviceStateGRPC type
-  static final CbjDeviceStateGRPCType =
+  static final cbjDeviceStateGRPCType =
       CbjDeviceStateGRPC.stateNotSupported.runtimeType;
 
   /// CbjDeviceStateGRPC type as string
-  static final CbjDeviceStateGRPCTypeString =
-      CbjDeviceStateGRPCType.toString().substring(0, 1).toLowerCase() +
-          CbjDeviceStateGRPCType.toString().substring(1);
+  static final cbjDeviceStateGRPCTypeString =
+      cbjDeviceStateGRPCType.toString().substring(0, 1).toLowerCase() +
+          cbjDeviceStateGRPCType.toString().substring(1);
 
   /// CbjDeviceActions type as string
-  static final CbjDeviceActionsType =
+  static final cbjDeviceActionsType =
       CbjDeviceActions.actionNotSupported.runtimeType;
 
   /// CbjDeviceActions type as string
-  static final CbjDeviceActionsTypeString =
-      CbjDeviceActionsType.toString().substring(0, 1).toLowerCase() +
-          CbjDeviceActionsType.toString().substring(1);
+  static final cbjDeviceActionsTypeString =
+      cbjDeviceActionsType.toString().substring(0, 1).toLowerCase() +
+          cbjDeviceActionsType.toString().substring(1);
 
   /// CbjDeviceActions type as string
-  static final CbjDeviceTypesType = CbjDeviceTypes.typeNotSupported.runtimeType;
+  static final cbjDeviceTypesType = CbjDeviceTypes.typeNotSupported.runtimeType;
 
   /// CbjDeviceActions type as string
-  static final CbjDeviceTypesTypeString =
-      CbjDeviceTypesType.toString().substring(0, 1).toLowerCase() +
-          CbjDeviceTypesType.toString().substring(1);
+  static final cbjDeviceTypesTypeString =
+      cbjDeviceTypesType.toString().substring(0, 1).toLowerCase() +
+          cbjDeviceTypesType.toString().substring(1);
 }
