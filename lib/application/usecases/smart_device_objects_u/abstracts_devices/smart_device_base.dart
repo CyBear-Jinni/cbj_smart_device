@@ -12,6 +12,7 @@ import 'package:cbj_smart_device/infrastructure/datasources/core_d/manage_physic
 import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/smart_server_helper.dart';
 import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/infrastructure/repositories/smart_device_objects_r/smart_device_objects_r.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 ///  Abstract class for smart devices that can get actions from commands.
 ///  Excluding buttons since they are the one that sending the commands.
@@ -147,10 +148,10 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   }
 
   ///  Suspend computer basic action
-  String _suspendComputer() {
-    SmartComputerWishU.suspendComputer(deviceInformation);
+  Future<String?> _suspendComputer() {
+    return SmartComputerWishU.suspendComputer(deviceInformation);
 
-    return 'Suspend computer successfully';
+    // return 'Suspend computer successfully';
   }
 
   ///  Shutdown computer basic action
@@ -214,13 +215,15 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   }
 
   ///  All the wishes that are legit to execute from the base class
-  String wishInBaseClass(
-      CbjDeviceActions action, CbjDeviceStateGRPC deviceState) {
+  Future<String> wishInBaseClass(
+    CbjDeviceActions action,
+    CbjDeviceStateGRPC deviceState,
+  ) async {
     String executionMassage = ' ';
     if (action == null) executionMassage = 'Your wish does not exist';
 
     final bool deviceStatus = getDeviceState();
-    String resultOfTheWish = '';
+    String? resultOfTheWish = '';
 
     switch (action) {
       case CbjDeviceActions.off:
@@ -236,7 +239,7 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
         resultOfTheWish = _setOn(onOffPin);
         break;
       case CbjDeviceActions.suspend:
-        resultOfTheWish = _suspendComputer();
+        resultOfTheWish = await _suspendComputer();
         break;
       case CbjDeviceActions.shutdown:
         resultOfTheWish = _shutdownComputer();
@@ -252,7 +255,9 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
         executionMassage = 'Your wish does not exist for this class';
     }
 
-    print('Execution massage: $executionMassage');
+    logger.i(
+      'Execution massage: $executionMassage\nResult of the wish:$resultOfTheWish',
+    );
 
     if (resultOfTheWish == 'Turn on successfully' ||
         resultOfTheWish == 'Turn off successfully' ||

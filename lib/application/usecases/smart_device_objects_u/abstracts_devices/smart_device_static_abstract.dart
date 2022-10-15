@@ -48,10 +48,10 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBase {
     return wishInStaticClass(deviceAction, deviceState);
   }
 
-  String wishInStaticClass(
+  Future<String> wishInStaticClass(
     CbjDeviceActions deviceAction,
     CbjDeviceStateGRPC deviceState,
-  ) {
+  ) async {
     switch (deviceAction) {
       case CbjDeviceActions.stop:
         return _HowMuchToMove();

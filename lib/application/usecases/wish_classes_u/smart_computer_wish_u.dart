@@ -4,11 +4,11 @@ import 'package:cbj_smart_device/infrastructure/repositories/core_r/my_singleton
 ///  Class to change wish on status to device
 class SmartComputerWishU {
   ///  Suspend the computer
-  static String suspendComputer(
+  static Future<String?> suspendComputer(
     DeviceInformation deviceInformation,
   ) {
-    MySingletonHelper.suspendComputer();
-    return 'Response from this device suspend successful';
+    return MySingletonHelper.suspendComputer();
+    // return 'Response from this device suspend successful';
   }
 
   ///  Shut down the computer
