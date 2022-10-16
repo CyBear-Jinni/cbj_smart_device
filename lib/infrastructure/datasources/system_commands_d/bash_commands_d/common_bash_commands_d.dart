@@ -132,7 +132,7 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
   @override
   Future<String?> shutdownComputer() async {
     final String commandResult =
-        await Process.run('poweroff', ['']).then((ProcessResult result) {
+        await Process.run('poweroff', []).then((ProcessResult result) {
       // shutdown does not work inside the snap, testing power off
       // await Process.run('shutdown', ['now']).then((ProcessResult result) {
       // https://forum.snapcraft.io/t/error-executing-systemctl-suspend-inside-the-snap/32186/2
