@@ -112,6 +112,9 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String?> suspendComputer() async {
+    // systemctl suspend does not work inside the snap
+    // https://forum.snapcraft.io/t/error-executing-systemctl-suspend-inside-the-snap/32186/2
+
     final String commandResult = await Process.run('systemctl', ['suspend'])
         .then((ProcessResult result) {
       logger.i(
@@ -129,9 +132,11 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
   @override
   Future<String?> shutdownComputer() async {
     final String commandResult =
-        await Process.run('shutdown', ['now']).then((ProcessResult result) {
+        await Process.run('poweroff', ['']).then((ProcessResult result) {
+      // shutdown does not work inside the snap, testing power off
+      // await Process.run('shutdown', ['now']).then((ProcessResult result) {
+      // https://forum.snapcraft.io/t/error-executing-systemctl-suspend-inside-the-snap/32186/2
       // final String commandResult = await Process.run('sudo', ['shutdown'])
-
       logger.i(
         'Suspend exit code ${result.exitCode}\nstddout:${result.stdout}\nstderr:${result.stderr}',
       );
