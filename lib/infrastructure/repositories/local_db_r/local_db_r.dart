@@ -157,17 +157,25 @@ class LocalDbR {
 
     if (firebaseAccountsInformationMap == null) return null;
 
-    final String fireBaseProjectId =
-        firebaseAccountsInformationMap[AccountsInformationD.fireBaseProjectId]!;
-    final String fireBaseApiKey =
-        firebaseAccountsInformationMap[AccountsInformationD.fireBaseApiKey]!;
-    final String userEmail =
-        firebaseAccountsInformationMap[AccountsInformationD.userEmail]!;
-    final String userPassword =
-        firebaseAccountsInformationMap[AccountsInformationD.userPassword]!;
+    final String? fireBaseProjectId =
+        firebaseAccountsInformationMap[AccountsInformationD.fireBaseProjectId];
+    final String? fireBaseApiKey =
+        firebaseAccountsInformationMap[AccountsInformationD.fireBaseApiKey];
+    final String? userEmail =
+        firebaseAccountsInformationMap[AccountsInformationD.userEmail];
+    final String? userPassword =
+        firebaseAccountsInformationMap[AccountsInformationD.userPassword];
 
-    final String homeId =
-        firebaseAccountsInformationMap[AccountsInformationD.homeId]!;
+    final String? homeId =
+        firebaseAccountsInformationMap[AccountsInformationD.homeId];
+
+    if (fireBaseProjectId == null ||
+        fireBaseApiKey == null ||
+        userEmail == null ||
+        userPassword == null ||
+        homeId == null) {
+      return null;
+    }
 
     final FirebaseAccountsInformationD firebaseAccountsInformationD =
         FirebaseAccountsInformationD(

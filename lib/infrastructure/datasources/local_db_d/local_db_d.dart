@@ -10,17 +10,17 @@ import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/prot
 
 class LocalDbD {
   LocalDbD() {
-    _hiveD = HiveD();
+    _isarD = IsarD();
   }
 
-  HiveD? _hiveD;
+  IsarD? _isarD;
 
   Future<Map<String, List<String?>>?> getListOfSmartDevices() {
-    return _hiveD!.getListOfSmartDevices();
+    return _isarD!.getListOfSmartDevices();
   }
 
   Future<Map<String, String?>?> getListOfDatabaseInformation() {
-    return _hiveD!.getListOfDatabaseInformation();
+    return _isarD!.getListOfDatabaseInformation();
   }
 
   Future<void> saveAllDevices(
@@ -206,7 +206,7 @@ class LocalDbD {
       }
     }
 
-    await _hiveD?.saveAllDevices(smartDevicesMapList);
+    await _isarD?.saveAllDevices(smartDevicesMapList);
     return;
   }
 
@@ -227,6 +227,6 @@ class LocalDbD {
     firebaseAccountsInformationMap[AccountsInformationD.homeId] =
         firebaseAccountsInformationD.homeId;
 
-    _hiveD?.saveListOfDatabaseInformation(firebaseAccountsInformationMap);
+    _isarD?.saveListOfDatabaseInformation(firebaseAccountsInformationMap);
   }
 }
