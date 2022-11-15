@@ -40,7 +40,7 @@ const IsarDatabaseInformationDSchema = CollectionSchema(
   getId: _isarDatabaseInformationDGetId,
   getLinks: _isarDatabaseInformationDGetLinks,
   attach: _isarDatabaseInformationDAttach,
-  version: '3.0.2',
+  version: '3.0.4',
 );
 
 int _isarDatabaseInformationDEstimateSize(
