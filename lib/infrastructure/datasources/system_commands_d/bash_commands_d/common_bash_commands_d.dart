@@ -1,9 +1,15 @@
 import 'dart:io';
 
 import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/system_commands_base_class_d.dart';
+import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
+import 'package:cbj_smart_device/injection.dart';
 import 'package:cbj_smart_device/utils.dart';
 
 class CommonBashCommandsD implements SystemCommandsBaseClassD {
+  Future<void> asyncConstractor() async {
+    getIt<SystemCommandsManager>();
+  }
+
   @override
   Future<String> getCurrentUserName() async {
     final String whoami =
@@ -15,38 +21,43 @@ class CommonBashCommandsD implements SystemCommandsBaseClassD {
 
   @override
   Future<String> getUuidOfCurrentDevice() async {
-    String df = await Process.run('df', <String>['-h', '/'])
-        .then((ProcessResult result) {
-      return result.stdout.toString();
-    });
+    try {
+      String df = await Process.run('df', <String>['-h', '/'])
+          .then((ProcessResult result) {
+        return result.stdout.toString();
+      });
 
-    df = df.substring(df.indexOf('\n') + 1);
-    df = df.substring(0, df.indexOf(' '));
+      df = df.substring(df.indexOf('\n') + 1);
+      df = df.substring(0, df.indexOf(' '));
 
-    //  The full bash command looks like this /sbin/blkid | grep "$(df -h / | sed -n 2p | cut -d" " -f1):" | grep -o "UUID=\"[^\"]*\" " | sed "s/UUID=\"//;s/\"//"
-    String blkid =
-        await Process.run('/sbin/blkid', []).then((ProcessResult result) {
-      return result.stdout.toString();
-    });
+      //  The full bash command looks like this /sbin/blkid | grep "$(df -h / | sed -n 2p | cut -d" " -f1):" | grep -o "UUID=\"[^\"]*\" " | sed "s/UUID=\"//;s/\"//"
+      String blkid =
+          await Process.run('/sbin/blkid', []).then((ProcessResult result) {
+        return result.stdout.toString();
+      });
 
-    if (doesExistAndStringContainUuid(blkid, df)) {
-      blkid = blkid.substring(blkid.indexOf(df));
-    } else if (doesExistAndStringContainUuid(blkid, '/dev/mmcblk0p1')) {
-      blkid = blkid.substring(blkid.indexOf('/dev/mmcblk0p1'));
-    } else if (doesExistAndStringContainUuid(blkid, '/dev/mmcblk0p2')) {
-      blkid = blkid.substring(blkid.indexOf('/dev/mmcblk0p2'));
-    } else if (doesExistAndStringContainUuid(blkid, '/dev/zram0')) {
-      blkid = blkid.substring(blkid.indexOf('/dev/zram0'));
-    } else if (doesExistAndStringContainUuid(blkid, '/dev/zram1')) {
-      blkid = blkid.substring(blkid.indexOf('/dev/zram1'));
-    } else {
-      blkid = blkid.substring(blkid.indexOf('/dev/'));
+      if (doesExistAndStringContainUuid(blkid, df)) {
+        blkid = blkid.substring(blkid.indexOf(df));
+      } else if (doesExistAndStringContainUuid(blkid, '/dev/mmcblk0p1')) {
+        blkid = blkid.substring(blkid.indexOf('/dev/mmcblk0p1'));
+      } else if (doesExistAndStringContainUuid(blkid, '/dev/mmcblk0p2')) {
+        blkid = blkid.substring(blkid.indexOf('/dev/mmcblk0p2'));
+      } else if (doesExistAndStringContainUuid(blkid, '/dev/zram0')) {
+        blkid = blkid.substring(blkid.indexOf('/dev/zram0'));
+      } else if (doesExistAndStringContainUuid(blkid, '/dev/zram1')) {
+        blkid = blkid.substring(blkid.indexOf('/dev/zram1'));
+      } else {
+        blkid = blkid.substring(blkid.indexOf('/dev/'));
+      }
+
+      blkid = blkid.substring(0, blkid.indexOf('\n'));
+
+      final String uuid = blkid.substring(blkid.indexOf('UUID="') + 6);
+      return uuid.substring(0, uuid.indexOf('"'));
+    } catch (e) {
+      logger.e("Can't get device uuid\n$e");
     }
-
-    blkid = blkid.substring(0, blkid.indexOf('\n'));
-
-    final String uuid = blkid.substring(blkid.indexOf('UUID="') + 6);
-    return uuid.substring(0, uuid.indexOf('"'));
+    return 'UUID-IS-MISSING';
   }
 
   @override

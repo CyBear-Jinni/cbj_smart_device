@@ -39,7 +39,7 @@ const IsarDevicesDSchema = CollectionSchema(
   getId: _isarDevicesDGetId,
   getLinks: _isarDevicesDGetLinks,
   attach: _isarDevicesDAttach,
-  version: '3.0.2',
+  version: '3.0.4',
 );
 
 int _isarDevicesDEstimateSize(

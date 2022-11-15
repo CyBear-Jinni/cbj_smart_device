@@ -6,7 +6,9 @@ import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/ba
 import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/batch_commands_d/common_batch_commands_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/system_commands_base_class_d.dart';
 import 'package:cbj_smart_device/utils.dart';
+import 'package:injectable/injectable.dart';
 
+@singleton
 class SystemCommandsManager {
   SystemCommandsManager() {
     if (Platform.isLinux) {
