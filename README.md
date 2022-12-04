@@ -2,9 +2,9 @@
 
 <h1 align="center">Important Message</h1>
 
-If you arrived here you probably are searching for the [cbj hub](https://github.com/CyBear-Jinni/cbj_hub).
+If you arrived here, you probably are searching for the [cbj hub](https://github.com/CyBear-Jinni/cbj_hub).
 
-This repo is for creating your own smart device and <b>Currently not mainted</b>.
+This repo is for creating your own smart device and is <b>Currently not maintained</b>.
 
 </br>
 
@@ -23,7 +23,7 @@ This repo is for creating your own smart device and <b>Currently not mainted</b>
 
 This repository is in charge of controlling smart devices and is part of the [CyBear Jinni Smart Home](https://github.com/CyBear-Jinni/cbj_smart-home) system.
 
-The softwer is writen in [dart](https://dart.dev) and allows you to control lamps and blinds.
+The software is written in [dart](https://dart.dev) and allows you to control lamps and blinds.
  
 You can control these devices using physical buttons and from the [CyBear Jinni App](https://github.com/CyBear-Jinni/cbj_app).
 
@@ -36,7 +36,7 @@ This part is using the snap store in order to have easy way to update all the de
 
 ### Attention
 
-* The softwer support Raspberry Pi only whan running without the snap, for now only NanoPi Duo2 is supported as a sanp, you can run the softwer everywhere else (including your pc) without controlling the pins.
+* The software support Raspberry Pi only when running without the snap, for now only NanoPi Duo2 is supported as a snap, you can run the software everywhere else (including your pc) without controlling the pins.
 
 * You need to buy and solder the parts into the device yourself.
 
@@ -49,19 +49,32 @@ It is recommended to lock the IP of the smart device in the router settings if y
 
 Explanations on how to connect the device with the app will be given in the [CyBear Jinni App](https://github.com/CyBear-Jinni/cbj_app) Readme file.
 
-
-# Social Media Links
-
-[<img src = "https://cdn.icon-icons.com/icons2/1099/PNG/512/1485482199-linkedin_78667.png" height = "80" >](https://www.linkedin.com/company/cybear-jinni)
-
-If you have any questions feel free to ask in our Discord server 
-
-[<img src="https://cdn.icon-icons.com/icons2/2108/PNG/512/discord_icon_130958.png" height="80">](https://discord.gg/mUXfwUY)
-
-
+ 
 ## Disclaimers
 
 **Use at Your Own Risk,**
 **we do not take responsibility on any outcome using anything in this repo.**
 
 The project is under heavy work and may contain bugs and incorrect instructions.
+
+
+# Thanks to all Contributors ⭐
+
+<a href="https://github.com/CyBear-Jinni/cbj_smart-device/graphs/contributors" align="center">
+  <img src="https://contrib.rocks/image?repo=CyBear-Jinni/cbj_smart-device" /> 
+ 
+ Interested in Contributing? We're glad your are! Read our [Contribution Guidelines here](https://github.com/CyBear-Jinni/cbj_smart-device/blob/main/CONTRIBUTING.md).
+ 
+
+# Social Media Links
+
+<a href="https://twitter.com/CyBearJinni">
+<img align="left" alt="Twitter" width="45px" src="https://cdn.cdnlogo.com/logos/t/96/twitter-icon.svg" /></a>
+<a href="https://www.instagram.com/cybearjinni/?igshid=rfllj6qbv6l8">
+<img align="left" alt="Instagram" width="45px" src="https://cdn.icon-icons.com/icons2/1753/PNG/512/iconfinder-social-media-applications-3instagram-4102579_113804.png" /></a>
+<a href="https://www.linkedin.com/company/cybear-jinni">
+<img align="left" alt="Linkedin" width="45px" src="https://cdn.icon-icons.com/icons2/1099/PNG/512/1485482199-linkedin_78667.png" /></a>
+<a href="https://discord.gg/mUXfwUY">
+<img align="left" alt="Discord" width="45px" src="https://cdn.icon-icons.com/icons2/2108/PNG/512/discord_icon_130958.png" /></a>
+<a href="https://github.com/CyBear-Jinni">
+<img align="left" alt="Github" width="45px" src="https://seeklogo.com/images/G/github-colored-logo-FDDF6EB1F0-seeklogo.com.png" /></a>
