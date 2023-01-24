@@ -1,1 +1,1 @@
-const cbjSmartDeviceServerProtocGenDate = '27/10/22';
+const cbjSmartDeviceServerProtocGenDate = '24/01/23';
