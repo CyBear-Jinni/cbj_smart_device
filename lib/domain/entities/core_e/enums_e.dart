@@ -59,17 +59,17 @@ import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/prot
 
 ///  List of all physical devices types
 enum PhysicalDeviceType {
-  NanoPiDuo2,
-  NanoPiAir,
-  NanoPiNeo,
-  NanoPiNeo2,
-  RaspberryPi,
-  NotSupported,
+  nanoPiDuo2,
+  nanoPiAir,
+  nanoPiNeo,
+  nanoPiNeo2,
+  raspberryPi,
+  notSupported,
 }
 
 enum RaspberryPiType {
-  Raspberry_Pi_3_Model_B_Rev_1_2,
-  Raspberry_Pi_4_Model_B_Rev_1_4,
+  raspberryPi3ModelBRev1Underscore2,
+  raspberryPi4ModelBRev1Underscore4,
 }
 
 class EnumHelper {
@@ -78,9 +78,9 @@ class EnumHelper {
     return deviceType.toString().replaceAll('CbjDeviceTypes.', '');
   }
 
-  static CbjDeviceTypes? stringToDeviceType(String CbjDeviceTypestring) {
+  static CbjDeviceTypes? stringToDeviceType(String cbjDeviceTypestring) {
     for (final CbjDeviceTypes deviceType in CbjDeviceTypes.values) {
-      if (deviceTypeToString(deviceType) == CbjDeviceTypestring) {
+      if (deviceTypeToString(deviceType) == cbjDeviceTypestring) {
         return deviceType;
       }
     }
@@ -88,7 +88,7 @@ class EnumHelper {
   }
 
   ///  Convert Raspberry Pi type to string
-  static String RaspberryPiTypeToString(RaspberryPiType raspberryPiType) {
+  static String raspberryPiTypeToString(RaspberryPiType raspberryPiType) {
     return raspberryPiType.toString().replaceAll('RaspberryPiType.', '');
   }
 
@@ -96,7 +96,7 @@ class EnumHelper {
     String raspberryPiTypeString,
   ) {
     for (final RaspberryPiType raspberryPiType in RaspberryPiType.values) {
-      if (RaspberryPiTypeToString(raspberryPiType) == raspberryPiTypeString) {
+      if (raspberryPiTypeToString(raspberryPiType) == raspberryPiTypeString) {
         return raspberryPiType;
       }
     }
@@ -110,9 +110,10 @@ class EnumHelper {
 
   ///  Convert string to deviceAction
   static CbjDeviceActions? stringToCbjDeviceActions(
-      String CbjDeviceActionstring) {
+    String cbjDeviceActionstring,
+  ) {
     for (final CbjDeviceActions deviceAction in CbjDeviceActions.values) {
-      if (deviceActionToString(deviceAction) == CbjDeviceActionstring) {
+      if (deviceActionToString(deviceAction) == cbjDeviceActionstring) {
         return deviceAction;
       }
     }

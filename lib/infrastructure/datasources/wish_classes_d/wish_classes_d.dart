@@ -18,23 +18,23 @@ class WishClassesD {
     switch (pinSetupMethodEnum) {
       case PinSetupMethodEnum.wiringPiSetup:
         {
-          return TurnPinOnWiringPiSetup().TurnThePinOn(pinNumber);
+          return TurnPinOnWiringPiSetup().turnThePinOn(pinNumber);
         }
       case PinSetupMethodEnum.wiringPiSetupGpio:
         {
-          return TurnPinOnWiringPiSetupGpio().TurnThePinOn(pinNumber);
+          return TurnPinOnWiringPiSetupGpio().turnThePinOn(pinNumber);
         }
       case PinSetupMethodEnum.wiringPiSetupPhys:
         {
-          return TurnPinOnWiringPiSetupPhys().TurnThePinOn(pinNumber);
+          return TurnPinOnWiringPiSetupPhys().turnThePinOn(pinNumber);
         }
       case PinSetupMethodEnum.wiringPiSetupSys:
         {
-          return TurnPinOnWiringPiSetupSys().TurnThePinOn(pinNumber);
+          return TurnPinOnWiringPiSetupSys().turnThePinOn(pinNumber);
         }
       default:
         {
-          return TurnPinOnWiringPiSetupGpio().TurnThePinOn(pinNumber);
+          return TurnPinOnWiringPiSetupGpio().turnThePinOn(pinNumber);
         }
     }
   }
@@ -46,23 +46,23 @@ class WishClassesD {
     switch (pinSetupMethodEnum) {
       case PinSetupMethodEnum.wiringPiSetup:
         {
-          return TurnPinOffWiringPiSetup().TurnThePinOff(pinNumber);
+          return TurnPinOffWiringPiSetup().turnThePinOff(pinNumber);
         }
       case PinSetupMethodEnum.wiringPiSetupGpio:
         {
-          return TurnPinOffWiringPiSetupGpio().TurnThePinOff(pinNumber);
+          return TurnPinOffWiringPiSetupGpio().turnThePinOff(pinNumber);
         }
       case PinSetupMethodEnum.wiringPiSetupPhys:
         {
-          return TurnPinOffWiringPiSetupPhys().TurnThePinOff(pinNumber);
+          return TurnPinOffWiringPiSetupPhys().turnThePinOff(pinNumber);
         }
       case PinSetupMethodEnum.wiringPiSetupSys:
         {
-          return TurnPinOffWiringPiSetupSys().TurnThePinOff(pinNumber);
+          return TurnPinOffWiringPiSetupSys().turnThePinOff(pinNumber);
         }
       default:
         {
-          return TurnPinOffWiringPiSetupGpio().TurnThePinOff(pinNumber);
+          return TurnPinOffWiringPiSetupGpio().turnThePinOff(pinNumber);
         }
     }
   }

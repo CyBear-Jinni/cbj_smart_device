@@ -250,7 +250,10 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     logger.i('Turn blinds ${request.id} stop');
 
     return executeCbjDeviceActionserver(
-        request, CbjDeviceActions.stop, _deviceState);
+      request,
+      CbjDeviceActions.stop,
+      _deviceState,
+    );
   }
 
   SmartDeviceBaseAbstract? getSmartDeviceBaseAbstract(
@@ -330,7 +333,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   ) async {
     logger.i('setCompInfo');
 
-    return SetCompHelper(request);
+    return setCompHelper(request);
   }
 
   @override
@@ -343,7 +346,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     try {
       final CbjCompSmartDeviceInfo compInfo = request.compInfo;
       final CbjCommendStatus cbjCommendStatusSetComp =
-          await SetCompHelper(compInfo);
+          await setCompHelper(compInfo);
 
       final CbjCommendStatus cbjCommendStatusSetFirebase =
           await setCbjFirebaseAccountInformationHelper(
@@ -361,7 +364,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     return CbjCommendStatus()..success = false;
   }
 
-  Future<CbjCommendStatus> SetCompHelper(
+  Future<CbjCommendStatus> setCompHelper(
     CbjCompSmartDeviceInfo compInfo,
   ) async {
     try {
@@ -408,7 +411,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
           in MySingleton.getSmartDevicesList()) {
         if (device.getDeviceType() == CbjDeviceTypes.light) {
           final Map<String, String> dataToChange = {
-            GrpcClientTypes.CbjDeviceStateGRPCTypeString:
+            GrpcClientTypes.cbjDeviceStateGRPCTypeString:
                 CbjDeviceStateGRPC.ack.toString(),
           };
         }

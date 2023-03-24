@@ -11,6 +11,7 @@ import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abs
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_smart_device/injection.dart';
 
 ///  This class save all the configuration of the pins per device,
 ///  every device have different pin for each task,
@@ -36,7 +37,8 @@ abstract class DevicePinListManagerAbstract {
   /// Return a list of free pins that are not taken, the list will consist of
   /// the different pins types depending on the smart device type needed pins
   List<PinInformation?>? getFreePinsForSmartDeviceType(
-      CbjDeviceTypes deviceType);
+    CbjDeviceTypes deviceType,
+  );
 
   /// Return a list of free gpio pins that are not taken
   PinInformation? getFreeGpioPins({List<PinInformation> ignorePinsList});
@@ -58,7 +60,8 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
 
   @override
   Future setPhysicalDeviceType() async {
-    final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
+    final SystemCommandsManager systemCommandsManager =
+        getIt<SystemCommandsManager>();
     final String etcReleaseOutput =
         await systemCommandsManager.getAllEtcReleaseFilesText();
 
@@ -86,50 +89,52 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
           raspberryPiVersion
               .toLowerCase()
               .contains('Raspberry_Pi'.toLowerCase())) {
-        physicalDeviceType = PhysicalDeviceType.RaspberryPi;
+        physicalDeviceType = PhysicalDeviceType.raspberryPi;
       }
 
       print('phys type is $physicalDeviceType');
       //  Save the current physical device configuration to the
       //  physicalDevice variable
       switch (physicalDeviceType) {
-        case PhysicalDeviceType.NanoPiDuo2:
+        case PhysicalDeviceType.nanoPiDuo2:
           {
             physicalDevice = NanoPiDuo2Configuration();
             break;
           }
-        case PhysicalDeviceType.NanoPiAir:
+        case PhysicalDeviceType.nanoPiAir:
           {
             physicalDevice = NanoPiNEOAirConfiguration();
             break;
           }
-        case PhysicalDeviceType.NanoPiNeo:
+        case PhysicalDeviceType.nanoPiNeo:
           {
             physicalDevice = NanoPiNeoConfiguration();
             break;
           }
-        case PhysicalDeviceType.NanoPiNeo2:
+        case PhysicalDeviceType.nanoPiNeo2:
           {
             physicalDevice = NanoPiNeo2Configuration();
             break;
           }
-        case PhysicalDeviceType.RaspberryPi:
+        case PhysicalDeviceType.raspberryPi:
           {
             final RaspberryPiType raspberryPiType =
                 EnumHelper.stringToRaspberryPiType(raspberryPiVersion!)!;
 
             switch (raspberryPiType) {
-              case RaspberryPiType.Raspberry_Pi_3_Model_B_Rev_1_2:
+              case RaspberryPiType.raspberryPi3ModelBRev1Underscore2:
                 {
                   print('Raspberry Pi 3 Model B Rev 1.2 found');
-                  physicalDevice = RaspberryPi3ModelBRev1_2Configuration();
+                  physicalDevice =
+                      RaspberryPi3ModelBRev1Underscore2Configuration();
                   break;
                 }
-              case RaspberryPiType.Raspberry_Pi_4_Model_B_Rev_1_4:
+              case RaspberryPiType.raspberryPi4ModelBRev1Underscore4:
                 {
                   print('Raspberry Pi 4 Model B Rev 1.4 found');
                   // Have same pin configuration as Pi 3
-                  physicalDevice = RaspberryPi3ModelBRev1_2Configuration();
+                  physicalDevice =
+                      RaspberryPi3ModelBRev1Underscore2Configuration();
                   break;
                 }
               default:
@@ -203,7 +208,8 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
 
   @override
   List<PinInformation?>? getFreePinsForSmartDeviceType(
-      CbjDeviceTypes deviceType) {
+    CbjDeviceTypes deviceType,
+  ) {
     List<String>? neededPinTypesList;
 
     if (deviceType == CbjDeviceTypes.light ||
@@ -274,7 +280,8 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
 
   @override
   List<PinInformation> getFreePinsForSmartDeviceType(
-      CbjDeviceTypes deviceType) {
+    CbjDeviceTypes deviceType,
+  ) {
     print('Computer does not give free pins, only smart device');
     throw UnimplementedError();
   }

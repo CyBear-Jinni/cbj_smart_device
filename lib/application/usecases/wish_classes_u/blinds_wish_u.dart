@@ -4,7 +4,7 @@ import 'package:cbj_smart_device/application/usecases/wish_classes_u/on_wish_u.d
 
 ///  This class take the request to turn up or down the blinds and act in safe manner with the pins, act so that blinds up and down will not work simultaneously and stop other tasks on them
 class BlindsWishU {
-  static Future<String> BlindsUp(BlindsObject blindsInformation) async {
+  static Future<String> blindsUp(BlindsObject blindsInformation) async {
     String status;
     print('Turning blind up');
 

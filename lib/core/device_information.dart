@@ -26,7 +26,7 @@ class DeviceInformation {
 }
 
 class RemoteDevice extends DeviceInformation {
-  RemoteDevice(String uuid, String name, this.ip) : super(uuid, name);
+  RemoteDevice(super.uuid, super.name, this.ip);
 
   ///  Ip of the device
   String ip;
@@ -37,5 +37,5 @@ class RemoteDevice extends DeviceInformation {
 }
 
 class LocalDevice extends DeviceInformation {
-  LocalDevice(String uuid, String name) : super(uuid, name);
+  LocalDevice(super.uuid, super.name);
 }

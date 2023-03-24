@@ -10,18 +10,15 @@ import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/prot
 class BlindsObject extends SmartDeviceStaticAbstract {
   /// Setting up pins for up down, buttons for up down but not at the same time.
   BlindsObject(
-    String? uuid,
-    String? smartInstanceName,
-    onOffPinNumber,
+    super.uuid,
+    String? super.smartInstanceName,
+    super.onOffPinNumber,
     onOffButtonPinNumber,
     int? blindsUpPin,
     int? upButtonPinNumber,
     int? blindsDownPin,
     int? downButtonPinNumber,
   ) : super(
-          uuid,
-          smartInstanceName,
-          onOffPinNumber,
           onOffButtonPinNumber: onOffButtonPinNumber,
         ) {
     buttonPinUp = DevicePinListManager().getGpioPin(upButtonPinNumber);
@@ -35,7 +32,10 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     print('New blinds object');
   }
 
-  PinInformation? buttonPinUp, blindsUpPin, buttonPinDown, blindsDownPin;
+  PinInformation? buttonPinUp;
+  PinInformation? blindsUpPin;
+  PinInformation? buttonPinDown;
+  PinInformation? blindsDownPin;
 
   @override
   List<String> getNeededPinTypesList() =>
@@ -75,7 +75,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
 
     if (deviceAction == null) return 'Your wish does not exist in blinds class';
     if (deviceAction == CbjDeviceActions.moveUp) {
-      wishExecuteResult = await BlindsWishU.BlindsUp(this);
+      wishExecuteResult = await BlindsWishU.blindsUp(this);
     }
     if (deviceAction == CbjDeviceActions.moveDown) {
       wishExecuteResult = await BlindsWishU.blindsDown(this);
@@ -86,7 +86,7 @@ class BlindsObject extends SmartDeviceStaticAbstract {
 
     if (wishExecuteResult != null) {
       if (deviceState != CbjDeviceStateGRPC.ack) {
-        final String CbjDeviceActionstring =
+        final String cbjDeviceActionstring =
             EnumHelper.deviceActionToString(deviceAction);
       }
       return wishExecuteResult;
