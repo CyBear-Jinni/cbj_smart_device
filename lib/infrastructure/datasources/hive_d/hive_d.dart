@@ -1,52 +1,57 @@
 import 'package:cbj_smart_device/core/my_singleton.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/hive_d/hive_objects_d/hive_devices_d.dart';
+import 'package:cbj_smart_device/infrastructure/datasources/hive_d/hive_objects_d/isar_database_information_d.dart';
+import 'package:cbj_smart_device/infrastructure/datasources/hive_d/hive_objects_d/isar_devices_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
-import 'package:hive/hive.dart';
+import 'package:cbj_smart_device/injection.dart';
+import 'package:cbj_smart_device/utils.dart';
+import 'package:isar/isar.dart';
 
-class HiveD {
-  factory HiveD() {
+class IsarD {
+  factory IsarD() {
     return _instance;
   }
 
-  HiveD._privateConstructor() {
+  IsarD._privateConstructor() {
 //    contractorAsync();
   }
 
-  static final HiveD _instance = HiveD._privateConstructor();
+  static final IsarD _instance = IsarD._privateConstructor();
 
-  String? hiveFolderPath;
+  String? isarFolderPath;
   static bool? finishedInitializing;
   static const String smartDeviceBoxName = 'SmartDevices';
   static const String cellDeviceListInSmartDeviceBox = 'deviceList';
   static const String cellDatabaseInformationInSmartDeviceBox =
       'databaseInformation';
 
+  late Isar isar;
+
   Future<bool?> contractorAsync() async {
     try {
       if (finishedInitializing == null) {
         final String? snapCommonEnvironmentVariablePath =
-            await SystemCommandsManager().getSnapCommonEnvironmentVariable();
+            await getIt<SystemCommandsManager>()
+                .getSnapCommonEnvironmentVariable();
         if (snapCommonEnvironmentVariablePath == null) {
           final String? currentUserName =
               await MySingleton.getCurrentUserName();
-          hiveFolderPath = '/home/$currentUserName/Documents/hive';
+          isarFolderPath = '/home/$currentUserName/Documents/isar';
         } else {
-          // /var/snap/cybear-jinni/common/hive
-          hiveFolderPath = '$snapCommonEnvironmentVariablePath/hive';
+          // /var/snap/cybear-jinni/common/isar
+          isarFolderPath = '$snapCommonEnvironmentVariablePath/isar';
         }
-        print('Path of hive: $hiveFolderPath');
-        Hive.init(hiveFolderPath!);
+        logger.i('Path of isar (deprecated): $isarFolderPath');
 
-        //
-        // Hive.openBox(
-        //     smartDeviceBoxName); // TODO: check if need await, it creates error: HiveError: Cannot read, unknown typeId: 34
-        // Hive.registerAdapter(TokenAdapter());
-        Hive.registerAdapter(HiveDevicesDAdapter());
+        await Isar.initializeIsarCore(download: true);
+        isar = await Isar.open([
+          IsarDevicesDSchema,
+          IsarDatabaseInformationDSchema,
+        ]);
 
         finishedInitializing = true;
       }
     } catch (error) {
-      print('error: $error');
+      logger.e('Error contractorAsync: $error');
     }
     return finishedInitializing;
   }
@@ -55,14 +60,24 @@ class HiveD {
     try {
       await contractorAsync();
 
-      final box = await Hive.openBox(smartDeviceBoxName);
+      final List<IsarDevicesD> isarDeviceD =
+          await isar.isarDevicesDs.where().findAll();
 
-      final HiveDevicesD? hiveDeviceD =
-          box.get(cellDeviceListInSmartDeviceBox) as HiveDevicesD?;
+      final Map<String, List<String?>> tempListToMap = {};
 
-      return hiveDeviceD?.smartDeviceList;
+      for (final IsarDevicesD isarDevicesD in isarDeviceD) {
+        final String? key = isarDevicesD.smartDeviceListKey;
+        final List<String?>? value = isarDevicesD.smartDeviceListValue;
+
+        if ((key == null || key.isEmpty) || (value == null)) {
+          continue;
+        }
+
+        tempListToMap.addEntries([MapEntry(key, value)]);
+      }
+      return tempListToMap;
     } catch (error) {
-      print('error: $error');
+      logger.e('Error getListOfSmartDevices: $error');
     }
     return null;
   }
@@ -71,14 +86,26 @@ class HiveD {
     try {
       await contractorAsync();
 
-      final box = await Hive.openBox(smartDeviceBoxName);
+      final List<IsarDatabaseInformationD> firebaseAccountsInformationMap =
+          await isar.isarDatabaseInformationDs.where().findAll();
 
-      final HiveDevicesD? firebaseAccountsInformationMap =
-          box.get(cellDatabaseInformationInSmartDeviceBox) as HiveDevicesD?;
+      final Map<String, String?> tempListToMap = {};
 
-      return firebaseAccountsInformationMap?.databaseInformationList;
+      for (final IsarDatabaseInformationD databaseInformation
+          in firebaseAccountsInformationMap) {
+        final String? key = databaseInformation.databaseInformationListKey;
+        final String? value = databaseInformation.databaseInformationListValue;
+
+        if (key == null || key.isEmpty) {
+          continue;
+        }
+
+        tempListToMap.addEntries([MapEntry(key, value)]);
+      }
+
+      return tempListToMap;
     } catch (error) {
-      print('error: $error');
+      logger.e('Error getListOfDatabaseInformation: $error');
     }
     return null;
   }
@@ -95,18 +122,22 @@ class HiveD {
 
       await contractorAsync();
 
-      final Box box = await Hive.openBox(smartDeviceBoxName);
+      final List<IsarDevicesD> isarDeviceDList = [];
 
-      final HiveDevicesD hiveDevicesD = HiveDevicesD()
-        ..smartDeviceList = smartDevicesMapListWithoutNull;
+      for (final MapEntry<String, List<String>> smartDeviceMapEntry
+          in smartDevicesMapListWithoutNull.entries) {
+        final IsarDevicesD isarDevicesDTemp = IsarDevicesD()
+          ..smartDeviceListKey = smartDeviceMapEntry.key
+          ..smartDeviceListValue = smartDeviceMapEntry.value;
+        isarDeviceDList.add(isarDevicesDTemp);
+      }
 
-      await box
-          .put(cellDeviceListInSmartDeviceBox, hiveDevicesD)
-          .catchError((a) {
-        print('Error is: $a');
+      await isar.writeTxn(() async {
+        await isar.isarDevicesDs.clear();
+        await isar.isarDevicesDs.putAll(isarDeviceDList);
       });
     } catch (error) {
-      print('error: $error');
+      logger.e('Error saveAllDevices: $error');
     }
     return;
   }
@@ -117,14 +148,23 @@ class HiveD {
     try {
       await contractorAsync();
 
-      final box = await Hive.openBox(smartDeviceBoxName);
+      final List<IsarDatabaseInformationD> databaseInformationList = [];
 
-      final HiveDevicesD hiveDevicesD = HiveDevicesD()
-        ..databaseInformationList = firebaseAccountsInformationMap;
+      for (final MapEntry<String, String> firebaseAccountInformation
+          in firebaseAccountsInformationMap.entries) {
+        final IsarDatabaseInformationD isarDevicesDTemp =
+            IsarDatabaseInformationD()
+              ..databaseInformationListKey = firebaseAccountInformation.key
+              ..databaseInformationListValue = firebaseAccountInformation.value;
+        databaseInformationList.add(isarDevicesDTemp);
+      }
 
-      await box.put(cellDatabaseInformationInSmartDeviceBox, hiveDevicesD);
+      await isar.writeTxn(() async {
+        await isar.isarDatabaseInformationDs.clear();
+        await isar.isarDatabaseInformationDs.putAll(databaseInformationList);
+      });
     } catch (error) {
-      print('error: $error');
+      logger.e('Error saveListOfDatabaseInformation: $error');
     }
     return;
   }
