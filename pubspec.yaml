@@ -8,6 +8,9 @@ environment:
   sdk: ^3.1.5
 
 dependencies:
+  cbj_integrations_controller:
+    # git: https://github.com/CyBear-Jinni/cbj_integrations_controller.git
+    path: ../cbj_integrations_controller
   # Functional programming thingies, let you use multiple return types
   dartz: ^0.10.1
   # Convert enum to string

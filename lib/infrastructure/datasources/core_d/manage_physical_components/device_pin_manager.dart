@@ -1,3 +1,4 @@
+import 'package:cbj_integrations_controller/infrastructure/system_commands/system_commands_manager_d.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/button_with_light_object.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/device_configuration_base_class.dart';
@@ -9,9 +10,7 @@ import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/raspberry_pi3_model_b_rev_1_2/raspberry_pi3_model_b_rev_1_2_configuration.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
 import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
-import 'package:cbj_smart_device/injection.dart';
 
 ///  This class save all the configuration of the pins per device,
 ///  every device have different pin for each task,
@@ -61,7 +60,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
   @override
   Future setPhysicalDeviceType() async {
     final SystemCommandsManager systemCommandsManager =
-        getItSmartDevice<SystemCommandsManager>();
+        SystemCommandsManager.instance;
     final String etcReleaseOutput =
         await systemCommandsManager.getAllEtcReleaseFilesText();
 
