@@ -31,6 +31,3 @@ linter:
     avoid_classes_with_only_static_members: false
 
     sort_constructors_first: true
-
-    # Good packages document everything
-    public_member_api_docs: true
