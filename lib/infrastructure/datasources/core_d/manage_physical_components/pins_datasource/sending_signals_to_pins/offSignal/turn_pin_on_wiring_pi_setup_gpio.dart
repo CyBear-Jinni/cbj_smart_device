@@ -5,7 +5,7 @@ import 'package:cbj_integrations_controller/infrastructure/shared_variables.dart
 class TurnPinOffWiringPiSetupGpio {
   Future<ProcessResult> turnThePinOff(String physicalPinNumber) async {
     return Process.run(
-      '${SharedVariables.getProjectRootDirectoryPath()}/scripts/cScripts/phisicalComponents/sendingSignals/offSignal/turnOffWiringPiSetupGpio',
+      '${SharedVariables.instance.getProjectRootDirectoryPath()}/scripts/cScripts/phisicalComponents/sendingSignals/offSignal/turnOffWiringPiSetupGpio',
       [physicalPinNumber],
     );
   }

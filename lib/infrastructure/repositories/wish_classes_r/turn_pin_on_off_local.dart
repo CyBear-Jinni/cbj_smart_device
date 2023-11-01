@@ -20,7 +20,7 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
       print('Error PinInformation.pinAndPhysicalPinConfiguration was not set');
       return 'Error PinInformation.pinAndPhysicalPinConfiguration was not set';
     }
-    if (SharedVariables.getProjectRootDirectoryPath() == null) {
+    if (SharedVariables.instance.getProjectRootDirectoryPath().isEmpty) {
       print('Error SharedVariables.GetProjectRootDirectoryPath was not set');
       return 'Error SharedVariables.GetProjectRootDirectoryPath was not set';
     }
