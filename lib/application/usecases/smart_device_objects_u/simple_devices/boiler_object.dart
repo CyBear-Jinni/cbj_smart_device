@@ -5,7 +5,7 @@ import 'package:cbj_smart_device/application/usecases/wish_classes_u/off_wish_u.
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
-import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 
 class BoilerObject extends SmartDeviceSimpleAbstract {
   BoilerObject(

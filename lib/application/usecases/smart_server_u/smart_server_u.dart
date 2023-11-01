@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/application/usecases/core_u/actions_to_preform_u.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
@@ -8,7 +9,6 @@ import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/domain/entities/local_db_e/local_db_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/smart_server_helper.dart';
-import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
 import 'package:cbj_smart_device/utils.dart';
 import 'package:grpc/grpc.dart';
@@ -97,18 +97,14 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
       switch (element.getDeviceType()) {
         case CbjDeviceTypes.light:
           cbjDeviceTypes = CbjDeviceTypes.light;
-          break;
         case CbjDeviceTypes.blinds:
           cbjDeviceTypes = CbjDeviceTypes.blinds;
-          break;
         case CbjDeviceTypes.boiler:
           cbjDeviceTypes = CbjDeviceTypes.boiler;
-          break;
         case CbjDeviceTypes.smartComputer:
           cbjDeviceTypes = CbjDeviceTypes.smartComputer;
           defaultName =
               defaultName.isNotEmpty ? defaultName : 'Personal Computer';
-          break;
         default:
           cbjDeviceTypes = CbjDeviceTypes.typeNotSupported;
       }

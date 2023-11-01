@@ -6,7 +6,7 @@ import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/sta
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/hive_d/hive_d.dart';
-import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 
 class LocalDbD {
   LocalDbD() {
