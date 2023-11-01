@@ -43,10 +43,17 @@ class IsarD {
         logger.i('Path of isar (deprecated): $isarFolderPath');
 
         await Isar.initializeIsarCore(download: true);
-        isar = await Isar.open([
-          IsarDevicesDSchema,
-          IsarDatabaseInformationDSchema,
-        ]);
+        if (isarFolderPath == null) {
+          return false;
+        }
+
+        isar = await Isar.open(
+          [
+            IsarDevicesDSchema,
+            IsarDatabaseInformationDSchema,
+          ],
+          directory: isarFolderPath!,
+        );
 
         finishedInitializing = true;
       }
