@@ -4,7 +4,7 @@ import 'package:cbj_smart_device/injection.dart';
 class SmartDeviceObjectsD {
   static Future<String> getUuid() {
     final SystemCommandsManager systemCommandsManager =
-        getIt<SystemCommandsManager>();
+        getItSmartDevice<SystemCommandsManager>();
     return systemCommandsManager.getUuidOfCurrentDevice();
   }
 }

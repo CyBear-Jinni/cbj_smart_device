@@ -3,7 +3,7 @@ import 'package:cbj_smart_device/utils.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-final getIt = GetIt.instance;
+final getItSmartDevice = GetIt.instance;
 
 /// Saves the current environment for manual use
 late String currentEnv;
@@ -12,7 +12,7 @@ late String currentEnv;
 Future<void> configureInjection(String environment) async {
   currentEnv = environment;
   logger.i('Current CyBear Jinni Hub environment name: $currentEnv');
-  $initGetIt(getIt, environment: environment);
+  getItSmartDevice.init(environment: environment);
 }
 
 abstract class Env {

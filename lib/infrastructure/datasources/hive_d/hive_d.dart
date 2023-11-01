@@ -30,7 +30,7 @@ class IsarD {
     try {
       if (finishedInitializing == null) {
         final String? snapCommonEnvironmentVariablePath =
-            await getIt<SystemCommandsManager>()
+            await getItSmartDevice<SystemCommandsManager>()
                 .getSnapCommonEnvironmentVariable();
         if (snapCommonEnvironmentVariablePath == null) {
           final String? currentUserName =

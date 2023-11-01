@@ -7,7 +7,7 @@ import 'package:cbj_smart_device/utils.dart';
 
 class CommonBashCommandsD implements SystemCommandsBaseClassD {
   Future<void> asyncConstractor() async {
-    getIt<SystemCommandsManager>();
+    getItSmartDevice<SystemCommandsManager>();
   }
 
   @override

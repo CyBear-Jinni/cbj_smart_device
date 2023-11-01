@@ -61,7 +61,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
   @override
   Future setPhysicalDeviceType() async {
     final SystemCommandsManager systemCommandsManager =
-        getIt<SystemCommandsManager>();
+        getItSmartDevice<SystemCommandsManager>();
     final String etcReleaseOutput =
         await systemCommandsManager.getAllEtcReleaseFilesText();
 

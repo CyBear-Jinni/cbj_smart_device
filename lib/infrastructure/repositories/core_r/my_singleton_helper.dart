@@ -4,37 +4,37 @@ import 'package:cbj_smart_device/injection.dart';
 class MySingletonHelper {
   static Future<String> getUuid() {
     final SystemCommandsManager systemCommandsManager =
-        getIt<SystemCommandsManager>();
+        getItSmartDevice<SystemCommandsManager>();
     return systemCommandsManager.getUuidOfCurrentDevice();
   }
 
   static Future<String> getCurrentUserName() {
     final SystemCommandsManager systemCommandsManager =
-        getIt<SystemCommandsManager>();
+        getItSmartDevice<SystemCommandsManager>();
     return systemCommandsManager.getCurrentUserName();
   }
 
   static String getOs() {
     final SystemCommandsManager systemCommandsManager =
-        getIt<SystemCommandsManager>();
+        getItSmartDevice<SystemCommandsManager>();
     return systemCommandsManager.getOs();
   }
 
   static String getOsVersion() {
     final SystemCommandsManager systemCommandsManager =
-        getIt<SystemCommandsManager>();
+        getItSmartDevice<SystemCommandsManager>();
     return systemCommandsManager.getOsVersion();
   }
 
   static Future<String?> suspendComputer() {
     final SystemCommandsManager systemCommandsManager =
-        getIt<SystemCommandsManager>();
+        getItSmartDevice<SystemCommandsManager>();
     return systemCommandsManager.suspendComputer();
   }
 
   static Future<String?> shutdownComputer() {
     final SystemCommandsManager systemCommandsManager =
-        getIt<SystemCommandsManager>();
+        getItSmartDevice<SystemCommandsManager>();
     return systemCommandsManager.shutdownComputer();
   }
 }
