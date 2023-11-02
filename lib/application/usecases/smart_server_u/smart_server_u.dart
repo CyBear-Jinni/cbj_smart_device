@@ -20,7 +20,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
       CbjDeviceStateGRPC.waitingInComp;
 
   Future startLocalServer() async {
-    final server = Server([CbjSmartDeviceServerU()]);
+    final server = Server.create(services: [CbjSmartDeviceServerU()]);
     await server.serve(port: 50054);
     logger.i('Server listening on port ${server.port}...');
   }
