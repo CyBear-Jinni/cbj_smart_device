@@ -33,10 +33,11 @@ dependencies:
   logger: ^2.0.2+1
   # Process run helpers for Linux/Win/Mac.
   process_run: ^0.13.2
+  # Extends the capabilities of Dart Streams and StreamControllers.
+  rxdart: ^0.27.7
   # Provides parse, inspect, and manipulate stack traces
   stack_trace: ^1.11.0
   uuid: ^4.1.0
-
 
 dev_dependencies:
   build_runner:

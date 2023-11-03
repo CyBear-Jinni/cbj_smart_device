@@ -12,6 +12,7 @@ import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/smart
 import 'package:cbj_smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
 import 'package:cbj_smart_device/utils.dart';
 import 'package:grpc/grpc.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
 
 /// This class get what to execute straight from the grpc request,
@@ -437,7 +438,8 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     Stream<CbjClientStatusRequests> request,
   ) async* {
     logger.i('object registerClient now');
-    yield CbjRequestsAndStatusFromHub();
+    ClientRequestsToSmartDeviceServer.steam.addStream(request);
+    yield* SmartDeviceServerRequestsToSmartDeviceClient.steam.stream;
   }
 
   @override
@@ -476,4 +478,16 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
       _deviceState,
     );
   }
+}
+
+/// Requests and updates from hub to the app
+class SmartDeviceServerRequestsToSmartDeviceClient {
+  static BehaviorSubject<CbjRequestsAndStatusFromHub> steam =
+      BehaviorSubject<CbjRequestsAndStatusFromHub>();
+}
+
+/// Requests and updates from app to the hub
+class ClientRequestsToSmartDeviceServer {
+  static BehaviorSubject<CbjClientStatusRequests> steam =
+      BehaviorSubject<CbjClientStatusRequests>();
 }
