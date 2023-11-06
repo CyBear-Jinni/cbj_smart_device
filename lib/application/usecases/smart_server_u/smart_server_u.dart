@@ -18,10 +18,11 @@ import 'package:uuid/uuid.dart';
 /// This class get what to execute straight from the grpc request,
 class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   final CbjDeviceStateGRPC _deviceState = CbjDeviceStateGRPC.waitingInComp;
+  static int port = 50054;
 
   Future startLocalServer() async {
     final server = Server.create(services: [CbjSmartDeviceServerU()]);
-    await server.serve(port: 50054);
+    await server.serve(port: port);
     logger.i('Server listening on port ${server.port}...');
   }
 
