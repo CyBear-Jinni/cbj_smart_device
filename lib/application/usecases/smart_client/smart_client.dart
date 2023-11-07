@@ -6,6 +6,11 @@ class SmartClient {
   static ClientChannel? channel;
   static CbjSmartDeviceConnectionsClient? stub;
 
+  Future dispose() async {
+    await channel?.shutdown();
+    await channel?.terminate();
+  }
+
   ///  Turn smart device on
   static Future<void> createStreamWithClients(String addressToHub) async {
     channel = await createCbjSmartDeviceServerClient(addressToHub);

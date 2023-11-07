@@ -19,11 +19,16 @@ import 'package:uuid/uuid.dart';
 class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   final CbjDeviceStateGRPC _deviceState = CbjDeviceStateGRPC.waitingInComp;
   static int port = 50054;
+  Server? server;
 
   Future startLocalServer() async {
-    final server = Server.create(services: [CbjSmartDeviceServerU()]);
-    await server.serve(port: port);
-    logger.i('Server listening on port ${server.port}...');
+    server = Server.create(services: [CbjSmartDeviceServerU()]);
+    server?.serve(port: port);
+    logger.i('Server listening on port ${server?.port}...');
+  }
+
+  Future dispose() async {
+    await server?.shutdown();
   }
 
   ///  Listening to port and deciding what to do with the response
