@@ -21,8 +21,6 @@ dependencies:
   get_it: ^7.6.4
   # A high performance, open source, general RPC framework that puts mobile and HTTP/2 first.
   grpc: ^3.2.4
-  # Convenient code generator for get_it
-  injectable: ^2.3.2  # Does not work on my armhf32, can be lack of ram https://TypeAdaptergithub.com/dart-lang/pub/issues/2347
   # Checks for an internet connection by opening a socket
   internet_connection_checker: ^1.0.0+1
   # Extremely fast, easy to use, and fully async NoSQL database.
@@ -41,9 +39,6 @@ dependencies:
 
 dev_dependencies:
   build_runner:
-
-  # A generator for injectable library
-  injectable_generator: ^2.4.1  # Does not work on my armhf32, can be lack of ram https://github.com/dart-lang/pub/issues/2347
 
   # Code generator for the Isar Database. Finds classes annotated with @Collection.
   isar_generator: ^3.1.0+1
