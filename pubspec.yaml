@@ -1,6 +1,6 @@
 name: cbj_smart_device
 description: Creating CyBear Jinni Smart Devices
-version: 1.0.1
+version: 1.0.2
 homepage: https://cybearjinni.com
 
 
@@ -8,14 +8,14 @@ environment:
   sdk: ^3.1.5
 
 dependencies:
+  cbj_integrations_controller:
+     git: https://github.com/CyBear-Jinni/cbj_integrations_controller.git
   # Functional programming thingies, let you use multiple return types
   dartz: ^0.10.1
   # Convert enum to string
   enum_to_string: ^2.0.1
   # Allow returning more than one type of object
   equatable: ^2.0.5
-  # Convenient code generator for get_it
-  injectable: ^2.3.2  # Does not work on my armhf32, can be lack of ram https://TypeAdaptergithub.com/dart-lang/pub/issues/2347
   # For the injection, allow accessing an object from anywhere in an App
   get_it: ^7.6.4
   # A high performance, open source, general RPC framework that puts mobile and HTTP/2 first.
@@ -30,16 +30,14 @@ dependencies:
   logger: ^2.0.2+1
   # Process run helpers for Linux/Win/Mac.
   process_run: ^0.13.2
+  # Extends the capabilities of Dart Streams and StreamControllers.
+  rxdart: ^0.27.7
   # Provides parse, inspect, and manipulate stack traces
-  stack_trace: ^1.11.1
+  stack_trace: ^1.11.0
   uuid: ^4.1.0
-
 
 dev_dependencies:
   build_runner:
-
-  # A generator for injectable library
-  injectable_generator: ^2.4.1  # Does not work on my armhf32, can be lack of ram https://github.com/dart-lang/pub/issues/2347
 
   # Code generator for the Isar Database. Finds classes annotated with @Collection.
   isar_generator: ^3.1.0+1

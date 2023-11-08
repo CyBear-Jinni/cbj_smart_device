@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/application/usecases/core_u/actions_to_preform_u.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
@@ -8,21 +9,26 @@ import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/domain/entities/local_db_e/local_db_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/smart_server_helper.dart';
-import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
 import 'package:cbj_smart_device/utils.dart';
 import 'package:grpc/grpc.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
 
 /// This class get what to execute straight from the grpc request,
 class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
-  static const CbjDeviceStateGRPC _deviceState =
-      CbjDeviceStateGRPC.waitingInComp;
+  final CbjDeviceStateGRPC _deviceState = CbjDeviceStateGRPC.waitingInComp;
+  static int port = 50054;
+  Server? server;
 
   Future startLocalServer() async {
-    final server = Server([CbjSmartDeviceServerU()]);
-    await server.serve(port: 50054);
-    logger.i('Server listening on port ${server.port}...');
+    server = Server.create(services: [CbjSmartDeviceServerU()]);
+    server?.serve(port: port);
+    logger.i('Server listening on port ${server?.port}...');
+  }
+
+  Future dispose() async {
+    await server?.shutdown();
   }
 
   ///  Listening to port and deciding what to do with the response
@@ -64,6 +70,31 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   }
 
   @override
+  Stream<CbjRequestsAndStatusFromHub> registerClient(
+    ServiceCall call,
+    Stream<CbjClientStatusRequests> request,
+  ) async* {
+    logger.i('object registerClient now');
+    request.listen((CbjClientStatusRequests c) {
+      print('Response from client');
+    });
+
+    yield* SmartDeviceServerRequestsToSmartDeviceClient.steam.map((event) {
+      print('Send to client');
+      return event;
+    });
+  }
+
+  @override
+  Stream<CbjClientStatusRequests> registerHub(
+    ServiceCall call,
+    Stream<CbjRequestsAndStatusFromHub> request,
+  ) async* {
+    logger.i('registerHub');
+    yield CbjClientStatusRequests();
+  }
+
+  @override
   Future<CbjCompSmartDeviceInfo> getCompInfo(
     ServiceCall call,
     CbjCommendStatus request,
@@ -97,18 +128,14 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
       switch (element.getDeviceType()) {
         case CbjDeviceTypes.light:
           cbjDeviceTypes = CbjDeviceTypes.light;
-          break;
         case CbjDeviceTypes.blinds:
           cbjDeviceTypes = CbjDeviceTypes.blinds;
-          break;
         case CbjDeviceTypes.boiler:
           cbjDeviceTypes = CbjDeviceTypes.boiler;
-          break;
         case CbjDeviceTypes.smartComputer:
           cbjDeviceTypes = CbjDeviceTypes.smartComputer;
           defaultName =
               defaultName.isNotEmpty ? defaultName : 'Personal Computer';
-          break;
         default:
           cbjDeviceTypes = CbjDeviceTypes.typeNotSupported;
       }
@@ -195,7 +222,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     CbjSmartDeviceInfo request,
   ) async {
     logger.i('Turn device ${request.id} off');
-    return executeCbjDeviceActionserver(
+    return executeCbjDeviceActionServer(
       request,
       CbjDeviceActions.off,
       _deviceState,
@@ -208,7 +235,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     CbjSmartDeviceInfo request,
   ) async {
     logger.i('Turn device ${request.id} on');
-    return executeCbjDeviceActionserver(
+    return executeCbjDeviceActionServer(
       request,
       CbjDeviceActions.on,
       _deviceState,
@@ -221,7 +248,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     CbjSmartDeviceInfo request,
   ) async {
     logger.i('Turn blinds ${request.id} up');
-    return executeCbjDeviceActionserver(
+    return executeCbjDeviceActionServer(
       request,
       CbjDeviceActions.moveUp,
       _deviceState,
@@ -235,7 +262,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   ) async {
     logger.i('Turn blinds ${request.id} down');
 
-    return executeCbjDeviceActionserver(
+    return executeCbjDeviceActionServer(
       request,
       CbjDeviceActions.moveDown,
       _deviceState,
@@ -249,7 +276,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   ) async {
     logger.i('Turn blinds ${request.id} stop');
 
-    return executeCbjDeviceActionserver(
+    return executeCbjDeviceActionServer(
       request,
       CbjDeviceActions.stop,
       _deviceState,
@@ -271,13 +298,13 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     }
   }
 
-  CbjCommendStatus executeCbjDeviceActionserver(
+  CbjCommendStatus executeCbjDeviceActionServer(
     CbjSmartDeviceInfo request,
     CbjDeviceActions deviceAction,
     CbjDeviceStateGRPC deviceState,
   ) {
-    final SmartDeviceBaseAbstract smartDevice =
-        getSmartDeviceBaseAbstract(request)!;
+    final SmartDeviceBaseAbstract? smartDevice =
+        getSmartDeviceBaseAbstract(request);
     if (smartDevice == null) {
       return CbjCommendStatus()..success = false;
     }
@@ -436,31 +463,13 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   }
 
   @override
-  Stream<CbjRequestsAndStatusFromHub> registerClient(
-    ServiceCall call,
-    Stream<CbjClientStatusRequests> request,
-  ) async* {
-    logger.i('object registerClient now');
-    yield CbjRequestsAndStatusFromHub();
-  }
-
-  @override
-  Stream<CbjClientStatusRequests> registerHub(
-    ServiceCall call,
-    Stream<CbjRequestsAndStatusFromHub> request,
-  ) async* {
-    logger.i('registerHub');
-    yield CbjClientStatusRequests();
-  }
-
-  @override
   Future<CbjCommendStatus> suspendComputer(
     ServiceCall call,
     CbjSmartDeviceInfo request,
   ) async {
     logger.i('Suspend computer');
 
-    return executeCbjDeviceActionserver(
+    return executeCbjDeviceActionServer(
       request,
       CbjDeviceActions.suspend,
       _deviceState,
@@ -474,10 +483,22 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   ) async {
     logger.i('Shutdown computer');
 
-    return executeCbjDeviceActionserver(
+    return executeCbjDeviceActionServer(
       request,
       CbjDeviceActions.shutdown,
       _deviceState,
     );
   }
+}
+
+/// Requests and updates from hub to the app
+class SmartDeviceServerRequestsToSmartDeviceClient {
+  static BehaviorSubject<CbjRequestsAndStatusFromHub> steam =
+      BehaviorSubject<CbjRequestsAndStatusFromHub>();
+}
+
+/// Requests and updates from app to the hub
+class ClientRequestsToSmartDeviceServer {
+  static BehaviorSubject<CbjClientStatusRequests> steam =
+      BehaviorSubject<CbjClientStatusRequests>();
 }

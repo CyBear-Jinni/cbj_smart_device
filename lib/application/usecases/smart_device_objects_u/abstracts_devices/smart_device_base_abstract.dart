@@ -3,7 +3,7 @@ import 'package:cbj_smart_device/core/device_information.dart';
 import 'package:cbj_smart_device/core/helper_methods.dart';
 import 'package:cbj_smart_device/core/permissions/permissions_manager.dart';
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
-import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/infrastructure/repositories/smart_device_objects_r/smart_device_objects_r.dart';
 
 ///  The super base class of all the smart device class and
