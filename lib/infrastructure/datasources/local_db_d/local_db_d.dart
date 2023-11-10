@@ -6,21 +6,21 @@ import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/sta
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/hive_d/hive_d.dart';
-import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 
 class LocalDbD {
   LocalDbD() {
-    _hiveD = HiveD();
+    _isarD = IsarD();
   }
 
-  HiveD? _hiveD;
+  IsarD? _isarD;
 
   Future<Map<String, List<String?>>?> getListOfSmartDevices() {
-    return _hiveD!.getListOfSmartDevices();
+    return _isarD!.getListOfSmartDevices();
   }
 
   Future<Map<String, String?>?> getListOfDatabaseInformation() {
-    return _hiveD!.getListOfDatabaseInformation();
+    return _isarD!.getListOfDatabaseInformation();
   }
 
   Future<void> saveAllDevices(
@@ -206,7 +206,7 @@ class LocalDbD {
       }
     }
 
-    await _hiveD?.saveAllDevices(smartDevicesMapList);
+    await _isarD?.saveAllDevices(smartDevicesMapList);
     return;
   }
 
@@ -227,6 +227,6 @@ class LocalDbD {
     firebaseAccountsInformationMap[AccountsInformationD.homeId] =
         firebaseAccountsInformationD.homeId;
 
-    _hiveD?.saveListOfDatabaseInformation(firebaseAccountsInformationMap);
+    _isarD?.saveListOfDatabaseInformation(firebaseAccountsInformationMap);
   }
 }

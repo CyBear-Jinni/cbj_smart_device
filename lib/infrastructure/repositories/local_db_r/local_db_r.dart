@@ -1,3 +1,4 @@
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/button_with_light_object.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
@@ -9,7 +10,6 @@ import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/local_db_d/local_db_d.dart';
-import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 
 class LocalDbR {
   LocalDbR() {
@@ -45,7 +45,6 @@ class LocalDbR {
               onOffPinNumber,
             ),
           );
-          break;
         case CbjDeviceTypes.boiler:
           final int? boilerPinNumber =
               values[1] == '' ? null : int.parse(values[1]!);
@@ -60,7 +59,6 @@ class LocalDbR {
               boilerButtonPinNumber,
             ),
           );
-          break;
         case CbjDeviceTypes.blinds:
           print('Adding from local db blind object');
           if (values.length < 7) {
@@ -96,7 +94,6 @@ class LocalDbR {
               downButtonPinNumber, // downButtonPinNumber
             ),
           );
-          break;
         case CbjDeviceTypes.button:
           final int? buttonPinNumber =
               values[1] == '' ? null : int.parse(values[1]!);
@@ -116,7 +113,6 @@ class LocalDbR {
               buttonStatesAction: buttonStatesAction,
             ),
           );
-          break;
         case CbjDeviceTypes.buttonWithLight:
           final int? buttonPinNumber =
               values[1] == '' ? null : int.parse(values[1]!);
@@ -139,7 +135,6 @@ class LocalDbR {
               buttonStatesAction: buttonStatesAction,
             ),
           );
-          break;
         default:
           print('Cannot add from local db, device type is not supported');
           break;
@@ -157,17 +152,25 @@ class LocalDbR {
 
     if (firebaseAccountsInformationMap == null) return null;
 
-    final String fireBaseProjectId =
-        firebaseAccountsInformationMap[AccountsInformationD.fireBaseProjectId]!;
-    final String fireBaseApiKey =
-        firebaseAccountsInformationMap[AccountsInformationD.fireBaseApiKey]!;
-    final String userEmail =
-        firebaseAccountsInformationMap[AccountsInformationD.userEmail]!;
-    final String userPassword =
-        firebaseAccountsInformationMap[AccountsInformationD.userPassword]!;
+    final String? fireBaseProjectId =
+        firebaseAccountsInformationMap[AccountsInformationD.fireBaseProjectId];
+    final String? fireBaseApiKey =
+        firebaseAccountsInformationMap[AccountsInformationD.fireBaseApiKey];
+    final String? userEmail =
+        firebaseAccountsInformationMap[AccountsInformationD.userEmail];
+    final String? userPassword =
+        firebaseAccountsInformationMap[AccountsInformationD.userPassword];
 
-    final String homeId =
-        firebaseAccountsInformationMap[AccountsInformationD.homeId]!;
+    final String? homeId =
+        firebaseAccountsInformationMap[AccountsInformationD.homeId];
+
+    if (fireBaseProjectId == null ||
+        fireBaseApiKey == null ||
+        userEmail == null ||
+        userPassword == null ||
+        homeId == null) {
+      return null;
+    }
 
     final FirebaseAccountsInformationD firebaseAccountsInformationD =
         FirebaseAccountsInformationD(
