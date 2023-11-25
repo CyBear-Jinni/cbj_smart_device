@@ -11,7 +11,7 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
     _wishClassesD = WishClassesD();
   }
 
-  WishClassesD? _wishClassesD;
+  late WishClassesD? _wishClassesD;
 
   ///  Function to start c script to interact with pins
   @override
@@ -20,7 +20,9 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
       print('Error PinInformation.pinAndPhysicalPinConfiguration was not set');
       return 'Error PinInformation.pinAndPhysicalPinConfiguration was not set';
     }
-    if (SharedVariables.instance.getProjectRootDirectoryPath().isEmpty) {
+    final String? projectRootDirectoryPath =
+        SharedVariables().getProjectRootDirectoryPath();
+    if (projectRootDirectoryPath == null || projectRootDirectoryPath.isEmpty) {
       print('Error SharedVariables.GetProjectRootDirectoryPath was not set');
       return 'Error SharedVariables.GetProjectRootDirectoryPath was not set';
     }
