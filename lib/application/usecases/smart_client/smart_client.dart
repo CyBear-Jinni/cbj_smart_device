@@ -1,9 +1,15 @@
-import 'package:cbj_smart_device/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_smart_device/application/usecases/smart_server_u/smart_server_u.dart';
 import 'package:grpc/grpc.dart';
 
 class SmartClient {
   static ClientChannel? channel;
   static CbjSmartDeviceConnectionsClient? stub;
+
+  Future dispose() async {
+    await channel?.shutdown();
+    await channel?.terminate();
+  }
 
   ///  Turn smart device on
   static Future<void> createStreamWithClients(String addressToHub) async {
@@ -32,7 +38,7 @@ class SmartClient {
     await channel?.shutdown();
     return ClientChannel(
       deviceIp,
-      port: 50054,
+      port: CbjSmartDeviceServerU.port,
       options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
     );
   }

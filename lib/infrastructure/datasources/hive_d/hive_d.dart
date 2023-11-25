@@ -1,8 +1,7 @@
+import 'package:cbj_integrations_controller/infrastructure/system_commands/system_commands_manager_d.dart';
 import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/hive_d/hive_objects_d/isar_database_information_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/hive_d/hive_objects_d/isar_devices_d.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/system_commands_d/system_commands_manager_d.dart';
-import 'package:cbj_smart_device/injection.dart';
 import 'package:cbj_smart_device/utils.dart';
 import 'package:isar/isar.dart';
 
@@ -30,7 +29,7 @@ class IsarD {
     try {
       if (finishedInitializing == null) {
         final String? snapCommonEnvironmentVariablePath =
-            await getIt<SystemCommandsManager>()
+            await SystemCommandsManager.instance
                 .getSnapCommonEnvironmentVariable();
         if (snapCommonEnvironmentVariablePath == null) {
           final String? currentUserName =
@@ -43,10 +42,17 @@ class IsarD {
         logger.i('Path of isar (deprecated): $isarFolderPath');
 
         await Isar.initializeIsarCore(download: true);
-        isar = await Isar.open([
-          IsarDevicesDSchema,
-          IsarDatabaseInformationDSchema,
-        ]);
+        if (isarFolderPath == null) {
+          return false;
+        }
+
+        isar = await Isar.open(
+          [
+            IsarDevicesDSchema,
+            IsarDatabaseInformationDSchema,
+          ],
+          directory: isarFolderPath!,
+        );
 
         finishedInitializing = true;
       }

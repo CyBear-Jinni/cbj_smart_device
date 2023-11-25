@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:cbj_integrations_controller/infrastructure/shared_variables.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
-import 'package:cbj_smart_device/core/shared_variables.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/core_d/manage_physical_components/pins_datasource/pin_setup_method_enum.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/wish_classes_d/wish_classes_d.dart';
 import 'package:cbj_smart_device/infrastructure/repositories/wish_classes_r/turn_pin_on_off_local_abstract.dart';
@@ -20,7 +20,7 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
       print('Error PinInformation.pinAndPhysicalPinConfiguration was not set');
       return 'Error PinInformation.pinAndPhysicalPinConfiguration was not set';
     }
-    if (SharedVariables.getProjectRootDirectoryPath() == null) {
+    if (SharedVariables.instance.getProjectRootDirectoryPath().isEmpty) {
       print('Error SharedVariables.GetProjectRootDirectoryPath was not set');
       return 'Error SharedVariables.GetProjectRootDirectoryPath was not set';
     }
