@@ -2,8 +2,7 @@ import 'package:cbj_integrations_controller/infrastructure/system_commands/syste
 
 class SmartDeviceObjectsD {
   static Future<String> getUuid() {
-    final SystemCommandsManager systemCommandsManager =
-        SystemCommandsManager.instance;
+    final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
     return systemCommandsManager.getUuidOfCurrentDevice();
   }
 }

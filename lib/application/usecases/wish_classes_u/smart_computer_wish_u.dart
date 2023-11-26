@@ -1,5 +1,5 @@
+import 'package:cbj_integrations_controller/infrastructure/system_commands/system_commands_manager_d.dart';
 import 'package:cbj_smart_device/core/device_information.dart';
-import 'package:cbj_smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
 
 ///  Class to change wish on status to device
 class SmartComputerWishU {
@@ -7,7 +7,7 @@ class SmartComputerWishU {
   static Future<String?> suspendComputer(
     DeviceInformation deviceInformation,
   ) {
-    return MySingletonHelper.suspendComputer();
+    return SystemCommandsManager().suspendComputer();
     // return 'Response from this device suspend successful';
   }
 
@@ -15,6 +15,6 @@ class SmartComputerWishU {
   static Future<String?> shutdownComputer(
     DeviceInformation deviceInformation,
   ) {
-    return MySingletonHelper.shutdownComputer();
+    return SystemCommandsManager().shutdownComputer();
   }
 }

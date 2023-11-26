@@ -21,7 +21,7 @@ class SetDevicesU {
     List<SmartDeviceBaseAbstract>? deviceList,
   }) async {
     if (deviceList != null) {
-      MySingleton.setSmartDevicesList(deviceList);
+      MySingleton().setSmartDevicesList(deviceList);
     } else {
       final String? deviceConfiguration =
           await _setDevicesE!.getDeviceDefaultConfig();
@@ -35,14 +35,14 @@ class SetDevicesU {
 
         final SmartComputerObject smartComputerObject =
             SmartComputerObject(uId, 'Personal Computer');
-        MySingleton.setSmartDevicesList([smartComputerObject]);
+        MySingleton().setSmartDevicesList([smartComputerObject]);
 
         return;
       }
       final List<SmartDeviceBaseAbstract> listOfSmartDevices =
           await _setDevicesE!.convertToListOfDevices(deviceConfiguration);
       if (listOfSmartDevices.isNotEmpty) {
-        MySingleton.setSmartDevicesList(listOfSmartDevices);
+        MySingleton().setSmartDevicesList(listOfSmartDevices);
       }
       print(listOfSmartDevices);
     }
@@ -52,7 +52,7 @@ class SetDevicesU {
   Future<void> manualSetup() async {
     final String uuid = await _setDevicesE!.getCurrentDeviceUUid();
 
-    MySingleton.setSmartDevicesList(<SmartDeviceBaseAbstract>[
+    MySingleton().setSmartDevicesList(<SmartDeviceBaseAbstract>[
       LightObject(uuid, 'Stairs', 8),
       // ButtonObject(10),
       LightObject(uuid, 'Storage', 12)

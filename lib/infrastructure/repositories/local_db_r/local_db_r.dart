@@ -21,7 +21,7 @@ class LocalDbR {
   Future<List<SmartDeviceBaseAbstract>?> getListOfSmartDevices() async {
     List<SmartDeviceBaseAbstract>? smartDeviceBaseAbstractList =
         <SmartDeviceBaseAbstract>[];
-    final String currentDeviceUuid = await MySingleton.getUuid();
+    final String currentDeviceUuid = await MySingleton().getUuid();
 
     final Map<String, List<String?>>? deviceListMap =
         await _localDbD!.getListOfSmartDevices();

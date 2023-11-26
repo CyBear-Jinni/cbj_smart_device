@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_integrations_controller/infrastructure/system_commands/system_commands_manager_d.dart';
 import 'package:cbj_smart_device/application/usecases/core_u/actions_to_preform_u.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
@@ -9,7 +10,6 @@ import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/domain/entities/local_db_e/local_db_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/smart_server_helper.dart';
-import 'package:cbj_smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
 import 'package:cbj_smart_device/utils.dart';
 import 'package:grpc/grpc.dart';
 import 'package:rxdart/rxdart.dart';
@@ -102,12 +102,13 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     logger.i('Get comp info');
 
     final String compId = const Uuid().v1();
-    final String compUuid = await MySingletonHelper.getUuid();
-    final String os = MySingletonHelper.getOs();
-    final String osVersion = MySingletonHelper.getOsVersion();
+    final String compUuid =
+        await SystemCommandsManager().getUuidOfCurrentDevice();
+    final String os = SystemCommandsManager().getOs();
+    final String osVersion = SystemCommandsManager().getOsVersion();
 
     final List<SmartDeviceBaseAbstract> devicesList =
-        MySingleton.getSmartDevicesList();
+        MySingleton().getSmartDevicesList();
 
     final CbjCompSpecs compSpecs = CbjCompSpecs(
       compId: compId,
@@ -132,6 +133,8 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
           cbjDeviceTypes = CbjDeviceTypes.blinds;
         case CbjDeviceTypes.boiler:
           cbjDeviceTypes = CbjDeviceTypes.boiler;
+        case CbjDeviceTypes.smart_camera:
+          cbjDeviceTypes = CbjDeviceTypes.smart_camera;
         case CbjDeviceTypes.smartComputer:
           cbjDeviceTypes = CbjDeviceTypes.smartComputer;
           defaultName =
@@ -212,7 +215,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     final CbjCommendStatus cbjCommendStatus = CbjCommendStatus();
     cbjCommendStatus.success = true;
     final LocalDbE localDbE = LocalDbE();
-    await localDbE.saveAllDevices(MySingleton.getSmartDevicesList());
+    await localDbE.saveAllDevices(MySingleton().getSmartDevicesList());
     return Future<CbjCommendStatus>.value(cbjCommendStatus);
   }
 
@@ -288,9 +291,10 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   ) {
     logger.i('getSmartDeviceBaseAbstract');
     try {
-      return MySingleton.getSmartDevicesList().firstWhere(
-        (smartDeviceBaseAbstractO) => smartDeviceBaseAbstractO.id == request.id,
-      );
+      return MySingleton().getSmartDevicesList().firstWhere(
+            (smartDeviceBaseAbstractO) =>
+                smartDeviceBaseAbstractO.id == request.id,
+          );
     } catch (exception) {
       logger.e('Exception, device name ${request.id} could not be found:'
           ' ${exception.toString()}');
@@ -398,7 +402,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
       logger.i('SetCompHelper');
 
       final List<SmartDeviceBaseAbstract> smartDeviceList =
-          MySingleton.getSmartDevicesList();
+          MySingleton().getSmartDevicesList();
 
       for (final SmartDeviceBaseAbstract smartDevice in smartDeviceList) {
         for (final CbjSmartDeviceInfo smartDeviceInfo
@@ -411,7 +415,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
       }
 
       final LocalDbE localDbE = LocalDbE();
-      await localDbE.saveAllDevices(MySingleton.getSmartDevicesList());
+      await localDbE.saveAllDevices(MySingleton().getSmartDevicesList());
 
       return CbjCommendStatus()..success = true;
     } catch (e) {
@@ -435,7 +439,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
       );
 
       for (final SmartDeviceBaseAbstract device
-          in MySingleton.getSmartDevicesList()) {
+          in MySingleton().getSmartDevicesList()) {
         if (device.getDeviceType() == CbjDeviceTypes.light) {
           final Map<String, String> dataToChange = {
             GrpcClientTypes.cbjDeviceStateGRPCTypeString:

@@ -29,11 +29,10 @@ class IsarD {
     try {
       if (finishedInitializing == null) {
         final String? snapCommonEnvironmentVariablePath =
-            await SystemCommandsManager.instance
-                .getSnapCommonEnvironmentVariable();
+            await SystemCommandsManager().getSnapCommonEnvironmentVariable();
         if (snapCommonEnvironmentVariablePath == null) {
           final String? currentUserName =
-              await MySingleton.getCurrentUserName();
+              await MySingleton().getCurrentUserName();
           isarFolderPath = '/home/$currentUserName/Documents/isar';
         } else {
           // /var/snap/cybear-jinni/common/isar
