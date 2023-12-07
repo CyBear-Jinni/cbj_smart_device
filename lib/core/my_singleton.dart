@@ -1,5 +1,5 @@
+import 'package:cbj_integrations_controller/infrastructure/system_commands/system_commands_manager_d.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
-import 'package:cbj_smart_device/infrastructure/repositories/core_r/my_singleton_helper.dart';
 
 class MySingleton {
   factory MySingleton() {
@@ -13,27 +13,27 @@ class MySingleton {
   }
 
   static final MySingleton _singleton = MySingleton._internal();
-  static List<SmartDeviceBaseAbstract>? smartDevicesList;
-  static Future<String>? _deviceUid;
-  static Future<String>? _currentUserName;
+  List<SmartDeviceBaseAbstract> smartDevicesList = [];
+  Future<String>? _deviceUid;
+  Future<String>? _currentUserName;
 
-  static Future<String> getUuid() => _deviceUid ??= MySingletonHelper.getUuid();
+  Future<String> getUuid() =>
+      _deviceUid ??= SystemCommandsManager().getUuidOfCurrentDevice();
 
-  static Future<String?> getCurrentUserName() =>
-      _currentUserName ??= MySingletonHelper.getCurrentUserName();
+  Future<String?> getCurrentUserName() =>
+      _currentUserName ??= SystemCommandsManager().getCurrentUserName();
 
-  static void setSmartDevicesList(
+  void setSmartDevicesList(
     List<SmartDeviceBaseAbstract> smartDeviceListVal,
   ) {
     smartDevicesList = smartDeviceListVal;
   }
 
-  static void addToSmartDevicesList(SmartDeviceBaseAbstract smartDeviceVal) {
-    smartDevicesList!.add(smartDeviceVal);
+  void addToSmartDevicesList(SmartDeviceBaseAbstract smartDeviceVal) {
+    smartDevicesList.add(smartDeviceVal);
   }
 
-  static List<SmartDeviceBaseAbstract> getSmartDevicesList() =>
-      smartDevicesList!;
+  List<SmartDeviceBaseAbstract> getSmartDevicesList() => smartDevicesList;
 }
 
 class CbjFirebaseAccountInformationFlutter {

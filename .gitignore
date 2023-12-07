@@ -91,3 +91,6 @@ lib/infrastructure/core/constant_credentials.dart
 
 # Web related
 lib/generated_plugin_registrant.dart
+
+# network tools gen
+network_tools_db
