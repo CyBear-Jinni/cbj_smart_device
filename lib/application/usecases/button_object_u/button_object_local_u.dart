@@ -1,9 +1,10 @@
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/button_object_local_abstract.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
-import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   @override
@@ -22,7 +23,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
         if (returnValue < 0) {
           errorCounter++;
           if (errorCounter > 10) {
-            print('Stop the listening to the button, it failed more than '
+            logger.i('Stop the listening to the button, it failed more than '
                 '$errorCounter times');
           }
           return;
@@ -43,8 +44,8 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
         await Future.delayed(const Duration(seconds: 1));
       }
     } catch (error) {
-      print('Path/argument 1 is not specified');
-      print('error: $error');
+      logger.i('Path/argument 1 is not specified');
+      logger.i('error: $error');
     }
   }
 
@@ -60,12 +61,12 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
       while (true) {
         final int returnValue =
             await buttonObjectRepository!.listenToButtonPress(buttonPinNumber);
-        print('Boiler button number $buttonPinNumber was pressed');
+        logger.i('Boiler button number $buttonPinNumber was pressed');
 
         if (returnValue < 0) {
           errorCounter++;
           if (errorCounter > 10) {
-            print('Stop the listening to the button, it failed more than '
+            logger.i('Stop the listening to the button, it failed more than '
                 '$errorCounter times');
           }
           return;
@@ -86,8 +87,8 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
         await Future.delayed(const Duration(seconds: 1));
       }
     } catch (error) {
-      print('Path/argument 1 is not specified');
-      print('error: $error');
+      logger.i('Path/argument 1 is not specified');
+      logger.i('error: $error');
     }
   }
 
@@ -129,7 +130,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
       await buttonObjectRepository!
           .listenToButtonPress(buttonPinNumber)
           .then((int exitCode) async {
-        print('Blind button number $buttonNumber was pressed');
+        logger.i('Blind button number $buttonNumber was pressed');
         await changeBlindsPinsOutput(
           blindsObject,
           firstLightPin,

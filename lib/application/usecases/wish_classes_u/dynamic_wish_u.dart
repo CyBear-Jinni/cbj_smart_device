@@ -3,10 +3,10 @@ import 'package:cbj_smart_device/core/device_information.dart';
 class DynamicWishU {
   static String setDynamic(DeviceInformation deviceInformation) {
     switch (deviceInformation.runtimeType) {
-      case RemoteDevice:
-        return setDynamicRemote(deviceInformation);
-      case LocalDevice:
-        return setDynamicLocal(deviceInformation);
+      case final RemoteDevice type:
+        return setDynamicRemote(type);
+      case final LocalDevice type:
+        return setDynamicLocal(type);
     }
     return 'DeviceBase type not supported';
   }
@@ -28,5 +28,4 @@ class DynamicWishU {
 //  TODO: Open connection for fluid local dynamic value change
 
 //  TODO: Open connection for fluid remote dynamic value change
-
 }

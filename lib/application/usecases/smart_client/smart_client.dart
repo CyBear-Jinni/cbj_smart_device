@@ -1,5 +1,6 @@
 import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/application/usecases/smart_server_u/smart_server_u.dart';
+import 'package:cbj_smart_device/utils.dart';
 import 'package:grpc/grpc.dart';
 
 class SmartClient {
@@ -21,12 +22,12 @@ class SmartClient {
     try {
       response = stub!.registerHub(streamCbjClientStatusRequests);
       response.listen((value) {
-        print('Greeter client received: $value');
+        logger.i('Greeter client received: $value');
       });
 // await channel!.shutdown();
 // return response.success.toString();
     } catch (e) {
-      print('Caught error: $e');
+      logger.i('Caught error: $e');
     }
 // await channel!.shutdown();
 // throw 'Error';

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cbj_smart_device/utils.dart';
+
 class RecognitionClass {
   Future<void> listenToLightCommend() async {
     final List<String> pythonCommends = <String>[];
@@ -138,12 +140,12 @@ except Exception as e:
 
 ''');
     while (true) {
-      print('Try me');
+      logger.i('Try me');
       await Process.run('python3', pythonCommends)
           .then((ProcessResult results) {
-        print(results.stdout);
+        logger.i(results.stdout);
       });
-      print('Done');
+      logger.i('Done');
     }
   }
 }

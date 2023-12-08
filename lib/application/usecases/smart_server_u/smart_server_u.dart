@@ -9,7 +9,6 @@ import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abs
 import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/domain/entities/local_db_e/local_db_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/smart_server_d/smart_server_helper.dart';
 import 'package:cbj_smart_device/utils.dart';
 import 'package:grpc/grpc.dart';
 import 'package:rxdart/rxdart.dart';
@@ -60,7 +59,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     logger.i('startListenToDb');
 
     if (firebaseAccountInformationD == null) {
-      print('Database var databaseInformationFromDb is null');
+      logger.i('Database var databaseInformationFromDb is null');
       return;
     }
 
@@ -76,11 +75,11 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   ) async* {
     logger.i('object registerClient now');
     request.listen((CbjClientStatusRequests c) {
-      print('Response from client');
+      logger.i('Response from client');
     });
 
     yield* SmartDeviceServerRequestsToSmartDeviceClient.steam.map((event) {
-      print('Send to client');
+      logger.i('Send to client');
       return event;
     });
   }
@@ -108,7 +107,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     final String osVersion = SystemCommandsManager().getOsVersion();
 
     final List<SmartDeviceBaseAbstract> devicesList =
-        MySingleton().getSmartDevicesList();
+        MySingleton().smartDevicesList;
 
     final CbjCompSpecs compSpecs = CbjCompSpecs(
       compId: compId,
@@ -124,9 +123,9 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     for (var element in devicesList) {
       CbjDeviceTypes cbjDeviceTypes;
 
-      String defaultName = element.deviceInformation.getName();
+      String defaultName = element.deviceInformation.name;
 
-      switch (element.getDeviceType()) {
+      switch (element.smartDeviceType) {
         case CbjDeviceTypes.light:
           cbjDeviceTypes = CbjDeviceTypes.light;
         case CbjDeviceTypes.blinds:
@@ -215,7 +214,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     final CbjCommendStatus cbjCommendStatus = CbjCommendStatus();
     cbjCommendStatus.success = true;
     final LocalDbE localDbE = LocalDbE();
-    await localDbE.saveAllDevices(MySingleton().getSmartDevicesList());
+    await localDbE.saveAllDevices(MySingleton().smartDevicesList);
     return Future<CbjCommendStatus>.value(cbjCommendStatus);
   }
 
@@ -291,13 +290,13 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
   ) {
     logger.i('getSmartDeviceBaseAbstract');
     try {
-      return MySingleton().getSmartDevicesList().firstWhere(
+      return MySingleton().smartDevicesList.firstWhere(
             (smartDeviceBaseAbstractO) =>
                 smartDeviceBaseAbstractO.id == request.id,
           );
     } catch (exception) {
       logger.e('Exception, device name ${request.id} could not be found:'
-          ' ${exception.toString()}');
+          ' $exception');
       return null;
     }
   }
@@ -402,20 +401,20 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
       logger.i('SetCompHelper');
 
       final List<SmartDeviceBaseAbstract> smartDeviceList =
-          MySingleton().getSmartDevicesList();
+          MySingleton().smartDevicesList;
 
       for (final SmartDeviceBaseAbstract smartDevice in smartDeviceList) {
         for (final CbjSmartDeviceInfo smartDeviceInfo
             in compInfo.smartDevicesInComp) {
           if (smartDevice.id == smartDeviceInfo.id) {
-            smartDevice.deviceInformation.setName(smartDeviceInfo.defaultName);
+            smartDevice.deviceInformation.name = smartDeviceInfo.defaultName;
             break;
           }
         }
       }
 
       final LocalDbE localDbE = LocalDbE();
-      await localDbE.saveAllDevices(MySingleton().getSmartDevicesList());
+      await localDbE.saveAllDevices(MySingleton().smartDevicesList);
 
       return CbjCommendStatus()..success = true;
     } catch (e) {
@@ -438,16 +437,6 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
         request.homeId,
       );
 
-      for (final SmartDeviceBaseAbstract device
-          in MySingleton().getSmartDevicesList()) {
-        if (device.getDeviceType() == CbjDeviceTypes.light) {
-          final Map<String, String> dataToChange = {
-            GrpcClientTypes.cbjDeviceStateGRPCTypeString:
-                CbjDeviceStateGRPC.ack.toString(),
-          };
-        }
-      }
-
       final LocalDbE localDbE = LocalDbE();
       localDbE.saveListOfDatabaseInformation(firebaseAccountsInformationD);
 
@@ -461,7 +450,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
 
   Future<void> exitTheApp() async {
     const int secondsToExistTheProgram = 15;
-    print('$secondsToExistTheProgram seconds to exit the program');
+    logger.i('$secondsToExistTheProgram seconds to exit the program');
     await Future.delayed(const Duration(seconds: secondsToExistTheProgram));
     exit(0);
   }

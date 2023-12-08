@@ -1,9 +1,9 @@
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:cbj_smart_device/core/device_information.dart';
 import 'package:cbj_smart_device/core/helper_methods.dart';
 import 'package:cbj_smart_device/core/permissions/permissions_manager.dart';
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
-import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/infrastructure/repositories/smart_device_objects_r/smart_device_objects_r.dart';
 
 ///  The super base class of all the smart device class and
@@ -62,14 +62,12 @@ abstract class SmartDeviceBaseAbstract {
 
   //  Getters
 
-  ///  Get smart device type
-  CbjDeviceTypes? getDeviceType() => smartDeviceType;
 
   /// Returning the non abstract of this object
   Type getTheNonAbstractObjectOfThisInstance() {
     return EnumHelper.getTheNonAbstractObjectOfSmartDeviceBaseAbstract(
       this,
-      getDeviceType()!,
+      smartDeviceType!,
     );
   }
 
@@ -86,8 +84,4 @@ abstract class SmartDeviceBaseAbstract {
   Future<String> getUuid() {
     return SmartDeviceObjectsR.getUuid();
   }
-
-  //  Setters
-
-  void setDeviceType(CbjDeviceTypes deviceType) => smartDeviceType = deviceType;
 }

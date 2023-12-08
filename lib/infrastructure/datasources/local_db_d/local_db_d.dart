@@ -1,3 +1,4 @@
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/button_with_light_object.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
@@ -6,7 +7,7 @@ import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/sta
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/hive_d/hive_d.dart';
-import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 class LocalDbD {
   LocalDbD() {
@@ -36,10 +37,10 @@ class LocalDbD {
         in smartDevicesList) {
       final String deviceName = smartDeviceBaseAbstract.id!;
       final String deviceTypeAsString = EnumHelper.deviceTypeToString(
-        smartDeviceBaseAbstract.getDeviceType()!,
+        smartDeviceBaseAbstract.smartDeviceType!,
       );
 
-      if (smartDeviceBaseAbstract.getDeviceType() == CbjDeviceTypes.blinds) {
+      if (smartDeviceBaseAbstract.smartDeviceType == CbjDeviceTypes.blinds) {
         String? onOffPin;
         if (smartDeviceBaseAbstract.onOffPin != null &&
             smartDeviceBaseAbstract.onOffPin!.pinAndPhysicalPinConfiguration !=
@@ -99,9 +100,9 @@ class LocalDbD {
           blindsUpPin,
           buttonPinUp,
           blindsDownPin,
-          buttonPinDown
+          buttonPinDown,
         ];
-      } else if (smartDeviceBaseAbstract.getDeviceType() ==
+      } else if (smartDeviceBaseAbstract.smartDeviceType ==
           CbjDeviceTypes.light) {
         String? onOffPin;
         if (smartDeviceBaseAbstract.onOffPin != null &&
@@ -113,7 +114,7 @@ class LocalDbD {
         }
 
         smartDevicesMapList[deviceName] = [deviceTypeAsString, onOffPin];
-      } else if (smartDeviceBaseAbstract.getDeviceType() ==
+      } else if (smartDeviceBaseAbstract.smartDeviceType ==
           CbjDeviceTypes.boiler) {
         String? onOffPin;
         if (smartDeviceBaseAbstract.onOffPin != null &&
@@ -160,9 +161,9 @@ class LocalDbD {
           boilerPin,
           boilerButtonPin,
           onOffPin,
-          onOffButtonPinNumber
+          onOffButtonPinNumber,
         ];
-      } else if (smartDeviceBaseAbstract.getDeviceType() ==
+      } else if (smartDeviceBaseAbstract.smartDeviceType ==
           CbjDeviceTypes.button) {
         final ButtonObject tempButtonO =
             smartDeviceBaseAbstract as ButtonObject;
@@ -177,7 +178,7 @@ class LocalDbD {
           deviceTypeAsString,
           buttonPressPin,
         ];
-      } else if (smartDeviceBaseAbstract.getDeviceType() ==
+      } else if (smartDeviceBaseAbstract.smartDeviceType ==
           CbjDeviceTypes.buttonWithLight) {
         final ButtonWithLightObject tempButtonO =
             smartDeviceBaseAbstract as ButtonWithLightObject;
@@ -201,8 +202,8 @@ class LocalDbD {
           buttonLightPin,
         ];
       } else {
-        print("Can't save device, type "
-            '${smartDeviceBaseAbstract.getDeviceType()} is not supported');
+        logger.i("Can't save device, type "
+            '${smartDeviceBaseAbstract.smartDeviceType} is not supported');
       }
     }
 

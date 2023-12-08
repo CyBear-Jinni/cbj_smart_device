@@ -23,17 +23,10 @@ class MySingleton {
   Future<String?> getCurrentUserName() =>
       _currentUserName ??= SystemCommandsManager().getCurrentUserName();
 
-  void setSmartDevicesList(
-    List<SmartDeviceBaseAbstract> smartDeviceListVal,
-  ) {
-    smartDevicesList = smartDeviceListVal;
-  }
-
+ 
   void addToSmartDevicesList(SmartDeviceBaseAbstract smartDeviceVal) {
     smartDevicesList.add(smartDeviceVal);
   }
-
-  List<SmartDeviceBaseAbstract> getSmartDevicesList() => smartDevicesList;
 }
 
 class CbjFirebaseAccountInformationFlutter {
@@ -50,6 +43,6 @@ class CbjFirebaseAccountInformationFlutter {
   String userPassword;
 
   bool areAllValuesNotNull() {
-    return fireBaseApiKey != null;
+    return true;
   }
 }

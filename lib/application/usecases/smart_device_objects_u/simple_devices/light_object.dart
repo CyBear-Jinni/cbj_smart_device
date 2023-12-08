@@ -1,5 +1,6 @@
-import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_simple_abstract.dart';
 import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_simple_abstract.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 class LightObject extends SmartDeviceSimpleAbstract {
   LightObject(
@@ -9,14 +10,13 @@ class LightObject extends SmartDeviceSimpleAbstract {
   ) : super(
           onOffButtonPinNumber: null,
         ) {
-    setDeviceType(CbjDeviceTypes.light);
-    print('New light object');
+    deviceType = CbjDeviceTypes.light;
+    logger.i('New light object');
   }
 
   @override
   List<String> getNeededPinTypesList() => <String>['gpio'];
 
-  @override
   static List<String> neededPinTypesList() => <String>['gpio'];
 
   ///  Return smart device type

@@ -1,5 +1,6 @@
-import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 ///  Abstract class for devices with property of how much to move and without
 ///  how much time the device is doing action without stopping
@@ -34,8 +35,8 @@ abstract class SmartDeviceStaticAbstract extends SmartDeviceBase {
     CbjDeviceStateGRPC deviceState,
   ) async {
     final wish = convertWishStringToWishesObject(wishString);
-    print(wishString);
-    print(wish.toString());
+    logger.i(wishString);
+    logger.i(wish.toString());
     if (wish == null) return 'Your wish does not exist on static class';
     return executeDeviceAction(wish, deviceState);
   }

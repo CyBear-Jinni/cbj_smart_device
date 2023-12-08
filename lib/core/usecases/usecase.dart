@@ -8,7 +8,7 @@ abstract class UseCase<Type, Params> {
 
 class ReturnSmartDeviceObject extends UseCase {
   @override
-  Future<Either<Failure, SmartDeviceBaseAbstract>> call(params) {
+  Future<Either<Failure, SmartDeviceBaseAbstract>> call(dynamic params) {
     // TODO: implement call
     throw UnimplementedError();
   }

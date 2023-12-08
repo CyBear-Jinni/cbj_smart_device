@@ -1,11 +1,11 @@
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/button_object_local_u.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_simple_abstract.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
-import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
-import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 class BoilerObject extends SmartDeviceSimpleAbstract {
   BoilerObject(
@@ -21,11 +21,11 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
           onOffPinNumber,
           onOffButtonPinNumber: onOffButtonPinNumber,
         ) {
-    print('New boiler object');
+    logger.i('New boiler object');
     boilerPin = DevicePinListManager().getGpioPin(boilerPinNUmber);
     boilerButtonPin = DevicePinListManager().getGpioPin(boilerButtonPinNumber);
     listenButtonsPress();
-    setDeviceType(CbjDeviceTypes.boiler);
+    deviceType = CbjDeviceTypes.boiler;
   }
 
   PinInformation? boilerPin;
@@ -34,7 +34,6 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
   @override
   List<String> getNeededPinTypesList() => <String>['gpio', 'gpio'];
 
-  @override
   static List<String> neededPinTypesList() => <String>['gpio', 'gpio'];
 
   ///  Return smart device type
@@ -78,8 +77,6 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
 
     if (wishExecuteResult != null) {
       if (deviceState != CbjDeviceStateGRPC.ack) {
-        final String cbjDeviceActionstring =
-            EnumHelper.deviceActionToString(deviceAction);
       }
       return wishExecuteResult;
     }
@@ -92,7 +89,7 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
       ButtonObjectLocalU()
           .buttonPressedForBoiler(this, boilerButtonPin!, boilerPin!);
     } else {
-      print('Cannot listen to boiler, one of the variables is null');
+      logger.i('Cannot listen to boiler, one of the variables is null');
     }
   }
 }
