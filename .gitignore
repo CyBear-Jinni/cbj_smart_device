@@ -97,3 +97,6 @@ network_tools_db
 
 # melos
 pubspec_overrides.yaml
+
+# Linux
+.directory
