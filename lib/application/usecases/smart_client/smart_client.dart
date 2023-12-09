@@ -16,14 +16,10 @@ class SmartClient {
   static Future<void> createStreamWithClients(String addressToHub) async {
     channel = await createCbjSmartDeviceServerClient(addressToHub);
     stub = CbjSmartDeviceConnectionsClient(channel!);
-    ResponseStream<CbjClientStatusRequests> response;
-    final Stream<CbjRequestsAndStatusFromHub> streamCbjClientStatusRequests =
-        Stream.value(CbjRequestsAndStatusFromHub());
+
     try {
-      response = stub!.registerHub(streamCbjClientStatusRequests);
-      response.listen((value) {
-        logger.i('Greeter client received: $value');
-      });
+      stub!.registerHub(Stream.value(CbjRequestsAndStatusFromHub()));
+
 // await channel!.shutdown();
 // return response.success.toString();
     } catch (e) {
