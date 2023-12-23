@@ -12,15 +12,13 @@ class SmartCameraObject extends SmartDeviceSimpleAbstract {
           null,
           onOffButtonPinNumber: null,
         ) {
-    setDeviceType(CbjDeviceTypes.smart_camera);
+    deviceType = CbjDeviceTypes.smart_camera;
     logger.i('New smart camera');
   }
 
   @override
   List<String> getNeededPinTypesList() => <String>[];
 
-  @override
-  static List<String> neededPinTypesList() => <String>[];
 
   ///  Return smart device type
   @override

@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 ///  This class is abstract, it manages all the pins list types both what exist
 ///  and what in use, getting pin number should be through here
@@ -22,7 +23,7 @@ abstract class DeviceConfigurationBaseClass {
     }
 
     final int isTheGpioPinFree = isGpioPinFree(pinNumber);
-    print('Pin is ${pinInformation.pinAndPhysicalPinConfiguration}');
+    logger.i('Pin is ${pinInformation.pinAndPhysicalPinConfiguration}');
     if (isTheGpioPinFree != 0) {
       throw 'Cant use this pin $pinNumber error code $isTheGpioPinFree';
     }
@@ -100,7 +101,7 @@ abstract class DeviceConfigurationBaseClass {
         return pinInformation;
       }
     }
-    print("There isn't free gpio");
+    logger.i("There isn't free gpio");
     return null;
   }
 

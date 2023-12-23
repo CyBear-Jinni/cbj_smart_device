@@ -1,10 +1,11 @@
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
-import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/infrastructure/repositories/button_object_r/button_object_r.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 /// Button that contains light inside of it with one color and no opacity.
 class ButtonWithLightObject extends ButtonObject {
@@ -19,11 +20,12 @@ class ButtonWithLightObject extends ButtonObject {
 
     buttonObjectRepository = ButtonObjectR();
     listenToButtonPress();
-    print('Button with light object has been created');
+    logger.i('Button with light object has been created');
   }
 
   ///  The type of the smart device, Light, blinds, button etc
   @override
+  // ignore: overridden_fields
   CbjDeviceTypes? smartDeviceType = CbjDeviceTypes.buttonWithLight;
 
   /// The light pin around the button.
@@ -45,8 +47,6 @@ class ButtonWithLightObject extends ButtonObject {
       return;
     }
 
-    String? wishExecuteResult;
-
     while (true) {
       await buttonObjectRepository!
           .listenToButtonPress(buttonPin!)
@@ -57,10 +57,10 @@ class ButtonWithLightObject extends ButtonObject {
       if (whenToLightButtonLight == CbjWhenToExecute.onOddNumberPress &&
           pressStateCounter % 2 != 0) {
       } else if (whenToLightButtonLight == CbjWhenToExecute.evenNumberPress &&
-          pressStateCounter % 2 == 0) {
-        wishExecuteResult = OnWishU.setOn(deviceInformation, buttonLight);
+          pressStateCounter.isEven) {
+        OnWishU.setOn(deviceInformation, buttonLight);
       } else {
-        wishExecuteResult = OffWishU.setOff(deviceInformation, buttonLight);
+        OffWishU.setOff(deviceInformation, buttonLight);
       }
       await Future.delayed(const Duration(milliseconds: 500));
     }

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cbj_smart_device/utils.dart';
+
 class PythonSpeechToText {
   PythonSpeechToText() {
     projectPath =
@@ -9,7 +11,7 @@ class PythonSpeechToText {
   String? projectPath;
 
   Future<ProcessResult> listenToVoiceCommand() async {
-    print('Start talking');
+    logger.i('Start talking');
     await Future.delayed(const Duration(milliseconds: 3000));
 
     return await Process.run(

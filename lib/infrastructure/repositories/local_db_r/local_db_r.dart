@@ -6,25 +6,24 @@ import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abs
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
-import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/local_db_d/local_db_d.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 class LocalDbR {
   LocalDbR() {
     _localDbD = LocalDbD();
   }
 
-  LocalDbD? _localDbD;
+  late LocalDbD _localDbD;
 
   Future<List<SmartDeviceBaseAbstract>?> getListOfSmartDevices() async {
     List<SmartDeviceBaseAbstract>? smartDeviceBaseAbstractList =
         <SmartDeviceBaseAbstract>[];
-    final String currentDeviceUuid = await MySingleton().getUuid();
 
     final Map<String, List<String?>>? deviceListMap =
-        await _localDbD!.getListOfSmartDevices();
+        await _localDbD.getListOfSmartDevices();
     if (deviceListMap == null) {
       return null;
     }
@@ -37,7 +36,7 @@ class LocalDbR {
         case CbjDeviceTypes.light:
           final int? onOffPinNumber =
               values[1] == '' ? null : int.parse(values[1]!);
-          print('Adding from local db light object');
+          logger.i('Adding from local db light object');
           smartDeviceBaseAbstractList.add(
             LightObject(
               deviceUuid,
@@ -50,7 +49,7 @@ class LocalDbR {
               values[1] == '' ? null : int.parse(values[1]!);
           final int? boilerButtonPinNumber =
               values[2] == '' ? null : int.parse(values[2]!);
-          print('Adding from local db boiler object');
+          logger.i('Adding from local db boiler object');
           smartDeviceBaseAbstractList.add(
             BoilerObject(
               deviceUuid,
@@ -60,7 +59,7 @@ class LocalDbR {
             ),
           );
         case CbjDeviceTypes.blinds:
-          print('Adding from local db blind object');
+          logger.i('Adding from local db blind object');
           if (values.length < 7) {
             break;
           }
@@ -97,7 +96,7 @@ class LocalDbR {
         case CbjDeviceTypes.button:
           final int? buttonPinNumber =
               values[1] == '' ? null : int.parse(values[1]!);
-          print('Adding from local db button object');
+          logger.i('Adding from local db button object');
 
           final Map<CbjWhenToExecute,
                   Map<SmartDeviceBase, List<CbjDeviceActions>>>?
@@ -118,7 +117,7 @@ class LocalDbR {
               values[1] == '' ? null : int.parse(values[1]!);
           final int? buttonLightPinNumber =
               values[2] == '' ? null : int.parse(values[2]!);
-          print('Adding from local db button object');
+          logger.i('Adding from local db button object');
 
           final Map<CbjWhenToExecute,
                   Map<SmartDeviceBase, List<CbjDeviceActions>>>?
@@ -136,7 +135,7 @@ class LocalDbR {
             ),
           );
         default:
-          print('Cannot add from local db, device type is not supported');
+          logger.i('Cannot add from local db, device type is not supported');
           break;
       }
     }
@@ -148,7 +147,7 @@ class LocalDbR {
 
   Future<FirebaseAccountsInformationD?> getListOfDatabaseInformation() async {
     final Map<String, String?>? firebaseAccountsInformationMap =
-        await _localDbD!.getListOfDatabaseInformation();
+        await _localDbD.getListOfDatabaseInformation();
 
     if (firebaseAccountsInformationMap == null) return null;
 
@@ -187,13 +186,13 @@ class LocalDbR {
   Future<void> saveAllDevices(
     List<SmartDeviceBaseAbstract> smartDevicesList,
   ) async {
-    await _localDbD!.saveAllDevices(smartDevicesList);
+    await _localDbD.saveAllDevices(smartDevicesList);
     return;
   }
 
   void saveListOfDatabaseInformation(
     FirebaseAccountsInformationD firebaseAccountsInformationD,
   ) {
-    _localDbD!.saveListOfDatabaseInformation(firebaseAccountsInformationD);
+    _localDbD.saveListOfDatabaseInformation(firebaseAccountsInformationD);
   }
 }
