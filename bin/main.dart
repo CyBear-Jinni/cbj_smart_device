@@ -13,7 +13,8 @@ void main(List<String> arguments) async {
   try {
     configureNetworkTools('network_tools_db');
     SystemCommandsManager();
-    SharedVariables(arguments.firstOrNull ?? Directory.current.path);
+    SharedVariables()
+        .asyncConstructor(arguments.firstOrNull ?? Directory.current.path);
   } catch (error) {
     logger.w('Path/argument 1 is not specified\n$error');
   }

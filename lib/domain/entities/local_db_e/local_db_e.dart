@@ -7,30 +7,30 @@ class LocalDbE {
     _localDbR = LocalDbR();
   }
 
-  LocalDbR? _localDbR;
+  late LocalDbR _localDbR;
 
   Future<List<SmartDeviceBaseAbstract>?> getListOfSmartDevices() async {
     final List<SmartDeviceBaseAbstract>? smartDeviceList =
-        await _localDbR!.getListOfSmartDevices();
+        await _localDbR.getListOfSmartDevices();
     return smartDeviceList;
   }
 
   Future<FirebaseAccountsInformationD?> getListOfDatabaseInformation() async {
     final FirebaseAccountsInformationD? firebaseAccountsInformationD =
-        await _localDbR!.getListOfDatabaseInformation();
+        await _localDbR.getListOfDatabaseInformation();
     return firebaseAccountsInformationD;
   }
 
   Future<void> saveAllDevices(
     List<SmartDeviceBaseAbstract> smartDevicesList,
   ) async {
-    await _localDbR!.saveAllDevices(smartDevicesList);
+    await _localDbR.saveAllDevices(smartDevicesList);
     return;
   }
 
   void saveListOfDatabaseInformation(
     FirebaseAccountsInformationD firebaseAccountsInformationD,
   ) {
-    _localDbR!.saveListOfDatabaseInformation(firebaseAccountsInformationD);
+    _localDbR.saveListOfDatabaseInformation(firebaseAccountsInformationD);
   }
 }

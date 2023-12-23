@@ -14,17 +14,17 @@ class SetDevicesU {
     _setDevicesE = SetDevicesE();
   }
 
-  SetDevicesE? _setDevicesE;
+  late SetDevicesE _setDevicesE;
 
   ///  Setting all the devices from saved data
   Future<void> setAllDevices({
     List<SmartDeviceBaseAbstract>? deviceList,
   }) async {
     if (deviceList != null) {
-      MySingleton.setSmartDevicesList(deviceList);
+      MySingleton().smartDevicesList = deviceList;
     } else {
       final String? deviceConfiguration =
-          await _setDevicesE!.getDeviceDefaultConfig();
+          await _setDevicesE.getDeviceDefaultConfig();
       if (deviceConfiguration == null || deviceConfiguration.isEmpty) {
         logger.i(
           '\nDefault configuration file content is null or empty so it will act as if this computer is just a smart computer without pin output.\n',
@@ -35,27 +35,27 @@ class SetDevicesU {
 
         final SmartComputerObject smartComputerObject =
             SmartComputerObject(uId, 'Personal Computer');
-        MySingleton.setSmartDevicesList([smartComputerObject]);
+        MySingleton().smartDevicesList = [smartComputerObject];
 
         return;
       }
       final List<SmartDeviceBaseAbstract> listOfSmartDevices =
-          await _setDevicesE!.convertToListOfDevices(deviceConfiguration);
+          await _setDevicesE.convertToListOfDevices(deviceConfiguration);
       if (listOfSmartDevices.isNotEmpty) {
-        MySingleton.setSmartDevicesList(listOfSmartDevices);
+        MySingleton().smartDevicesList = listOfSmartDevices;
       }
-      print(listOfSmartDevices);
+      logger.i(listOfSmartDevices);
     }
 //      manualSetup();
   }
 
   Future<void> manualSetup() async {
-    final String uuid = await _setDevicesE!.getCurrentDeviceUUid();
+    final String uuid = await _setDevicesE.getCurrentDeviceUUid();
 
-    MySingleton.setSmartDevicesList(<SmartDeviceBaseAbstract>[
+    MySingleton().smartDevicesList = <SmartDeviceBaseAbstract>[
       LightObject(uuid, 'Stairs', 8),
       // ButtonObject(10),
-      LightObject(uuid, 'Storage', 12)
+      LightObject(uuid, 'Storage', 12),
       // ButtonObject(14),
 
 //        LightObject('30:23:a2:G3:34', 'Guy ceiling light', 11,
@@ -77,6 +77,6 @@ class SetDevicesU {
 //        //  blindsDownPin
 //        14 // downButtonPinNumber
 //    )); // NanoPi Duo2
-    ]);
+    ];
   }
 }

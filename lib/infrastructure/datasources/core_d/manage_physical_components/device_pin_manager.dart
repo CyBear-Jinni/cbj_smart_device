@@ -1,3 +1,4 @@
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_integrations_controller/infrastructure/system_commands/system_commands_manager_d.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/button_with_light_object.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/simple_button_object.dart';
@@ -10,7 +11,7 @@ import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/raspberry_pi3_model_b_rev_1_2/raspberry_pi3_model_b_rev_1_2_configuration.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
-import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 ///  This class save all the configuration of the pins per device,
 ///  every device have different pin for each task,
@@ -59,8 +60,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
 
   @override
   Future setPhysicalDeviceType() async {
-    final SystemCommandsManager systemCommandsManager =
-        SystemCommandsManager.instance;
+    final SystemCommandsManager systemCommandsManager = SystemCommandsManager();
     final String etcReleaseOutput =
         await systemCommandsManager.getAllEtcReleaseFilesText();
 
@@ -71,8 +71,8 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
       );
       deviceHostName =
           deviceHostName.substring(deviceHostName.indexOf('=') + 1);
-      print('Now');
-      print(deviceHostName);
+      logger.i('Now');
+      logger.i(deviceHostName);
       deviceHostName = deviceHostName.replaceAll('-', '').replaceAll(' ', '');
 
       physicalDeviceType =
@@ -91,7 +91,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
         physicalDeviceType = PhysicalDeviceType.raspberryPi;
       }
 
-      print('phys type is $physicalDeviceType');
+      logger.i('phys type is $physicalDeviceType');
       //  Save the current physical device configuration to the
       //  physicalDevice variable
       switch (physicalDeviceType) {
@@ -123,14 +123,14 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
             switch (raspberryPiType) {
               case RaspberryPiType.raspberryPi3ModelBRev1Underscore2:
                 {
-                  print('Raspberry Pi 3 Model B Rev 1.2 found');
+                  logger.i('Raspberry Pi 3 Model B Rev 1.2 found');
                   physicalDevice =
                       RaspberryPi3ModelBRev1Underscore2Configuration();
                   break;
                 }
               case RaspberryPiType.raspberryPi4ModelBRev1Underscore4:
                 {
-                  print('Raspberry Pi 4 Model B Rev 1.4 found');
+                  logger.i('Raspberry Pi 4 Model B Rev 1.4 found');
                   // Have same pin configuration as Pi 3
                   physicalDevice =
                       RaspberryPi3ModelBRev1Underscore2Configuration();
@@ -138,8 +138,8 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
                 }
               default:
                 {
-                  print('Raspberry pi $raspberryPiVersion is not supported');
-                  print('The software will not be able to control the pins');
+                  logger.i('Raspberry pi $raspberryPiVersion is not supported');
+                  logger.i('The software will not be able to control the pins');
                   break;
                 }
             }
@@ -147,16 +147,16 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
           }
         default:
           {
-            print('Detected deviceHostName $deviceHostName \n'
+            logger.i('Detected deviceHostName $deviceHostName \n'
                 'Device is not supported, the software will not be able to '
                 'control the pins.');
             break;
           }
       }
     } catch (e) {
-      print('Board type does not exist');
+      logger.i('Board type does not exist');
     }
-    print('This device is of type:'
+    logger.i('This device is of type:'
         ' ${EnumHelper.physicalDeviceTypeToString(physicalDeviceType)}');
   }
 
@@ -165,13 +165,13 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
   @override
   PinInformation? getGpioPin(int? pinNumber) {
     if (physicalDevice == null) {
-      print('Error physical device is null');
+      logger.i('Error physical device is null');
       return null;
     }
     try {
       final int isGpioFree = physicalDevice!.isGpioPinFree(pinNumber);
       if (isGpioFree != 0) {
-        print('Gpio $pinNumber is not free, exist with error code $isGpioFree');
+        logger.i('Gpio $pinNumber is not free, exist with error code $isGpioFree');
         return null;
       }
 
@@ -180,7 +180,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
 
       return pinInformation;
     } catch (e) {
-      print('This is the exception: $e');
+      logger.i('This is the exception: $e');
       return null;
     }
   }
@@ -223,7 +223,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
     } else if (deviceType == CbjDeviceTypes.buttonWithLight) {
       neededPinTypesList = ButtonWithLightObject.neededPinTypesList();
     } else {
-      print('Getting device $deviceType pins requirement is not supported');
+      logger.i('Getting device $deviceType pins requirement is not supported');
       return null;
     }
 
@@ -281,13 +281,13 @@ class DevicePinListManagerPC extends DevicePinListManagerAbstract {
   List<PinInformation> getFreePinsForSmartDeviceType(
     CbjDeviceTypes deviceType,
   ) {
-    print('Computer does not give free pins, only smart device');
+    logger.i('Computer does not give free pins, only smart device');
     throw UnimplementedError();
   }
 
   @override
   PinInformation getFreeGpioPins({List<PinInformation>? ignorePinsList}) {
-    print('Computer does not give free gpio pins, only smart device');
+    logger.i('Computer does not give free gpio pins, only smart device');
     throw UnimplementedError();
   }
 

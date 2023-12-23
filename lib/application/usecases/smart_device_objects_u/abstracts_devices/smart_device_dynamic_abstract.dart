@@ -21,7 +21,6 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
   ) async {
     final CbjDeviceActions deviceAction =
         convertWishStringToWishesObject(wishString)!;
-    if (deviceAction == null) return 'Your deviceAction does not exist on ';
     return executeDeviceAction(deviceAction, deviceState);
   }
 
@@ -35,20 +34,7 @@ abstract class SmartDeviceDynamicAbstract extends SmartDeviceSimpleAbstract {
 
   ///  Set dynamic value
   String _setDynamicValue() {
-    if (deviceInformation == null) {
-      return 'Device information is missing, cant set dynamic value';
-    }
     return DynamicWishU.setDynamic(deviceInformation);
-  }
-
-  ///  Change dynamic value with open connection
-  String _openDynamicValue() {
-    if (deviceInformation == null) {
-      return 'Device information is missing, cant create open connection with dynamic';
-    }
-    DynamicWishU.openDynamic(deviceInformation);
-    onOff = false;
-    return 'Turn on successfully';
   }
 
   ///  All the wishes that are legit to execute from the dynamic class

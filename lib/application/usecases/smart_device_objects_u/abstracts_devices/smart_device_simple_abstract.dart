@@ -14,9 +14,6 @@ abstract class SmartDeviceSimpleAbstract extends SmartDeviceBase {
   double? howMuchTimeTheDeviceDoingAction;
 
   @override
-  static List<String> neededPinTypesList() => [];
-
-  @override
   Future<String> executeActionString(
     String cbjDeviceActionstring,
     CbjDeviceStateGRPC deviceState,
@@ -39,7 +36,6 @@ abstract class SmartDeviceSimpleAbstract extends SmartDeviceBase {
     CbjDeviceActions deviceAction,
     CbjDeviceStateGRPC deviceState,
   ) async {
-    if (deviceAction == null) return 'Your wish does not exist on simple class';
     return wishInBaseClass(deviceAction, deviceState);
   }
 }

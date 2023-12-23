@@ -6,10 +6,10 @@ class ButtonObjectD {
     _listenToButtonClick = ListenToPinHighWiringPiSetupPhys();
   }
 
-  ListenToPinHighWiringPiSetupPhys? _listenToButtonClick;
+  late ListenToPinHighWiringPiSetupPhys _listenToButtonClick;
 
   Future<int> listenToButtonPress(PinInformation buttonPinNumber) {
-    return _listenToButtonClick!.listenToButtonPress(
+    return _listenToButtonClick.listenToButtonPress(
       buttonPinNumber.pinAndPhysicalPinConfiguration.toString(),
     );
   }

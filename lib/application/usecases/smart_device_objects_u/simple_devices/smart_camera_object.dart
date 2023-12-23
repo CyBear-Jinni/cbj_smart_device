@@ -2,26 +2,27 @@ import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_simple_abstract.dart';
 import 'package:cbj_smart_device/utils.dart';
 
-class LightObject extends SmartDeviceSimpleAbstract {
-  LightObject(
-    super.uuid,
-    super.smartInstanceName,
-    super.onOffPinNumber,
+class SmartCameraObject extends SmartDeviceSimpleAbstract {
+  SmartCameraObject(
+    String? uuid,
+    String? smartInstanceName,
   ) : super(
+          uuid,
+          smartInstanceName,
+          null,
           onOffButtonPinNumber: null,
         ) {
-    deviceType = CbjDeviceTypes.light;
-    logger.i('New light object');
+    deviceType = CbjDeviceTypes.smart_camera;
+    logger.i('New smart camera');
   }
 
   @override
-  List<String> getNeededPinTypesList() => <String>['gpio'];
+  List<String> getNeededPinTypesList() => <String>[];
 
-  static List<String> neededPinTypesList() => <String>['gpio'];
 
   ///  Return smart device type
   @override
-  CbjDeviceTypes getDeviceType() => CbjDeviceTypes.light;
+  CbjDeviceTypes getDeviceType() => CbjDeviceTypes.smart_camera;
 
   @override
   Future<String> executeActionString(

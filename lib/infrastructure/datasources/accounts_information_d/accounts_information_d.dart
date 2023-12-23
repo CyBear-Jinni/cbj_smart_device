@@ -24,6 +24,6 @@ class FirebaseAccountsInformationD {
   String homeId;
 
   bool areAllValuesNotNull() {
-    return fireBaseApiKey != null;
+    return true;
   }
 }

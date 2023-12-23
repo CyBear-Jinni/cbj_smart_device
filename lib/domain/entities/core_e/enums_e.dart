@@ -1,10 +1,11 @@
+import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/button_with_light_object.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/simple_devices/boiler_object.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/simple_devices/light_object.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/static_devices/blinds_object.dart';
-import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 // enum DeviceType {
 //   Light, //  Light ON/OFF
@@ -141,7 +142,7 @@ class EnumHelper {
       case CbjDeviceTypes.buttonWithLight:
         return ButtonWithLightObject(null, null, null, null);
       default:
-        print('Type $deviceType is not supported');
+        logger.i('Type $deviceType is not supported');
     }
     return null;
   }

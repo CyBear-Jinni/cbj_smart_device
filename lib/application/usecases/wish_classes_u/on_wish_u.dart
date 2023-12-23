@@ -1,6 +1,7 @@
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:cbj_smart_device/core/device_information.dart';
 import 'package:cbj_smart_device/infrastructure/repositories/wish_classes_r/turn_pin_on_off_local.dart';
+import 'package:cbj_smart_device/utils.dart';
 
 ///  Class to change wish on status to device
 class OnWishU {
@@ -11,12 +12,12 @@ class OnWishU {
     pinNumber?.v = 1;
 
     switch (deviceInformation.runtimeType) {
-      case LocalDevice:
-        return setOnLocal(deviceInformation as LocalDevice, pinNumber);
-      case RemoteDevice:
-        return setOnRemote(deviceInformation as RemoteDevice, pinNumber);
+      case final LocalDevice type:
+        return setOnLocal(type, pinNumber);
+      case final RemoteDevice type:
+        return setOnRemote(type, pinNumber);
     }
-    print('Device type ${deviceInformation.getName()} is not specified ');
+    logger.i('Device type ${deviceInformation.name} is not specified ');
 
     return 'DeviceBase type not supported';
   }

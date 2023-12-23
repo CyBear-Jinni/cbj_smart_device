@@ -7,13 +7,13 @@ class LocalDbU {
     _localDbE = LocalDbE();
   }
 
-  LocalDbE? _localDbE;
+  late LocalDbE _localDbE;
 
   Future<List<SmartDeviceBaseAbstract>?> getListOfSmartDevices() async {
-    return _localDbE!.getListOfSmartDevices();
+    return _localDbE.getListOfSmartDevices();
   }
 
   Future<FirebaseAccountsInformationD?> getListOfDatabaseInformation() async {
-    return _localDbE!.getListOfDatabaseInformation();
+    return _localDbE.getListOfDatabaseInformation();
   }
 }
