@@ -80,7 +80,7 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   ///  Turn on the device basic action
   String _setOn(PinInformation? pinNumber) {
 //    if (deviceInformation == null) {
-//      return 'Device information is missing, can't turn on';
+//      return 'Entity information is missing, can't turn on';
 //    }
     OnWishU.setOn(deviceInformation, pinNumber);
     onOff = true;
@@ -90,7 +90,7 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   ///  Turn off the device basic action
   String _setOff(PinInformation? pinNumber) {
 //    if (deviceInformation == null) {
-//      return 'Device information is missing, can't turn off';
+//      return 'Entity information is missing, can't turn off';
 //    }
     OffWishU.setOff(deviceInformation, pinNumber);
     onOff = false;

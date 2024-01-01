@@ -148,7 +148,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
         default:
           {
             logger.i('Detected deviceHostName $deviceHostName \n'
-                'Device is not supported, the software will not be able to '
+                'Entity is not supported, the software will not be able to '
                 'control the pins.');
             break;
           }
@@ -171,7 +171,9 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
     try {
       final int isGpioFree = physicalDevice!.isGpioPinFree(pinNumber);
       if (isGpioFree != 0) {
-        logger.i('Gpio $pinNumber is not free, exist with error code $isGpioFree');
+        logger.i(
+          'Gpio $pinNumber is not free, exist with error code $isGpioFree',
+        );
         return null;
       }
 

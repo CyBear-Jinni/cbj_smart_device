@@ -17,7 +17,7 @@ class OnWishU {
       case final RemoteDevice type:
         return setOnRemote(type, pinNumber);
     }
-    logger.i('Device type ${deviceInformation.name} is not specified ');
+    logger.i('Entity type ${deviceInformation.name} is not specified ');
 
     return 'DeviceBase type not supported';
   }
