@@ -1,4 +1,4 @@
-import 'package:cbj_integrations_controller/infrastructure/system_commands/system_commands_manager_d.dart';
+import 'package:cbj_integrations_controller/integrations_controller.dart';
 
 class SetDevicesD {
   Future<String> getCurrentDeviceUUid() {

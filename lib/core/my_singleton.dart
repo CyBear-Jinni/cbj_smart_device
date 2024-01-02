@@ -1,4 +1,4 @@
-import 'package:cbj_integrations_controller/infrastructure/system_commands/system_commands_manager_d.dart';
+import 'package:cbj_integrations_controller/integrations_controller.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 
 class MySingleton {
@@ -23,7 +23,6 @@ class MySingleton {
   Future<String?> getCurrentUserName() =>
       _currentUserName ??= SystemCommandsManager().getCurrentUserName();
 
- 
   void addToSmartDevicesList(SmartDeviceBaseAbstract smartDeviceVal) {
     smartDevicesList.add(smartDeviceVal);
   }
