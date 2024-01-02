@@ -24,7 +24,7 @@ import 'package:cbj_smart_device/utils.dart';
 //   Speakers,
 //
 //   ///  Cleaning robot
-//   Roomba,
+//   Areaba,
 //
 //   ///  Give water to plants
 //   Irrigation,
