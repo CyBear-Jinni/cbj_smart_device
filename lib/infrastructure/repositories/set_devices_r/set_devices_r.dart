@@ -5,7 +5,7 @@ class SetDevicesR {
     _setDevicesD = SetDevicesD();
   }
 
- late SetDevicesD _setDevicesD;
+  late SetDevicesD _setDevicesD;
 
   Future<String> getCurrentDeviceUUid() {
     return _setDevicesD.getCurrentDeviceUUid();

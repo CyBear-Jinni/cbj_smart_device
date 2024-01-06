@@ -5,5 +5,4 @@ class Permission {
   bool read = false;
   bool write = false;
   bool execute = false;
-
 }
