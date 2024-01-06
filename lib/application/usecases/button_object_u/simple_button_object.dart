@@ -1,4 +1,4 @@
-import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_integrations_controller/integrations_controller.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
@@ -26,7 +26,6 @@ class ButtonObject extends SmartDeviceBaseAbstract {
   @override
   // ignore: overridden_fields
   CbjDeviceTypes? smartDeviceType = CbjDeviceTypes.button;
-  
 
   /// The button will save list of states like on, off, long press, double tap.
   /// For each button press state we save the smart object and the actions that
@@ -70,8 +69,7 @@ class ButtonObject extends SmartDeviceBaseAbstract {
 
   /// Execute on button press
   Future<String> executeOnButtonPress() async {
-    logger.i(
-        'Button number ${buttonPin?.pinAndPhysicalPinConfiguration}'
+    logger.i('Button number ${buttonPin?.pinAndPhysicalPinConfiguration}'
         ' was pressed');
     pressStateCounter++;
     if (pressStateCounter > 2) {

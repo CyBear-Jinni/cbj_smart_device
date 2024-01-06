@@ -1,4 +1,4 @@
-import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_integrations_controller/integrations_controller.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:cbj_smart_device/core/device_information.dart';
 import 'package:cbj_smart_device/core/helper_methods.dart';
@@ -61,7 +61,6 @@ abstract class SmartDeviceBaseAbstract {
   static List<String> neededPinTypesList() => [];
 
   //  Getters
-
 
   /// Returning the non abstract of this object
   Type getTheNonAbstractObjectOfThisInstance() {

@@ -1,5 +1,4 @@
-import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
-import 'package:cbj_integrations_controller/infrastructure/system_commands/system_commands_manager_d.dart';
+import 'package:cbj_integrations_controller/integrations_controller.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/button_with_light_object.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/device_configuration_base_class.dart';
@@ -148,7 +147,7 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
         default:
           {
             logger.i('Detected deviceHostName $deviceHostName \n'
-                'Device is not supported, the software will not be able to '
+                'Entity is not supported, the software will not be able to '
                 'control the pins.');
             break;
           }
@@ -171,7 +170,9 @@ class DevicePinListManager extends DevicePinListManagerAbstract {
     try {
       final int isGpioFree = physicalDevice!.isGpioPinFree(pinNumber);
       if (isGpioFree != 0) {
-        logger.i('Gpio $pinNumber is not free, exist with error code $isGpioFree');
+        logger.i(
+          'Gpio $pinNumber is not free, exist with error code $isGpioFree',
+        );
         return null;
       }
 
