@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cbj_integrations_controller/infrastructure/shared_variables.dart';
+import 'package:cbj_integrations_controller/integrations_controller.dart';
 
 class TurnPinOnWiringPiSetup {
   Future<ProcessResult> turnThePinOn(String physicalPinNumber) async {

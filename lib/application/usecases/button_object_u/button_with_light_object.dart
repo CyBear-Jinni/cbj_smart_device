@@ -1,4 +1,4 @@
-import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_integrations_controller/integrations_controller.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/simple_button_object.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/off_wish_u.dart';

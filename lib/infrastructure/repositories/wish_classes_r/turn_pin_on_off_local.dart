@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cbj_integrations_controller/infrastructure/shared_variables.dart';
+import 'package:cbj_integrations_controller/integrations_controller.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/core_d/manage_physical_components/pins_datasource/pin_setup_method_enum.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/wish_classes_d/wish_classes_d.dart';
@@ -18,7 +18,8 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
   @override
   Future<String> pinOn(PinInformation? pinNumber) async {
     if (pinNumber?.pinAndPhysicalPinConfiguration == null) {
-      logger.i('Error PinInformation.pinAndPhysicalPinConfiguration was not set');
+      logger
+          .i('Error PinInformation.pinAndPhysicalPinConfiguration was not set');
       return 'Error PinInformation.pinAndPhysicalPinConfiguration was not set';
     }
     final String? projectRootDirectoryPath =
@@ -51,7 +52,8 @@ class TurnPinOnOffLocal extends TurnPinOnOffLocalAbstract {
   @override
   Future<String> pinOff(PinInformation? pinNumber) async {
     if (pinNumber?.pinAndPhysicalPinConfiguration == null) {
-      logger.i('Error PinInformation.pinAndPhysicalPinConfiguration was not set');
+      logger
+          .i('Error PinInformation.pinAndPhysicalPinConfiguration was not set');
       return 'Error PinInformation.pinAndPhysicalPinConfiguration was not set';
     }
 

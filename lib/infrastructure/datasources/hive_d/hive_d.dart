@@ -1,4 +1,4 @@
-import 'package:cbj_integrations_controller/infrastructure/system_commands/system_commands_manager_d.dart';
+import 'package:cbj_integrations_controller/integrations_controller.dart';
 import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/hive_d/hive_objects_d/isar_database_information_d.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/hive_d/hive_objects_d/isar_devices_d.dart';

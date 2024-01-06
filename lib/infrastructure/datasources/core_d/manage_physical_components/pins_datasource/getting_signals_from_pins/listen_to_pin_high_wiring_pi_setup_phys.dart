@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cbj_integrations_controller/infrastructure/shared_variables.dart';
+import 'package:cbj_integrations_controller/integrations_controller.dart';
 
 class ListenToPinHighWiringPiSetupPhys {
   ///  Listen to button press once and return exist code

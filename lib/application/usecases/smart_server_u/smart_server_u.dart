@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
-import 'package:cbj_integrations_controller/infrastructure/system_commands/system_commands_manager_d.dart';
+import 'package:cbj_integrations_controller/integrations_controller.dart';
 import 'package:cbj_smart_device/application/usecases/core_u/actions_to_preform_u.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';

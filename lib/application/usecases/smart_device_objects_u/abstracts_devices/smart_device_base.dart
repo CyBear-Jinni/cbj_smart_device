@@ -1,4 +1,4 @@
-import 'package:cbj_integrations_controller/infrastructure/gen/cbj_smart_device_server/protoc_as_dart/cbj_smart_device_server.pbgrpc.dart';
+import 'package:cbj_integrations_controller/integrations_controller.dart';
 import 'package:cbj_smart_device/application/usecases/button_object_u/button_object_local_u.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
@@ -80,7 +80,7 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   ///  Turn on the device basic action
   String _setOn(PinInformation? pinNumber) {
 //    if (deviceInformation == null) {
-//      return 'Device information is missing, can't turn on';
+//      return 'Entity information is missing, can't turn on';
 //    }
     OnWishU.setOn(deviceInformation, pinNumber);
     onOff = true;
@@ -90,7 +90,7 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   ///  Turn off the device basic action
   String _setOff(PinInformation? pinNumber) {
 //    if (deviceInformation == null) {
-//      return 'Device information is missing, can't turn off';
+//      return 'Entity information is missing, can't turn off';
 //    }
     OffWishU.setOff(deviceInformation, pinNumber);
     onOff = false;
