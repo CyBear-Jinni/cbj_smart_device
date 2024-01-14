@@ -227,7 +227,7 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   }
 
   ///  Listen to button press
-  Future<void> listenToButtonPressed() async {
+  Future listenToButtonPressed() async {
     ButtonObjectLocalU().buttonPressed(this, onOffButtonPin!, onOffPin!);
   }
 }

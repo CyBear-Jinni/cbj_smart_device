@@ -21,7 +21,7 @@ class LocalDbE {
     return firebaseAccountsInformationD;
   }
 
-  Future<void> saveAllDevices(
+  Future saveAllDevices(
     List<SmartDeviceBaseAbstract> smartDevicesList,
   ) async {
     await _localDbR.saveAllDevices(smartDevicesList);

@@ -52,7 +52,7 @@ class ButtonObject extends SmartDeviceBaseAbstract {
   static List<String> neededPinTypesList() => <String>['gpio'];
 
   /// Listen to the button press and execute actions from buttonStateActions
-  Future<void> listenToButtonPress() async {
+  Future listenToButtonPress() async {
     if (buttonPin == null) {
       return;
     }

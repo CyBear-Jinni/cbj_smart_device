@@ -17,7 +17,7 @@ class SetDevicesU {
   late SetDevicesE _setDevicesE;
 
   ///  Setting all the devices from saved data
-  Future<void> setAllDevices({
+  Future setAllDevices({
     List<SmartDeviceBaseAbstract>? deviceList,
   }) async {
     if (deviceList != null) {
@@ -49,7 +49,7 @@ class SetDevicesU {
 //      manualSetup();
   }
 
-  Future<void> manualSetup() async {
+  Future manualSetup() async {
     final String uuid = await _setDevicesE.getCurrentDeviceUUid();
 
     MySingleton().smartDevicesList = <SmartDeviceBaseAbstract>[

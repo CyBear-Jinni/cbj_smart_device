@@ -42,7 +42,7 @@ class ButtonWithLightObject extends ButtonObject {
 
   /// Listen to the button press and execute actions from buttonStateActions
   @override
-  Future<void> listenToButtonPress() async {
+  Future listenToButtonPress() async {
     if (buttonPin == null) {
       return;
     }

@@ -13,7 +13,7 @@ class SmartClient {
   }
 
   ///  Turn smart device on
-  static Future<void> createStreamWithClients(String addressToHub) async {
+  static Future createStreamWithClients(String addressToHub) async {
     channel = await createCbjSmartDeviceServerClient(addressToHub);
     stub = CbjSmartDeviceConnectionsClient(channel!);
 

@@ -24,7 +24,7 @@ class LocalDbD {
     return _isarD!.getListOfDatabaseInformation();
   }
 
-  Future<void> saveAllDevices(
+  Future saveAllDevices(
     List<SmartDeviceBaseAbstract> smartDevicesList,
   ) async {
     // TODO: We need to find better saving method since devices will save
