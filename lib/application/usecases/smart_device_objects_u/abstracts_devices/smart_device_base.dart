@@ -7,7 +7,6 @@ import 'package:cbj_smart_device/application/usecases/wish_classes_u/on_wish_u.d
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/smart_computer_wish_u.dart';
 import 'package:cbj_smart_device/core/helper_methods.dart';
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
 import 'package:cbj_smart_device/infrastructure/repositories/smart_device_objects_r/smart_device_objects_r.dart';
 import 'package:cbj_smart_device/utils.dart';
 
@@ -124,10 +123,11 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
   PinInformation? addPinToGpioPinList(int pinNumber) {
     //  Check if pin is free to be taken,
     //  if not return negative number with error number
-    final PinInformation gpioPin =
-        DevicePinListManager().getGpioPin(pinNumber)!;
-    _gpioPinList.add(gpioPin);
-    return gpioPin;
+    // final PinInformation gpioPin =
+    //     DevicePinListManager().getGpioPin(pinNumber)!;
+    // _gpioPinList.add(gpioPin);
+    // return gpioPin;
+    return null;
   }
 
   ///  Return PossibleWishes object if

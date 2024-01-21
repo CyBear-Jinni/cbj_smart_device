@@ -3,7 +3,6 @@ import 'package:cbj_smart_device/application/usecases/button_object_u/simple_but
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
 import 'package:cbj_smart_device/infrastructure/repositories/button_object_r/button_object_r.dart';
 import 'package:cbj_smart_device/utils.dart';
 
@@ -12,11 +11,12 @@ class ButtonWithLightObject extends ButtonObject {
   ButtonWithLightObject(
     super.id,
     super.deviceName,
-    super.buttonPinInt,
-    int? buttonLightInt, {
+    // super.buttonPinInt,
+    // int? buttonLightInt,
+    {
     super.buttonStatesAction,
   }) {
-    buttonLight = DevicePinListManager().getGpioPin(buttonLightInt);
+    // buttonLight = DevicePinListManager().getGpioPin(buttonLightInt);
 
     buttonObjectRepository = ButtonObjectR();
     listenToButtonPress();
