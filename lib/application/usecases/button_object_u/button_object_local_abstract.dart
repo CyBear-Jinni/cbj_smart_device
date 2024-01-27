@@ -41,7 +41,7 @@ abstract class ButtonObjectLocalAbstract {
   );
 
   ///  Logic of two buttons
-  Future<void> changeBlindsPinsOutput(
+  Future changeBlindsPinsOutput(
     BlindsObject blindsObject,
     PinInformation firstLightPin,
     PinInformation secondLightPin,

@@ -1,6 +1,6 @@
 name: cbj_smart_device
 description: Creating CyBear Jinni Smart Devices
-version: 1.0.5
+version: 1.0.6
 homepage: https://cybearjinni.com
 publish_to: 'none'
 
@@ -9,7 +9,6 @@ environment:
 
 dependencies:
   cbj_integrations_controller:
-#    path: ../cbj_integrations_controller
     git: https://github.com/CyBear-Jinni/cbj_integrations_controller.git
   # Functional programming thingies, let you use multiple return types
   dartz: ^0.10.1

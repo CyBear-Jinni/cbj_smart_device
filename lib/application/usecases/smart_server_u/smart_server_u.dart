@@ -447,7 +447,7 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
     }
   }
 
-  Future<void> exitTheApp() async {
+  Future exitTheApp() async {
     const int secondsToExistTheProgram = 15;
     logger.i('$secondsToExistTheProgram seconds to exit the program');
     await Future.delayed(const Duration(seconds: secondsToExistTheProgram));

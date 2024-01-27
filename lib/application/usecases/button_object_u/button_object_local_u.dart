@@ -8,7 +8,7 @@ import 'package:cbj_smart_device/utils.dart';
 
 class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   @override
-  Future<void> buttonPressed(
+  Future buttonPressed(
     SmartDeviceBase smartDevice,
     PinInformation buttonPinNumber,
     PinInformation lightPin,
@@ -50,7 +50,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   }
 
   @override
-  Future<void> buttonPressedForBoiler(
+  Future buttonPressedForBoiler(
     BoilerObject boilerObject,
     PinInformation buttonPinNumber,
     PinInformation boiler,
@@ -94,7 +94,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
   ///  Listen to two buttons but work only if one is pressed.
   @override
-  Future<void> listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
+  Future listenToTwoButtonPressedButtOnlyOneCanBePressedAtATime(
     BlindsObject smartDevice,
     PinInformation firstButtonPinNumber,
     PinInformation firstBlindsPin,
@@ -119,7 +119,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
   }
 
   @override
-  Future<void> listenToButtonPressAndChangeBlindStateAccordingly(
+  Future listenToButtonPressAndChangeBlindStateAccordingly(
     BlindsObject blindsObject,
     PinInformation buttonPinNumber,
     PinInformation firstLightPin,
@@ -143,7 +143,7 @@ class ButtonObjectLocalU extends ButtonObjectLocalAbstract {
 
   ///  Logic of two buttons that cannot be pressed together
   @override
-  Future<void> changeBlindsPinsOutput(
+  Future changeBlindsPinsOutput(
     BlindsObject blindsObject,
     PinInformation firstBlindsPin,
     PinInformation secondBlindsPin,

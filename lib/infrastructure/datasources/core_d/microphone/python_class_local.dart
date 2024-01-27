@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cbj_smart_device/utils.dart';
 
 class RecognitionClass {
-  Future<void> listenToLightCommend() async {
+  Future listenToLightCommend() async {
     final List<String> pythonCommends = <String>[];
     pythonCommends.add('-c');
     pythonCommends.add('''

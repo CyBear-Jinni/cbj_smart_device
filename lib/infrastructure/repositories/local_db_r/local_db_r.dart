@@ -45,17 +45,17 @@ class LocalDbR {
             ),
           );
         case CbjDeviceTypes.boiler:
-          final int? boilerPinNumber =
-              values[1] == '' ? null : int.parse(values[1]!);
-          final int? boilerButtonPinNumber =
-              values[2] == '' ? null : int.parse(values[2]!);
+          // final int? boilerPinNumber =
+          //     values[1] == '' ? null : int.parse(values[1]!);
+          // final int? boilerButtonPinNumber =
+          //     values[2] == '' ? null : int.parse(values[2]!);
           logger.i('Adding from local db boiler object');
           smartDeviceBaseAbstractList.add(
             BoilerObject(
               deviceUuid,
               'Boiler name missing',
-              boilerPinNumber,
-              boilerButtonPinNumber,
+              // boilerPinNumber,
+              // boilerButtonPinNumber,
             ),
           );
         case CbjDeviceTypes.blinds:
@@ -68,14 +68,14 @@ class LocalDbR {
               values[1] == '' ? null : int.parse(values[1]!);
           final int? onOffButtonPinNumber =
               values[2] == '' ? null : int.parse(values[2]!);
-          final int? blindsUpPin =
-              values[3] == '' ? null : int.parse(values[3]!);
-          final int? upButtonPinNumber =
-              values[4] == '' ? null : int.parse(values[4]!);
-          final int? blindsDownPin =
-              values[5] == '' ? null : int.parse(values[5]!);
-          final int? downButtonPinNumber =
-              values[6] == '' ? null : int.parse(values[6]!);
+          // final int? blindsUpPin =
+          //     values[3] == '' ? null : int.parse(values[3]!);
+          // final int? upButtonPinNumber =
+          //     values[4] == '' ? null : int.parse(values[4]!);
+          // final int? blindsDownPin =
+          //     values[5] == '' ? null : int.parse(values[5]!);
+          // final int? downButtonPinNumber =
+          //     values[6] == '' ? null : int.parse(values[6]!);
 
           smartDeviceBaseAbstractList.add(
             BlindsObject(
@@ -84,18 +84,18 @@ class LocalDbR {
               onOffPinNumber,
               onOffButtonPinNumber,
               //  onOffButtonPinNumber
-              blindsUpPin,
+              // blindsUpPin,
               //  blindsUpPin
-              upButtonPinNumber,
+              // upButtonPinNumber,
               //  upButtonPinNumber
-              blindsDownPin,
+              // blindsDownPin,
               //  blindsDownPin
-              downButtonPinNumber, // downButtonPinNumber
+              // downButtonPinNumber, // downButtonPinNumber
             ),
           );
         case CbjDeviceTypes.button:
-          final int? buttonPinNumber =
-              values[1] == '' ? null : int.parse(values[1]!);
+          // final int? buttonPinNumber =
+          //     values[1] == '' ? null : int.parse(values[1]!);
           logger.i('Adding from local db button object');
 
           final Map<CbjWhenToExecute,
@@ -108,15 +108,15 @@ class LocalDbR {
             ButtonObject(
               deviceUuid,
               'Button name is missing',
-              buttonPinNumber,
+              // buttonPinNumber,
               buttonStatesAction: buttonStatesAction,
             ),
           );
         case CbjDeviceTypes.buttonWithLight:
-          final int? buttonPinNumber =
-              values[1] == '' ? null : int.parse(values[1]!);
-          final int? buttonLightPinNumber =
-              values[2] == '' ? null : int.parse(values[2]!);
+          // final int? buttonPinNumber =
+          //     values[1] == '' ? null : int.parse(values[1]!);
+          // final int? buttonLightPinNumber =
+          //     values[2] == '' ? null : int.parse(values[2]!);
           logger.i('Adding from local db button object');
 
           final Map<CbjWhenToExecute,
@@ -129,8 +129,8 @@ class LocalDbR {
             ButtonWithLightObject(
               deviceUuid,
               'Button with light name is missing',
-              buttonPinNumber,
-              buttonLightPinNumber,
+              // buttonPinNumber,
+              // buttonLightPinNumber,
               buttonStatesAction: buttonStatesAction,
             ),
           );
@@ -183,7 +183,7 @@ class LocalDbR {
     return firebaseAccountsInformationD;
   }
 
-  Future<void> saveAllDevices(
+  Future saveAllDevices(
     List<SmartDeviceBaseAbstract> smartDevicesList,
   ) async {
     await _localDbD.saveAllDevices(smartDevicesList);
