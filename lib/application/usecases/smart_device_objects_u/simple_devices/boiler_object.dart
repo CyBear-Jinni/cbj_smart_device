@@ -4,15 +4,15 @@ import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_simple_abstract.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
 import 'package:cbj_smart_device/utils.dart';
 
 class BoilerObject extends SmartDeviceSimpleAbstract {
   BoilerObject(
     String? uuid,
     String? smartInstanceName,
-    int? boilerPinNUmber,
-    int? boilerButtonPinNumber, {
+    // int? boilerPinNUmber,
+    // int? boilerButtonPinNumber,
+    {
     int? onOffPinNumber,
     int? onOffButtonPinNumber,
   }) : super(
@@ -22,8 +22,8 @@ class BoilerObject extends SmartDeviceSimpleAbstract {
           onOffButtonPinNumber: onOffButtonPinNumber,
         ) {
     logger.i('New boiler object');
-    boilerPin = DevicePinListManager().getGpioPin(boilerPinNUmber);
-    boilerButtonPin = DevicePinListManager().getGpioPin(boilerButtonPinNumber);
+    // boilerPin = DevicePinListManager().getGpioPin(boilerPinNUmber);
+    // boilerButtonPin = DevicePinListManager().getGpioPin(boilerButtonPinNumber);
     listenButtonsPress();
     deviceType = CbjDeviceTypes.boiler;
   }

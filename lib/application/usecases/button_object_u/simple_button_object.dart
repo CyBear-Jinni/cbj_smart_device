@@ -3,7 +3,6 @@ import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:cbj_smart_device/core/my_singleton.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
 import 'package:cbj_smart_device/infrastructure/repositories/button_object_r/button_object_r.dart';
 import 'package:cbj_smart_device/utils.dart';
 
@@ -12,10 +11,11 @@ class ButtonObject extends SmartDeviceBaseAbstract {
   ButtonObject(
     super.id,
     super.deviceName,
-    int? buttonPinInt, {
+    // int? buttonPinInt,
+    {
     this.buttonStatesAction,
   }) {
-    buttonPin = DevicePinListManager().getGpioPin(buttonPinInt);
+    // buttonPin = DevicePinListManager().getGpioPin(buttonPinInt);
 
     buttonObjectRepository = ButtonObjectR();
     listenToButtonPress();
@@ -52,7 +52,7 @@ class ButtonObject extends SmartDeviceBaseAbstract {
   static List<String> neededPinTypesList() => <String>['gpio'];
 
   /// Listen to the button press and execute actions from buttonStateActions
-  Future<void> listenToButtonPress() async {
+  Future listenToButtonPress() async {
     if (buttonPin == null) {
       return;
     }

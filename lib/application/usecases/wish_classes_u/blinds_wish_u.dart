@@ -21,7 +21,7 @@ class BlindsWishU {
       blindsInformation.blindsDownPin,
     );
 
-    await Future<void>.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
 
     blindsInformation.blindsUpPin?.onDuration = -1;
 
@@ -54,7 +54,7 @@ class BlindsWishU {
       blindsInformation.blindsUpPin,
     );
 
-    await Future<void>.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
 
     blindsInformation.blindsDownPin?.onDuration = -1;
     status +=

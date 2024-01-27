@@ -115,7 +115,7 @@ class IsarD {
     return null;
   }
 
-  Future<void> saveAllDevices(
+  Future saveAllDevices(
     Map<String, List<String?>> smartDevicesMapList,
   ) async {
     try {
@@ -147,7 +147,7 @@ class IsarD {
     return;
   }
 
-  Future<void> saveListOfDatabaseInformation(
+  Future saveListOfDatabaseInformation(
     Map<String, String> firebaseAccountsInformationMap,
   ) async {
     try {

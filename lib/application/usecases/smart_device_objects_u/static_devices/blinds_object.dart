@@ -3,7 +3,6 @@ import 'package:cbj_smart_device/application/usecases/button_object_u/button_obj
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_static_abstract.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/blinds_wish_u.dart';
-import 'package:cbj_smart_device/infrastructure/datasources/core_d/manage_physical_components/device_pin_manager.dart';
 import 'package:cbj_smart_device/utils.dart';
 
 /// Object to control blinds
@@ -14,18 +13,18 @@ class BlindsObject extends SmartDeviceStaticAbstract {
     String? super.smartInstanceName,
     super.onOffPinNumber,
     onOffButtonPinNumber,
-    int? blindsUpPin,
-    int? upButtonPinNumber,
-    int? blindsDownPin,
-    int? downButtonPinNumber,
+    // int? blindsUpPin,
+    // int? upButtonPinNumber,
+    // int? blindsDownPin,
+    // int? downButtonPinNumber,
   ) : super(
           onOffButtonPinNumber: onOffButtonPinNumber,
         ) {
-    buttonPinUp = DevicePinListManager().getGpioPin(upButtonPinNumber);
-    buttonPinDown = DevicePinListManager().getGpioPin(downButtonPinNumber);
+    // buttonPinUp = DevicePinListManager().getGpioPin(upButtonPinNumber);
+    // buttonPinDown = DevicePinListManager().getGpioPin(downButtonPinNumber);
 
-    this.blindsUpPin = DevicePinListManager().getGpioPin(blindsUpPin);
-    this.blindsDownPin = DevicePinListManager().getGpioPin(blindsDownPin);
+    // this.blindsUpPin = DevicePinListManager().getGpioPin(blindsUpPin);
+    // this.blindsDownPin = DevicePinListManager().getGpioPin(blindsDownPin);
     listenToTwoButtonsPress();
 
     deviceType = CbjDeviceTypes.blinds;

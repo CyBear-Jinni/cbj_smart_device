@@ -134,13 +134,16 @@ class EnumHelper {
       case CbjDeviceTypes.light:
         return LightObject(null, null, null);
       case CbjDeviceTypes.blinds:
-        return BlindsObject(null, null, null, null, null, null, null, null);
+        return BlindsObject(null, null, null, null);
       case CbjDeviceTypes.boiler:
-        return BoilerObject(null, null, null, null);
+        return BoilerObject(null, null);
       case CbjDeviceTypes.button:
-        return ButtonObject(null, null, null);
+        return ButtonObject(null, null);
       case CbjDeviceTypes.buttonWithLight:
-        return ButtonWithLightObject(null, null, null, null);
+        return ButtonWithLightObject(
+          null,
+          null,
+        );
       default:
         logger.i('Type $deviceType is not supported');
     }
