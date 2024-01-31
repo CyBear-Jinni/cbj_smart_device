@@ -101,9 +101,9 @@ class CbjSmartDeviceServerU extends CbjSmartDeviceConnectionsServiceBase {
 
     final String compId = const Uuid().v1();
     final String compUuid =
-        await SystemCommandsManager().getUuidOfCurrentDevice();
-    final String os = SystemCommandsManager().getOs();
-    final String osVersion = SystemCommandsManager().getOsVersion();
+        await SystemCommandsBaseClassD.instance.getUuidOfCurrentDevice();
+    final String os = SystemCommandsBaseClassD.instance.getOs();
+    final String osVersion = SystemCommandsBaseClassD.instance.getOsVersion();
 
     final List<SmartDeviceBaseAbstract> devicesList =
         MySingleton().smartDevicesList;

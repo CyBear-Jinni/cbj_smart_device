@@ -1,22 +1,21 @@
 import 'package:cbj_integrations_controller/integrations_controller.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
-import 'package:cbj_smart_device/infrastructure/repositories/set_devices_r/set_devices_r.dart';
 import 'package:cbj_smart_device/utils.dart';
 
 class SetDevicesE {
   SetDevicesE() {
-    _setDevicesR = SetDevicesR();
+    _setDevicesR = SystemCommandsBaseClassD.instance;
   }
 
-  late SetDevicesR _setDevicesR;
+  late SystemCommandsBaseClassD _setDevicesR;
 
   Future<String> getCurrentDeviceUUid() {
-    return _setDevicesR.getCurrentDeviceUUid();
+    return _setDevicesR.getUuidOfCurrentDevice();
   }
 
   Future<String?> getDeviceDefaultConfig() {
-    return _setDevicesR.getDeviceDefaultConfig();
+    return _setDevicesR.getDeviceConfiguration();
   }
 
   Future<List<SmartDeviceBaseAbstract>> convertToListOfDevices(

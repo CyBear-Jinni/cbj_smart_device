@@ -2,10 +2,9 @@ import 'package:cbj_smart_device/application/usecases/local_db_u/local_db_u.dart
 import 'package:cbj_smart_device/application/usecases/set_devices_u/set_devices_u.dart';
 import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abstracts_devices/smart_device_base_abstract.dart';
 import 'package:cbj_smart_device/application/usecases/smart_server_u/smart_server_u.dart';
-import 'package:cbj_smart_device/core/helper_methods.dart';
+
 import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/infrastructure/datasources/accounts_information_d/accounts_information_d.dart';
-import 'package:cbj_smart_device/utils.dart';
 
 class SmartDeviceManagerU {
   SmartDeviceManagerU() {
@@ -30,8 +29,6 @@ class SmartDeviceManagerU {
 
     ///  Setting up all the device from the memory
     _setDevicesUseCase.setAllDevices(deviceList: smartDeviceFromDb);
-
-    logger.i('Entity local IP: ${await getIps()}');
 
     ///  Start listen for in incoming connections from the local internet (LAN/Wifi)
     _smartServerUseCase.waitForConnection(firebaseAccountsInformationD);

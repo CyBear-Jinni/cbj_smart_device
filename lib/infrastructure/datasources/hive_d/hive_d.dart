@@ -29,7 +29,8 @@ class IsarD {
     try {
       if (finishedInitializing == null) {
         final String? snapCommonEnvironmentVariablePath =
-            await SystemCommandsManager().getSnapCommonEnvironmentVariable();
+            await SystemCommandsBaseClassD.instance
+                .getSnapCommonEnvironmentVariable();
         if (snapCommonEnvironmentVariablePath == null) {
           final String? currentUserName =
               await MySingleton().getCurrentUserName();
