@@ -14,5 +14,4 @@ class PermissionsManager {
 //  Set
 
 //  Get
-
 }
