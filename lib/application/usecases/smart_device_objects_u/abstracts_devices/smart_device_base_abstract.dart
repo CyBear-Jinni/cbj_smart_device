@@ -1,10 +1,8 @@
 import 'package:cbj_integrations_controller/integrations_controller.dart';
 import 'package:cbj_smart_device/application/usecases/devices_pin_configuration_u/pin_information.dart';
 import 'package:cbj_smart_device/core/device_information.dart';
-import 'package:cbj_smart_device/core/helper_methods.dart';
 import 'package:cbj_smart_device/core/permissions/permissions_manager.dart';
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
-import 'package:cbj_smart_device/infrastructure/repositories/smart_device_objects_r/smart_device_objects_r.dart';
 
 ///  The super base class of all the smart device class and
 ///  smart device abstract classes
@@ -70,17 +68,12 @@ abstract class SmartDeviceBaseAbstract {
     );
   }
 
-  /// Getting the saved IP of this object
-  Future<String?> getIp() async {
-    return getIps();
-  }
-
   ///  Get the list of gpio pin of the device
   List<PinInformation> getGpioPinList() {
     return _gpioPinList;
   }
 
   Future<String> getUuid() {
-    return SmartDeviceObjectsR.getUuid();
+    return SystemCommandsBaseClassD.instance.getUuidOfCurrentDevice();
   }
 }
