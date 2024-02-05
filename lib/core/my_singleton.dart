@@ -18,10 +18,10 @@ class MySingleton {
   Future<String>? _currentUserName;
 
   Future<String> getUuid() =>
-      _deviceUid ??= SystemCommandsManager().getUuidOfCurrentDevice();
+      _deviceUid ??= SystemCommandsBaseClassD.instance.getUuidOfCurrentDevice();
 
-  Future<String?> getCurrentUserName() =>
-      _currentUserName ??= SystemCommandsManager().getCurrentUserName();
+  Future<String?> getCurrentUserName() => _currentUserName ??=
+      SystemCommandsBaseClassD.instance.getCurrentUserName();
 
   void addToSmartDevicesList(SmartDeviceBaseAbstract smartDeviceVal) {
     smartDevicesList.add(smartDeviceVal);

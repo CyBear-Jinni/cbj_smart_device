@@ -7,7 +7,7 @@ class SmartComputerWishU {
   static Future<String?> suspendComputer(
     DeviceInformation deviceInformation,
   ) {
-    return SystemCommandsManager().suspendComputer();
+    return SystemCommandsBaseClassD.instance.suspendComputer();
     // return 'Response from this device suspend successful';
   }
 
@@ -15,6 +15,6 @@ class SmartComputerWishU {
   static Future<String?> shutdownComputer(
     DeviceInformation deviceInformation,
   ) {
-    return SystemCommandsManager().shutdownComputer();
+    return SystemCommandsBaseClassD.instance.shutdownComputer();
   }
 }

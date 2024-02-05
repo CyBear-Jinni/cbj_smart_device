@@ -5,9 +5,7 @@ import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/abs
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/off_wish_u.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/on_wish_u.dart';
 import 'package:cbj_smart_device/application/usecases/wish_classes_u/smart_computer_wish_u.dart';
-import 'package:cbj_smart_device/core/helper_methods.dart';
 import 'package:cbj_smart_device/domain/entities/core_e/enums_e.dart';
-import 'package:cbj_smart_device/infrastructure/repositories/smart_device_objects_r/smart_device_objects_r.dart';
 import 'package:cbj_smart_device/utils.dart';
 
 ///  Abstract class for smart devices that can get actions from commands.
@@ -55,12 +53,6 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
     );
   }
 
-  /// Getting the saved IP of this object
-  @override
-  Future<String?> getIp() async {
-    return getIps();
-  }
-
   ///  Get the list of gpio pin of the device
   @override
   List<PinInformation> getGpioPinList() {
@@ -69,7 +61,7 @@ abstract class SmartDeviceBase extends SmartDeviceBaseAbstract {
 
   @override
   Future<String> getUuid() {
-    return SmartDeviceObjectsR.getUuid();
+    return SystemCommandsBaseClassD.instance.getUuidOfCurrentDevice();
   }
 
   bool getDeviceState() => onOff;

@@ -9,7 +9,7 @@ void main(List<String> arguments) async {
 
   try {
     // configureNetworkTools('network_tools_db');
-    SystemCommandsManager();
+    // setInstanceForDartNative();
     SharedVariables()
         .asyncConstructor(arguments.firstOrNull ?? Directory.current.path);
   } catch (error) {
