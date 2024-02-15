@@ -28,8 +28,6 @@ dependencies:
   lint: ^2.2.0
   # Small, easy to use and extensible logger which prints beautiful logs.
   logger: ^2.0.2+1
-  # Helps you discover open ports, devices on subnet and more.
-  network_tools: ^4.0.2
   # Process run helpers for Linux/Win/Mac.
   process_run: ^0.13.2
   # Extends the capabilities of Dart Streams and StreamControllers.
