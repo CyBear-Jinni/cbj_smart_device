@@ -4,6 +4,7 @@ import 'package:cbj_smart_device/application/usecases/smart_device_objects_u/sim
 import 'package:cbj_smart_device/core/my_singleton.dart';
 import 'package:cbj_smart_device/domain/entities/set_devices_e/set_devices_e.dart';
 import 'package:cbj_smart_device/utils.dart';
+// ignore: depend_on_referenced_packages
 import 'package:uuid/uuid.dart';
 
 /// This class will load all saved smart devices objects from file at startup into the program

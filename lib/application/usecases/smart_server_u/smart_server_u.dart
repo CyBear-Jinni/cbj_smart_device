@@ -11,6 +11,7 @@ import 'package:cbj_smart_device/infrastructure/datasources/accounts_information
 import 'package:cbj_smart_device/utils.dart';
 import 'package:grpc/grpc.dart';
 import 'package:rxdart/rxdart.dart';
+// ignore: depend_on_referenced_packages
 import 'package:uuid/uuid.dart';
 
 /// This class get what to execute straight from the grpc request,
