@@ -16,8 +16,6 @@ dependencies:
   enum_to_string: ^2.0.1
   # Allow returning more than one type of object
   equatable: ^2.0.5
-  # For the injection, allow accessing an object from anywhere in an App
-  get_it: ^7.6.4
   # A high performance, open source, general RPC framework that puts mobile and HTTP/2 first.
   grpc: ^3.2.4
   # Checks for an internet connection by opening a socket
@@ -28,10 +26,6 @@ dependencies:
   lint: ^2.2.0
   # Small, easy to use and extensible logger which prints beautiful logs.
   logger: ^2.0.2+1
-  # Helps you discover open ports, devices on subnet and more.
-  network_tools: ^4.0.2
-  # Process run helpers for Linux/Win/Mac.
-  process_run: ^0.13.2
   # Extends the capabilities of Dart Streams and StreamControllers.
   rxdart: ^0.27.7
   # Provides parse, inspect, and manipulate stack traces
